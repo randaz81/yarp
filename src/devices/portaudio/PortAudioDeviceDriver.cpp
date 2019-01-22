@@ -493,4 +493,10 @@ bool PortAudioDeviceDriver::appendSound(yarp::sig::Sound& sound)
     return true;
 }
 
+bool PortAudioDeviceDriver::getAudioBufferSize(int& size)
+{
+    size = this->dataBuffers.playData->size();
+    return true;
+}
+
 

@@ -73,6 +73,8 @@ public:
      * @return true/false upon success/failure
      */
     virtual bool renderSound(yarp::sig::Sound& sound) = 0;
+
+    virtual bool getAudioBufferSize(int& size) = 0;
 };
 
 

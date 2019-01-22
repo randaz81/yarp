@@ -118,6 +118,8 @@ public:
     bool immediateSound(yarp::sig::Sound& sound);
     bool appendSound(yarp::sig::Sound& sound);
 
+    bool getAudioBufferSize(int& size) override;
+
 protected:
     void *system_resource;
     int  numChannels;
