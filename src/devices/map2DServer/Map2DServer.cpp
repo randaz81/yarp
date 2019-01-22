@@ -39,12 +39,6 @@ using namespace yarp::dev;
 using namespace yarp::os;
 using namespace std;
 
-// needed for the driver factory.
-yarp::dev::DriverCreator *createMap2DServer() {
-    return new DriverCreatorOf<yarp::dev::Map2DServer>("map2DServer",
-        "map2DServer",
-        "yarp::dev::map2DServer");
-}
 
 /**
   * Map2DServer
