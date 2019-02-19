@@ -225,10 +225,16 @@ set(YARP_dev_devices_HDRS src/devices/AnalogSensorClient/AnalogSensorClient.h
 include(YarpIDL)
 yarp_idl_to_dir("${CMAKE_CURRENT_SOURCE_DIR}/stateExt.thrift"
                 "${CMAKE_CURRENT_SOURCE_DIR}/src/devices/msgs/yarp"
-                YARP_dev_idl_SRCS
-                YARP_dev_idl_HDRS
-                YARP_dev_idl_INCLUDE_DIRS)
+                YARP_dev_idl_SRCS_1
+                YARP_dev_idl_HDRS_1
+                YARP_dev_idl_INCLUDE_DIRS_1)
+yarp_idl_to_dir("${CMAKE_CURRENT_SOURCE_DIR}/audioBufferSizeData.thrift"
+                "${CMAKE_CURRENT_SOURCE_DIR}/src/devices/msgs/yarp"
+                YARP_dev_idl_SRCS_2
+                YARP_dev_idl_HDRS_2
+                YARP_dev_idl_INCLUDE_DIRS_2)
 include("${CMAKE_CURRENT_SOURCE_DIR}/src/devices/msgs/yarp/stateExt_thrift.cmake")
+include("${CMAKE_CURRENT_SOURCE_DIR}/src/devices/msgs/yarp/audioBufferSizeData_thrift.cmake")
 
 
 
@@ -253,13 +259,16 @@ add_library(YARP_dev ${YARP_dev_SRCS}
                      ${YARP_dev_IMPL_HDRS}
                      ${YARP_dev_devices_SRCS}
                      ${YARP_dev_devices_HDRS}
-                     ${YARP_dev_idl_SRCS}
-                     ${YARP_dev_idl_HDRS})
+                     ${YARP_dev_idl_SRCS_1}
+                     ${YARP_dev_idl_HDRS_1}
+                     ${YARP_dev_idl_SRCS_2}
+                     ${YARP_dev_idl_HDRS_2})
 add_library(YARP::YARP_dev ALIAS YARP_dev)
 
 target_include_directories(YARP_dev PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
                                            $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
-target_include_directories(YARP_dev PRIVATE ${YARP_dev_idl_INCLUDE_DIRS})
+target_include_directories(YARP_dev PRIVATE ${YARP_dev_idl_INCLUDE_DIRS_1}
+                                    PUBLIC ${YARP_dev_idl_INCLUDE_DIRS_2})
 
 target_link_libraries(YARP_dev PUBLIC YARP::YARP_conf
                                       YARP::YARP_OS
