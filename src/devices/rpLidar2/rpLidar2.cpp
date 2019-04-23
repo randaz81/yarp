@@ -328,10 +328,10 @@ bool RpLidar2::threadInit()
 void RpLidar2::run()
 {
     u_result                            op_result;
-    rplidar_response_measurement_node_t nodes[2048];
+    rplidar_response_measurement_node_hq_t nodes[2048];
     size_t                              count = _countof(nodes);
     static int                          life = 0;
-    op_result = m_drv->grabScanData(nodes, count);
+    op_result = m_drv->grabScanDataHq(nodes, count);
     if (op_result != RESULT_OK)
     {
         yError() << m_serialPort << ": grabbing scan data failed";
