@@ -35,7 +35,9 @@ namespace yarp
                 MAP_CELL_TEMPORARY_OBSTACLE=2,
                 MAP_CELL_ENLARGED_OBSTACLE=3,
                 MAP_CELL_WALL = 4,
-                MAP_CELL_UNKNOWN =5
+                MAP_CELL_UNKNOWN =5,
+                MAP_CELL_VIRTUAL_SIMULATED_OBSTACLE=6,
+                MAP_CELL_HUMAN_OBSTACLE = 7
             };
             private:
                 //those two always have the same size
@@ -248,6 +250,13 @@ namespace yarp
                 * @return true always.
                 */
                 bool   enlargeObstacles(double size);
+
+                /**
+                * Returns a text containing some general statistics or infos about the map. Useful for debug. The format of the string
+                * is not guaranteed and is subject to change.
+                * @return the text string.
+                */
+                std::string  getTextStats();
 
                 //-------------------------------file access functions-------------------------------
 

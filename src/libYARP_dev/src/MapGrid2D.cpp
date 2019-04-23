@@ -91,6 +91,7 @@ bool MapGrid2D::isNotFree(MapGrid2D::XYCell cell) const
         if (m_map_flags.safePixel(cell.x, cell.y) == MapGrid2D::map_flags::MAP_CELL_KEEP_OUT) return true;
         if (m_map_flags.safePixel(cell.x, cell.y) == MapGrid2D::map_flags::MAP_CELL_TEMPORARY_OBSTACLE) return true;
         if (m_map_flags.safePixel(cell.x, cell.y) == MapGrid2D::map_flags::MAP_CELL_ENLARGED_OBSTACLE) return true;
+        if (m_map_flags.safePixel(cell.x, cell.y) == MapGrid2D::map_flags::MAP_CELL_VIRTUAL_SIMULATED_OBSTACLE) return true;
     }
     return false;
 }
@@ -476,6 +477,7 @@ bool MapGrid2D::loadMapYarpOnly(string yarp_filename)
             else if (pix_flg == MAP_CELL_ENLARGED_OBSTACLE) m_map_occupancy.safePixel(x, y) = 0;//@@@SET HERE
             else if (pix_flg == MAP_CELL_WALL) m_map_occupancy.safePixel(x, y) = 100;//@@@SET HERE
             else if (pix_flg == MAP_CELL_UNKNOWN) m_map_occupancy.safePixel(x, y) = 255;//@@@SET HERE
+            else if (pix_flg == MAP_CELL_VIRTUAL_SIMULATED_OBSTACLE) m_map_occupancy.safePixel(x, y) = 0;//@@@SET HERE
             else m_map_occupancy.safePixel(x, y) = 255;//@@@SET HERE
         }
     }
@@ -557,6 +559,7 @@ MapGrid2D::CellData MapGrid2D::PixelToCellData(const yarp::sig::PixelRgb& pixin)
     else if (pixin.r == 205 && pixin.g == 205 && pixin.b == 205) return  MAP_CELL_UNKNOWN;
     else if (pixin.r == 254 && pixin.g == 254 && pixin.b == 254) return  MAP_CELL_FREE;
     else if (pixin.r == 255 && pixin.g == 0 && pixin.b == 0) return  MAP_CELL_KEEP_OUT;
+    else if (pixin.r == 150 && pixin.g == 0 && pixin.b == 150) return  MAP_CELL_VIRTUAL_SIMULATED_OBSTACLE;
     return  MAP_CELL_UNKNOWN;
 }
 
@@ -569,6 +572,7 @@ yarp::sig::PixelRgb MapGrid2D::CellDataToPixel(const MapGrid2D::CellData& pixin)
     else if (pixin == MAP_CELL_KEEP_OUT) { pixout_flg.r = 255; pixout_flg.g = 0; pixout_flg.b = 0; }
     else if (pixin == MAP_CELL_ENLARGED_OBSTACLE) { pixout_flg.r = 255; pixout_flg.g = 200; pixout_flg.b = 0; }
     else if (pixin == MAP_CELL_TEMPORARY_OBSTACLE) { pixout_flg.r = 100; pixout_flg.g = 100; pixout_flg.b = 200; }
+    else if (pixin == MAP_CELL_VIRTUAL_SIMULATED_OBSTACLE) { pixout_flg.r = 150; pixout_flg.g = 0; pixout_flg.b = 150; }
     else
     {
         //invalid
@@ -1032,4 +1036,36 @@ bool MapGrid2D::getOccupancyGrid(yarp::sig::ImageOf<yarp::sig::PixelMono>& image
 {
     image = m_map_occupancy;
     return true;
+}
+
+string  MapGrid2D::getTextStats()
+{
+    string infos;
+    size_t counter[8]; for (size_t i = 0; i < 8; i++) { counter[i] = 0; }
+    for (size_t y = 0; y < m_height; y++)
+    {
+        for (size_t x = 0; x < m_width; x++)
+        {
+            if      (m_map_flags.safePixel(x, y) == MAP_CELL_FREE) counter[0]++;
+            else if (m_map_flags.safePixel(x, y) == MAP_CELL_KEEP_OUT) counter[1]++;
+            else if (m_map_flags.safePixel(x, y) == MAP_CELL_TEMPORARY_OBSTACLE) counter[2]++;
+            else if (m_map_flags.safePixel(x, y) == MAP_CELL_ENLARGED_OBSTACLE) counter[3]++;
+            else if (m_map_flags.safePixel(x, y) == MAP_CELL_WALL) counter[4]++;
+            else if (m_map_flags.safePixel(x, y) == MAP_CELL_UNKNOWN) counter[5]++;
+            else if (m_map_flags.safePixel(x, y) == MAP_CELL_VIRTUAL_SIMULATED_OBSTACLE) counter[6]++;
+            else if (m_map_flags.safePixel(x, y) == MAP_CELL_HUMAN_OBSTACLE) counter[7]++;
+        }
+    }
+
+    infos += (m_map_name + string(":\n"));
+    infos += (string("tot cells:") + std::to_string(m_height*m_width) + string("\n"));
+    infos += (string("free cells:") + std::to_string(counter[0]) + string("\n"));
+    infos += (string("keep out cells:") + std::to_string(counter[1]) + string("\n"));
+    infos += (string("temp obstacle:") + std::to_string(counter[2]) + string("\n"));
+    infos += (string("enlarged obstacles:") + std::to_string(counter[3]) + string("\n"));
+    infos += (string("wall cells:") + std::to_string(counter[4]) + string("\n"));
+    infos += (string("unknown cells:") + std::to_string(counter[5]) + string("\n"));
+    infos += (string("virtual obstacle cells:") + std::to_string(counter[6]) + string("\n"));
+    infos += (string("human obstacle cells:") + std::to_string(counter[7]) + string("\n"));
+    return infos;
 }

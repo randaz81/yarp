@@ -405,7 +405,11 @@ double FakeLaser::checkStraightLine(MapGrid2D::XYCell src, MapGrid2D::XYCell dst
     while (true)
     {
         //if (m_map.isFree(src) == false)
-        if (m_map.isWall(src))
+        yarp::dev::MapGrid2D::map_flags flag;
+        m_map.getMapFlag(src, flag);
+
+        if (flag== MapGrid2D::map_flags::MAP_CELL_WALL ||
+            flag== MapGrid2D::map_flags::MAP_CELL_VIRTUAL_SIMULATED_OBSTACLE)
         {
             yarp::dev::MapGrid2D::XYWorld world_start =  m_map.cell2World(src);
             yarp::dev::MapGrid2D::XYWorld world_end =  m_map.cell2World(src_final);

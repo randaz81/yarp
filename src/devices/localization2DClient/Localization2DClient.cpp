@@ -86,6 +86,7 @@ bool yarp::dev::Localization2DClient::open(yarp::os::Searchable &config)
         return false;
     }
 
+    yInfo() << "Localization2DClient '" << m_local_name << "'opened";
     return true;
 }
 
@@ -234,6 +235,7 @@ bool  yarp::dev::Localization2DClient::getLocalizationStatus(yarp::dev::Localiza
 bool yarp::dev::Localization2DClient::close()
 {
     m_rpc_port_localization_server.close();
+    yInfo() << "Localization2DClient '" << m_local_name << "'closed";
     return true;
 }
 
