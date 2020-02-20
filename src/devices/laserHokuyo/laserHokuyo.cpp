@@ -43,8 +43,12 @@ YARP_LOG_COMPONENT(LASERHOKUYO, "yarp.devices.laserHokuyo")
 bool laserHokuyo::open(yarp::os::Searchable& config)
 {
     internal_status = HOKUYO_STATUS_NOT_READY;
-    info = "Hokuyo Laser";
-    device_status = DEVICE_OK_STANBY;
+    m_scan_rate = 20; //Hz
+    m_min_distance = 0.1;
+    m_max_distance = 30;
+    m_resolution = 0.25; //deg //1080*0.25=270
+    m_info = "Hokuyo Laser";
+    m_device_status = DEVICE_OK_STANBY;
 
     yCTrace(LASERHOKUYO, "%s", config.toString().c_str());
 
@@ -62,8 +66,8 @@ bool laserHokuyo::open(yarp::os::Searchable& config)
 
     if (general_config.check("max_angle") == false) { yCError(LASERHOKUYO) << "Missing max_angle param"; return false; }
     if (general_config.check("min_angle") == false) { yCError(LASERHOKUYO) << "Missing min_angle param"; return false; }
-    max_angle = general_config.find("max_angle").asFloat64();
-    min_angle = general_config.find("min_angle").asFloat64();
+    m_max_angle = general_config.find("max_angle").asFloat64();
+    m_min_angle = general_config.find("min_angle").asFloat64();
 
     start_position = general_config.check("Start_Position", Value(0), "Start position").asInt32();
     end_position = general_config.check("End_Position", Value(1080), "End Position").asInt32();
@@ -228,8 +232,8 @@ bool laserHokuyo::open(yarp::os::Searchable& config)
 
 
     //elements are:
-    sensorsNum=16*12;
-    laser_data.resize(sensorsNum);
+    m_sensorsNum=16*12;
+    laser_data.resize(m_sensorsNum);
 
     if (laser_mode==MD_MODE)
     {
@@ -277,26 +281,10 @@ bool laserHokuyo::close()
     return true;
 }
 
-bool laserHokuyo::getDistanceRange(double& min, double& max)
-{
-    //should return range 0.1-30m (or 100, 30000mm depending on the measurement units)
-    min = 0.1;
-    max = 30;
-    return true;
-}
-
 bool laserHokuyo::setDistanceRange(double min, double max)
 {
     yCError(LASERHOKUYO, "setDistanceRange NOT YET IMPLEMENTED");
     return false;
-}
-
-bool laserHokuyo::getScanLimits(double& min, double& max)
-{
-    //degrees
-    min = min_angle;
-    max = max_angle;
-    return true;
 }
 
 bool laserHokuyo::setScanLimits(double min, double max)
@@ -305,22 +293,10 @@ bool laserHokuyo::setScanLimits(double min, double max)
     return false;
 }
 
-bool laserHokuyo::getHorizontalResolution(double& step)
-{
-    step = 0.25; //deg //1080*0.25=270
-    return true;
-}
-
 bool laserHokuyo::setHorizontalResolution(double step)
 {
     yCError(LASERHOKUYO, "setHorizontalResolution NOT YET IMPLEMENTED");
     return false;
-}
-
-bool laserHokuyo::getScanRate(double& rate)
-{
-    rate = 20; //20 Hz = 50 ms
-    return true;
 }
 
 bool laserHokuyo::setScanRate(double rate)
@@ -329,57 +305,6 @@ bool laserHokuyo::setScanRate(double rate)
     return false;
 }
 
-bool laserHokuyo::getRawData(yarp::sig::Vector &out)
-{
-    if (internal_status != HOKUYO_STATUS_NOT_READY)
-    {
-        mutex.lock();
-        yCTrace(LASERHOKUYO, "data: %s", laser_data.toString().c_str());
-        out = laser_data;
-        mutex.unlock();
-        device_status = yarp::dev::IRangefinder2D::DEVICE_OK_IN_USE;
-        return true;
-    }
-    device_status = yarp::dev::IRangefinder2D::DEVICE_GENERAL_ERROR;
-    return false;
-}
-
-bool laserHokuyo::getLaserMeasurement(std::vector<LaserMeasurementData> &data)
-{
-    if (internal_status != HOKUYO_STATUS_NOT_READY)
-    {
-        mutex.lock();
-        yCTrace(LASERHOKUYO, "data: %s", laser_data.toString().c_str());
-        size_t size = laser_data.size();
-        data.resize(size);
-        if (max_angle < min_angle)
-        {
-            yCError(LASERHOKUYO) << "getLaserMeasurement failed";
-            mutex.unlock();
-            return false;
-        }
-
-        double laser_angle_of_view = max_angle - min_angle;
-        for (size_t i = 0; i < size; i++)
-        {
-            double angle = (i / double(size)*laser_angle_of_view + min_angle)* DEG2RAD;
-            data[i].set_polar(laser_data[i], angle);
-        }
-        mutex.unlock();
-        device_status = yarp::dev::IRangefinder2D::DEVICE_OK_IN_USE;
-        return true;
-    }
-
-    device_status = yarp::dev::IRangefinder2D::DEVICE_GENERAL_ERROR;
-    return false;
-}
-bool laserHokuyo::getDeviceStatus(Device_status &status)
-{
-    mutex.lock();
-    status = device_status;
-    mutex.unlock();
-    return true;
-}
 
 bool laserHokuyo::threadInit()
 {
@@ -551,13 +476,13 @@ void laserHokuyo::run()
     yCTrace(LASERHOKUYO, "time: %.3f %.3f",t2-t1, t2-old);
     old = t2;
 
-    mutex.lock();
+    m_mutex.lock();
 
     if (rx_completed)
     {
         laser_data=data_vector;
     }
-    mutex.unlock();
+    m_mutex.unlock();
 
     if (laser_mode==GD_MODE)
     {
@@ -573,12 +498,4 @@ void laserHokuyo::threadRelease()
 {
     yCTrace(LASERHOKUYO, "laserHokuyo Thread releasing...");
     yCTrace(LASERHOKUYO, "... done.");
-}
-
-bool laserHokuyo::getDeviceInfo(std::string &device_info)
-{
-    this->mutex.lock();
-    device_info = info;
-    this->mutex.unlock();
-    return true;
 }
