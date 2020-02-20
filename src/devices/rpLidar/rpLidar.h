@@ -27,6 +27,7 @@
 #include <yarp/dev/PolyDriver.h>
 #include <yarp/sig/Vector.h>
 #include <yarp/dev/ISerialDevice.h>
+#include <yarp/dev/Lidar2DDeviceBase.h>
 
 #include <mutex>
 #include <string>
@@ -164,34 +165,14 @@ public:
 };
 
 //---------------------------------------------------------------------------------------------------------------
-struct Range_t
-{
-    double min;
-    double max;
-};
 
-//---------------------------------------------------------------------------------------------------------------
-
-class RpLidar : public PeriodicThread, public yarp::dev::IRangefinder2D, public DeviceDriver
+class RpLidar : public PeriodicThread, public yarp::dev::Lidar2DDeviceBase, public DeviceDriver
 {
 protected:
     PolyDriver driver;
     ISerialDevice *pSerial;
 
-    std::mutex mutex;
     rpLidarCircularBuffer * buffer;
-
-    int sensorsNum;
-
-    double min_angle;
-    double max_angle;
-    double min_distance;
-    double max_distance;
-    double resolution;
-    bool clip_max_enable;
-    bool clip_min_enable;
-    bool do_not_clip_infinity_enable;
-    std::vector <Range_t> range_skip_vector;
 
     std::string info;
     Device_status device_status;
@@ -201,15 +182,6 @@ protected:
 public:
     RpLidar(double period = 0.01) : PeriodicThread(period),
         pSerial(nullptr),
-        sensorsNum(0),
-        min_angle(0.0),
-        max_angle(0.0),
-        min_distance(0.0),
-        max_distance(0.0),
-        resolution(0.0),
-        clip_max_enable(false),
-        clip_min_enable(false),
-        do_not_clip_infinity_enable(false),
         device_status(Device_status::DEVICE_OK_STANBY)
     {
         buffer = new rpLidarCircularBuffer(20000);
@@ -233,17 +205,9 @@ public:
 
 public:
     //IRangefinder2D interface
-    bool getRawData(yarp::sig::Vector &data) override;
-    bool getLaserMeasurement(std::vector<LaserMeasurementData> &data) override;
-    bool getDeviceStatus     (Device_status &status) override;
-    bool getDeviceInfo       (std::string &device_info) override;
-    bool getDistanceRange    (double& min, double& max) override;
     bool setDistanceRange    (double min, double max) override;
-    bool getScanLimits        (double& min, double& max) override;
     bool setScanLimits        (double min, double max) override;
-    bool getHorizontalResolution      (double& step) override;
     bool setHorizontalResolution      (double step) override;
-    bool getScanRate         (double& rate) override;
     bool setScanRate         (double rate) override;
 
 private:
