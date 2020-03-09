@@ -38,7 +38,8 @@
 #include <yarp/rosmsg/tf2_msgs/TFMessage.h>
 #include <yarp/rosmsg/geometry_msgs/Pose.h>
 #include <yarp/rosmsg/geometry_msgs/Pose2D.h>
-
+#include <yarp/rosmsg/std_msgs/Float64.h>
+#include <yarp/rosmsg/std_msgs/Float32.h>
 
 using namespace yarp::sig;
 using namespace yarp::sig::file;
@@ -144,6 +145,12 @@ void WorkerClass::run()
         }
         else if (strcmp(utilities->partDetails[part].type.c_str(), "geometry_msgs/Pose2D") == 0) {
             ret = sendGenericData<yarp::rosmsg::geometry_msgs::Pose2D>(part, frame);
+        }
+        else if (strcmp(utilities->partDetails[part].type.c_str(), "std_msgs/Float32") == 0) {
+            ret = sendGenericData<yarp::rosmsg::std_msgs::Float32>(part, frame);
+        }
+        else if (strcmp(utilities->partDetails[part].type.c_str(), "std_msgs/Float64") == 0) {
+            ret = sendGenericData<yarp::rosmsg::std_msgs::Float64>(part, frame);
         }
         else  {
             LOG("Unknown data type: %s", utilities->partDetails[part].type.c_str());

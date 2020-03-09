@@ -51,6 +51,8 @@
 #include <yarp/rosmsg/tf2_msgs/TFMessage.h>
 #include <yarp/rosmsg/geometry_msgs/Pose.h>
 #include <yarp/rosmsg/geometry_msgs/Pose2D.h>
+#include <yarp/rosmsg/std_msgs/Float64.h>
+#include <yarp/rosmsg/std_msgs/Float32.h>
 
 using namespace yarp::os;
 using namespace yarp::sig;
@@ -394,6 +396,12 @@ bool Utilities::configurePorts(partsData &part)
     }
     else if (strcmp(part.type.c_str(), "geometry_msgs/Pose2D") == 0) {
         if (part.outputPort == nullptr) { part.outputPort = new BufferedPort<yarp::rosmsg::geometry_msgs::Pose2D>; }
+    }
+    else if (strcmp(part.type.c_str(), "std_msgs/Float32") == 0) {
+        if (part.outputPort == nullptr) { part.outputPort = new BufferedPort<yarp::rosmsg::std_msgs::Float32>; }
+    }
+    else if (strcmp(part.type.c_str(), "std_msgs/Float64") == 0) {
+        if (part.outputPort == nullptr) { part.outputPort = new BufferedPort<yarp::rosmsg::std_msgs::Float64>; }
     }
     else
     {

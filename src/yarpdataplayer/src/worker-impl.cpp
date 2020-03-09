@@ -29,6 +29,9 @@
 #include <yarp/rosmsg/tf2_msgs/TFMessage.h>
 #include <yarp/rosmsg/geometry_msgs/Pose.h>
 #include <yarp/rosmsg/geometry_msgs/Pose2D.h>
+#include <yarp/rosmsg/geometry_msgs/Pose2D.h>
+#include <yarp/rosmsg/std_msgs/Float64.h>
+#include <yarp/rosmsg/std_msgs/Float32.h>
 
 template <class T>
 int WorkerClass::sendGenericData(int part, int id)
@@ -67,3 +70,5 @@ template int WorkerClass::sendGenericData<yarp::rosmsg::nav_msgs::Odometry>(int,
 template int WorkerClass::sendGenericData<yarp::rosmsg::tf2_msgs::TFMessage>(int, int);
 template int WorkerClass::sendGenericData<yarp::rosmsg::geometry_msgs::Pose>(int, int);
 template int WorkerClass::sendGenericData<yarp::rosmsg::geometry_msgs::Pose2D>(int, int);
+template int WorkerClass::sendGenericData<yarp::rosmsg::std_msgs::Float32>(int, int);
+template int WorkerClass::sendGenericData<yarp::rosmsg::std_msgs::Float64>(int, int);
