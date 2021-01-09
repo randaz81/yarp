@@ -12,6 +12,7 @@
 #include <yarp/conf/environment.h>
 #include <yarp/os/Bottle.h>
 #include <yarp/os/NetType.h>
+#include <yarp/os/LogStream.h>
 #include <yarp/os/StringInputStream.h>
 #include <yarp/os/impl/BottleImpl.h>
 #include <yarp/os/impl/LogComponent.h>
@@ -24,6 +25,7 @@
 #include <cstdio>
 #include <cstring>
 #include <map>
+#include <unordered_map>
 #include <memory>
 
 using namespace yarp::os::impl;
@@ -36,6 +38,7 @@ YARP_OS_LOG_COMPONENT(PROPERTY, "yarp.os.Property" )
 class PropertyItem
 {
 public:
+    std::string property_key; 
     Bottle bot;
     std::unique_ptr<Property> backing;
     bool singleton{false};
@@ -44,6 +47,7 @@ public:
 
     PropertyItem(const PropertyItem& rhs) :
         bot(rhs.bot),
+        property_key(rhs.property_key),
         backing(nullptr),
         singleton(rhs.singleton)
     {
@@ -56,6 +60,7 @@ public:
     {
         if (&rhs != this) {
             bot = rhs.bot;
+            property_key =rhs.property_key;
             if (rhs.backing) {
                 backing = std::make_unique<Property>(*(rhs.backing));
             }
@@ -104,7 +109,8 @@ public:
 class Property::Private
 {
 public:
-    std::map<std::string, PropertyItem> data;
+  //  std::map<std::string, PropertyItem> data;
+    std::list<PropertyItem> data;
     Property* owner;
 
     explicit Private(Property* owner) :
@@ -112,27 +118,55 @@ public:
     {
     }
 
+    std::list<PropertyItem>::const_iterator findPropertyItem(const std::string& key) const
+    {
+        auto it = data.cbegin();
+        for (; it!=data.cend(); it++)
+        {
+            if (it->property_key ==key) return it;
+        }
+        return it;
+    }
+
+    void erasePropertyItem(const std::string& key)
+    {
+        auto it = data.cbegin();
+        for (; it != data.cend(); it++)
+        {
+            if (it->property_key == key) {data.erase(it); break;}
+        }
+    }
+
+    void addPropertyItem(const std::string& key, const PropertyItem& prop)
+    {
+        PropertyItem p = prop;
+        p.property_key=key;
+//        data.push_front (p);
+        data.push_back(p);
+
+    }
+
     PropertyItem* getPropNoCreate(const std::string& key) const
     {
-        auto it = data.find(key);
+        auto it = findPropertyItem(key);
         if (it == data.end()) {
             return nullptr;
         }
-        return const_cast<PropertyItem*>(&(it->second));
+        return const_cast<PropertyItem*>(&(*it));
     }
 
     PropertyItem* getProp(const std::string& key, bool create = true)
     {
-        auto entry = data.find(key);
+        auto entry = findPropertyItem(key);
         if (entry == data.end()) {
             if (!create) {
                 return nullptr;
             }
-            data[key] = PropertyItem();
-            entry = data.find(key);
+            addPropertyItem(key, PropertyItem());
+            entry = findPropertyItem(key);
         }
         yCAssert(PROPERTY, entry != data.end());
-        return &(entry->second);
+        return const_cast<PropertyItem*>(&(*entry));
     }
 
     void put(const std::string& key, const std::string& val)
@@ -178,7 +212,7 @@ public:
 
     void unput(const std::string& key)
     {
-        data.erase(key);
+        erasePropertyItem(key);
     }
 
     bool check(const std::string& key) const
@@ -228,10 +262,15 @@ public:
 
     Bottle& putBottle(const char* key, const Bottle& val)
     {
+//yDebug() << "put" << key << val.toString();//@MR@
         PropertyItem* p = getProp(key, true);
         p->singleton = false;
         p->clear();
+//yDebug() << "put_b" << p->bot.toString();//@MR@
+//yDebug() << "data_b" << this->toString();//@MR@
         p->bot = val;
+//yDebug() << "put_c" << p->bot.toString();//@MR@
+//yDebug() << "data_c" << this->toString(); //@MR@
         return p->bot;
     }
 
@@ -500,6 +539,43 @@ public:
         return true;
     }
 
+    yarp::os::Bottle mergeBottles(const yarp::os::Bottle& b1, const yarp::os::Bottle& b2)
+    {
+        Bottle b;
+        for (size_t i1=0; i1<b1.size(); i1++)
+            for (size_t i2 = 0; i2 < b2.size(); i2++)
+            {
+                if (b1.get(i1) == b2.get(i2))
+                {
+
+                }
+            }
+        return b;
+    }
+
+    void fromConfig2(const char* txt, Searchable& env, bool wipe = true)
+    {
+        StringInputStream sis;
+        sis.add(txt);
+        sis.add("\n");
+        if (wipe) { clear(); }
+
+        bool done = false;
+        do
+        {
+            bool isTag = false;
+            bool including = false;
+            std::string buf;
+            bool good = true;
+            buf = sis.readLine('\n', &good);
+            while (good && !BottleImpl::isComplete(buf.c_str()))
+            {
+                buf += sis.readLine('\n', &good);
+            }
+        } while (!done);
+
+    }
+
     void fromConfig(const char* txt, Searchable& env, bool wipe = true)
     {
         StringInputStream sis;
@@ -600,6 +676,7 @@ public:
                                     {
                                         yCWarning(PROPERTY, "Unable to import file: %s from context %s\n", fileName.c_str(), contextName.c_str());
                                     }
+                                    yDebug() << " --3" << this->toString();
                                 } else
                                 if (bot.get(0).toString() == "include") {
                                     including = true;
@@ -640,7 +717,7 @@ public:
                                             return;
                                         }
 
-
+                          //              yDebug() << " --3" << this->toString(); //@MR@
                                         Property p;
                                         if (getBottle(subName) != nullptr) {
                                             p.fromString(getBottle(subName)->tail().toString());
@@ -697,30 +774,40 @@ public:
                     }
                 }
             }
+ //           yDebug() << " --4" << this->toString();//@MR@
             if (!isTag && !including) {
                 Bottle bot;
                 bot.fromString(buf);
                 if (bot.size() >= 1) {
                     if (tag.empty()) {
+  //                      yDebug() << " --4a" << this->toString();//@MR@
                         putBottleCompat(bot.get(0).toString().c_str(), bot);
+        //                yDebug() << " --4a1" << this->toString();//@MR@
                     } else {
                         if (bot.get(1).asString() == "=") {
+             //               yDebug() << " --4b" << this->toString();//@MR@
                             Bottle& b = accum.addList();
                             for (size_t i = 0; i < bot.size(); i++) {
                                 if (i != 1) {
                                     b.add(bot.get(i));
+//yDebug() << "**************" << accum.toString();//@MR@
                                 }
+              //                  yDebug() << " --4c" << this->toString();//@MR@
                             }
                         } else {
+                 //           yDebug() << " --4d" << this->toString();//@MR@
                             accum.addList().copy(bot);
                         }
                     }
                 }
             }
+   //         yDebug() << " --5" << this->toString();//@MR@
             if (isTag || done) {
                 if (!tag.empty()) {
                     if (accum.size() >= 1) {
+//yDebug() << "##############" << accum.toString();//@MR@
                         putBottleCompat(tag.c_str(), accum);
+                     //   yDebug() << "accum" << accum.toString(); //@MR@
                     }
                     tag = "";
                 }
@@ -731,13 +818,17 @@ public:
                     if (getBottle(tag) != nullptr) {
                         // merge data
                         accum.append(getBottle(tag)->tail());
-                        yCTrace(PROPERTY,
+                        yCDebug(PROPERTY,
                                 "MERGE %s, got %s\n",
                                 tag.c_str(),
                                 accum.toString().c_str());
                     }
                 }
             }
+          auto s = accum.toString();
+          //yDebug () << "----"<< s;
+        
+          yDebug () << " --f" << this->toString();
         } while (!done);
     }
 
@@ -759,7 +850,7 @@ public:
     {
         Bottle bot;
         for (const auto& it : data) {
-            const PropertyItem& rec = it.second;
+            const PropertyItem& rec = it;
             Bottle& sub = bot.addList();
             rec.flush();
             sub.copy(rec.bot);
