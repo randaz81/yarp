@@ -37,15 +37,148 @@ YARP_OS_LOG_COMPONENT(PROPERTY, "yarp.os.Property" )
 
 class PropertyItem
 {
+    public:
+    std::string property_key;
+};
+
+class PropertySection : public PropertyItem
+{
+
+};
+
+class PropertyParam : public PropertyItem
+{
+    public:
+    yarp::os::Value value;
+};
+
+class Property::Private
+{
+    private:
+    std::list<PropertyItem*> data;
+
+    public:
+    Property* owner;
+
+    public:
+    explicit Private(Property* owner) :
+        owner(owner)
+    {
+    }
+
+    std::list<PropertyItem*>::const_iterator findPropertyItem(const std::string& key) const
+    {
+        auto it = data.cbegin();
+        for (; it != data.cend(); it++)
+        {
+            if ((*it)->property_key == key) return it;
+        }
+        return it;
+    }
+
+    void put(const std::string& key, const std::string& val)
+    {
+        auto it = findPropertyItem(key);
+        if (it != data.cend())
+        { 
+            
+        }
+        else
+        {
+            //(*it)->
+        }
+    }
+
+    void put(const std::string& key, const Value& bit)
+    {
+        auto it = findPropertyItem(key);
+        if (it != data.cend())
+        {
+            //(*it)->value = val;
+        }
+        else
+        {
+            //(*it)->
+        }
+    }
+
+    void put(const std::string& key, Value* bit)
+    {
+        auto it = findPropertyItem(key);
+        if (it != data.cend())
+        {
+            //(*it)->value = val;
+        }
+        else
+        {
+            //(*it)->
+        }
+    }
+
+    void clear()
+    {
+        data.clear();
+    }
+
+    bool check(const std::string& key) const
+    {
+        auto it = data.cbegin();
+        for (; it != data.cend(); it++)
+        {
+            if ((*it)->property_key == key) return true;
+        }
+        return false;
+    }
+
+    void unput(const std::string& key)
+    {
+        auto it = data.cbegin();
+        for (; it != data.cend(); it++)
+        {
+            if ((*it)->property_key == key) {data.erase(it); return;};
+        }
+    }
+
+    Value& find(const std::string& key) const
+    {
+        auto it = findPropertyItem(key);
+        if (it != data.cend())
+        {
+            return (*it)->;
+        }
+        else
+        {
+            return Value();
+        }
+    }
+
+    std::string toString() const
+    {
+        return mPriv->toString();
+    }
+
+    Property& addGroup(const std::string& key)
+    {
+        PropertyItem* pp =new PropertySection();
+        pp->property_key = key;
+        data.push_back(pp);
+    }
+};
+
+
+
+///-------------
+class PropertyItem_old
+{
 public:
     std::string property_key; 
     Bottle bot;
     std::unique_ptr<Property> backing;
     bool singleton{false};
 
-    PropertyItem() = default;
+    PropertyItem_old() = default;
 
-    PropertyItem(const PropertyItem& rhs) :
+    PropertyItem_old(const PropertyItem_old& rhs) :
         bot(rhs.bot),
         property_key(rhs.property_key),
         backing(nullptr),
@@ -56,7 +189,7 @@ public:
         }
     }
 
-    PropertyItem& operator=(const PropertyItem& rhs)
+    PropertyItem_old& operator=(const PropertyItem_old& rhs)
     {
         if (&rhs != this) {
             bot = rhs.bot;
@@ -69,10 +202,10 @@ public:
         return *this;
     }
 
-    PropertyItem(PropertyItem&& rhs) noexcept = default;
-    PropertyItem& operator=(PropertyItem&& rhs) noexcept = default;
+    PropertyItem_old(PropertyItem_old&& rhs) noexcept = default;
+    PropertyItem_old& operator=(PropertyItem_old&& rhs) noexcept = default;
 
-    ~PropertyItem() = default;
+    ~PropertyItem_old() = default;
 
     void clear()
     {
@@ -87,7 +220,7 @@ public:
      */
     void flush() const
     {
-        const_cast<PropertyItem*>(this)->flush();
+        const_cast<PropertyItem_old*>(this)->flush();
     }
 
     void flush()
@@ -106,19 +239,20 @@ public:
     }
 };
 
-class Property::Private
+class Private_old
+//class Property::Private_old
 {
 public:
-  //  std::map<std::string, PropertyItem> data;
-    std::list<PropertyItem> data;
+  //  std::map<std::string, PropertyItem_old> data;
+    std::list<PropertyItem_old> data;
     Property* owner;
 
-    explicit Private(Property* owner) :
+    explicit Private_old(Property* owner) :
             owner(owner)
     {
     }
 
-    std::list<PropertyItem>::const_iterator findPropertyItem(const std::string& key) const
+    std::list<PropertyItem_old>::const_iterator findPropertyItem_old(const std::string& key) const
     {
         auto it = data.cbegin();
         for (; it!=data.cend(); it++)
@@ -128,7 +262,7 @@ public:
         return it;
     }
 
-    void erasePropertyItem(const std::string& key)
+    void erasePropertyItem_old(const std::string& key)
     {
         auto it = data.cbegin();
         for (; it != data.cend(); it++)
@@ -137,41 +271,41 @@ public:
         }
     }
 
-    void addPropertyItem(const std::string& key, const PropertyItem& prop)
+    void addPropertyItem_old(const std::string& key, const PropertyItem_old& prop)
     {
-        PropertyItem p = prop;
+        PropertyItem_old p = prop;
         p.property_key=key;
 //        data.push_front (p);
         data.push_back(p);
 
     }
 
-    PropertyItem* getPropNoCreate(const std::string& key) const
+    PropertyItem_old* getPropNoCreate(const std::string& key) const
     {
-        auto it = findPropertyItem(key);
+        auto it = findPropertyItem_old(key);
         if (it == data.end()) {
             return nullptr;
         }
-        return const_cast<PropertyItem*>(&(*it));
+        return const_cast<PropertyItem_old*>(&(*it));
     }
 
-    PropertyItem* getProp(const std::string& key, bool create = true)
+    PropertyItem_old* getProp(const std::string& key, bool create = true)
     {
-        auto entry = findPropertyItem(key);
+        auto entry = findPropertyItem_old(key);
         if (entry == data.end()) {
             if (!create) {
                 return nullptr;
             }
-            addPropertyItem(key, PropertyItem());
-            entry = findPropertyItem(key);
+            addPropertyItem_old(key, PropertyItem_old());
+            entry = findPropertyItem_old(key);
         }
         yCAssert(PROPERTY, entry != data.end());
-        return const_cast<PropertyItem*>(&(*entry));
+        return const_cast<PropertyItem_old*>(&(*entry));
     }
 
     void put(const std::string& key, const std::string& val)
     {
-        PropertyItem* p = getProp(key, true);
+        PropertyItem_old* p = getProp(key, true);
         p->singleton = true;
         p->clear();
         p->bot.clear();
@@ -181,7 +315,7 @@ public:
 
     void put(const std::string& key, const Value& bit)
     {
-        PropertyItem* p = getProp(key, true);
+        PropertyItem_old* p = getProp(key, true);
         p->singleton = true;
         p->clear();
         p->bot.clear();
@@ -191,7 +325,7 @@ public:
 
     void put(const std::string& key, Value* bit)
     {
-        PropertyItem* p = getProp(key, true);
+        PropertyItem_old* p = getProp(key, true);
         p->singleton = true;
         p->clear();
         p->bot.clear();
@@ -201,7 +335,7 @@ public:
 
     Property& addGroup(const std::string& key)
     {
-        PropertyItem* p = getProp(key, true);
+        PropertyItem_old* p = getProp(key, true);
         p->singleton = true;
         p->clear();
         p->bot.clear();
@@ -212,12 +346,12 @@ public:
 
     void unput(const std::string& key)
     {
-        erasePropertyItem(key);
+        erasePropertyItem_old(key);
     }
 
     bool check(const std::string& key) const
     {
-        PropertyItem* p = getPropNoCreate(key);
+        PropertyItem_old* p = getPropNoCreate(key);
         if (owner->getMonitor() != nullptr) {
             SearchReport report;
             report.key = key;
@@ -229,7 +363,7 @@ public:
 
     Value& get(const std::string& key) const
     {
-        PropertyItem* p = getPropNoCreate(key);
+        PropertyItem_old* p = getPropNoCreate(key);
         if (p != nullptr) {
             p->flush();
             if (owner->getMonitor() != nullptr) {
@@ -263,7 +397,7 @@ public:
     Bottle& putBottle(const char* key, const Bottle& val)
     {
 //yDebug() << "put" << key << val.toString();//@MR@
-        PropertyItem* p = getProp(key, true);
+        PropertyItem_old* p = getProp(key, true);
         p->singleton = false;
         p->clear();
 //yDebug() << "put_b" << p->bot.toString();//@MR@
@@ -277,7 +411,7 @@ public:
 
     Bottle& putBottle(const char* key)
     {
-        PropertyItem* p = getProp(key, true);
+        PropertyItem_old* p = getProp(key, true);
         p->singleton = false;
         p->clear();
         p->bot.clear();
@@ -287,7 +421,7 @@ public:
 
     Bottle* getBottle(const std::string& key) const
     {
-        PropertyItem* p = getPropNoCreate(key);
+        PropertyItem_old* p = getPropNoCreate(key);
         if (p != nullptr) {
             p->flush();
             return &(p->bot);
@@ -850,7 +984,7 @@ public:
     {
         Bottle bot;
         for (const auto& it : data) {
-            const PropertyItem& rec = it;
+            const PropertyItem_old& rec = it;
             Bottle& sub = bot.addList();
             rec.flush();
             sub.copy(rec.bot);
