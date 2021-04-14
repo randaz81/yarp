@@ -41,7 +41,7 @@ public:
 
     /**
     * Attempts to reconnect the client with the server. Returns true if the operation
-    * is succesful, false otherwise.
+    * is successful, false otherwise.
     * @return true/false
     */
     virtual bool reconnectWithServer() = 0;

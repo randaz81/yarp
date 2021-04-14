@@ -22,6 +22,7 @@ yarp_begin_plugin_library(yarpmod OPTION YARP_COMPILE_DEVICE_PLUGINS
   add_subdirectory(fakeBattery)
   add_subdirectory(fakeIMU)
   add_subdirectory(frameTransformClient)
+  add_subdirectory(frameTransformManager)
   add_subdirectory(frameTransformServer)
   add_subdirectory(SerialServoBoard)
   add_subdirectory(ffmpeg)
