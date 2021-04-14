@@ -27,6 +27,7 @@
 
 //example: yarpdev --device transformClient --local /transformClient --remote /transformServer
 
+using namespace std;
 using namespace yarp::dev;
 using namespace yarp::os;
 using namespace yarp::sig;
@@ -37,163 +38,106 @@ namespace {
 YARP_LOG_COMPONENT(FRAMETRANSFORMMANAGER, "yarp.device.frameTransformManager")
 }
 
-inline void Transforms_client_storage::resetStat()
+//------------------------------------------------------------------------------------------------------------------------------
+
+/**
+  * Transforms storage
+  */
+
+bool Transforms_storage::delete_transform(int id)
 {
-    std::lock_guard<std::recursive_mutex> l(m_mutex);
+    std::lock_guard<std::mutex> lock(m_mutex);
+    if (id >= 0 && (size_t)id < m_transforms.size())
+    {
+        m_transforms.erase(m_transforms.begin() + id);
+        return true;
+    }
+    return false;
 }
 
-void Transforms_client_storage::onRead(yarp::os::Bottle &b)
+bool Transforms_storage::set_transform(const FrameTransform& t)
 {
-    m_now = Time::now();
-    std::lock_guard<std::recursive_mutex> guard(m_mutex);
-
-    if (m_count>0)
+    std::lock_guard<std::mutex> lock(m_mutex);
+    for (auto& m_transform : m_transforms)
     {
-        double tmpDT = m_now - m_prev;
-        m_deltaT += tmpDT;
-        if (tmpDT>m_deltaTMax)
-            m_deltaTMax = tmpDT;
-        if (tmpDT<m_deltaTMin)
-            m_deltaTMin = tmpDT;
-
-        //compare network time
-        /*if (tmpDT*1000<TRANSFORM_TIMEOUT)
+        //@@@ this linear search requires optimization!
+        if (m_transform.dst_frame_id == t.dst_frame_id && m_transform.src_frame_id == t.src_frame_id)
         {
-            state = b.get(5).asInt32();
+            //transform already exists, update it
+            m_transform = t;
+            return true;
+        }
+    }
+
+    //add a new transform
+    m_transforms.push_back(t);
+    return true;
+}
+
+bool Transforms_storage::delete_transform(string t1, string t2)
+{
+    std::lock_guard<std::mutex> lock(m_mutex);
+    if (t1 == "*" && t2 == "*")
+    {
+        m_transforms.clear();
+        return true;
+    }
+    else
+        if (t1 == "*")
+        {
+            for (size_t i = 0; i < m_transforms.size(); )
+            {
+                //source frame is jolly, thus delete all frames with destination == t2
+                if (m_transforms[i].dst_frame_id == t2)
+                {
+                    m_transforms.erase(m_transforms.begin() + i);
+                    i = 0; //the erase operation invalidates the iteration, loop restart is required
+                }
+                else
+                {
+                    i++;
+                }
+            }
+            return true;
         }
         else
-        {
-            state = TRANSFORM_TIMEOUT;
-        }*/
-    }
-
-    m_prev = m_now;
-    m_count++;
-
-    m_lastBottle = b;
-    Stamp newStamp;
-    getEnvelope(newStamp);
-
-    //initialization (first received data)
-    if (m_lastStamp.isValid() == false)
-    {
-        m_lastStamp = newStamp;
-    }
-
-    //now compare timestamps
-   // if ((1000 * (newStamp.getTime() - m_lastStamp.getTime()))<TRANSFORM_TIMEOUT)
-    if (true)
-    {
-        m_state = IFrameTransform::TRANSFORM_OK;
-
-        m_transforms.clear();
-        int bsize= b.size();
-        for (int i = 0; i < bsize; i++)
-        {
-            //this includes: timed yarp transforms, static yarp transforms, ros transforms
-            Bottle* bt = b.get(i).asList();
-            if (bt != nullptr)
+            if (t2 == "*")
             {
-                FrameTransform t;
-                t.src_frame_id = bt->get(0).asString();
-                t.dst_frame_id = bt->get(1).asString();
-                t.timestamp = bt->get(2).asFloat64();
-                t.translation.tX = bt->get(3).asFloat64();
-                t.translation.tY = bt->get(4).asFloat64();
-                t.translation.tZ = bt->get(5).asFloat64();
-                t.rotation.w() = bt->get(6).asFloat64();
-                t.rotation.x() = bt->get(7).asFloat64();
-                t.rotation.y() = bt->get(8).asFloat64();
-                t.rotation.z() = bt->get(9).asFloat64();
-                m_transforms.push_back(t);
+                for (size_t i = 0; i < m_transforms.size(); )
+                {
+                    //destination frame is jolly, thus delete all frames with source == t1
+                    if (m_transforms[i].src_frame_id == t1)
+                    {
+                        m_transforms.erase(m_transforms.begin() + i);
+                        i = 0; //the erase operation invalidates the iteration, loop restart is required
+                    }
+                    else
+                    {
+                        i++;
+                    }
+                }
+                return true;
             }
-        }
-    }
-    else
-    {
-        m_state = IFrameTransform::TRANSFORM_TIMEOUT;
-    }
-    m_lastStamp = newStamp;
+            else
+            {
+                for (size_t i = 0; i < m_transforms.size(); i++)
+                {
+                    if ((m_transforms[i].dst_frame_id == t1 && m_transforms[i].src_frame_id == t2) ||
+                        (m_transforms[i].dst_frame_id == t2 && m_transforms[i].src_frame_id == t1))
+                    {
+                        m_transforms.erase(m_transforms.begin() + i);
+                        return true;
+                    }
+                }
+            }
+    return false;
 }
 
-inline int Transforms_client_storage::getLast(yarp::os::Bottle &data, Stamp &stmp)
+void Transforms_storage::clear()
 {
-    std::lock_guard<std::recursive_mutex> guard(m_mutex);
-
-    int ret = m_state;
-    if (ret != IFrameTransform::TRANSFORM_GENERAL_ERROR)
-    {
-        data = m_lastBottle;
-        stmp = m_lastStamp;
-    }
-
-    return ret;
-}
-
-inline int Transforms_client_storage::getIterations()
-{
-    std::lock_guard<std::recursive_mutex> guard(m_mutex);
-    int ret = m_count;
-    return ret;
-}
-
-// time is in ms
-void Transforms_client_storage::getEstFrequency(int &ite, double &av, double &min, double &max)
-{
-    std::lock_guard<std::recursive_mutex> guard(m_mutex);
-    ite=m_count;
-    min=m_deltaTMin*1000;
-    max=m_deltaTMax*1000;
-    if (m_count<1)
-    {
-        av=0;
-    }
-    else
-    {
-        av=m_deltaT/m_count;
-    }
-    av=av*1000;
-}
-
-void Transforms_client_storage::clear()
-{
-    std::lock_guard<std::recursive_mutex> l(m_mutex);
+    std::lock_guard<std::mutex> lock(m_mutex);
     m_transforms.clear();
 }
-
-Transforms_client_storage::Transforms_client_storage(std::string local_streaming_name)
-{
-    m_count = 0;
-    m_deltaT = 0;
-    m_deltaTMax = 0;
-    m_deltaTMin = 1e22;
-    m_now = Time::now();
-    m_prev = m_now;
-
-    if (!this->open(local_streaming_name))
-    {
-        yCError(FRAMETRANSFORMMANAGER, "open(): Could not open port %s, check network", local_streaming_name.c_str());
-    }
-    this->useCallback();
-}
-
-Transforms_client_storage::~Transforms_client_storage()
-{
-    this->interrupt();
-    this->close();
-}
-
-size_t   Transforms_client_storage::size()
-{
-    std::lock_guard<std::recursive_mutex> l(m_mutex);
-    return m_transforms.size();
-}
-
-yarp::math::FrameTransform& Transforms_client_storage::operator[]   (std::size_t idx)
-{
-    std::lock_guard<std::recursive_mutex> l(m_mutex);
-    return m_transforms[idx];
-};
 
 //------------------------------------------------------------------------------------------------------------------------------
 bool FrameTransformManager::read(yarp::os::ConnectionReader& connection)
@@ -210,9 +154,6 @@ bool FrameTransformManager::read(yarp::os::ConnectionReader& connection)
         out.addVocab(Vocab::encode("many"));
         out.addString("'get_transform <src> <dst>: print the transform from <src> to <dst>");
         out.addString("'list_frames: print all the available reference frames");
-        out.addString("'publish_transform <src> <dst> <portname> <format>: opens a port to publish transform from src to dst");
-        out.addString("'unpublish_transform <portname>: closes a previously opened port to publish a transform");
-        out.addString("'unpublish_all <portname>: closes a all previously opened ports to publish a transform");
     }
     else if (request == "list_frames")
     {
@@ -238,100 +179,6 @@ bool FrameTransformManager::read(yarp::os::ConnectionReader& connection)
         out.addString("Transform from " + src + " to " + dst + " is: ");
         out.addString(m.toString());
     }
-    else if (request == "publish_transform")
-    {
-        out.addVocab(Vocab::encode("many"));
-        std::string src  = in.get(1).asString();
-        std::string dst  = in.get(2).asString();
-        std::string port_name = in.get(3).asString();
-        std::string format = "matrix";
-        if (in.size() > 4)
-            {format= in.get(4).asString();}
-        if (port_name[0]=='/')  port_name.erase(port_name.begin());
-        std::string full_port_name = m_local_name + "/" + port_name;
-        bool ret = true;
-        for (auto& m_array_of_port : m_array_of_ports)
-        {
-            if (m_array_of_port && m_array_of_port->port.getName() == full_port_name)
-            {
-                ret = false;
-                break;
-            }
-        }
-        if (this->frameExists(src)==false)
-        {
-            out.addString("Requested src frame " + src + " does not exists.");
-            yCWarning(FRAMETRANSFORMMANAGER, "Requested src frame %s does not exists.", src.c_str());
-        }
-        if (this->frameExists(dst)==false)
-        {
-            out.addString("Requested dst frame " + dst + " does not exists.");
-            yCWarning(FRAMETRANSFORMMANAGER, "Requested fst frame %s does not exists.", dst.c_str());
-        }
-        if (ret == true)
-        {
-            auto* b = new broadcast_port_t;
-            b->transform_src = src;
-            b->transform_dst = dst;
-            b->format = format;
-            bool pret = b->port.open(full_port_name);
-            if (pret)
-            {
-                out.addString("Operation complete. Port " + full_port_name + " opened.");
-                m_array_of_ports.push_back(b);
-                if (m_array_of_ports.size()==1) this->start();
-            }
-            else
-            {
-                delete b;
-                out.addString("Operation failed. Unable to open port " + full_port_name + ".");
-            }
-        }
-        else
-        {
-            out.addString("unable to perform operation");
-        }
-    }
-    else if (request == "unpublish_all")
-    {
-        for (auto& m_array_of_port : m_array_of_ports)
-        {
-            m_array_of_port->port.close();
-            delete m_array_of_port;
-            m_array_of_port=nullptr;
-        }
-        m_array_of_ports.clear();
-        if (m_array_of_ports.size()==0) this->askToStop();
-        out.addString("Operation complete");
-    }
-    else if (request == "unpublish_transform")
-    {
-        bool ret = false;
-        std::string port_name = in.get(1).asString();
-        if (port_name[0]=='/')  port_name.erase(port_name.begin());
-        std::string full_port_name = m_local_name + "/" + port_name;
-        for (auto it = m_array_of_ports.begin(); it != m_array_of_ports.end(); it++)
-        {
-            if ((*it)->port.getName() == port_name)
-            {
-                (*it)->port.close();
-                delete (*it);
-                (*it)=nullptr;
-                 m_array_of_ports.erase(it);
-                 ret = true;
-                 break;
-            }
-        }
-        if (ret)
-        {
-            out.addString("Port " + full_port_name + " has been closed.");
-        }
-        else
-        {
-            out.addString("Port " + full_port_name + " was not found.");
-        }
-        if (m_array_of_ports.size()==0) this->askToStop();
-    }
     else
     {
         yCError(FRAMETRANSFORMMANAGER, "Invalid vocab received in FrameTransformManager");
@@ -355,16 +202,10 @@ bool FrameTransformManager::read(yarp::os::ConnectionReader& connection)
 bool FrameTransformManager::open(yarp::os::Searchable &config)
 {
     m_local_name  = config.find("local").asString();
-    m_remote_name = config.find("remote").asString();
 
     if (m_local_name == "")
     {
         yCError(FRAMETRANSFORMMANAGER, "open(): Invalid local name");
-        return false;
-    }
-    if (m_remote_name == "")
-    {
-        yCError(FRAMETRANSFORMMANAGER, "open(): Invalid remote name");
         return false;
     }
 
@@ -630,32 +471,8 @@ bool FrameTransformManager::setTransform(const std::string& target_frame_id, con
         return false;
     }
 
-    b.addVocab(VOCAB_ITRANSFORM);
-    b.addVocab(VOCAB_TRANSFORM_SET);
-    b.addString(source_frame_id);
-    b.addString(target_frame_id);
-    b.addFloat64(1000.0); //transform lifetime
-    b.addFloat64(tf.translation.tX);
-    b.addFloat64(tf.translation.tY);
-    b.addFloat64(tf.translation.tZ);
-    b.addFloat64(tf.rotation.w());
-    b.addFloat64(tf.rotation.x());
-    b.addFloat64(tf.rotation.y());
-    b.addFloat64(tf.rotation.z());
-    bool ret = m_rpc_InterfaceToServer.write(b, resp);
-    if (ret)
-    {
-        if (resp.get(0).asVocab() != VOCAB_OK)
-        {
-            yCError(FRAMETRANSFORMMANAGER) << "setTransform(): Received error from server on creating frame between " + source_frame_id + " and " + target_frame_id;
-            return false;
-        }
-    }
-    else
-    {
-        yCError(FRAMETRANSFORMMANAGER) << "setTransform(): Error on writing on rpc port";
-        return false;
-    }
+    setccode
+    yCError(FRAMETRANSFORMMANAGER) << "setTransform(): Error on writing on rpc port";
     return true;
 }
 
@@ -684,57 +501,15 @@ bool FrameTransformManager::setTransformStatic(const std::string &target_frame_i
         return false;
     }
 
-    b.addVocab(VOCAB_ITRANSFORM);
-    b.addVocab(VOCAB_TRANSFORM_SET);
-    b.addString(source_frame_id);
-    b.addString(target_frame_id);
-    b.addFloat64(-1);
-    b.addFloat64(tf.translation.tX);
-    b.addFloat64(tf.translation.tY);
-    b.addFloat64(tf.translation.tZ);
-    b.addFloat64(tf.rotation.w());
-    b.addFloat64(tf.rotation.x());
-    b.addFloat64(tf.rotation.y());
-    b.addFloat64(tf.rotation.z());
-    bool ret = m_rpc_InterfaceToServer.write(b, resp);
-    if (ret)
-    {
-        if (resp.get(0).asVocab() != VOCAB_OK)
-        {
-            yCError(FRAMETRANSFORMMANAGER) << "setTransform(): Received error from server on creating frame between " + source_frame_id + " and " + target_frame_id;
-            return false;
-        }
-    }
-    else
-    {
-        yCError(FRAMETRANSFORMMANAGER) << "setTransform(): Error on writing on rpc port";
-        return false;
-    }
+    setstaticcode
+    yCError(FRAMETRANSFORMMANAGER) << "setTransform(): Error on writing on rpc port";
+   
     return true;
 }
 
 bool FrameTransformManager::deleteTransform(const std::string &target_frame_id, const std::string &source_frame_id)
 {
-    yarp::os::Bottle b;
-    yarp::os::Bottle resp;
-    b.addVocab(VOCAB_ITRANSFORM);
-    b.addVocab(VOCAB_TRANSFORM_DELETE);
-    b.addString(target_frame_id);
-    b.addString(source_frame_id);
-    bool ret = m_rpc_InterfaceToServer.write(b, resp);
-    if (ret)
-    {
-        if (resp.get(0).asVocab()!=VOCAB_OK)
-        {
-            yCError(FRAMETRANSFORMMANAGER) << "Received error from server on deleting frame between "+source_frame_id+" and "+target_frame_id;
-            return false;
-        }
-    }
-    else
-    {
-        yCError(FRAMETRANSFORMMANAGER) << "deleteFrame(): Error on writing on rpc port";
-        return false;
-    }
+    deletion code
     return true;
 }
 
@@ -862,5 +637,285 @@ void     FrameTransformManager::run()
                 yCError(FRAMETRANSFORMMANAGER) << "Unknown format requested: " << m_array_of_port->format;
             }
         }
+    }
+
+    //timeout check for timed transforms.
+    bool repeat_check;
+    do
+    {
+        repeat_check = false;
+        size_t tfVecSize_timed_yarp = m_yarp_timed_transform_storage->size();
+        for (size_t i = 0; i < tfVecSize_timed_yarp; i++)
+        {
+            if (current_time - (*m_yarp_timed_transform_storage)[i].timestamp > m_FrameTransformTimeout)
+            {
+                m_yarp_timed_transform_storage->delete_transform(i);
+                repeat_check = true;
+                break;
+            }
+        }
+    } while (repeat_check);
+
+    //timeout check for ROS timed transforms.
+    do
+    {
+        repeat_check = false;
+        size_t tfVecSize_timed_ros = m_ros_timed_transform_storage->size();
+        for (size_t i = 0; i < tfVecSize_timed_ros; i++)
+        {
+            if (current_time - (*m_ros_timed_transform_storage)[i].timestamp > m_FrameTransformTimeout)
+            {
+                m_ros_timed_transform_storage->delete_transform(i);
+                repeat_check = true;
+                break;
+            }
+        }
+    } while (repeat_check);
+}
+
+bool FrameTransformManager::generate_view()
+{
+    string dot_string = "digraph G { ";
+    for (size_t i = 0; i < m_ros_timed_transform_storage->size(); i++)
+    {
+        string edge_text = get_matrix_as_text(m_ros_timed_transform_storage, i);
+        string trf_text = (*m_ros_timed_transform_storage)[i].src_frame_id + "->" +
+            (*m_ros_timed_transform_storage)[i].dst_frame_id + " " +
+            "[color = black]";
+        dot_string += trf_text + '\n';
+    }
+    for (size_t i = 0; i < m_ros_static_transform_storage->size(); i++)
+    {
+        string edge_text = get_matrix_as_text(m_ros_static_transform_storage, i);
+        string trf_text = (*m_ros_static_transform_storage)[i].src_frame_id + "->" +
+            (*m_ros_static_transform_storage)[i].dst_frame_id + " " +
+            "[color = black, style=dashed " + edge_text + "]";
+        dot_string += trf_text + '\n';
+    }
+    for (size_t i = 0; i < m_yarp_timed_transform_storage->size(); i++)
+    {
+        string edge_text = get_matrix_as_text(m_yarp_timed_transform_storage, i);
+        string trf_text = (*m_yarp_timed_transform_storage)[i].src_frame_id + "->" +
+            (*m_yarp_timed_transform_storage)[i].dst_frame_id + " " +
+            "[color = blue " + edge_text + "]";
+        dot_string += trf_text + '\n';
+    }
+    for (size_t i = 0; i < m_yarp_static_transform_storage->size(); i++)
+    {
+        string edge_text = get_matrix_as_text(m_yarp_static_transform_storage, i);
+        string trf_text = (*m_yarp_static_transform_storage)[i].src_frame_id + "->" +
+            (*m_yarp_static_transform_storage)[i].dst_frame_id + " " +
+            "[color = blue, style=dashed " + edge_text + "]";
+        dot_string += trf_text + '\n';
+    }
+
+    string legend = "\n\
+        rankdir=LR\n\
+        node[shape=plaintext]\n\
+        subgraph cluster_01 {\n\
+          label = \"Legend\";\n\
+          key[label=<<table border=\"0\" cellpadding=\"2\" cellspacing=\"0\" cellborder=\"0\">\n\
+            <tr><td align=\"right\" port=\"i1\">YARP timed transform</td></tr>\n\
+            <tr><td align=\"right\" port=\"i2\">YARP static transform</td></tr>\n\
+            <tr><td align=\"right\" port=\"i3\">ROS timed transform</td></tr>\n\
+            <tr><td align=\"right\" port=\"i4\">ROS static transform</td></tr>\n\
+            </table>>]\n\
+          key2[label=<<table border=\"0\" cellpadding=\"2\" cellspacing=\"0\" cellborder=\"0\">\n\
+            <tr><td port = \"i1\">&nbsp;</td></tr>\n\
+            <tr><td port = \"i2\">&nbsp;</td></tr>\n\
+            <tr><td port = \"i3\">&nbsp;</td></tr>\n\
+            <tr><td port = \"i4\">&nbsp;</td></tr>\n\
+            </table>>]\n\
+          key:i1:e -> key2:i1:w [color = blue]\n\
+          key:i2:e -> key2:i2:w [color = blue, style=dashed]\n\
+          key:i3:e -> key2:i3:w [color = black]\n\
+          key:i4:e -> key2:i4:w [color = black, style=dashed]\n\
+        } }";
+
+    string command_string = "printf '" + dot_string + legend + "' | dot -Tpdf > frames.pdf";
+#if defined (__linux__)
+    int ret = std::system("dot -V");
+    if (ret != 0)
+    {
+        yCError(FRAMETRANSFORMMANAGER) << "dot executable not found. Please install graphviz.";
+        return false;
+    }
+
+    yCDebug(FRAMETRANSFORMMANAGER) << "Command string is:" << command_string;
+    ret = std::system(command_string.c_str());
+    if (ret != 0)
+    {
+        yCError(FRAMETRANSFORMMANAGER) << "The following command failed to execute:" << command_string;
+        return false;
+    }
+#else
+    yCError(FRAMETRANSFORMMANAGER) << "Not yet implemented. Available only Linux";
+    return false;
+#endif
+    return true;
+}
+
+string FrameTransformManager::get_matrix_as_text(Transforms_storage* storage, int i)
+{
+    if (m_show_transforms_in_diagram == do_not_show)
+    {
+        return "";
+    }
+    else if (m_show_transforms_in_diagram == show_quaternion)
+    {
+        return string(",label=\" ") + (*storage)[i].toString(FrameTransform::display_transform_mode_t::rotation_as_quaternion) + "\"";
+    }
+    else if (m_show_transforms_in_diagram == show_matrix)
+    {
+        return string(",label=\" ") + (*storage)[i].toString(FrameTransform::display_transform_mode_t::rotation_as_matrix) + "\"";
+    }
+    else if (m_show_transforms_in_diagram == show_rpy)
+    {
+        return string(",label=\" ") + (*storage)[i].toString(FrameTransform::display_transform_mode_t::rotation_as_rpy) + "\"";
+    }
+
+    yCError(FRAMETRANSFORMMANAGER) << "get_matrix_as_text() invalid option";
+    return "";
+    /*
+        //this is a test to use Latek display
+        string s = "\\begin{ bmatrix } \
+        1 & 2 & 3\\ \
+        a & b & c \
+        \\end{ bmatrix }";
+    */
+}
+
+bool FrameTransformManager::parseInitialTf(yarp::os::Searchable& config)
+{
+    if (config.check("USER_TF"))
+    {
+        Bottle all_transforms_group = config.findGroup("USER_TF").tail();
+        yCDebug(FRAMETRANSFORMMANAGER) << all_transforms_group.toString();
+
+        for (size_t i = 0; i < all_transforms_group.size(); i++)
+        {
+            FrameTransform t;
+
+            Bottle* b = all_transforms_group.get(i).asList();
+            if (!b)
+            {
+                yCError(FRAMETRANSFORMMANAGER) << "No entries in USER_TF group";
+                return false;
+            }
+
+            if (b->size() == 18)
+            {
+                bool   r(true);
+                Matrix m(4, 4);
+
+                for (int i = 0; i < 16; i++)
+                {
+                    if (!b->get(i).isFloat64())
+                    {
+                        yCError(FRAMETRANSFORMMANAGER) << "transformServer: element " << i << " is not a double.";
+                        r = false;
+                    }
+                    else
+                    {
+                        m.data()[i] = b->get(i).asFloat64();
+                    }
+                }
+
+                if (!b->get(16).isString() || !b->get(17).isString())
+                {
+                    r = false;
+                }
+
+                if (!r)
+                {
+                    yCError(FRAMETRANSFORMMANAGER) << "transformServer: param not correct.. for the 4x4 matrix mode" <<
+                        "you must provide 18 parameter. the matrix, the source frame(string) and the destination frame(string)";
+                    return false;
+                }
+
+                t.fromMatrix(m);
+                t.src_frame_id = b->get(16).asString();
+                t.dst_frame_id = b->get(17).asString();
+            }
+            else if (b->size() == 8 &&
+                b->get(0).isFloat64() &&
+                b->get(1).isFloat64() &&
+                b->get(2).isFloat64() &&
+                b->get(3).isFloat64() &&
+                b->get(4).isFloat64() &&
+                b->get(5).isFloat64() &&
+                b->get(6).isString() &&
+                b->get(7).isString())
+            {
+                t.translation.set(b->get(0).asFloat64(), b->get(1).asFloat64(), b->get(2).asFloat64());
+                t.rotFromRPY(b->get(3).asFloat64(), b->get(4).asFloat64(), b->get(5).asFloat64());
+                t.src_frame_id = b->get(6).asString();
+                t.dst_frame_id = b->get(7).asString();
+            }
+            else
+            {
+                yCError(FRAMETRANSFORMMANAGER) << "transformServer: param not correct.. a tf requires 8 param in the format:" <<
+                    "x(dbl) y(dbl) z(dbl) r(dbl) p(dbl) y(dbl) src(str) dst(str)";
+                return false;
+            }
+
+            if (m_yarp_static_transform_storage->set_transform(t))
+            {
+                yCInfo(FRAMETRANSFORMMANAGER) << "Transform from" << t.src_frame_id << "to" << t.dst_frame_id << "successfully set";
+            }
+            else
+            {
+                yCInfo(FRAMETRANSFORMMANAGER) << "Unable to set transform from " << t.src_frame_id << "to" << t.dst_frame_id;
+            }
+        }
+        return true;
+    }
+    else
+    {
+        yCInfo(FRAMETRANSFORMMANAGER) << "No initial tf found";
+    }
+    return true;
+}
+
+void FrameTransformManager::list_response(yarp::os::Bottle& out)
+{
+    std::vector<Transforms_server_storage*> storages;
+    std::vector<string>                     storageDescription;
+    storages.push_back(m_ros_timed_transform_storage);
+    storageDescription.emplace_back("ros timed transforms");
+
+    storages.push_back(m_ros_static_transform_storage);
+    storageDescription.emplace_back("ros static transforms");
+
+    storages.push_back(m_yarp_timed_transform_storage);
+    storageDescription.emplace_back("yarp timed transforms");
+
+    storages.push_back(m_yarp_static_transform_storage);
+    storageDescription.emplace_back("yarp static transforms");
+
+    if (storages[0]->size() == 0 &&
+        storages[1]->size() == 0 &&
+        storages[2]->size() == 0 &&
+        storages[3]->size() == 0)
+    {
+        out.addString("no transforms found");
+        return;
+    }
+
+    for (size_t s = 0; s < storages.size(); s++)
+    {
+        if (!storages[s])
+        {
+            continue;
+        }
+
+        std::string text_to_print = storageDescription[s] + std::string("(") + std::to_string(storages[s]->size()) + std::string("): ");
+        out.addString(text_to_print);
+
+        for (size_t i = 0; i < storages[s]->size(); i++)
+        {
+            out.addString((*storages[s])[i].toString());
+        }
+
     }
 }

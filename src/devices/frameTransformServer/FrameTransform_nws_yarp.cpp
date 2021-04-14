@@ -42,106 +42,6 @@ namespace {
 YARP_LOG_COMPONENT(FRAMETRANSFORMNWSYARP, "yarp.device.frameTransform_nws_yarp")
 }
 
-
-/**
-  * Transforms storage
-  */
-
-bool Transforms_server_storage::delete_transform(int id)
-{
-    std::lock_guard<std::mutex> lock(m_mutex);
-    if (id >= 0 && (size_t)id < m_transforms.size())
-    {
-        m_transforms.erase(m_transforms.begin() + id);
-        return true;
-    }
-    return false;
-}
-
-bool Transforms_server_storage::set_transform(const FrameTransform& t)
-{
-    std::lock_guard<std::mutex> lock(m_mutex);
-    for (auto& m_transform : m_transforms)
-    {
-       //@@@ this linear search requires optimization!
-       if (m_transform.dst_frame_id == t.dst_frame_id && m_transform.src_frame_id == t.src_frame_id)
-       {
-          //transform already exists, update it
-          m_transform=t;
-          return true;
-       }
-    }
-
-    //add a new transform
-    m_transforms.push_back(t);
-    return true;
-}
-
-bool Transforms_server_storage::delete_transform(string t1, string t2)
-{
-    std::lock_guard<std::mutex> lock(m_mutex);
-    if (t1=="*" && t2=="*")
-    {
-        m_transforms.clear();
-        return true;
-    }
-    else
-    if (t1=="*")
-    {
-        for (size_t i = 0; i < m_transforms.size(); )
-        {
-            //source frame is jolly, thus delete all frames with destination == t2
-            if (m_transforms[i].dst_frame_id == t2)
-            {
-                m_transforms.erase(m_transforms.begin() + i);
-                i=0; //the erase operation invalidates the iteration, loop restart is required
-            }
-            else
-            {
-                i++;
-            }
-        }
-        return true;
-    }
-    else
-    if (t2=="*")
-    {
-        for (size_t i = 0; i < m_transforms.size(); )
-        {
-            //destination frame is jolly, thus delete all frames with source == t1
-            if (m_transforms[i].src_frame_id == t1)
-            {
-                m_transforms.erase(m_transforms.begin() + i);
-                i=0; //the erase operation invalidates the iteration, loop restart is required
-            }
-            else
-            {
-                i++;
-            }
-        }
-        return true;
-    }
-    else
-    {
-        for (size_t i = 0; i < m_transforms.size(); i++)
-        {
-            if ((m_transforms[i].dst_frame_id == t1 && m_transforms[i].src_frame_id == t2) ||
-                (m_transforms[i].dst_frame_id == t2 && m_transforms[i].src_frame_id == t1) )
-            {
-                m_transforms.erase(m_transforms.begin() + i);
-                return true;
-            }
-        }
-    }
-    return false;
-}
-
-void Transforms_server_storage::clear()
-{
-    std::lock_guard<std::mutex> lock(m_mutex);
-    m_transforms.clear();
-}
-
 /**
   * FrameTransform_nws_yarp
   */
@@ -149,194 +49,15 @@ void Transforms_server_storage::clear()
 FrameTransform_nws_yarp::FrameTransform_nws_yarp() : PeriodicThread(DEFAULT_THREAD_PERIOD)
 {
     m_period = DEFAULT_THREAD_PERIOD;
-    m_enable_publish_ros_tf = false;
-    m_enable_subscribe_ros_tf = false;
     m_yarp_static_transform_storage = nullptr;
     m_yarp_timed_transform_storage = nullptr;
     m_ros_static_transform_storage = nullptr;
     m_ros_timed_transform_storage = nullptr;
-    m_rosNode = nullptr;
-    m_FrameTransformTimeout = 0.200; //ms
 }
 
 FrameTransform_nws_yarp::~FrameTransform_nws_yarp()
 {
     threadRelease();
-    if (m_yarp_static_transform_storage)
-    {
-        delete m_yarp_static_transform_storage;
-        m_yarp_static_transform_storage = nullptr;
-    }
-    if (m_yarp_timed_transform_storage)
-    {
-        delete m_yarp_timed_transform_storage;
-        m_yarp_timed_transform_storage = nullptr;
-    }
-    if (m_ros_timed_transform_storage)
-    {
-        delete m_ros_timed_transform_storage;
-        m_ros_timed_transform_storage = nullptr;
-    }
-    if (m_ros_static_transform_storage)
-    {
-        delete m_ros_static_transform_storage;
-        m_ros_static_transform_storage = nullptr;
-    }
-}
-
-void FrameTransform_nws_yarp::list_response(yarp::os::Bottle& out)
-{
-    std::vector<Transforms_server_storage*> storages;
-    std::vector<string>                     storageDescription;
-    storages.push_back(m_ros_timed_transform_storage);
-    storageDescription.emplace_back("ros timed transforms");
-
-    storages.push_back(m_ros_static_transform_storage);
-    storageDescription.emplace_back("ros static transforms");
-
-    storages.push_back(m_yarp_timed_transform_storage);
-    storageDescription.emplace_back("yarp timed transforms");
-
-    storages.push_back(m_yarp_static_transform_storage);
-    storageDescription.emplace_back("yarp static transforms");
-
-    if (storages[0]->size() == 0 &&
-        storages[1]->size() == 0 &&
-        storages[2]->size() == 0 &&
-        storages[3]->size() == 0)
-    {
-        out.addString("no transforms found");
-        return;
-    }
-
-    for(size_t s = 0; s < storages.size(); s++ )
-    {
-        if(!storages[s])
-        {
-            continue;
-        }
-
-        std::string text_to_print = storageDescription[s] + std::string("(") +std::to_string(storages[s]->size())+ std::string("): ");
-        out.addString(text_to_print);
-
-        for(size_t i = 0; i < storages[s]->size(); i++)
-        {
-            out.addString((*storages[s])[i].toString());
-        }
-
-    }
-}
-
-string FrameTransform_nws_yarp::get_matrix_as_text(Transforms_server_storage* storage, int i)
-{
-    if (m_show_transforms_in_diagram==do_not_show)
-    {
-        return "";
-    }
-    else if (m_show_transforms_in_diagram==show_quaternion)
-    {
-        return string(",label=\" ") + (*storage)[i].toString(FrameTransform::display_transform_mode_t::rotation_as_quaternion) + "\"";
-    }
-    else if (m_show_transforms_in_diagram == show_matrix)
-    {
-        return string(",label=\" ") + (*storage)[i].toString(FrameTransform::display_transform_mode_t::rotation_as_matrix) + "\"";
-    }
-    else if (m_show_transforms_in_diagram == show_rpy)
-    {
-        return string(",label=\" ") + (*storage)[i].toString(FrameTransform::display_transform_mode_t::rotation_as_rpy) + "\"";
-    }
-
-    yCError(FRAMETRANSFORMNWSYARP) << "get_matrix_as_text() invalid option";
-    return "";
-    /*
-        //this is a test to use Latek display
-        string s = "\\begin{ bmatrix } \
-        1 & 2 & 3\\ \
-        a & b & c \
-        \\end{ bmatrix }";
-    */
-}
-
-bool FrameTransform_nws_yarp::generate_view()
-{
-    string dot_string = "digraph G { ";
-    for (size_t i = 0; i < m_ros_timed_transform_storage->size(); i++)
-    {
-        string edge_text = get_matrix_as_text(m_ros_timed_transform_storage, i);
-        string trf_text = (*m_ros_timed_transform_storage)[i].src_frame_id + "->" +
-                          (*m_ros_timed_transform_storage)[i].dst_frame_id + " " +
-                          "[color = black]";
-        dot_string += trf_text + '\n';
-    }
-    for (size_t i = 0; i < m_ros_static_transform_storage->size(); i++)
-    {
-        string edge_text = get_matrix_as_text(m_ros_static_transform_storage,i);
-        string trf_text = (*m_ros_static_transform_storage)[i].src_frame_id + "->" +
-                          (*m_ros_static_transform_storage)[i].dst_frame_id + " " +
-                          "[color = black, style=dashed "+ edge_text + "]";
-        dot_string += trf_text + '\n';
-    }
-    for (size_t i = 0; i < m_yarp_timed_transform_storage->size(); i++)
-    {
-        string edge_text = get_matrix_as_text(m_yarp_timed_transform_storage, i);
-        string trf_text = (*m_yarp_timed_transform_storage)[i].src_frame_id + "->" +
-                          (*m_yarp_timed_transform_storage)[i].dst_frame_id + " " +
-                          "[color = blue "+ edge_text + "]";
-        dot_string += trf_text + '\n';
-    }
-    for (size_t i = 0; i < m_yarp_static_transform_storage->size(); i++)
-    {
-        string edge_text = get_matrix_as_text(m_yarp_static_transform_storage, i);
-        string trf_text = (*m_yarp_static_transform_storage)[i].src_frame_id + "->" +
-                          (*m_yarp_static_transform_storage)[i].dst_frame_id + " " +
-                          "[color = blue, style=dashed " + edge_text + "]";
-        dot_string += trf_text + '\n';
-    }
-
-    string legend = "\n\
-        rankdir=LR\n\
-        node[shape=plaintext]\n\
-        subgraph cluster_01 {\n\
-          label = \"Legend\";\n\
-          key[label=<<table border=\"0\" cellpadding=\"2\" cellspacing=\"0\" cellborder=\"0\">\n\
-            <tr><td align=\"right\" port=\"i1\">YARP timed transform</td></tr>\n\
-            <tr><td align=\"right\" port=\"i2\">YARP static transform</td></tr>\n\
-            <tr><td align=\"right\" port=\"i3\">ROS timed transform</td></tr>\n\
-            <tr><td align=\"right\" port=\"i4\">ROS static transform</td></tr>\n\
-            </table>>]\n\
-          key2[label=<<table border=\"0\" cellpadding=\"2\" cellspacing=\"0\" cellborder=\"0\">\n\
-            <tr><td port = \"i1\">&nbsp;</td></tr>\n\
-            <tr><td port = \"i2\">&nbsp;</td></tr>\n\
-            <tr><td port = \"i3\">&nbsp;</td></tr>\n\
-            <tr><td port = \"i4\">&nbsp;</td></tr>\n\
-            </table>>]\n\
-          key:i1:e -> key2:i1:w [color = blue]\n\
-          key:i2:e -> key2:i2:w [color = blue, style=dashed]\n\
-          key:i3:e -> key2:i3:w [color = black]\n\
-          key:i4:e -> key2:i4:w [color = black, style=dashed]\n\
-        } }";
-
-    string command_string = "printf '"+dot_string+ legend + "' | dot -Tpdf > frames.pdf";
-#if defined (__linux__)
-    int ret = std::system("dot -V");
-    if (ret != 0)
-    {
-        yCError(FRAMETRANSFORMNWSYARP) << "dot executable not found. Please install graphviz.";
-        return false;
-    }
-
-    yCDebug(FRAMETRANSFORMNWSYARP) << "Command string is:" << command_string;
-    ret = std::system(command_string.c_str());
-    if (ret != 0)
-    {
-        yCError(FRAMETRANSFORMNWSYARP) << "The following command failed to execute:" << command_string;
-        return false;
-    }
-#else
-    yCError(FRAMETRANSFORMNWSYARP) << "Not yet implemented. Available only Linux";
-    return false;
-#endif
-    return true;
 }
 
 bool FrameTransform_nws_yarp::read(yarp::os::ConnectionReader& connection)
@@ -380,11 +101,11 @@ bool FrameTransform_nws_yarp::read(yarp::os::ConnectionReader& connection)
 
                 if (duration > 0)
                 {
-                    ret = m_yarp_timed_transform_storage->set_transform(t);
+                    ret = m_iTf->set_transform(t);
                 }
                 else
                 {
-                    ret = m_yarp_static_transform_storage->set_transform(t);
+                    ret = m_iTf->set_transformStatic(t);
                 }
 
                 if (ret == true)
@@ -402,10 +123,7 @@ bool FrameTransform_nws_yarp::read(yarp::os::ConnectionReader& connection)
         }
         else if (cmd == VOCAB_TRANSFORM_DELETE_ALL)
         {
-            m_yarp_timed_transform_storage->clear();
-            m_yarp_static_transform_storage->clear();
-            m_ros_timed_transform_storage->clear();
-            m_ros_static_transform_storage->clear();
+            m_iTf->clear();
             out.clear();
             out.addVocab(VOCAB_OK);
         }
@@ -413,7 +131,7 @@ bool FrameTransform_nws_yarp::read(yarp::os::ConnectionReader& connection)
         {
             string frame1 = in.get(2).asString();
             string frame2 = in.get(3).asString();
-            bool ret1 = m_yarp_timed_transform_storage->delete_transform(frame1, frame2);
+            bool ret1 = m_iTf->delete_transform(frame1, frame2);
             if (ret1 == true)
             {
                 out.clear();
@@ -421,7 +139,7 @@ bool FrameTransform_nws_yarp::read(yarp::os::ConnectionReader& connection)
             }
             else
             {
-                bool ret2 = m_yarp_static_transform_storage->delete_transform(frame1, frame2);
+                bool ret2 = m_iTf->delete_transform(frame1, frame2);
                 if (ret2 == true)
                 {
                     out.clear();
@@ -440,16 +158,15 @@ bool FrameTransform_nws_yarp::read(yarp::os::ConnectionReader& connection)
     else if(request == "help")
     {
         out.addVocab(Vocab::encode("many"));
-        out.addString("'list': get all transforms stored");
         out.addString("'delete_all': delete all transforms");
         out.addString("'set_static_transform_rad <src> <dst> <x> <y> <z> <roll> <pitch> <yaw>': create a static transform (angles in radians)");
         out.addString("'set_static_transform_deg <src> <dst> <x> <y> <z> <roll> <pitch> <yaw>': create a static transform (angles in degrees)");
         out.addString("'delete_static_transform <src> <dst>': delete a static transform");
         out.addString("'generate_view <option>': generate a frames.pdf file showing the transform tree diagram.");
         out.addString("     The following values are valid for option (default=none)");
-        out.addString("    'show_rpy': show roation as rpy angles");
+        out.addString("    'show_rpy': show rotation as rpy angles");
         out.addString("    'show_quaterion:'show rotation as a quaternion");
-        out.addString("    'show_matrix:'show rotationa as a 3x3 rotation matrix");
+        out.addString("    'show_matrix:'show rotation as a 3x3 rotation matrix");
     }
     else if (request == "set_static_transform_rad" ||
              request == "set_static_transform_deg")
@@ -465,7 +182,7 @@ bool FrameTransform_nws_yarp::read(yarp::os::ConnectionReader& connection)
         else if (request == "set_static_transform_deg")
             { t.rotFromRPY(in.get(6).asFloat64() * 180 / M_PI, in.get(7).asFloat64() * 180 / M_PI, in.get(8).asFloat64() * 180 / M_PI);}
         t.timestamp = yarp::os::Time::now();
-        ret = m_yarp_static_transform_storage->set_transform(t);
+        ret = m_iTf->set_transformStatic(t);
         if (ret == true)
         {
             yCInfo(FRAMETRANSFORMNWSYARP) << "set_static_transform done";
@@ -478,17 +195,9 @@ bool FrameTransform_nws_yarp::read(yarp::os::ConnectionReader& connection)
     }
     else if(request == "delete_all")
     {
-        m_yarp_timed_transform_storage->clear();
-        m_yarp_static_transform_storage->clear();
-        m_ros_timed_transform_storage->clear();
-        m_ros_static_transform_storage->clear();
+        m_iTf->clear();
         yCInfo(FRAMETRANSFORMNWSYARP) << "delete_all done";
         out.addString("delete_all done");
-    }
-    else if (request == "list")
-    {
-        out.addVocab(Vocab::encode("many"));
-        list_response(out);
     }
     else if (request == "generate_view")
     {
@@ -503,8 +212,7 @@ bool FrameTransform_nws_yarp::read(yarp::os::ConnectionReader& connection)
     {
         std::string src = in.get(1).asString();
         std::string dst = in.get(2).asString();
-        m_yarp_static_transform_storage->delete_transform(src,dst);
-        m_ros_static_transform_storage->delete_transform(src,dst);
+        m_iTf->deleteTransform(src, dst);
         out.addString("delete_static_transform done");
     }
     else
@@ -553,99 +261,6 @@ bool FrameTransform_nws_yarp::threadInit()
     return true;
 }
 
-bool FrameTransform_nws_yarp::parseStartingTf(yarp::os::Searchable &config)
-{
-
-    if (config.check("USER_TF"))
-    {
-        Bottle all_transforms_group = config.findGroup("USER_TF").tail();
-        yCDebug(FRAMETRANSFORMNWSYARP) << all_transforms_group.toString();
-
-        for (size_t i = 0; i < all_transforms_group.size(); i++)
-        {
-            FrameTransform t;
-
-            Bottle*  b = all_transforms_group.get(i).asList();
-            if(!b)
-            {
-                yCError(FRAMETRANSFORMNWSYARP) << "No entries in USER_TF group";
-                return false;
-            }
-
-            if(b->size() == 18)
-            {
-                bool   r(true);
-                Matrix m(4, 4);
-
-                for(int i = 0; i < 16; i++)
-                {
-                    if(!b->get(i).isFloat64())
-                    {
-                        yCError(FRAMETRANSFORMNWSYARP) << "transformServer: element " << i << " is not a double.";
-                        r = false;
-                    }
-                    else
-                    {
-                        m.data()[i] = b->get(i).asFloat64();
-                    }
-                }
-
-                if(!b->get(16).isString() || !b->get(17).isString())
-                {
-                    r = false;
-                }
-
-                if(!r)
-                {
-                    yCError(FRAMETRANSFORMNWSYARP) << "transformServer: param not correct.. for the 4x4 matrix mode" <<
-                                "you must provide 18 parameter. the matrix, the source frame(string) and the destination frame(string)";
-                    return false;
-                }
-
-                t.fromMatrix(m);
-                t.src_frame_id = b->get(16).asString();
-                t.dst_frame_id = b->get(17).asString();
-            }
-            else if( b->size() == 8       &&
-                     b->get(0).isFloat64() &&
-                     b->get(1).isFloat64() &&
-                     b->get(2).isFloat64() &&
-                     b->get(3).isFloat64() &&
-                     b->get(4).isFloat64() &&
-                     b->get(5).isFloat64() &&
-                     b->get(6).isString() &&
-                     b->get(7).isString())
-            {
-                t.translation.set(b->get(0).asFloat64(), b->get(1).asFloat64(), b->get(2).asFloat64());
-                t.rotFromRPY(b->get(3).asFloat64(), b->get(4).asFloat64(), b->get(5).asFloat64());
-                t.src_frame_id = b->get(6).asString();
-                t.dst_frame_id = b->get(7).asString();
-            }
-            else
-            {
-                yCError(FRAMETRANSFORMNWSYARP) << "transformServer: param not correct.. a tf requires 8 param in the format:" <<
-                            "x(dbl) y(dbl) z(dbl) r(dbl) p(dbl) y(dbl) src(str) dst(str)";
-                return false;
-            }
-
-            if(m_yarp_static_transform_storage->set_transform(t))
-            {
-                yCInfo(FRAMETRANSFORMNWSYARP) << "Transform from" << t.src_frame_id << "to" << t.dst_frame_id << "successfully set";
-            }
-            else
-            {
-                yCInfo(FRAMETRANSFORMNWSYARP) << "Unbale to set transform from " << t.src_frame_id << "to" << t.dst_frame_id;
-            }
-        }
-        return true;
-    }
-    else
-    {
-        yCInfo(FRAMETRANSFORMNWSYARP) << "No starting tf found";
-    }
-    return true;
-}
-
 bool FrameTransform_nws_yarp::open(yarp::os::Searchable &config)
 {
     Property params;
@@ -661,16 +276,10 @@ bool FrameTransform_nws_yarp::open(yarp::os::Searchable &config)
         yCInfo(FRAMETRANSFORMNWSYARP) << "Thread period set to:" << m_period;
     }
 
-    if (config.check("transforms_lifetime"))
-    {
-        m_FrameTransformTimeout = config.find("transforms_lifetime").asFloat64();
-        yCInfo(FRAMETRANSFORMNWSYARP) << "transforms_lifetime set to:" << m_FrameTransformTimeout;
-    }
-
     std::string name;
     if (!config.check("name"))
     {
-        name = "transformServer";
+        name = "frameTransform_nws_yarp";
     }
     else
     {
@@ -679,38 +288,9 @@ bool FrameTransform_nws_yarp::open(yarp::os::Searchable &config)
     m_streamingPortName =  "/"+ name + "/transforms:o";
     m_rpcPortName = "/" + name + "/rpc";
 
-    //ROS configuration
-    if (!config.check("ROS"))
-    {
-        yCError(FRAMETRANSFORMNWSYARP) << "Missing ROS group";
-        return false;
-    }
-    Bottle ROS_config = config.findGroup("ROS");
-    if (ROS_config.check("enable_ros_publisher") == false)
-    {
-        yCError(FRAMETRANSFORMNWSYARP) << "Missing 'enable_ros_publisher' in ROS group";
-        return false;
-    }
-    if (ROS_config.find("enable_ros_publisher").asInt32() == 1 || ROS_config.find("enable_ros_publisher").asString() == "true")
-    {
-        m_enable_publish_ros_tf = true;
-        yCInfo(FRAMETRANSFORMNWSYARP) << "Enabled ROS publisher";
-    }
-    if (ROS_config.check("enable_ros_subscriber") == false)
-    {
-        yCError(FRAMETRANSFORMNWSYARP) << "Missing 'enable_ros_subscriber' in ROS group";
-        return false;
-    }
-    if (ROS_config.find("enable_ros_subscriber").asInt32() == 1 || ROS_config.find("enable_ros_subscriber").asString() == "true")
-    {
-        m_enable_subscribe_ros_tf = true;
-        yCInfo(FRAMETRANSFORMNWSYARP) << "Enabled ROS subscriber";
-    }
-
     this->start();
 
     yarp::os::Time::delay(0.5);
-    parseStartingTf(config);
 
     return true;
 }
@@ -730,49 +310,18 @@ void FrameTransform_nws_yarp::run()
     {
         double current_time = yarp::os::Time::now();
 
-        //timeout check for yarp timed transforms.
-        bool repeat_check;
-        do
-        {
-            repeat_check = false;
-            size_t tfVecSize_timed_yarp = m_yarp_timed_transform_storage->size();
-            for (size_t i = 0; i < tfVecSize_timed_yarp; i++)
-            {
-                if (current_time - (*m_yarp_timed_transform_storage)[i].timestamp > m_FrameTransformTimeout)
-                {
-                    m_yarp_timed_transform_storage->delete_transform(i);
-                    repeat_check = true;
-                    break;
-                }
-            }
-        }
-        while (repeat_check);
-
-        //timeout check for ROS timed transforms.
-        do
-        {
-            repeat_check = false;
-            size_t tfVecSize_timed_ros = m_ros_timed_transform_storage->size();
-            for (size_t i = 0; i < tfVecSize_timed_ros; i++)
-            {
-                if (current_time - (*m_ros_timed_transform_storage)[i].timestamp > m_FrameTransformTimeout)
-                {
-                    m_ros_timed_transform_storage->delete_transform(i);
-                    repeat_check = true;
-                    break;
-                }
-            }
-        } while (repeat_check);
-
         //yarp streaming port
         m_lastStateStamp.update();
-        size_t    tfVecSize_static_yarp = m_yarp_static_transform_storage->size();
-        size_t    tfVecSize_timed_yarp = m_yarp_timed_transform_storage->size();
+        std::vector <yarp::math::FrameTransform> yarp_static_transform_storage;
+        std::vector <yarp::math::FrameTransform> yarp_timed_transform_storage;
+        m_iTf->getAllTransforms(yarp_timed_transform_storage);
+        m_iTf->getAllStaticTransforms(yarp_static_transform_storage);
+        size_t    tfVecSize_static_yarp = yarp_static_transform_storage.size();
+        size_t    tfVecSize_timed_yarp = yarp_timed_transform_storage.size();
+
         size_t    tfVecSize_static_ros  = m_ros_static_transform_storage->size();
         size_t    tfVecSize_timed_ros = m_ros_timed_transform_storage->size();
-#if 0
-        yCDebug(FRAMETRANSFORMNWSYARP) << "yarp size" << tfVecSize_yarp << "ros_size" << tfVecSize_ros;
-#endif
+
         yarp::os::Bottle& b = m_streamingPort.prepare();
         b.clear();
 

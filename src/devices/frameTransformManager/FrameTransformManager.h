@@ -38,48 +38,26 @@
 
 #define DEFAULT_THREAD_PERIOD 20 //ms
 const int TRANSFORM_TIMEOUT_MS = 100; //ms
-const int MAX_PORTS = 5;
 
-
-class Transforms_client_storage :
-        public yarp::os::BufferedPort<yarp::os::Bottle>
+class Transforms_storage
 {
 private:
-    yarp::os::Bottle m_lastBottle;
-    yarp::os::Stamp  m_lastStamp;
-    double           m_deltaT;
-    double           m_deltaTMax;
-    double           m_deltaTMin;
-    double           m_prev;
-    double           m_now;
-    int              m_state;
-    int              m_count;
-
     std::vector <yarp::math::FrameTransform> m_transforms;
+    std::mutex  m_mutex;
 
 public:
-    std::recursive_mutex  m_mutex;
-    size_t   size();
-    yarp::math::FrameTransform& operator[]   (std::size_t idx);
-    void clear();
-
-public:
-    Transforms_client_storage (std::string port_name);
-    ~Transforms_client_storage ( );
-    bool     set_transform(yarp::math::FrameTransform t);
+    Transforms_storage() {}
+    ~Transforms_storage() {}
+    bool     set_transform(const yarp::math::FrameTransform& t);
+    bool     delete_transform(int id);
     bool     delete_transform(std::string t1, std::string t2);
-
-    inline void resetStat();
-    using yarp::os::BufferedPort<yarp::os::Bottle>::onRead;
-    void onRead(yarp::os::Bottle &v) override;
-    inline int getLast(yarp::os::Bottle &data, yarp::os::Stamp &stmp);
-    inline int getIterations();
-    void getEstFrequency(int &ite, double &av, double &min, double &max);
+    inline size_t   size() { return m_transforms.size(); }
+    inline yarp::math::FrameTransform& operator[]   (std::size_t idx) { return m_transforms[idx]; }
+    void clear();
 };
 
-
 /**
-* @ingroup dev_impl_network_clients
+* @ingroup dev_impl_network_clients@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 *
 * \brief `frameTransformManager`: Documentation to be added
 */
@@ -99,9 +77,9 @@ private:
 
 protected:
 
-    Transforms_client_storage*    m_transform_storage;
-    double                        m_period;
-    std::mutex               m_rpc_mutex;
+    Transforms_storage*                         m_transform_storage;
+    double                                      m_period;
+    std::mutex                                  m_rpc_mutex;
 
 public:
 
@@ -109,13 +87,6 @@ public:
     bool open(yarp::os::Searchable& config) override;
     bool close() override;
     bool read(yarp::os::ConnectionReader& connection) override;
-
-    /* IPreciselyTimed methods */
-    /**
-    * Get the time stamp for the last read data
-    * @return last time stamp.
-    */
-    yarp::os::Stamp getLastInputStamp();
 
      bool     allFramesAsString(std::string &all_frames) override;
      bool     canTransform(const std::string &target_frame, const std::string &source_frame) override;
@@ -131,12 +102,31 @@ public:
      bool     transformPose(const std::string &target_frame_id, const std::string &source_frame_id, const yarp::sig::Vector &input_pose, yarp::sig::Vector &transformed_pose) override;
      bool     transformQuaternion(const std::string &target_frame_id, const std::string &source_frame_id, const yarp::math::Quaternion &input_quaternion, yarp::math::Quaternion &transformed_quaternion) override;
      bool     waitForTransform(const std::string &target_frame_id, const std::string &source_frame_id, const double &timeout) override;
+     bool     getAllTransforms(std::vector <yarp::math::FrameTransform> transforms_list)  override;
+     bool     getAllStaticTransforms(std::vector <yarp::math::FrameTransform> static_transforms_list)  override;
+     bool     setTransform(const yarp::math::FrameTransform& transform) override;
+     bool     setTransformStatic(const yarp::math::FrameTransform& static_transform) override;
 
      FrameTransformManager();
     ~FrameTransformManager();
      bool     threadInit() override;
      void     threadRelease() override;
      void     run() override;
+
+    protected:
+    enum show_transforms_in_diagram_t
+    {
+        do_not_show = 0,
+        show_quaternion = 1,
+        show_matrix = 2,
+        show_rpy = 3
+    };
+    show_transforms_in_diagram_t  m_show_transforms_in_diagram = do_not_show;
+
+    std::string  get_matrix_as_text(Transforms_storage* storage, int i);
+    bool         generate_view();
+    bool         parseInitialTf(yarp::os::Searchable& config);
+    void         list_response(yarp::os::Bottle& out);
 };
 
 #endif // YARP_DEV_FRAMETRANSFORMCLIENT_H

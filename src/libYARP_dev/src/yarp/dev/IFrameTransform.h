@@ -17,6 +17,7 @@
 #include <yarp/sig/Matrix.h>
 #include <yarp/sig/Vector.h>
 #include <yarp/math/Quaternion.h>
+#include <yarp/math/FrameTransform.h>
 
 namespace yarp {
     namespace dev {
@@ -89,6 +90,20 @@ public:
     virtual bool     getParent (const std::string &frame_id, std::string &parent_frame_id) = 0;
 
     /**
+     Get the complete list of all registered timed transforms.
+    * @param transforms_list the list of transforms.
+    * @return true/false
+    */
+    virtual bool     getAllTransforms(std::vector <yarp::math::FrameTransform> transforms_list) = 0;
+
+    /**
+     Get the complete list of all registered static transforms.
+    * @param static_transforms_list the list of transforms.
+    * @return true/false
+    */
+    virtual bool     getAllStaticTransforms(std::vector <yarp::math::FrameTransform> static_transforms_list) = 0;
+
+    /**
      Get the transform between two frames.
     * @param target_frame_id the name of target reference frame
     * @param source_frame_id the name of source reference frame
@@ -105,6 +120,7 @@ public:
     * @return true/false
     */
     virtual bool     setTransform (const std::string &target_frame_id, const std::string &source_frame_id, const yarp::sig::Matrix &transform) = 0;
+    virtual bool     setTransform (const yarp::math::FrameTransform& transform) = 0;
 
     /**
     Register a static transform between two frames.
@@ -114,6 +130,7 @@ public:
     * @return true/false
     */
     virtual bool     setTransformStatic(const std::string &target_frame_id, const std::string &source_frame_id, const yarp::sig::Matrix &transform) = 0;
+    virtual bool     setTransformStatic(const yarp::math::FrameTransform& static_transform) = 0;
 
     /**
      Deletes a transform between two frames.

@@ -105,6 +105,10 @@ public:
      bool     transformPose(const std::string &target_frame_id, const std::string &source_frame_id, const yarp::sig::Vector &input_pose, yarp::sig::Vector &transformed_pose) override;
      bool     transformQuaternion(const std::string &target_frame_id, const std::string &source_frame_id, const yarp::math::Quaternion &input_quaternion, yarp::math::Quaternion &transformed_quaternion) override;
      bool     waitForTransform(const std::string &target_frame_id, const std::string &source_frame_id, const double &timeout) override;
+     bool     getAllTransforms(std::vector <yarp::math::FrameTransform> transforms_list)  override;
+     bool     getAllStaticTransforms(std::vector <yarp::math::FrameTransform> static_transforms_list)  override;
+     bool     setTransform(const yarp::math::FrameTransform& transform) override;
+     bool     setTransformStatic(const yarp::math::FrameTransform& static_transform) override;
 
      bool     isConnectedWithServer() override;
      bool     reconnectWithServer() override;
