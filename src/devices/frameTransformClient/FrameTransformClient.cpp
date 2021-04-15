@@ -989,3 +989,27 @@ bool     FrameTransformClient::reconnectWithServer()
     }
     return true;
 }
+
+bool     FrameTransformClient::getAllTransforms(std::vector <yarp::math::FrameTransform> transforms_list)
+{
+    yCError(FRAMETRANSFORMCLIENT, "getAllTransforms(): This method is kept for compatibility with FrameTransform_nwc_yarp but it will not be implemented");
+    return false;
+}
+
+bool     FrameTransformClient::getAllStaticTransforms(std::vector <yarp::math::FrameTransform> static_transforms_list)
+{
+    yCError(FRAMETRANSFORMCLIENT, "getAllStaticTransforms(): This method is kept for compatibility with FrameTransform_nwc_yarp but it will not be implemented");
+    return false;
+}
+
+bool     FrameTransformClient::setTransform(const yarp::math::FrameTransform& transform)
+{
+    yCError(FRAMETRANSFORMCLIENT, "setTransform(): This method is kept for compatibility with FrameTransform_nwc_yarp but it will not be implemented");
+    return false;
+}
+
+bool     FrameTransformClient::setTransformStatic(const yarp::math::FrameTransform& static_transform)
+{
+    yCError(FRAMETRANSFORMCLIENT, "setTransformStatic(): This method is kept for compatibility with FrameTransform_nwc_yarp but it will not be implemented");
+    return false;
+}

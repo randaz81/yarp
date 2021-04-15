@@ -225,7 +225,7 @@ bool FrameTransformManager::open(yarp::os::Searchable &config)
         return false;
     }
 
-    m_transform_storage = new Transforms_client_storage(m_local_streaming_name);
+    m_transform_storage = new Transforms_storage(m_local_streaming_name);
 
     m_rpc_InterfaceToUser.setReader(*this);
     return true;
@@ -254,7 +254,7 @@ FrameTransformManager::ConnectionType FrameTransformManager::getConnectionType(c
 {
     if (target_frame == source_frame) {return IDENTITY;}
 
-    Transforms_client_storage& tfVec = *m_transform_storage;
+    Transforms_storage& tfVec = *m_transform_storage;
     size_t                     i, j;
     std::vector<std::string>   tar2root_vec;
     std::vector<std::string>   src2root_vec;
@@ -310,33 +310,33 @@ bool FrameTransformManager::canTransform(const std::string &target_frame, const 
 
 bool FrameTransformManager::clear()
 {
-    m_transform_storage->clear();
+    m_transform_storages.clear();
     return true;
 }
 
 bool FrameTransformManager::frameExists(const std::string &frame_id)
 {
-    for (size_t i = 0; i < m_transform_storage->size(); i++)
+    for (auto it= m_transform_storages.begin(); it!= m_transform_storages.end(); it++)
     {
-        if (((*m_transform_storage)[i].src_frame_id) == frame_id) { return true; }
-        if (((*m_transform_storage)[i].dst_frame_id) == frame_id) { return true; }
+        if ((it->second.src_frame_id) == frame_id) { return true; }
+        if ((it->second==dst_frame_id) == frame_id) { return true; }
     }
     return false;
 }
 
 bool FrameTransformManager::getAllFrameIds(std::vector< std::string > &ids)
 {
-    for (size_t i = 0; i < m_transform_storage->size(); i++)
+    for (size_t i = 0; i < m_transform_storages.size(); i++)
     {
         bool found = false;
         for (const auto& id : ids)
         {
-            if (((*m_transform_storage)[i].src_frame_id) == id) { found = true; break; }
+            if ((m_transform_storages[i].src_frame_id) == id) { found = true; break; }
         }
-        if (found == false) ids.push_back((*m_transform_storage)[i].src_frame_id);
+        if (found == false) ids.push_back(m_transform_storages[i].src_frame_id);
     }
 
-    for (size_t i = 0; i < m_transform_storage->size(); i++)
+    for (size_t i = 0; i < m_transform_storages.size(); i++)
     {
         bool found = false;
         for (const auto& id : ids)
@@ -366,7 +366,7 @@ bool FrameTransformManager::getParent(const std::string &frame_id, std::string &
 
 bool FrameTransformManager::canExplicitTransform(const std::string& target_frame_id, const std::string& source_frame_id) const
 {
-    Transforms_client_storage& tfVec = *m_transform_storage;
+    Transforms_storage& tfVec = *m_transform_storage;
     size_t                     i, tfVec_size;
     std::lock_guard<std::recursive_mutex>         l(tfVec.m_mutex);
 
@@ -383,7 +383,7 @@ bool FrameTransformManager::canExplicitTransform(const std::string& target_frame
 
 bool FrameTransformManager::getChainedTransform(const std::string& target_frame_id, const std::string& source_frame_id, yarp::sig::Matrix& transform) const
 {
-    Transforms_client_storage& tfVec = *m_transform_storage;
+    Transforms_storage& tfVec = *m_transform_storage;
     size_t                     i, tfVec_size;
     std::lock_guard<std::recursive_mutex>         l(tfVec.m_mutex);
 
@@ -676,11 +676,11 @@ void     FrameTransformManager::run()
 bool FrameTransformManager::generate_view()
 {
     string dot_string = "digraph G { ";
-    for (size_t i = 0; i < m_ros_timed_transform_storage->size(); i++)
+    for (auto it = m_transform_storages.begin(); it != m_transform_storages.end(); it++)
     {
-        string edge_text = get_matrix_as_text(m_ros_timed_transform_storage, i);
-        string trf_text = (*m_ros_timed_transform_storage)[i].src_frame_id + "->" +
-            (*m_ros_timed_transform_storage)[i].dst_frame_id + " " +
+        string edge_text = get_matrix_as_text(it->first);
+        string trf_text = (*m_transform_storage)[i].src_frame_id + "->" +
+            (*m_transform_storage)[i].dst_frame_id + " " +
             "[color = black]";
         dot_string += trf_text + '\n';
     }

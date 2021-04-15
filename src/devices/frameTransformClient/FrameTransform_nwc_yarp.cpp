@@ -282,8 +282,14 @@ bool FrameTransform_nwc_yarp::open(yarp::os::Searchable &config)
         yCError(FRAMETRANSFORM_NWC_YARP, "open(): Could not open rpc port %s, check network", m_local_rpcServer.c_str());
         return false;
     }
+    bool ok = m_RPCInterface.yarp().attachAsClient(m_rpc_InterfaceToServer);
+    if (!ok)
+    {
+        yCError(FRAMETRANSFORM_NWC_YARP, "Failure opening Thrift-based RPC interface.");
+        return false;
+    }
 
-    bool ok = Network::connect(m_remote_streaming_name.c_str(), m_local_streaming_name.c_str(), m_streaming_connection_type.c_str());
+    ok = Network::connect(m_remote_streaming_name.c_str(), m_local_streaming_name.c_str(), m_streaming_connection_type.c_str());
     if (!ok)
     {
         yCError(FRAMETRANSFORM_NWC_YARP, "open(): Could not connect to %s", m_remote_streaming_name.c_str());
@@ -311,30 +317,48 @@ bool FrameTransform_nwc_yarp::close()
 
 bool FrameTransform_nwc_yarp::allFramesAsString(std::string &all_frames)
 {
+    auto b = m_RPCInterface.allFramesAsString();
+    all_frames = b.all_frames;
+    return b.retvalue;
 }
 
 bool FrameTransform_nwc_yarp::canTransform(const std::string &target_frame, const std::string &source_frame)
 {
+    auto b = m_RPCInterface.canTransform(target_frame,source_frame);
+    return b.retvalue;
 }
 
 bool FrameTransform_nwc_yarp::clear()
 {
+    auto b = m_RPCInterface.clear();
+    return b.retvalue;
 }
 
 bool FrameTransform_nwc_yarp::frameExists(const std::string &frame_id)
 {
+    auto b = m_RPCInterface.frameExists(frame_id);
+    return b.retvalue;
 }
 
 bool FrameTransform_nwc_yarp::getAllFrameIds(std::vector< std::string > &ids)
 {
+    auto b = m_RPCInterface.getAllFrameIds();
+    ids = b.ids;
+    return b.retvalue;
 }
 
 bool FrameTransform_nwc_yarp::getParent(const std::string &frame_id, std::string &parent_frame_id)
 {
+    auto b = m_RPCInterface.getParent(frame_id);
+    parent_frame_id = b.parent_frame_id;
+    return b.retvalue;
 }
 
 bool FrameTransform_nwc_yarp::getTransform(const std::string& target_frame_id, const std::string& source_frame_id, yarp::sig::Matrix& transform)
 {
+    auto b = m_RPCInterface.getTransform(target_frame_id, source_frame_id);
+    transform = b.transform;
+    return b.retvalue;
 }
 
 bool FrameTransform_nwc_yarp::setTransform(const std::string& target_frame_id, const std::string& source_frame_id, const yarp::sig::Matrix& transform)
@@ -346,8 +370,6 @@ bool FrameTransform_nwc_yarp::setTransform(const std::string& target_frame_id, c
         return false;
     }
 
-    yarp::os::Bottle b;
-    yarp::os::Bottle resp;
     FrameTransform   tf;
 
     if (!tf.fromMatrix(transform))
@@ -356,33 +378,8 @@ bool FrameTransform_nwc_yarp::setTransform(const std::string& target_frame_id, c
         return false;
     }
 
-    b.addVocab(VOCAB_ITRANSFORM);
-    b.addVocab(VOCAB_TRANSFORM_SET);
-    b.addString(source_frame_id);
-    b.addString(target_frame_id);
-    b.addFloat64(1000.0); //transform lifetime
-    b.addFloat64(tf.translation.tX);
-    b.addFloat64(tf.translation.tY);
-    b.addFloat64(tf.translation.tZ);
-    b.addFloat64(tf.rotation.w());
-    b.addFloat64(tf.rotation.x());
-    b.addFloat64(tf.rotation.y());
-    b.addFloat64(tf.rotation.z());
-    bool ret = m_rpc_InterfaceToServer.write(b, resp);
-    if (ret)
-    {
-        if (resp.get(0).asVocab() != VOCAB_OK)
-        {
-            yCError(FRAMETRANSFORM_NWC_YARP) << "setTransform(): Received error from server on creating frame between " + source_frame_id + " and " + target_frame_id;
-            return false;
-        }
-    }
-    else
-    {
-        yCError(FRAMETRANSFORM_NWC_YARP) << "setTransform(): Error on writing on rpc port";
-        return false;
-    }
-    return true;
+    auto b = m_RPCInterface.setTransform(target_frame_id, source_frame_id, transform);
+    return b.retvalue;
 }
 
 bool FrameTransform_nwc_yarp::setTransformStatic(const std::string &target_frame_id, const std::string &source_frame_id, const yarp::sig::Matrix &transform)
@@ -400,8 +397,6 @@ bool FrameTransform_nwc_yarp::setTransformStatic(const std::string &target_frame
         return false;
     }
 
-    yarp::os::Bottle b;
-    yarp::os::Bottle resp;
     FrameTransform   tf;
 
     if (!tf.fromMatrix(transform))
@@ -410,70 +405,35 @@ bool FrameTransform_nwc_yarp::setTransformStatic(const std::string &target_frame
         return false;
     }
 
-    b.addVocab(VOCAB_ITRANSFORM);
-    b.addVocab(VOCAB_TRANSFORM_SET);
-    b.addString(source_frame_id);
-    b.addString(target_frame_id);
-    b.addFloat64(-1);
-    b.addFloat64(tf.translation.tX);
-    b.addFloat64(tf.translation.tY);
-    b.addFloat64(tf.translation.tZ);
-    b.addFloat64(tf.rotation.w());
-    b.addFloat64(tf.rotation.x());
-    b.addFloat64(tf.rotation.y());
-    b.addFloat64(tf.rotation.z());
-    bool ret = m_rpc_InterfaceToServer.write(b, resp);
-    if (ret)
-    {
-        if (resp.get(0).asVocab() != VOCAB_OK)
-        {
-            yCError(FRAMETRANSFORM_NWC_YARP) << "setTransform(): Received error from server on creating frame between " + source_frame_id + " and " + target_frame_id;
-            return false;
-        }
-    }
-    else
-    {
-        yCError(FRAMETRANSFORM_NWC_YARP) << "setTransform(): Error on writing on rpc port";
-        return false;
-    }
-    return true;
+    auto b = m_RPCInterface.setTransformStatic(target_frame_id, source_frame_id, transform);
+    return b.retvalue;
 }
 
 bool FrameTransform_nwc_yarp::deleteTransform(const std::string &target_frame_id, const std::string &source_frame_id)
 {
-    yarp::os::Bottle b;
-    yarp::os::Bottle resp;
-    b.addVocab(VOCAB_ITRANSFORM);
-    b.addVocab(VOCAB_TRANSFORM_DELETE);
-    b.addString(target_frame_id);
-    b.addString(source_frame_id);
-    bool ret = m_rpc_InterfaceToServer.write(b, resp);
-    if (ret)
-    {
-        if (resp.get(0).asVocab()!=VOCAB_OK)
-        {
-            yCError(FRAMETRANSFORM_NWC_YARP) << "Received error from server on deleting frame between "+source_frame_id+" and "+target_frame_id;
-            return false;
-        }
-    }
-    else
-    {
-        yCError(FRAMETRANSFORM_NWC_YARP) << "deleteFrame(): Error on writing on rpc port";
-        return false;
-    }
-    return true;
+    auto b = m_RPCInterface.deleteTransform(target_frame_id, source_frame_id);
+    return b.retvalue;
 }
 
 bool FrameTransform_nwc_yarp::transformPoint(const std::string &target_frame_id, const std::string &source_frame_id, const yarp::sig::Vector &input_point, yarp::sig::Vector &transformed_point)
 {
+    auto b = m_RPCInterface.transformPoint(target_frame_id, source_frame_id, input_point);
+    transformed_point = b.transformed_point;
+    return b.retvalue;
 }
 
 bool FrameTransform_nwc_yarp::transformPose(const std::string &target_frame_id, const std::string &source_frame_id, const yarp::sig::Vector &input_pose, yarp::sig::Vector &transformed_pose)
 {
+    auto b = m_RPCInterface.transformPose(target_frame_id, source_frame_id, input_pose);
+    transformed_pose = b.transformed_pose;
+    return b.retvalue;
 }
 
 bool FrameTransform_nwc_yarp::transformQuaternion(const std::string &target_frame_id, const std::string &source_frame_id, const yarp::math::Quaternion &input_quaternion, yarp::math::Quaternion &transformed_quaternion)
 {
+    auto b = m_RPCInterface.transformQuaternion(target_frame_id, source_frame_id, input_quaternion);
+    transformed_quaternion = b.transformed_quaternion;
+    return b.retvalue;
 }
 
 bool FrameTransform_nwc_yarp::waitForTransform(const std::string &target_frame_id, const std::string &source_frame_id, const double &timeout)
@@ -508,6 +468,32 @@ bool     FrameTransform_nwc_yarp::threadInit()
 void     FrameTransform_nwc_yarp::threadRelease()
 {
     yCTrace(FRAMETRANSFORM_NWC_YARP, "Thread stopped");
+}
+
+bool     FrameTransform_nwc_yarp::setTransform(const yarp::math::FrameTransform& transform)
+{
+    auto b = m_RPCInterface.setTransform2(transform);
+    return b.retvalue;
+}
+
+bool     FrameTransform_nwc_yarp::setTransformStatic(const yarp::math::FrameTransform& static_transform)
+{
+    auto b = m_RPCInterface.setTransformStatic2(static_transform);
+    return b.retvalue;
+}
+
+bool     FrameTransform_nwc_yarp::getAllTransforms(std::vector <yarp::math::FrameTransform> transforms_list)
+{
+    auto b = m_RPCInterface.getAllTransforms();
+    transforms_list = b.transforms_list;
+    return b.retvalue;
+}
+
+bool     FrameTransform_nwc_yarp::getAllStaticTransforms(std::vector <yarp::math::FrameTransform> static_transforms_list)
+{
+    auto b = m_RPCInterface.getAllStaticTransforms();
+    static_transforms_list = b.transforms_list;
+    return b.retvalue;
 }
 
 void     FrameTransform_nwc_yarp::run()

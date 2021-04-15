@@ -34,15 +34,23 @@
 #include <yarp/math/FrameTransform.h>
 #include <yarp/os/PeriodicThread.h>
 #include <mutex>
+#include <map>
 
 
 #define DEFAULT_THREAD_PERIOD 20 //ms
 const int TRANSFORM_TIMEOUT_MS = 100; //ms
 
+/*
+class YARP_math_API FrameTransformWithExtras : public FrameTransform
+{
+    std::string   m_origin_id;
+};
+*/
+
 class Transforms_storage
 {
-private:
-    std::vector <yarp::math::FrameTransform> m_transforms;
+protected:
+    std::vector<yarp::math::FrameTransform> m_transforms;
     std::mutex  m_mutex;
 
 public:
@@ -77,7 +85,7 @@ private:
 
 protected:
 
-    Transforms_storage*                         m_transform_storage;
+    std::map<string,Transforms_storage>         m_transform_storages;
     double                                      m_period;
     std::mutex                                  m_rpc_mutex;
 

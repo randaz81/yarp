@@ -51,12 +51,7 @@ FrameTransform_nws_ros::FrameTransform_nws_ros() : PeriodicThread(DEFAULT_THREAD
     m_period = DEFAULT_THREAD_PERIOD;
     m_enable_publish_ros_tf = false;
     m_enable_subscribe_ros_tf = false;
-    m_yarp_static_transform_storage = nullptr;
-    m_yarp_timed_transform_storage = nullptr;
-    m_ros_static_transform_storage = nullptr;
-    m_ros_timed_transform_storage = nullptr;
     m_rosNode = nullptr;
-    m_FrameTransformTimeout = 0.200; //ms
 }
 
 FrameTransform_nws_ros::~FrameTransform_nws_ros()
@@ -80,68 +75,7 @@ bool FrameTransform_nws_ros::read(yarp::os::ConnectionReader& connection)
     if(request == "help")
     {
         out.addVocab(Vocab::encode("many"));
-        out.addString("'delete_all': delete all transforms");
-        out.addString("'set_static_transform_rad <src> <dst> <x> <y> <z> <roll> <pitch> <yaw>': create a static transform (angles in radians)");
-        out.addString("'set_static_transform_deg <src> <dst> <x> <y> <z> <roll> <pitch> <yaw>': create a static transform (angles in degrees)");
-        out.addString("'delete_static_transform <src> <dst>': delete a static transform");
-        out.addString("'generate_view <option>': generate a frames.pdf file showing the transform tree diagram.");
-        out.addString("     The following values are valid for option (default=none)");
-        out.addString("    'show_rpy': show rotation as rpy angles");
-        out.addString("    'show_quaterion:'show rotation as a quaternion");
-        out.addString("    'show_matrix:'show rotation as a 3x3 rotation matrix");
-    }
-    else if (request == "set_static_transform_rad" ||
-             request == "set_static_transform_deg")
-    {
-        FrameTransform t;
-        t.src_frame_id = in.get(1).asString();
-        t.dst_frame_id = in.get(2).asString();
-        t.translation.tX = in.get(3).asFloat64();
-        t.translation.tY = in.get(4).asFloat64();
-        t.translation.tZ = in.get(5).asFloat64();
-        if (request == "set_static_transform_rad")
-            { t.rotFromRPY(in.get(6).asFloat64(), in.get(7).asFloat64(), in.get(8).asFloat64());}
-        else if (request == "set_static_transform_deg")
-            { t.rotFromRPY(in.get(6).asFloat64() * 180 / M_PI, in.get(7).asFloat64() * 180 / M_PI, in.get(8).asFloat64() * 180 / M_PI);}
-        t.timestamp = yarp::os::Time::now();
-        ret = m_iTf->set_transform_static(t);
-        if (ret == true)
-        {
-            yCInfo(FRAMETRANSFORMNWSROS) << "set_static_transform done";
-            out.addString("set_static_transform done");
-        }
-        else
-        {
-            yCError(FRAMETRANSFORMNWSROS) << "read(): something strange happened";
-        }
-    }
-    else if(request == "delete_all")
-    {
-        m_iTf->clear();
-        yCInfo(FRAMETRANSFORMNWSROS) << "delete_all done";
-        out.addString("delete_all done");
-    }
-    else if (request == "generate_view")
-    {
-        m_show_transforms_in_diagram  = do_not_show;
-        if      (in.get(1).asString() == "show_quaternion") m_show_transforms_in_diagram = show_quaternion;
-        else if (in.get(1).asString() == "show_matrix") m_show_transforms_in_diagram = show_matrix;
-        else if (in.get(1).asString() == "show_rpy") m_show_transforms_in_diagram = show_rpy;
-        generate_view();
-        out.addString("ok");
-    }
-    else if (request == "delete_static_transform")
-    {
-        std::string src = in.get(1).asString();
-        std::string dst = in.get(2).asString();
-        m_iTf->deleteTransform(src, dst);
-        out.addString("delete_static_transform done");
-    }
-    else
-    {
-        yCError(FRAMETRANSFORMNWSROS, "Invalid vocab received");
-        out.clear();
-        out.addVocab(VOCAB_ERR);
+        out.addString("No commands available");
     }
 
     yarp::os::ConnectionWriter *returnToSender = connection.getWriter();
@@ -306,6 +240,10 @@ void FrameTransform_nws_ros::threadRelease()
 void FrameTransform_nws_ros::run()
 {
     std::lock_guard<std::mutex> lock(m_mutex);
+
+    //publish all static and timed YARP transforms on a ros topic streaming port.
+    //beware: only Yarp transforms need to be published.
+    //republishing on ros a transform received by ros may lead to non-correct behavior.
     if (true)
     {
         double current_time = yarp::os::Time::now();
@@ -364,13 +302,18 @@ void FrameTransform_nws_ros::run()
                         //@@@ should we use yarp or ROS timestamps?
                         t.timestamp = yarp::os::Time::now();
                         //t.timestamp = tfs[i].header.stamp; //@@@ is this ok?
-                        m_iTf->set_transform(t);
+                        m_iTf->setTransform(t);
                     }
                 }
             } while (rosInData_static != nullptr);
         }
 
         m_lastStateStamp.update();
+        std::vector <yarp::math::FrameTransform> static_transform_storage;
+        std::vector <yarp::math::FrameTransform> timed_transform_storage;
+        m_iTf->getAllTransforms(timed_transform_storage);
+        m_iTf->getAllStaticTransforms(static_transform_storage);
+
         size_t    tfVecSize_static_yarp = m_yarp_static_transform_storage->size();
         size_t    tfVecSize_timed_yarp = m_yarp_timed_transform_storage->size();
         size_t    tfVecSize_static_ros  = m_ros_static_transform_storage->size();

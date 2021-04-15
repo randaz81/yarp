@@ -55,6 +55,9 @@ if(NOT SKIP_frameTransform_nws_yarp)
   target_sources(yarp_frameTransform_nws_yarp PRIVATE FrameTransform_nws_yarp.cpp
                                                       FrameTransform_nws_yarp.h)
 
+  target_sources(yarp_frameTransform_nws_yarp PRIVATE $<TARGET_OBJECTS:frameTransformMsgs>)
+  target_include_directories(yarp_frameTransform_nws_yarp PRIVATE $<TARGET_PROPERTY:frameTransformMsgs,INTERFACE_INCLUDE_DIRECTORIES>)
+
   target_link_libraries(yarp_frameTransform_nws_yarp PRIVATE YARP::YARP_os
                                                      YARP::YARP_sig
                                                      YARP::YARP_dev

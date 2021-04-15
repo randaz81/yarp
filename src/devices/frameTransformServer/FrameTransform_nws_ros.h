@@ -89,7 +89,7 @@ private:
     bool                         m_enable_subscribe_ros_tf;
 
     //the interface to the attached device
-    IFrameTransform*             m_iTf = nullptr;
+    yarp::dev::IFrameTransform*             m_iTf = nullptr;
 
     yarp::os::RpcServer                      m_rpcPort;
     yarp::os::Publisher<yarp::rosmsg::tf2_msgs::TFMessage> m_rosPublisherPort_tf_timed;
