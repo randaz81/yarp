@@ -337,15 +337,17 @@ bool FrameTransform_nws_yarp::setTranformTest(const std::int32_t x)
 return_allFramesAsString FrameTransform_nws_yarp::allFramesAsString()
 {
     return_allFramesAsString ret;
-    bool b = m_iTf->allFramesAsString();
+    string allframes;
+    bool b = m_iTf->allFramesAsString(allframes);
+    ret.all_frames=allframes;
     ret.retvalue =b;
     return ret;
 }
 
-return_canTransform FrameTransform_nws_yarp::canTransform(const std::string& target_frame, const std::string& source_frame
+return_canTransform FrameTransform_nws_yarp::canTransform(const std::string& target_frame, const std::string& source_frame)
 {
     return_canTransform ret;
-    bool b = m_iTf->canTransform();
+    bool b = m_iTf->canTransform(target_frame, source_frame);
     ret.retvalue = b;
     return ret;
 }
@@ -361,7 +363,7 @@ return_clear FrameTransform_nws_yarp::clear()
 return_frameExists FrameTransform_nws_yarp::frameExists(const std::string& frame_id)
 {
     return_frameExists ret;
-    bool b = m_iTf->frameExists();
+    bool b = m_iTf->frameExists(frame_id);
     ret.retvalue = b;
     return ret;
 }
@@ -369,7 +371,9 @@ return_frameExists FrameTransform_nws_yarp::frameExists(const std::string& frame
 return_getAllFrameIds FrameTransform_nws_yarp::getAllFrameIds()
 {
     return_getAllFrameIds ret;
-    bool b = m_iTf->getAllFrameIds();
+    std::vector <string> frame_ids;
+    bool b = m_iTf->getAllFrameIds(frame_ids);
+    ret.ids=frame_ids;
     ret.retvalue = b;
     return ret;
 }
@@ -377,7 +381,9 @@ return_getAllFrameIds FrameTransform_nws_yarp::getAllFrameIds()
 return_getParent FrameTransform_nws_yarp::getParent(const std::string& frame_id)
 {
     return_getParent ret;
-    bool b = m_iTf->getParent();
+    string parent_id;
+    bool b = m_iTf->getParent(frame_id, parent_id);
+    ret.parent_frame_id = parent_id;
     ret.retvalue = b;
     return ret;
 }
@@ -385,7 +391,9 @@ return_getParent FrameTransform_nws_yarp::getParent(const std::string& frame_id)
 return_getTransform FrameTransform_nws_yarp::getTransform(const std::string& target_frame_id, const std::string& source_frame_id)
 {
     return_getTransform ret;
-    bool b = m_iTf->getTransform();
+    yarp::sig::Matrix matrix;
+    bool b = m_iTf->getTransform(target_frame_id, source_frame_id, matrix);
+    ret.transform = matrix;
     ret.retvalue = b;
     return ret;
 }
@@ -393,7 +401,7 @@ return_getTransform FrameTransform_nws_yarp::getTransform(const std::string& tar
 return_setTransform FrameTransform_nws_yarp::setTransform(const std::string& target_frame_id, const std::string& source_frame_id, const yarp::sig::Matrix& transform)
 {
     return_setTransform ret;
-    bool b = m_iTf->setTransform();
+    bool b = m_iTf->setTransform(target_frame_id, source_frame_id, transform);
     ret.retvalue = b;
     return ret;
 }
@@ -401,7 +409,7 @@ return_setTransform FrameTransform_nws_yarp::setTransform(const std::string& tar
 return_setTransformStatic FrameTransform_nws_yarp::setTransformStatic(const std::string& target_frame_id, const std::string& source_frame_id, const yarp::sig::Matrix& transform)
 {
     return_setTransformStatic ret;
-    bool b = m_iTf->setTransformStatic();
+    bool b = m_iTf->setTransformStatic(target_frame_id, source_frame_id, transform);
     ret.retvalue = b;
     return ret;
 }
@@ -409,7 +417,7 @@ return_setTransformStatic FrameTransform_nws_yarp::setTransformStatic(const std:
 return_deleteTransform FrameTransform_nws_yarp::deleteTransform(const std::string& target_frame_id, const std::string& source_frame_id)
 {
     return_deleteTransform ret;
-    bool b = m_iTf->deleteTransform();
+    bool b = m_iTf->deleteTransform(target_frame_id, source_frame_id);
     ret.retvalue = b;
     return ret;
 }
@@ -417,7 +425,9 @@ return_deleteTransform FrameTransform_nws_yarp::deleteTransform(const std::strin
 return_transformPoint FrameTransform_nws_yarp::transformPoint(const std::string& target_frame_id, const std::string& source_frame_id, const yarp::sig::Vector& input_point)
 {
     return_transformPoint ret;
-    bool b = m_iTf->transformPoint();
+    yarp::sig::Vector output_point;
+    bool b = m_iTf->transformPoint(target_frame_id, source_frame_id, input_point, output_point);
+    ret.transformed_point= output_point;
     ret.retvalue = b;
     return ret;
 }
@@ -425,7 +435,9 @@ return_transformPoint FrameTransform_nws_yarp::transformPoint(const std::string&
 return_transformPose FrameTransform_nws_yarp::transformPose(const std::string& target_frame_id, const std::string& source_frame_id, const yarp::sig::Vector& input_pose)
 {
     return_transformPose ret;
-    bool b = m_iTf->transformPose();
+    yarp::sig::Vector output_pose;
+    bool b = m_iTf->transformPose(target_frame_id, source_frame_id, input_pose, output_pose);
+    ret.transformed_pose = output_pose;
     ret.retvalue = b;
     return ret;
 }
@@ -433,7 +445,9 @@ return_transformPose FrameTransform_nws_yarp::transformPose(const std::string& t
 return_transformQuaternion FrameTransform_nws_yarp::transformQuaternion(const std::string& target_frame_id, const std::string& source_frame_id, const yarp::math::Quaternion& input_quaternion)
 {
     return_transformQuaternion ret;
-    bool b = m_iTf->transformQuaternion();
+    yarp::math::Quaternion output_quaternion;
+    bool b = m_iTf->transformQuaternion(target_frame_id, source_frame_id, input_quaternion, output_quaternion);
+    ret.transformed_quaternion = output_quaternion;
     ret.retvalue = b;
     return ret;
 }
@@ -441,7 +455,7 @@ return_transformQuaternion FrameTransform_nws_yarp::transformQuaternion(const st
 return_waitForTransform FrameTransform_nws_yarp::waitForTransform(const std::string& target_frame_id, const std::string& source_frame_id, const double timeout)
 {
     return_waitForTransform ret;
-    bool b = m_iTf->waitForTransform();
+    bool b = m_iTf->waitForTransform(target_frame_id, source_frame_id, timeout);
     ret.retvalue = b;
     return ret;
 }
@@ -449,7 +463,9 @@ return_waitForTransform FrameTransform_nws_yarp::waitForTransform(const std::str
 return_getAllTransforms FrameTransform_nws_yarp::getAllTransforms()
 {
     return_getAllTransforms ret;
-    bool b = m_iTf->getAllTransforms();
+    std::vector<FrameTransform> list;
+    bool b = m_iTf->getAllTransforms(list);
+    ret.transforms_list = list;
     ret.retvalue = b;
     return ret;
 }
@@ -457,7 +473,9 @@ return_getAllTransforms FrameTransform_nws_yarp::getAllTransforms()
 return_getAllStaticTransforms FrameTransform_nws_yarp::getAllStaticTransforms()
 {
     return_getAllStaticTransforms ret;
-    bool b = m_iTf->getAllStaticTransforms();
+    std::vector<FrameTransform> list;
+    bool b = m_iTf->getAllStaticTransforms(list);
+    ret.transforms_list = list;
     ret.retvalue = b;
     return ret;
 }
@@ -465,7 +483,7 @@ return_getAllStaticTransforms FrameTransform_nws_yarp::getAllStaticTransforms()
 return_setTransform2 FrameTransform_nws_yarp::setTransform2(const yarp::math::FrameTransform& transform)
 {
     return_setTransform2 ret;
-    bool b = m_iTf->setTransform2();
+    bool b = m_iTf->setTransform(transform);
     ret.retvalue = b;
     return ret;
 }
@@ -473,7 +491,7 @@ return_setTransform2 FrameTransform_nws_yarp::setTransform2(const yarp::math::Fr
 return_setTransformStatic2 FrameTransform_nws_yarp::setTransformStatic2(const yarp::math::FrameTransform& static_transform)
 {
     return_setTransformStatic2 ret;
-    bool b = m_iTf->setTransformStatic2();
+    bool b = m_iTf->setTransformStatic(static_transform);
     ret.retvalue = b;
     return ret;
 }
