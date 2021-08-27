@@ -18,6 +18,9 @@ if(NOT SKIP_navigation2DClient)
       Navigation2DClient.h
   )
 
+  target_sources(yarp_navigation2DClient PRIVATE $<TARGET_OBJECTS:ILocalization2DMsgs>)
+  target_include_directories(yarp_navigation2DClient PRIVATE $<TARGET_PROPERTY:ILocalization2DMsgs,INTERFACE_INCLUDE_DIRECTORIES>)
+
   target_link_libraries(yarp_navigation2DClient
     PRIVATE
       YARP::YARP_os

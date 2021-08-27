@@ -25,6 +25,8 @@
 #include <yarp/rosmsg/tf2_msgs/TFMessage.h>
 #include <math.h>
 
+#include "ILocalization2DServerImpl.h"
+
  /**
  * @ingroup dev_impl_network_wrapper dev_impl_navigation dev_impl_deprecated
  *
@@ -51,9 +53,12 @@ class Localization2DServer :
 {
 protected:
 
+    //thrift
+    ILocalization2DRPCd           m_RPC;
+
     //general options
-    bool m_ros_publish_odometry_on_topic;
-    bool m_ros_publish_odometry_on_tf;
+    bool m_ros_publish_odometry_on_topic = false;
+    bool m_ros_publish_odometry_on_tf = false;
 
     //yarp
     std::string                               m_local_name;
@@ -69,23 +74,16 @@ protected:
     //ROS
     std::string                                           m_child_frame_id;
     std::string                                           m_parent_frame_id;
-    yarp::os::Node*                                       m_ros_node;
+    yarp::os::Node*                                       m_ros_node = nullptr;
     yarp::os::Publisher<yarp::rosmsg::nav_msgs::Odometry> m_odometry_publisher;
     yarp::os::Publisher<yarp::rosmsg::tf2_msgs::TFMessage>  m_tf_publisher;
 
     //drivers and interfaces
     yarp::dev::PolyDriver                   pLoc;
-    yarp::dev::Nav2D::ILocalization2D*      iLoc;
+    yarp::dev::Nav2D::ILocalization2D*      iLoc = nullptr;
 
     double                                  m_stats_time_last;
     double                                  m_period;
-    yarp::os::Stamp                         m_loc_stamp;
-    yarp::os::Stamp                         m_odom_stamp;
-    bool                                    m_getdata_using_periodic_thread;
-
-    yarp::dev::OdometryData                     m_current_odometry;
-    yarp::dev::Nav2D::Map2DLocation             m_current_position;
-    yarp::dev::Nav2D::LocalizationStatusEnum    m_current_status;
 
 private:
     void publish_2DLocation_on_yarp_port();
@@ -106,6 +104,8 @@ public:
     bool initialize_YARP(yarp::os::Searchable &config);
     bool initialize_ROS(yarp::os::Searchable& config);
     virtual bool read(yarp::os::ConnectionReader& connection) override;
+
+    friend class ILocalization2DRPCd;
 };
 
 #endif // YARP_DEV_LOCALIZATION2DSERVER_H

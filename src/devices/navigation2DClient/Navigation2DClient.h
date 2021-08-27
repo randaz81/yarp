@@ -13,6 +13,7 @@
 #include <yarp/os/Time.h>
 #include <yarp/dev/PolyDriver.h>
 #include <yarp/dev/INavigation2D.h>
+#include "ILocalization2DRPC.h"
 
 #include <mutex>
 #include <string>
@@ -52,6 +53,8 @@ protected:
     std::string                   m_map_locations_server_name;
     std::string                   m_localization_server_name;
     int                           m_period;
+
+    ILocalization2DRPC            m_RPC;
 
 private: //math stuff
     double                        normalize_angle(double angle);

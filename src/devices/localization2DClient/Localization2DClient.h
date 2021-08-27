@@ -21,7 +21,7 @@
 #include <yarp/dev/PolyDriver.h>
 #include <yarp/dev/Map2DLocation.h>
 #include <yarp/dev/ILocalization2D.h>
-
+#include "ILocalization2DRPC.h"
 
 /**
  *  @ingroup dev_impl_network_clients dev_impl_navigation
@@ -41,10 +41,11 @@ class Localization2DClient :
         public yarp::dev::Nav2D::ILocalization2D
 {
 protected:
-    std::mutex               m_mutex;
+    std::mutex                    m_mutex;
     yarp::os::Port                m_rpc_port_localization_server;
-    std::string         m_local_name;
-    std::string         m_remote_name;
+    std::string                   m_local_name;
+    std::string                   m_remote_name;
+    ILocalization2DRPC            m_RPC;
 
 public:
     /* DeviceDriver methods */

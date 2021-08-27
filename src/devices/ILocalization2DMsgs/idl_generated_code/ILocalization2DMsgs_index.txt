@@ -1,0 +1,14 @@
+yarp_dev_Nav2D_LocalizationStatusEnum.h
+yarp_dev_Nav2D_LocalizationStatusEnum.cpp
+return_getLocalizationStatusRPC.h
+return_getLocalizationStatusRPC.cpp
+return_getEstimatedPosesRPC.h
+return_getEstimatedPosesRPC.cpp
+return_getCurrentPositionRPC1.h
+return_getCurrentPositionRPC1.cpp
+return_getCurrentPositionRPC2.h
+return_getCurrentPositionRPC2.cpp
+return_getEstimatedOdometryRPC.h
+return_getEstimatedOdometryRPC.cpp
+ILocalization2DRPC.h
+ILocalization2DRPC.cpp
