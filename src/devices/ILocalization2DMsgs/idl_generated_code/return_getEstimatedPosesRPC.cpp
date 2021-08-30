@@ -467,12 +467,12 @@ bool return_getEstimatedPosesRPC::nested_write_ret(const yarp::os::idl::WireWrit
 bool return_getEstimatedPosesRPC::read_poses(yarp::os::idl::WireReader& reader)
 {
     poses.clear();
-    uint32_t _size4;
-    yarp::os::idl::WireState _etype7;
-    reader.readListBegin(_etype7, _size4);
-    poses.resize(_size4);
-    for (size_t _i8 = 0; _i8 < _size4; ++_i8) {
-        if (!reader.readNested(poses[_i8])) {
+    uint32_t _size2;
+    yarp::os::idl::WireState _etype5;
+    reader.readListBegin(_etype5, _size2);
+    poses.resize(_size2);
+    for (size_t _i6 = 0; _i6 < _size2; ++_i6) {
+        if (!reader.readNested(poses[_i6])) {
             reader.fail();
             return false;
         }
@@ -487,8 +487,8 @@ bool return_getEstimatedPosesRPC::write_poses(const yarp::os::idl::WireWriter& w
     if (!writer.writeListBegin(BOTTLE_TAG_LIST, static_cast<uint32_t>(poses.size()))) {
         return false;
     }
-    for (const auto& _item9 : poses) {
-        if (!writer.writeNested(_item9)) {
+    for (const auto& _item7 : poses) {
+        if (!writer.writeNested(_item7)) {
             return false;
         }
     }
@@ -502,12 +502,12 @@ bool return_getEstimatedPosesRPC::write_poses(const yarp::os::idl::WireWriter& w
 bool return_getEstimatedPosesRPC::nested_read_poses(yarp::os::idl::WireReader& reader)
 {
     poses.clear();
-    uint32_t _size10;
-    yarp::os::idl::WireState _etype13;
-    reader.readListBegin(_etype13, _size10);
-    poses.resize(_size10);
-    for (size_t _i14 = 0; _i14 < _size10; ++_i14) {
-        if (!reader.readNested(poses[_i14])) {
+    uint32_t _size8;
+    yarp::os::idl::WireState _etype11;
+    reader.readListBegin(_etype11, _size8);
+    poses.resize(_size8);
+    for (size_t _i12 = 0; _i12 < _size8; ++_i12) {
+        if (!reader.readNested(poses[_i12])) {
             reader.fail();
             return false;
         }
@@ -522,8 +522,8 @@ bool return_getEstimatedPosesRPC::nested_write_poses(const yarp::os::idl::WireWr
     if (!writer.writeListBegin(BOTTLE_TAG_LIST, static_cast<uint32_t>(poses.size()))) {
         return false;
     }
-    for (const auto& _item15 : poses) {
-        if (!writer.writeNested(_item15)) {
+    for (const auto& _item13 : poses) {
+        if (!writer.writeNested(_item13)) {
             return false;
         }
     }

@@ -464,7 +464,7 @@ bool WireReader::readBinary(std::string& str)
     return !reader.isError();
 }
 
-bool WireReader::readEnum(std::int32_t& x, WireVocab& converter)
+bool WireReader::readEnum(std::int32_t& x, WireVocab32& converter)
 {
     std::int32_t tag = state->code;
     if (tag < 0) {

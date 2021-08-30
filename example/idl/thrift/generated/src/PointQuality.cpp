@@ -15,21 +15,21 @@
 namespace yarp {
 namespace test {
 
-int PointQualityVocab::fromString(const std::string& input)
+int32_t PointQualityVocab::fromString(const std::string& input)
 {
     // definitely needs optimizing :-)
     if (input=="UNKNOWN") {
-        return static_cast<int>(UNKNOWN);
+        return static_cast<int32_t>(UNKNOWN);
     }
     if (input=="GOOD") {
-        return static_cast<int>(GOOD);
+        return static_cast<int32_t>(GOOD);
     }
     if (input=="BAD") {
-        return static_cast<int>(BAD);
+        return static_cast<int32_t>(BAD);
     }
     return -1;
 }
-std::string PointQualityVocab::toString(int input) const
+std::string PointQualityVocab::toString(int32_t input) const
 {
     switch(static_cast<PointQuality>(input)) {
     case UNKNOWN:

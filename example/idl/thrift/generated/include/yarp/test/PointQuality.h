@@ -17,7 +17,7 @@
 namespace yarp {
 namespace test {
 
-enum PointQuality
+enum PointQuality : int32_t
 {
     UNKNOWN = 0,
     GOOD = 1,
@@ -25,11 +25,11 @@ enum PointQuality
 };
 
 class PointQualityVocab :
-        public yarp::os::idl::WireVocab
+        public yarp::os::idl::WireVocab32
 {
 public:
-    int fromString(const std::string& input) override;
-    std::string toString(int input) const override;
+    int32_t fromString(const std::string& input) override;
+    std::string toString(int32_t input) const override;
 };
 
 } // namespace yarp

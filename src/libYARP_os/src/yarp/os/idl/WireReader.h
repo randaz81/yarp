@@ -121,7 +121,7 @@ public:
 
     bool readBinary(std::string& str);
 
-    bool readEnum(std::int32_t& x, yarp::os::idl::WireVocab& converter);
+    bool readEnum(std::int32_t& x, yarp::os::idl::WireVocab32& converter);
 
     bool readListHeader();
 

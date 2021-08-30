@@ -52,7 +52,8 @@ class t_yarp_generator : public t_oop_generator
     ofstream_with_content_based_conditional_update f_out_common_;
     ofstream_with_content_based_conditional_update f_out_index_;
 
-    std::map<std::string, std::string> structure_names_;
+    std::map<std::string, std::string> type_names_;
+    std::map<std::string, std::string> enum_bases_;
 
 public:
     t_yarp_generator(t_program* program,
@@ -272,6 +273,7 @@ public:
     std::string type_to_enum(t_type* ttype);
 
     std::string get_struct_name(t_struct* tstruct);
+    std::string get_enum_base(t_enum* tenum);
 
     void print_const_value(std::ostringstream& out, const std::string& name, t_type* type, t_const_value* value);
     std::string render_const_value(std::ostringstream& out, const std::string& name, t_type* type, t_const_value* value);
@@ -407,11 +409,21 @@ std::string t_yarp_generator::type_to_enum(t_type* type)
 std::string t_yarp_generator::get_struct_name(t_struct* tstruct)
 {
     std::string name = tstruct->get_name();
-    if (structure_names_.find(name) == structure_names_.end()) {
+    if (type_names_.find(name) == type_names_.end()) {
         return name;
     }
-    return structure_names_[name];
+    return type_names_[name];
 }
+
+std::string t_yarp_generator::get_enum_base(t_enum* tenum)
+{
+    std::string name = tenum->get_name();
+    if (enum_bases_.find(name) == enum_bases_.end()) {
+        return "int32_t";
+    }
+    return enum_bases_[name];
+}
+
 
 std::string t_yarp_generator::copyright_comment()
 {
@@ -498,9 +510,9 @@ std::string t_yarp_generator::type_name(t_type* ttype, bool in_typedef, bool arg
     // Check if it needs to be namespaced
     std::string pname;
 
-    if (ttype->is_struct()) {
-        if (structure_names_.find(ttype->get_name()) != structure_names_.end()) {
-            pname = structure_names_[ttype->get_name()];
+    if (ttype->is_struct() || ttype->is_enum()) {
+        if (type_names_.find(ttype->get_name()) != type_names_.end()) {
+            pname = type_names_[ttype->get_name()];
         }
     }
 
@@ -671,10 +683,13 @@ void t_yarp_generator::init_generator()
         namespace_open(f_out_common_, program_->get_namespace("yarp"));
     }
 
-    // Each enum produces a .cpp and a .h files
+    // Each enum produces a .cpp and a .h files unless annotated with
+    // "yarp.includefile"
     for (const auto& enum_ : program_->get_enums()) {
-        f_out_index_ << get_include_prefix(program_) << enum_->get_name() << ".h\n";
-        f_out_index_ << get_include_prefix(program_) << enum_->get_name() << ".cpp\n";
+        if (enum_->annotations_.find("yarp.includefile") == enum_->annotations_.end()) {
+            f_out_index_ << get_include_prefix(program_) << enum_->get_name() << ".h\n";
+            f_out_index_ << get_include_prefix(program_) << enum_->get_name() << ".cpp\n";
+        }
     }
 
     // Each struct and exception produces a .h and a .cpp files unless
@@ -893,7 +908,12 @@ void t_yarp_generator::get_needed_type(t_type* curType, std::set<std::string>& n
     }
 
     if (curType->is_enum()) {
-        mtype = get_include_prefix(program) + curType->get_name() + ".h";
+        if (((t_enum*)curType)->annotations_.find("yarp.includefile") != ((t_enum*)curType)->annotations_.end()) {
+            mtype = ((t_enum*)curType)->annotations_["yarp.includefile"];
+        } else {
+            mtype = get_include_prefix(program) + curType->get_name() + ".h";
+        }
+
         neededTypes.insert(mtype);
         return;
     }
@@ -1090,7 +1110,8 @@ void t_yarp_generator::generate_serialize_field(std::ostringstream& f_cpp_,
                 throw "compiler error: no C++ writer for base type " + t_base_type::t_base_name(tbase) + name;
             }
         } else if (type->is_enum()) {
-            f_cpp_ << "writeI32(static_cast<int32_t>(" << name << "))";
+            std::string enum_base = get_enum_base((t_enum*)type);
+            f_cpp_ << "writeI32(static_cast<" << enum_base << ">(" << name << "))";
         }
         f_cpp_ << ")" << inline_return_cpp("false");
     } else {
@@ -1334,11 +1355,17 @@ void t_yarp_generator::generate_deserialize_field(std::ostringstream& f_cpp_,
         indent_down_cpp();
         f_cpp_ << indent_cpp() << "}\n";
     } else if (type->is_enum()) {
+        std::string enum_base = get_enum_base((t_enum*)type);
         std::string t = tmp("ecast");
-        std::string t2 = tmp("cvrt");
-        f_cpp_ << indent_cpp() << "int32_t " << t << ";\n";
-        f_cpp_ << indent_cpp() << type_name(type) << "Vocab " << t2 << ";\n";
-        f_cpp_ << indent_cpp() << "if (!reader.readEnum(" << t << ", " << t2 << ")) {\n";
+        f_cpp_ << indent_cpp() << enum_base << " " << t << ";\n";
+        auto it = type->annotations_.find("yarp.name");
+        if (it != type->annotations_.end()) {
+            f_cpp_ << indent_cpp() << "if (!reader.readI32(" << t << ")) {\n";
+        } else {
+            std::string t2 = tmp("cvrt");
+            f_cpp_ << indent_cpp() << type_name(type) << "Vocab " << t2 << ";\n";
+            f_cpp_ << indent_cpp() << "if (!reader.readEnum(" << t << ", " << t2 << ")) {\n";
+        }
         indent_up_cpp();
         {
             generate_deserialize_field_fallback(f_cpp_, tfield);
@@ -1753,6 +1780,20 @@ void t_yarp_generator::generate_enum(t_enum* tenum)
     assert(indent_count_cpp() == 0);
 
     const auto& name = tenum->get_name();
+    const auto& annotations = tenum->annotations_;
+
+    if (annotations.find("yarp.name") != annotations.end()) {
+        type_names_[name] = annotations.at("yarp.name");
+        return;
+    }
+    if (annotations.find("cpp.name") != annotations.end()) {
+        type_names_[name] = annotations.at("cpp.name");
+        return;
+    }
+
+    if (annotations.find("yarp.enumbase") != annotations.end()) {
+        enum_bases_[name] = annotations.at("yarp.enumbase");
+    }
 
     // Open header files
     std::string f_header_name = get_out_dir() + get_include_prefix(program_) + name + ".h";
@@ -1800,7 +1841,7 @@ void t_yarp_generator::generate_enum(t_enum* tenum)
     print_doc(f_h_, tenum);
 
     // Begin enum
-    f_h_ << indent_h() << "enum " << name << '\n';
+    f_h_ << indent_h() << "enum " << name << " : " << get_enum_base(tenum) << '\n';
     f_h_ << indent_h() << "{\n";
     indent_up_h();
     {
@@ -1812,7 +1853,7 @@ void t_yarp_generator::generate_enum(t_enum* tenum)
 
     // Generate a character array of enum names for debugging purposes.
     f_h_ << "class " << name << "Vocab :\n";
-    f_h_ << indent_initializer_h() << "public yarp::os::idl::WireVocab\n";
+    f_h_ << indent_initializer_h() << "public yarp::os::idl::WireVocab32\n";
     f_h_ << indent_h() << "{\n";
     indent_up_h();
     {
@@ -1863,15 +1904,15 @@ void t_yarp_generator::generate_enum_fromstring(t_enum* tenum, std::ostringstrea
     const auto& name = tenum->get_name();
     const auto& constants = tenum->get_constants();
 
-    f_h_ << indent_h() << "int fromString(const std::string& input) override;\n";
+    f_h_ << indent_h() << "int32_t fromString(const std::string& input) override;\n";
 
-    f_cpp_ << indent_cpp() << "int " << name << "Vocab::fromString(const std::string& input)\n";
+    f_cpp_ << indent_cpp() << "int32_t " << name << "Vocab::fromString(const std::string& input)\n";
     f_cpp_ << indent_cpp() << "{\n";
     indent_up_cpp();
     {
         f_cpp_ << indent_cpp() << "// definitely needs optimizing :-)\n";
         for (const auto& constant : constants) {
-            f_cpp_ << indent_cpp() << "if (input==\"" << constant->get_name() << "\")" << inline_return_cpp(std::string("static_cast<int>(") + constant->get_name() + ")");
+            f_cpp_ << indent_cpp() << "if (input==\"" << constant->get_name() << "\")" << inline_return_cpp(std::string("static_cast<") + "int32_t" + ">(" + constant->get_name() + ")");
         }
         f_cpp_ << indent_cpp() << "return -1;\n";
     }
@@ -1890,9 +1931,9 @@ void t_yarp_generator::generate_enum_tostring(t_enum* tenum, std::ostringstream&
     const auto& name = tenum->get_name();
     const auto& constants = tenum->get_constants();
 
-    f_h_ << indent_h() << "std::string toString(int input) const override;\n";
+    f_h_ << indent_h() << "std::string toString(" << "int32_t" << " input) const override;\n";
 
-    f_cpp_ << indent_cpp() << "std::string " << name << "Vocab::toString(int input) const\n";
+    f_cpp_ << indent_cpp() << "std::string " << name << "Vocab::toString(" << "int32_t" << " input) const\n";
     f_cpp_ << indent_cpp() << "{\n";
     indent_up_cpp();
     {
@@ -1957,11 +1998,11 @@ void t_yarp_generator::generate_struct(t_struct* tstruct)
     const auto& annotations = tstruct->annotations_;
 
     if (annotations.find("yarp.name") != annotations.end()) {
-        structure_names_[name] = annotations.at("yarp.name");
+        type_names_[name] = annotations.at("yarp.name");
         return;
     }
     if (annotations.find("cpp.name") != annotations.end()) {
-        structure_names_[name] = annotations.at("cpp.name");
+        type_names_[name] = annotations.at("cpp.name");
         return;
     }
 

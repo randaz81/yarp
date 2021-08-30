@@ -24,7 +24,7 @@ struct yarp_dev_OdometryData{
 enum yarp_dev_Nav2D_LocalizationStatusEnum {
 } (
   yarp.name = "yarp::dev::Nav2D::LocalizationStatusEnum"
-  yarp.includefile="yarp/dev/ILocalization2D.h"
+  yarp.includefile = "yarp/dev/ILocalization2D.h"
 )
 
 struct return_getLocalizationStatusRPC {
@@ -62,6 +62,6 @@ service ILocalization2DRPC
   return_getCurrentPositionRPC1    getCurrentPositionRPC1      ();
   return_getCurrentPositionRPC2    getCurrentPositionRPC2      ();
   return_getEstimatedOdometryRPC   getEstimatedOdometryRPC     ();
-  bool                             setInitialPoseRPC1          (yarp_dev_Nav2D_Map2DLocation loc);
-  bool                             setInitialPoseRPC2          (yarp_dev_Nav2D_Map2DLocation loc, yarp_sig_Matrix cov);
+  bool                             setInitialPoseRPC1          (1: yarp_dev_Nav2D_Map2DLocation loc);
+  bool                             setInitialPoseRPC2          (1: yarp_dev_Nav2D_Map2DLocation loc, 2: yarp_sig_Matrix cov);
 }

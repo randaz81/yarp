@@ -14,13 +14,13 @@
 return_getLocalizationStatusRPC::return_getLocalizationStatusRPC() :
         WirePortable(),
         ret(false),
-        status((yarp_dev_Nav2D_LocalizationStatusEnum)0)
+        status((yarp::dev::Nav2D::LocalizationStatusEnum)0)
 {
 }
 
 // Constructor with field values
 return_getLocalizationStatusRPC::return_getLocalizationStatusRPC(const bool ret,
-                                                                 const yarp_dev_Nav2D_LocalizationStatusEnum status) :
+                                                                 const yarp::dev::Nav2D::LocalizationStatusEnum status) :
         WirePortable(),
         ret(ret),
         status(status)
@@ -173,7 +173,7 @@ bool return_getLocalizationStatusRPC::Editor::did_set_ret()
 }
 
 // Editor: status setter
-void return_getLocalizationStatusRPC::Editor::set_status(const yarp_dev_Nav2D_LocalizationStatusEnum status)
+void return_getLocalizationStatusRPC::Editor::set_status(const yarp::dev::Nav2D::LocalizationStatusEnum status)
 {
     will_set_status();
     obj->status = status;
@@ -183,7 +183,7 @@ void return_getLocalizationStatusRPC::Editor::set_status(const yarp_dev_Nav2D_Lo
 }
 
 // Editor: status getter
-yarp_dev_Nav2D_LocalizationStatusEnum return_getLocalizationStatusRPC::Editor::get_status() const
+yarp::dev::Nav2D::LocalizationStatusEnum return_getLocalizationStatusRPC::Editor::get_status() const
 {
     return obj->status;
 }
@@ -261,7 +261,7 @@ bool return_getLocalizationStatusRPC::Editor::read(yarp::os::ConnectionReader& c
                 if (!writer.writeListHeader(1)) {
                     return false;
                 }
-                if (!writer.writeString("yarp_dev_Nav2D_LocalizationStatusEnum status")) {
+                if (!writer.writeString("yarp::dev::Nav2D::LocalizationStatusEnum status")) {
                     return false;
                 }
             }
@@ -457,12 +457,11 @@ bool return_getLocalizationStatusRPC::nested_write_ret(const yarp::os::idl::Wire
 bool return_getLocalizationStatusRPC::read_status(yarp::os::idl::WireReader& reader)
 {
     int32_t ecast0;
-    yarp_dev_Nav2D_LocalizationStatusEnumVocab cvrt1;
-    if (!reader.readEnum(ecast0, cvrt1)) {
+    if (!reader.readI32(ecast0)) {
         reader.fail();
         return false;
     } else {
-        status = static_cast<yarp_dev_Nav2D_LocalizationStatusEnum>(ecast0);
+        status = static_cast<yarp::dev::Nav2D::LocalizationStatusEnum>(ecast0);
     }
     return true;
 }
@@ -479,13 +478,12 @@ bool return_getLocalizationStatusRPC::write_status(const yarp::os::idl::WireWrit
 // read (nested) status field
 bool return_getLocalizationStatusRPC::nested_read_status(yarp::os::idl::WireReader& reader)
 {
-    int32_t ecast2;
-    yarp_dev_Nav2D_LocalizationStatusEnumVocab cvrt3;
-    if (!reader.readEnum(ecast2, cvrt3)) {
+    int32_t ecast1;
+    if (!reader.readI32(ecast1)) {
         reader.fail();
         return false;
     } else {
-        status = static_cast<yarp_dev_Nav2D_LocalizationStatusEnum>(ecast2);
+        status = static_cast<yarp::dev::Nav2D::LocalizationStatusEnum>(ecast1);
     }
     return true;
 }

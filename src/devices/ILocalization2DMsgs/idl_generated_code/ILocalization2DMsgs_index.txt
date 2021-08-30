@@ -1,5 +1,3 @@
-yarp_dev_Nav2D_LocalizationStatusEnum.h
-yarp_dev_Nav2D_LocalizationStatusEnum.cpp
 return_getLocalizationStatusRPC.h
 return_getLocalizationStatusRPC.cpp
 return_getEstimatedPosesRPC.h
