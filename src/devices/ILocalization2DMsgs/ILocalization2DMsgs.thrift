@@ -30,28 +30,38 @@ enum yarp_dev_Nav2D_LocalizationStatusEnum {
 struct return_getLocalizationStatusRPC {
   1: bool ret = false;
   2: yarp_dev_Nav2D_LocalizationStatusEnum status;
-}
+} (
+  yarp.editor = "false"
+)
 
 struct return_getEstimatedPosesRPC {
   1: bool ret = false;
   2: list<yarp_dev_Nav2D_Map2DLocation> poses;
-}
+} (
+  yarp.editor = "false"
+)
 
 struct return_getCurrentPositionRPC1 {
   1: bool ret = false;
   2: yarp_dev_Nav2D_Map2DLocation loc;
-}
+} (
+  yarp.editor = "false"
+)
 
 struct return_getCurrentPositionRPC2 {
   1: bool ret = false;
   2: yarp_dev_Nav2D_Map2DLocation loc;
   3: yarp_sig_Matrix cov;
-}
+} (
+  yarp.editor = "false"
+)
 
 struct return_getEstimatedOdometryRPC {
   1: bool ret = false;
   2: yarp_dev_OdometryData odom;
-}
+} (
+  yarp.editor = "false"
+)
 
 service ILocalization2DRPC
 {

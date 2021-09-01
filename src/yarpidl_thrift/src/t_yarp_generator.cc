@@ -2099,7 +2099,14 @@ void t_yarp_generator::generate_struct(t_struct* tstruct)
     generate_struct_unwrapped_helper(tstruct, f_h_, f_cpp_);
 
     // Add editor class, if not disabled
-    if (!no_editor_) {
+    bool editor_enabled = true;
+    if (annotations.find("yarp.editor") != annotations.end()) {
+        if (annotations.at("yarp.editor") == "false") {
+            editor_enabled = false;
+        }
+    }
+
+    if (!no_editor_ && editor_enabled) {
         generate_struct_editor(tstruct, f_h_, f_cpp_);
     }
 
