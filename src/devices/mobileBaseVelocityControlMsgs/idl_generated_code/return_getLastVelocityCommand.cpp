@@ -54,11 +54,24 @@ bool return_getLastVelocityCommand::read(yarp::os::idl::WireReader& reader)
 // Read structure on a Connection
 bool return_getLastVelocityCommand::read(yarp::os::ConnectionReader& connection)
 {
+    connection.convertTextMode();
     yarp::os::idl::WireReader reader(connection);
     if (!reader.readListHeader(4)) {
         return false;
     }
-    return read(reader);
+    if (!nested_read_retvalue(reader)) {
+        return false;
+    }
+    if (!nested_read_x_vel(reader)) {
+        return false;
+    }
+    if (!nested_read_y_vel(reader)) {
+        return false;
+    }
+    if (!nested_read_theta_vel(reader)) {
+        return false;
+    }
+    return !reader.isError();
 }
 
 // Write structure on a Wire
@@ -86,7 +99,19 @@ bool return_getLastVelocityCommand::write(yarp::os::ConnectionWriter& connection
     if (!writer.writeListHeader(4)) {
         return false;
     }
-    return write(writer);
+    if (!nested_write_retvalue(writer)) {
+        return false;
+    }
+    if (!nested_write_x_vel(writer)) {
+        return false;
+    }
+    if (!nested_write_y_vel(writer)) {
+        return false;
+    }
+    if (!nested_write_theta_vel(writer)) {
+        return false;
+    }
+    return !writer.isError();
 }
 
 // Convert to a printable string

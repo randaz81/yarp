@@ -87,11 +87,39 @@ bool OdometryData::read(yarp::os::idl::WireReader& reader)
 // Read structure on a Connection
 bool OdometryData::read(yarp::os::ConnectionReader& connection)
 {
+    connection.convertTextMode();
     yarp::os::idl::WireReader reader(connection);
     if (!reader.readListHeader(9)) {
         return false;
     }
-    return read(reader);
+    if (!nested_read_odom_x(reader)) {
+        return false;
+    }
+    if (!nested_read_odom_y(reader)) {
+        return false;
+    }
+    if (!nested_read_odom_theta(reader)) {
+        return false;
+    }
+    if (!nested_read_base_vel_x(reader)) {
+        return false;
+    }
+    if (!nested_read_base_vel_y(reader)) {
+        return false;
+    }
+    if (!nested_read_base_vel_theta(reader)) {
+        return false;
+    }
+    if (!nested_read_odom_vel_x(reader)) {
+        return false;
+    }
+    if (!nested_read_odom_vel_y(reader)) {
+        return false;
+    }
+    if (!nested_read_odom_vel_theta(reader)) {
+        return false;
+    }
+    return !reader.isError();
 }
 
 // Write structure on a Wire
@@ -134,7 +162,34 @@ bool OdometryData::write(yarp::os::ConnectionWriter& connection) const
     if (!writer.writeListHeader(9)) {
         return false;
     }
-    return write(writer);
+    if (!nested_write_odom_x(writer)) {
+        return false;
+    }
+    if (!nested_write_odom_y(writer)) {
+        return false;
+    }
+    if (!nested_write_odom_theta(writer)) {
+        return false;
+    }
+    if (!nested_write_base_vel_x(writer)) {
+        return false;
+    }
+    if (!nested_write_base_vel_y(writer)) {
+        return false;
+    }
+    if (!nested_write_base_vel_theta(writer)) {
+        return false;
+    }
+    if (!nested_write_odom_vel_x(writer)) {
+        return false;
+    }
+    if (!nested_write_odom_vel_y(writer)) {
+        return false;
+    }
+    if (!nested_write_odom_vel_theta(writer)) {
+        return false;
+    }
+    return !writer.isError();
 }
 
 // Convert to a printable string

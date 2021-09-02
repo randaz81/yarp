@@ -42,11 +42,18 @@ bool return_getAllTransforms::read(yarp::os::idl::WireReader& reader)
 // Read structure on a Connection
 bool return_getAllTransforms::read(yarp::os::ConnectionReader& connection)
 {
+    connection.convertTextMode();
     yarp::os::idl::WireReader reader(connection);
     if (!reader.readListHeader(2)) {
         return false;
     }
-    return read(reader);
+    if (!nested_read_retvalue(reader)) {
+        return false;
+    }
+    if (!nested_read_transforms_list(reader)) {
+        return false;
+    }
+    return !reader.isError();
 }
 
 // Write structure on a Wire
@@ -68,7 +75,13 @@ bool return_getAllTransforms::write(yarp::os::ConnectionWriter& connection) cons
     if (!writer.writeListHeader(2)) {
         return false;
     }
-    return write(writer);
+    if (!nested_write_retvalue(writer)) {
+        return false;
+    }
+    if (!nested_write_transforms_list(writer)) {
+        return false;
+    }
+    return !writer.isError();
 }
 
 // Convert to a printable string

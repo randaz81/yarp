@@ -166,11 +166,78 @@ bool jointData::read(yarp::os::idl::WireReader& reader)
 // Read structure on a Connection
 bool jointData::read(yarp::os::ConnectionReader& connection)
 {
+    connection.convertTextMode();
     yarp::os::idl::WireReader reader(connection);
     if (!reader.readListHeader(22)) {
         return false;
     }
-    return read(reader);
+    if (!nested_read_jointPosition(reader)) {
+        return false;
+    }
+    if (!nested_read_jointPosition_isValid(reader)) {
+        return false;
+    }
+    if (!nested_read_jointVelocity(reader)) {
+        return false;
+    }
+    if (!nested_read_jointVelocity_isValid(reader)) {
+        return false;
+    }
+    if (!nested_read_jointAcceleration(reader)) {
+        return false;
+    }
+    if (!nested_read_jointAcceleration_isValid(reader)) {
+        return false;
+    }
+    if (!nested_read_motorPosition(reader)) {
+        return false;
+    }
+    if (!nested_read_motorPosition_isValid(reader)) {
+        return false;
+    }
+    if (!nested_read_motorVelocity(reader)) {
+        return false;
+    }
+    if (!nested_read_motorVelocity_isValid(reader)) {
+        return false;
+    }
+    if (!nested_read_motorAcceleration(reader)) {
+        return false;
+    }
+    if (!nested_read_motorAcceleration_isValid(reader)) {
+        return false;
+    }
+    if (!nested_read_torque(reader)) {
+        return false;
+    }
+    if (!nested_read_torque_isValid(reader)) {
+        return false;
+    }
+    if (!nested_read_pwmDutycycle(reader)) {
+        return false;
+    }
+    if (!nested_read_pwmDutycycle_isValid(reader)) {
+        return false;
+    }
+    if (!nested_read_current(reader)) {
+        return false;
+    }
+    if (!nested_read_current_isValid(reader)) {
+        return false;
+    }
+    if (!nested_read_controlMode(reader)) {
+        return false;
+    }
+    if (!nested_read_controlMode_isValid(reader)) {
+        return false;
+    }
+    if (!nested_read_interactionMode(reader)) {
+        return false;
+    }
+    if (!nested_read_interactionMode_isValid(reader)) {
+        return false;
+    }
+    return !reader.isError();
 }
 
 // Write structure on a Wire
@@ -252,7 +319,73 @@ bool jointData::write(yarp::os::ConnectionWriter& connection) const
     if (!writer.writeListHeader(22)) {
         return false;
     }
-    return write(writer);
+    if (!nested_write_jointPosition(writer)) {
+        return false;
+    }
+    if (!nested_write_jointPosition_isValid(writer)) {
+        return false;
+    }
+    if (!nested_write_jointVelocity(writer)) {
+        return false;
+    }
+    if (!nested_write_jointVelocity_isValid(writer)) {
+        return false;
+    }
+    if (!nested_write_jointAcceleration(writer)) {
+        return false;
+    }
+    if (!nested_write_jointAcceleration_isValid(writer)) {
+        return false;
+    }
+    if (!nested_write_motorPosition(writer)) {
+        return false;
+    }
+    if (!nested_write_motorPosition_isValid(writer)) {
+        return false;
+    }
+    if (!nested_write_motorVelocity(writer)) {
+        return false;
+    }
+    if (!nested_write_motorVelocity_isValid(writer)) {
+        return false;
+    }
+    if (!nested_write_motorAcceleration(writer)) {
+        return false;
+    }
+    if (!nested_write_motorAcceleration_isValid(writer)) {
+        return false;
+    }
+    if (!nested_write_torque(writer)) {
+        return false;
+    }
+    if (!nested_write_torque_isValid(writer)) {
+        return false;
+    }
+    if (!nested_write_pwmDutycycle(writer)) {
+        return false;
+    }
+    if (!nested_write_pwmDutycycle_isValid(writer)) {
+        return false;
+    }
+    if (!nested_write_current(writer)) {
+        return false;
+    }
+    if (!nested_write_current_isValid(writer)) {
+        return false;
+    }
+    if (!nested_write_controlMode(writer)) {
+        return false;
+    }
+    if (!nested_write_controlMode_isValid(writer)) {
+        return false;
+    }
+    if (!nested_write_interactionMode(writer)) {
+        return false;
+    }
+    if (!nested_write_interactionMode_isValid(writer)) {
+        return false;
+    }
+    return !writer.isError();
 }
 
 // Convert to a printable string

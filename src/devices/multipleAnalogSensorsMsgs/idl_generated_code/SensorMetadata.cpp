@@ -48,11 +48,21 @@ bool SensorMetadata::read(yarp::os::idl::WireReader& reader)
 // Read structure on a Connection
 bool SensorMetadata::read(yarp::os::ConnectionReader& connection)
 {
+    connection.convertTextMode();
     yarp::os::idl::WireReader reader(connection);
     if (!reader.readListHeader(3)) {
         return false;
     }
-    return read(reader);
+    if (!nested_read_name(reader)) {
+        return false;
+    }
+    if (!nested_read_frameName(reader)) {
+        return false;
+    }
+    if (!nested_read_additionalMetadata(reader)) {
+        return false;
+    }
+    return !reader.isError();
 }
 
 // Write structure on a Wire
@@ -77,7 +87,16 @@ bool SensorMetadata::write(yarp::os::ConnectionWriter& connection) const
     if (!writer.writeListHeader(3)) {
         return false;
     }
-    return write(writer);
+    if (!nested_write_name(writer)) {
+        return false;
+    }
+    if (!nested_write_frameName(writer)) {
+        return false;
+    }
+    if (!nested_write_additionalMetadata(writer)) {
+        return false;
+    }
+    return !writer.isError();
 }
 
 // Convert to a printable string

@@ -69,11 +69,30 @@ bool LaserScan2D::read(yarp::os::idl::WireReader& reader)
 // Read structure on a Connection
 bool LaserScan2D::read(yarp::os::ConnectionReader& connection)
 {
+    connection.convertTextMode();
     yarp::os::idl::WireReader reader(connection);
     if (!reader.readListHeader(6)) {
         return false;
     }
-    return read(reader);
+    if (!nested_read_angle_min(reader)) {
+        return false;
+    }
+    if (!nested_read_angle_max(reader)) {
+        return false;
+    }
+    if (!nested_read_range_min(reader)) {
+        return false;
+    }
+    if (!nested_read_range_max(reader)) {
+        return false;
+    }
+    if (!nested_read_scans(reader)) {
+        return false;
+    }
+    if (!nested_read_status(reader)) {
+        return false;
+    }
+    return !reader.isError();
 }
 
 // Write structure on a Wire
@@ -107,7 +126,25 @@ bool LaserScan2D::write(yarp::os::ConnectionWriter& connection) const
     if (!writer.writeListHeader(6)) {
         return false;
     }
-    return write(writer);
+    if (!nested_write_angle_min(writer)) {
+        return false;
+    }
+    if (!nested_write_angle_max(writer)) {
+        return false;
+    }
+    if (!nested_write_range_min(writer)) {
+        return false;
+    }
+    if (!nested_write_range_max(writer)) {
+        return false;
+    }
+    if (!nested_write_scans(writer)) {
+        return false;
+    }
+    if (!nested_write_status(writer)) {
+        return false;
+    }
+    return !writer.isError();
 }
 
 // Convert to a printable string

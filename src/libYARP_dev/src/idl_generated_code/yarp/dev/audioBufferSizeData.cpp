@@ -57,11 +57,24 @@ bool audioBufferSizeData::read(yarp::os::idl::WireReader& reader)
 // Read structure on a Connection
 bool audioBufferSizeData::read(yarp::os::ConnectionReader& connection)
 {
+    connection.convertTextMode();
     yarp::os::idl::WireReader reader(connection);
     if (!reader.readListHeader(4)) {
         return false;
     }
-    return read(reader);
+    if (!nested_read_m_samples(reader)) {
+        return false;
+    }
+    if (!nested_read_m_channels(reader)) {
+        return false;
+    }
+    if (!nested_read_m_depth(reader)) {
+        return false;
+    }
+    if (!nested_read_size(reader)) {
+        return false;
+    }
+    return !reader.isError();
 }
 
 // Write structure on a Wire
@@ -89,7 +102,19 @@ bool audioBufferSizeData::write(yarp::os::ConnectionWriter& connection) const
     if (!writer.writeListHeader(4)) {
         return false;
     }
-    return write(writer);
+    if (!nested_write_m_samples(writer)) {
+        return false;
+    }
+    if (!nested_write_m_channels(writer)) {
+        return false;
+    }
+    if (!nested_write_m_depth(writer)) {
+        return false;
+    }
+    if (!nested_write_size(writer)) {
+        return false;
+    }
+    return !writer.isError();
 }
 
 // Convert to a printable string

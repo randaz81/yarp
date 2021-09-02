@@ -63,11 +63,27 @@ bool Map2DLocationData::read(yarp::os::idl::WireReader& reader)
 // Read structure on a Connection
 bool Map2DLocationData::read(yarp::os::ConnectionReader& connection)
 {
+    connection.convertTextMode();
     yarp::os::idl::WireReader reader(connection);
     if (!reader.readListHeader(5)) {
         return false;
     }
-    return read(reader);
+    if (!nested_read_map_id(reader)) {
+        return false;
+    }
+    if (!nested_read_x(reader)) {
+        return false;
+    }
+    if (!nested_read_y(reader)) {
+        return false;
+    }
+    if (!nested_read_theta(reader)) {
+        return false;
+    }
+    if (!nested_read_description(reader)) {
+        return false;
+    }
+    return !reader.isError();
 }
 
 // Write structure on a Wire
@@ -98,7 +114,22 @@ bool Map2DLocationData::write(yarp::os::ConnectionWriter& connection) const
     if (!writer.writeListHeader(5)) {
         return false;
     }
-    return write(writer);
+    if (!nested_write_map_id(writer)) {
+        return false;
+    }
+    if (!nested_write_x(writer)) {
+        return false;
+    }
+    if (!nested_write_y(writer)) {
+        return false;
+    }
+    if (!nested_write_theta(writer)) {
+        return false;
+    }
+    if (!nested_write_description(writer)) {
+        return false;
+    }
+    return !writer.isError();
 }
 
 // Convert to a printable string

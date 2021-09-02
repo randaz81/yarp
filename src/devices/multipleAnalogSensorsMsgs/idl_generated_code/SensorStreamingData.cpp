@@ -90,11 +90,42 @@ bool SensorStreamingData::read(yarp::os::idl::WireReader& reader)
 // Read structure on a Connection
 bool SensorStreamingData::read(yarp::os::ConnectionReader& connection)
 {
+    connection.convertTextMode();
     yarp::os::idl::WireReader reader(connection);
     if (!reader.readListHeader(10)) {
         return false;
     }
-    return read(reader);
+    if (!nested_read_ThreeAxisGyroscopes(reader)) {
+        return false;
+    }
+    if (!nested_read_ThreeAxisLinearAccelerometers(reader)) {
+        return false;
+    }
+    if (!nested_read_ThreeAxisMagnetometers(reader)) {
+        return false;
+    }
+    if (!nested_read_OrientationSensors(reader)) {
+        return false;
+    }
+    if (!nested_read_TemperatureSensors(reader)) {
+        return false;
+    }
+    if (!nested_read_SixAxisForceTorqueSensors(reader)) {
+        return false;
+    }
+    if (!nested_read_ContactLoadCellArrays(reader)) {
+        return false;
+    }
+    if (!nested_read_EncoderArrays(reader)) {
+        return false;
+    }
+    if (!nested_read_SkinPatches(reader)) {
+        return false;
+    }
+    if (!nested_read_PositionSensors(reader)) {
+        return false;
+    }
+    return !reader.isError();
 }
 
 // Write structure on a Wire
@@ -140,7 +171,37 @@ bool SensorStreamingData::write(yarp::os::ConnectionWriter& connection) const
     if (!writer.writeListHeader(10)) {
         return false;
     }
-    return write(writer);
+    if (!nested_write_ThreeAxisGyroscopes(writer)) {
+        return false;
+    }
+    if (!nested_write_ThreeAxisLinearAccelerometers(writer)) {
+        return false;
+    }
+    if (!nested_write_ThreeAxisMagnetometers(writer)) {
+        return false;
+    }
+    if (!nested_write_OrientationSensors(writer)) {
+        return false;
+    }
+    if (!nested_write_TemperatureSensors(writer)) {
+        return false;
+    }
+    if (!nested_write_SixAxisForceTorqueSensors(writer)) {
+        return false;
+    }
+    if (!nested_write_ContactLoadCellArrays(writer)) {
+        return false;
+    }
+    if (!nested_write_EncoderArrays(writer)) {
+        return false;
+    }
+    if (!nested_write_SkinPatches(writer)) {
+        return false;
+    }
+    if (!nested_write_PositionSensors(writer)) {
+        return false;
+    }
+    return !writer.isError();
 }
 
 // Convert to a printable string
