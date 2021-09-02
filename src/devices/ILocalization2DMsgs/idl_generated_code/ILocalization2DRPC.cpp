@@ -332,7 +332,7 @@ ILocalization2DRPC_setInitialPoseRPC1_helper::ILocalization2DRPC_setInitialPoseR
 bool ILocalization2DRPC_setInitialPoseRPC1_helper::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
-    if (!writer.writeListHeader(2)) {
+    if (!writer.writeListHeader(6)) {
         return false;
     }
     if (!writer.writeTag("setInitialPoseRPC1", 1, 1)) {
@@ -383,7 +383,7 @@ ILocalization2DRPC_setInitialPoseRPC2_helper::ILocalization2DRPC_setInitialPoseR
 bool ILocalization2DRPC_setInitialPoseRPC2_helper::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
-    if (!writer.writeListHeader(3)) {
+    if (!writer.writeListHeader(7)) {
         return false;
     }
     if (!writer.writeTag("setInitialPoseRPC2", 1, 1)) {
@@ -681,7 +681,7 @@ bool ILocalization2DRPC::read(yarp::os::ConnectionReader& connection)
         }
         if (tag == "setInitialPoseRPC1") {
             yarp::dev::Nav2D::Map2DLocation loc;
-            if (!reader.read(loc)) {
+            if (!reader.readNested(loc)) {
                 reader.fail();
                 return false;
             }
@@ -701,11 +701,11 @@ bool ILocalization2DRPC::read(yarp::os::ConnectionReader& connection)
         if (tag == "setInitialPoseRPC2") {
             yarp::dev::Nav2D::Map2DLocation loc;
             yarp::sig::Matrix cov;
-            if (!reader.read(loc)) {
+            if (!reader.readNested(loc)) {
                 reader.fail();
                 return false;
             }
-            if (!reader.read(cov)) {
+            if (!reader.readNested(cov)) {
                 reader.fail();
                 return false;
             }

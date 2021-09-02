@@ -33,7 +33,7 @@ bool return_getCurrentPositionRPC1::read(yarp::os::idl::WireReader& reader)
     if (!read_ret(reader)) {
         return false;
     }
-    if (!read_loc(reader)) {
+    if (!nested_read_loc(reader)) {
         return false;
     }
     return !reader.isError();
@@ -42,11 +42,18 @@ bool return_getCurrentPositionRPC1::read(yarp::os::idl::WireReader& reader)
 // Read structure on a Connection
 bool return_getCurrentPositionRPC1::read(yarp::os::ConnectionReader& connection)
 {
+    connection.convertTextMode();
     yarp::os::idl::WireReader reader(connection);
     if (!reader.readListHeader(2)) {
         return false;
     }
-    return read(reader);
+    if (!nested_read_ret(reader)) {
+        return false;
+    }
+    if (!nested_read_loc(reader)) {
+        return false;
+    }
+    return !reader.isError();
 }
 
 // Write structure on a Wire
@@ -55,7 +62,7 @@ bool return_getCurrentPositionRPC1::write(const yarp::os::idl::WireWriter& write
     if (!write_ret(writer)) {
         return false;
     }
-    if (!write_loc(writer)) {
+    if (!nested_write_loc(writer)) {
         return false;
     }
     return !writer.isError();
@@ -68,7 +75,13 @@ bool return_getCurrentPositionRPC1::write(yarp::os::ConnectionWriter& connection
     if (!writer.writeListHeader(2)) {
         return false;
     }
-    return write(writer);
+    if (!nested_write_ret(writer)) {
+        return false;
+    }
+    if (!nested_write_loc(writer)) {
+        return false;
+    }
+    return !writer.isError();
 }
 
 // Convert to a printable string
