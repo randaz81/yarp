@@ -8,16 +8,27 @@
 
 #include <yarp/os/api.h>
 
-namespace yarp::os::idl {
+#include <cstdint>
+#include <string>
 
-class YARP_os_API WireVocab
+namespace yarp {
+namespace os {
+namespace idl {
+
+class YARP_os_API WireVocab32
 {
 public:
-    virtual ~WireVocab() {}
-    virtual int fromString(const std::string& input) = 0;
-    virtual std::string toString(int input) const = 0;
+    virtual ~WireVocab32() {}
+    virtual int32_t fromString(const std::string& input) = 0;
+    virtual std::string toString(int32_t input) const = 0;
 };
 
-} // namespace yarp::os::idl
+#ifndef YARP_NO_DEPRECATED // Since YARP 3.6
+YARP_DEPRECATED_TYPEDEF_MSG("Use yarp::dev::WireVocab32 instead") WireVocab32 WireVocab;
+#endif
+
+} // namespace idl
+} // namespace os
+} // namespace yarp
 
 #endif // YARP_OS_IDL_WIREVOCAB_H
