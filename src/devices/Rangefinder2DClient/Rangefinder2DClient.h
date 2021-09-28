@@ -56,6 +56,7 @@ public:
     void getEstFrequency(int &ite, double &av, double &min, double &max);
 
     bool getData(yarp::sig::Vector &data);
+    bool getStamp(yarp::os::Stamp& stmp);
     yarp::dev::IRangefinder2D::Device_status getStatus();
 
 };
@@ -85,7 +86,6 @@ protected:
     std::string local;
     std::string remote;
     std::string m_carrier;
-    yarp::os::Stamp lastTs; //used by IPreciselyTimed
     std::string deviceId;
 
     double scan_angle_min;

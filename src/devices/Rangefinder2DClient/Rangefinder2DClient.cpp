@@ -124,6 +124,14 @@ bool Rangefinder2DInputPortProcessor::getData(yarp::sig::Vector &ranges)
     return true;
 }
 
+bool Rangefinder2DInputPortProcessor::getStamp(yarp::os::Stamp& stmp)
+{
+    mutex.lock();
+    stmp = lastStamp;
+    mutex.unlock();
+    return true;
+}
+
 yarp::dev::IRangefinder2D::Device_status Rangefinder2DInputPortProcessor::getStatus()
 {
     mutex.lock();
@@ -453,5 +461,7 @@ bool Rangefinder2DClient::getDeviceInfo(std::string &device_info)
 
 Stamp Rangefinder2DClient::getLastInputStamp()
 {
-    return lastTs;
+    Stamp ts;
+    inputPort.getStamp(ts);
+    return ts;
 }
