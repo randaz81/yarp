@@ -80,6 +80,7 @@ public:
  * | period         |      -                  | double  | s              |   0.02        | No                             | refresh period of the broadcasted values in s                                                       | default 0.02s |
  * | name           |      -                  | string  | -              |   -           | Yes                            | Prefix name of the ports opened by the RGBD wrapper, e.g. /robotName/RGBD                           | Required suffix like '/rpc' will be added by the device      |
  * | subdevice      |      -                  | string  | -              |   -           | alternative to 'attach' action | name of the subdevice to use as a data source                                                       | when used, parameters for the subdevice must be provided as well |
+ * | force_frames_duplicates | -              | bool    | -              | false         | No                             | if enabled, the nws will send frames on the network depending only on the refresh period, even if no new frames are obtained from the attached device |     |
  *
  * Some example of configuration files:
  *
@@ -142,8 +143,8 @@ private:
     // int hDim, vDim;
     double                         period;
     std::string                    sensorId;
-    yarp::dev::IRGBDSensor*        sensor_p;
-    yarp::dev::IFrameGrabberControls* fgCtrl;
+    yarp::dev::IRGBDSensor*        sensor_p = nullptr;
+    yarp::dev::IFrameGrabberControls* fgCtrl = nullptr;
     yarp::dev::IRGBDSensor::RGBDSensor_status sensorStatus;
     int                            verbose;
     bool                           initialize_YARP(yarp::os::Searchable& config);
@@ -154,14 +155,15 @@ private:
 
     // If a subdevice parameter is given, the wrapper will open it and attach to immediately.
     // Typical usage: simulator or command line
-    bool                           isSubdeviceOwned;
-    yarp::dev::PolyDriver*         subDeviceOwned;
+    bool                           isSubdeviceOwned = false;
+    yarp::dev::PolyDriver*         subDeviceOwned = nullptr;
     bool                           openAndAttachSubDevice(yarp::os::Searchable& prop);
 
     // Synch
     yarp::os::Stamp                colorStamp;
     yarp::os::Stamp                depthStamp;
     yarp::os::Property             m_conf;
+    bool                           m_force_frames_duplicates=false;
 
     bool writeData();
     bool setCamInfo(const std::string&                     frame_id,

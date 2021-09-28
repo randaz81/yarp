@@ -169,12 +169,8 @@ bool RGBDSensorParser::respond(const Bottle& cmd, Bottle& response)
 RgbdSensor_nws_yarp::RgbdSensor_nws_yarp() :
     PeriodicThread(DEFAULT_THREAD_PERIOD),
     period(DEFAULT_THREAD_PERIOD),
-    sensor_p(nullptr),
-    fgCtrl(nullptr),
     sensorStatus(IRGBDSensor::RGBD_SENSOR_NOT_READY),
-    verbose(4),
-    isSubdeviceOwned(false),
-    subDeviceOwned(nullptr)
+    verbose(4)
 {}
 
 RgbdSensor_nws_yarp::~RgbdSensor_nws_yarp()
@@ -241,6 +237,11 @@ bool RgbdSensor_nws_yarp::fromConfig(yarp::os::Searchable &config)
         }
     } else {
         period = config.find("period").asFloat64();
+    }
+
+    if (config.check("force_frames_duplicates", "(default false) if true, the nws is allowed to publish duplicate frames (depending on the thread period)"))
+    {
+        m_force_frames_duplicates = true;
     }
 
     std::string rootName;
@@ -541,7 +542,7 @@ bool RgbdSensor_nws_yarp::writeData()
     else { oldDepthStamp = depthStamp; }
 
     // TBD: We should check here somehow if the timestamp was correctly updated and, if not, update it ourselves.
-    if (rgb_data_ok)
+    if (rgb_data_ok || m_force_frames_duplicates)
     {
         FlexImage& yColorImage = colorFrame_StreamingPort.prepare();
         yColorImage.setPixelCode(colorImage.getPixelCode());
@@ -550,7 +551,7 @@ bool RgbdSensor_nws_yarp::writeData()
         colorFrame_StreamingPort.setEnvelope(colorStamp);
         colorFrame_StreamingPort.write();
     }
-    if (depth_data_ok)
+    if (depth_data_ok || m_force_frames_duplicates)
     {
         ImageOf<PixelFloat>& yDepthImage = depthFrame_StreamingPort.prepare();
         yDepthImage.setQuantum(depthImage.getQuantum());
