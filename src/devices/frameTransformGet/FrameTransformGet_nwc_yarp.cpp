@@ -138,8 +138,9 @@ bool FrameTransformGet_nwc_yarp::close()
 
 bool FrameTransformGet_nwc_yarp::getTransforms(std::vector<yarp::math::FrameTransform>& transforms) const
 {
-    if (!m_streaming_port_enabled)
+    if (!m_streaming_port_enabled || m_sync_request)
     {
+        m_sync_request = false;
         return_getAllTransforms retrievedFromRPC = m_frameTransformStorageGetRPC.getTransformsRPC();
         if(!retrievedFromRPC.retvalue)
         {
@@ -161,6 +162,12 @@ bool FrameTransformGet_nwc_yarp::getTransforms(std::vector<yarp::math::FrameTran
         yCError(FRAMETRANSFORMGETNWCYARP, "Unable to get transformations");
         return false;
     }
+}
+
+bool FrameTransformGet_nwc_yarp::sync_nwc()
+{
+    m_sync_request=true;
+    return true;
 }
 
 bool FrameTransformGet_nwc_yarp::DataReader::getData(return_getAllTransforms& data)

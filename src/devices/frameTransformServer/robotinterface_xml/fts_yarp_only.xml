@@ -31,6 +31,7 @@
         </device>
         <!-- **************** STORAGE **************** -->
         <device name="ftc_storage" type="frameTransformStorage">
+            <param name="storage_name">"ServerStorage"</param>
         </device>
     </devices>
 </robot>

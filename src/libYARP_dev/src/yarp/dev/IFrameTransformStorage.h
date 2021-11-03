@@ -18,6 +18,7 @@ namespace yarp {
         class IFrameTransformStorageSet;
         class IFrameTransformStorageGet;
         class IFrameTransformStorageUtils;
+        class IFrameTransformGet_nwc_yarp_control;
       }
 }
 
@@ -78,7 +79,6 @@ public:
     * @return true/false
     */
     virtual bool getTransforms(std::vector<yarp::math::FrameTransform>& transforms) const = 0;
-
 };
 
 /**
@@ -94,6 +94,19 @@ public:
     virtual bool size (size_t& size) const =0;
 
     virtual bool getInternalContainer(FrameTransformContainer*& container)  =0;
+
+    virtual bool startStorageThread() = 0;
+
+    virtual bool stopStorageThread() = 0;
+
+};
+
+class YARP_dev_API yarp::dev::IFrameTransformGet_nwc_yarp_control
+{
+public:
+    virtual ~IFrameTransformGet_nwc_yarp_control();
+
+    virtual bool sync_nwc() = 0;
 };
 
 #endif // YARP_DEV_IFRAMETRANSFORM_STORAGE_H

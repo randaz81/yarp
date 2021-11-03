@@ -98,7 +98,8 @@
  */
 class FrameTransformGet_nwc_yarp:
     public yarp::dev::DeviceDriver,
-    public yarp::dev::IFrameTransformStorageGet
+    public yarp::dev::IFrameTransformStorageGet,
+    public yarp::dev::IFrameTransformGet_nwc_yarp_control
 {
     class DataReader : public yarp::os::BufferedPort<return_getAllTransforms>
     {
@@ -127,6 +128,9 @@ public:
 
     // yarp::dev::IFrameTransformStorageGet
     bool getTransforms(std::vector<yarp::math::FrameTransform>& transforms) const override;
+
+    mutable bool m_sync_request = false;
+    bool sync_nwc() override;
 
 private:
     int            m_verbose{4};

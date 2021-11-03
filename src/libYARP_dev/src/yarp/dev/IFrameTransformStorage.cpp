@@ -8,3 +8,4 @@
 yarp::dev::IFrameTransformStorageSet::~IFrameTransformStorageSet() = default;
 yarp::dev::IFrameTransformStorageGet::~IFrameTransformStorageGet() = default;
 yarp::dev::IFrameTransformStorageUtils::~IFrameTransformStorageUtils() = default;
+yarp::dev::IFrameTransformGet_nwc_yarp_control::~IFrameTransformGet_nwc_yarp_control() = default;

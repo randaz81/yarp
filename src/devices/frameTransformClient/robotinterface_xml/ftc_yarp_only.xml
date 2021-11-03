@@ -25,6 +25,7 @@
         </device>
         <!-- **************** STORAGE **************** -->
         <device name="ftc_storage" type="frameTransformStorage">
+            <param name="storage_name">"ClientStorage"</param>
             <action phase="startup" level="5" type="attach">
                 <paramlist name="networks">
                     <elem name="subdevicegetyarp"> ftGet_nwc_yarp </elem>

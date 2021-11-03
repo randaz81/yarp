@@ -24,6 +24,23 @@ namespace {
 YARP_LOG_COMPONENT(TRANSFORMCLIENT, "yarp.device.transformClient")
 }
 
+bool Transforms_client_storage::delete_transform(std::string t1, std::string t2)
+{
+    std::lock_guard<std::recursive_mutex> l(m_mutex);
+
+    for (size_t i = 0; i < m_transforms.size(); i++)
+    {
+        if ((m_transforms[i].dst_frame_id == t1 && m_transforms[i].src_frame_id == t2) ||
+            (m_transforms[i].dst_frame_id == t2 && m_transforms[i].src_frame_id == t1))
+        {
+            m_transforms.erase(m_transforms.begin() + i);
+            return true;
+        }
+    }
+
+    return false;
+}
+
 inline void Transforms_client_storage::resetStat()
 {
     std::lock_guard<std::recursive_mutex> l(m_mutex);
@@ -547,6 +564,7 @@ bool TransformClient::canTransform(const std::string &target_frame, const std::s
 
 bool TransformClient::clear()
 {
+    //first delete it on the server
     yarp::os::Bottle b;
     yarp::os::Bottle resp;
     b.addVocab32(VOCAB_ITRANSFORM);
@@ -566,6 +584,7 @@ bool TransformClient::clear()
         return false;
     }
 
+    //then delete it also in the local client
     m_transform_storage->clear();
     return true;
 }
@@ -816,6 +835,7 @@ bool TransformClient::setTransformStatic(const std::string &target_frame_id, con
 
 bool TransformClient::deleteTransform(const std::string &target_frame_id, const std::string &source_frame_id)
 {
+    //first delete it on the server
     yarp::os::Bottle b;
     yarp::os::Bottle resp;
     b.addVocab32(VOCAB_ITRANSFORM);
@@ -836,6 +856,17 @@ bool TransformClient::deleteTransform(const std::string &target_frame_id, const 
         yCError(TRANSFORMCLIENT) << "deleteFrame(): Error on writing on rpc port";
         return false;
     }
+
+    //then delete it also locally
+    if (m_transform_storage)
+    {
+        if (m_transform_storage->delete_transform(target_frame_id, source_frame_id) == false)
+        {
+            yCError(TRANSFORMCLIENT) << "deleteFrame(): Error while removing frame from local storage";
+            return false;
+        }
+    }
+
     return true;
 }
 

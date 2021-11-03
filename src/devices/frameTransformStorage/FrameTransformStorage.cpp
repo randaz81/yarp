@@ -26,6 +26,17 @@ bool FrameTransformStorage::getInternalContainer(FrameTransformContainer*& conta
 
 bool FrameTransformStorage::open(yarp::os::Searchable& config)
 {
+    std::string sss = config.toString();
+    if (config.check("storage_name"))
+    {
+        m_storage_name = config.find("storage_name").asString();
+    }
+    else
+    {
+        yCWarning(FRAMETRANSFORSTORAGE) << "Missing `storage_name` parameter";
+        m_storage_name = "storage_name_missing";
+        //return false;
+    }
     yCTrace(FRAMETRANSFORSTORAGE);
     bool b = this->start();
     return b;
@@ -111,4 +122,24 @@ bool FrameTransformStorage::clearAll()
 bool FrameTransformStorage::size(size_t& size) const
 {
     return m_tf_container.size(size);
+}
+
+bool FrameTransformStorage::startStorageThread()
+{
+    IFrameTransformGet_nwc_yarp_control* iCtrl = nullptr;
+    pDriver->view(iCtrl);
+    iCtrl->sync_nwc();
+
+    return this->start();
+}
+
+bool FrameTransformStorage::stopStorageThread()
+{
+    this->askToStop();
+    do
+    {
+        yarp::os::Time::delay(0.001);
+    }
+    while (this->isRunning());
+    return true;
 }
