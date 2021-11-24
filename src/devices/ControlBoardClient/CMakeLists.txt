@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: 2006-2021 Istituto Italiano di Tecnologia (IIT)
 # SPDX-License-Identifier: BSD-3-Clause
 
-yarp_prepare_plugin(remote_controlboard
+yarp_prepare_plugin(controlBoard_nwc_yarp
   CATEGORY device
   TYPE ControlBoard_nwc_yarp
   INCLUDE ControlBoard_nwc_yarp.h

@@ -12,6 +12,7 @@
 #include <yarp/os/BufferedPort.h>
 #include <yarp/os/Network.h>
 #include <yarp/os/PortablePair.h>
+#include <yarp/os/PortReader.h>
 #include <yarp/os/Stamp.h>
 #include <yarp/os/Time.h>
 #include <yarp/os/Vocab.h>
@@ -27,6 +28,7 @@
 #include <string>
 #include <vector>
 
+#include "IControlModeMsgsRPC.h"
 
 #ifdef MSVC
 #    pragma warning(disable : 4355)
@@ -47,11 +49,28 @@ class ControlBoardWrapperCommon;
 typedef yarp::os::PortablePair<yarp::os::Bottle, yarp::sig::Vector> CommandMessage;
 
 
+class IMap2DRPCd : public IControlModeMsgsRPC
+{
+private:
+    yarp::dev::IControlMode*  m_iCmd = nullptr;
+    std::mutex                m_mutex;
+
+public:
+    void setInterface(yarp::dev::IControlMode* _icmd) { m_iCmd = _icmd; }
+
+    return_getControlMode_singlej getControlMode_singlej(const std::int16_t j) override;
+    return_getControlModes_somej  getControlModes_somej(const std::vector<std::int16_t>& jnts) override;
+    return_getControlModes_allj   getControlModes_allj() override;
+    return_setControlMode_singlej setControlMode_singlej(const std::int16_t j, const std::int8_t mode) override;
+    return_setControlModes_somej  setControlModes_somej(const std::vector<std::int16_t>& jnts, const std::vector<std::int8_t>& modes) override;
+    return_setControlModes_allj   setControlModes_allj(const std::vector<std::int8_t>& modes) override;
+};
+
 /**
 * Helper object for parsing RPC port messages
 */
 class RPCMessagesParser :
-        public yarp::dev::DeviceResponder
+        public yarp::os::PortReader
 {
 protected:
     yarp::dev::IPidControl* rpc_IPid {nullptr};
@@ -78,6 +97,7 @@ protected:
     yarp::os::Stamp lastRpcStamp;
     std::mutex mutex;
     size_t controlledJoints {0};
+    IMap2DRPCd m_iCmd_rpc;
 
 public:
     /**
@@ -94,7 +114,9 @@ public:
     void init(yarp::dev::DeviceDriver* x);
     void reset();
 
-    bool respond(const yarp::os::Bottle& cmd, yarp::os::Bottle& response) override;
+    bool read(yarp::os::ConnectionReader& reader) override;
+
+    bool respond(const yarp::os::Bottle& cmd, yarp::os::Bottle& response);
 
     void handleTorqueMsg(const yarp::os::Bottle& cmd,
                          yarp::os::Bottle& response,

@@ -135,6 +135,9 @@ if(NOT SKIP_controlBoard_nws_yarp)
       ControlBoardLogComponent.h
   )
 
+  target_sources(yarp_controlBoard_nws_yarp PRIVATE $<TARGET_OBJECTS:IControlModeMsgs>)
+  target_include_directories(yarp_controlBoard_nws_yarp PRIVATE $<TARGET_PROPERTY:IControlModeMsgs,INTERFACE_INCLUDE_DIRECTORIES>)
+
   target_link_libraries(yarp_controlBoard_nws_yarp
     PRIVATE
       YARP::YARP_os

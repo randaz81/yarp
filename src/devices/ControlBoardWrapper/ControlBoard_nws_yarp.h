@@ -75,7 +75,6 @@ private:
     yarp::os::Port extendedOutputStatePort;                            // Port /stateExt:o streaming out the struct with the robot data
 
     yarp::os::PortWriterBuffer<yarp::dev::impl::jointData> extendedOutputState_buffer; // Buffer associated to the extendedOutputStatePort port
-    yarp::os::PortReaderBuffer<yarp::os::Bottle> inputRPC_buffer;                      // Buffer associated to the inputRPCPort port
 
     RPCMessagesParser RPC_parser;             // Message parser associated to the inputRPCPort port
     StreamingMessagesParser streaming_parser; // Message parser associated to the inputStreamingPort port

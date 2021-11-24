@@ -1366,6 +1366,43 @@ void RPCMessagesParser::handleRemoteCalibratorMsg(const yarp::os::Bottle& cmd, y
 
 
 // rpc callback
+bool RPCMessagesParser::read(yarp::os::ConnectionReader& connection)
+{
+    yarp::os::Bottle command;
+    yarp::os::Bottle reply;
+    bool ok = command.read(connection);
+    if (!ok) { return false; }
+    reply.clear();
+
+    if (m_iCmd_rpc.read(connection))
+    {
+        //parsed ok
+        bool done=true;
+    }
+    else if (command.get(0).isVocab32())
+    {
+        std::string ssss = command.toString();
+        if (respond(command, reply)==false)
+        {
+            yCError(CONTROLBOARD) << "Invalid command type";
+            reply.addVocab32(VOCAB_ERR);
+        }
+    }
+    else
+    {
+        yCError(CONTROLBOARD) << "Unable to parse message";
+        reply.addVocab32(VOCAB_ERR);
+    }
+
+    yarp::os::ConnectionWriter* returnToSender = connection.getWriter();
+    if (returnToSender != nullptr)
+    {
+        reply.write(*returnToSender);
+    }
+
+    return true;
+}
+
 bool RPCMessagesParser::respond(const yarp::os::Bottle& cmd, yarp::os::Bottle& response)
 {
     bool ok = false;
@@ -2349,7 +2386,7 @@ bool RPCMessagesParser::respond(const yarp::os::Bottle& cmd, yarp::os::Bottle& r
             } //switch code
 
             if (!rec) {
-                ok = DeviceResponder::respond(cmd, response);
+                ok = respond(cmd, response);
             }
         }
 
@@ -2374,34 +2411,6 @@ bool RPCMessagesParser::initialize()
         ok = rpc_IPosCtrl->getAxes(&tmp_axes);
         controlledJoints = static_cast<size_t>(tmp_axes);
     }
-
-    DeviceResponder::makeUsage();
-    addUsage("[get] [axes]", "get the number of axes");
-    addUsage("[get] [name] $iAxisNumber", "get a human-readable name for an axis, if available");
-    addUsage("[set] [pos] $iAxisNumber $fPosition", "command the position of an axis");
-    addUsage("[set] [rel] $iAxisNumber $fPosition", "command the relative position of an axis");
-    addUsage("[set] [vmo] $iAxisNumber $fVelocity", "command the velocity of an axis");
-    addUsage("[get] [enc] $iAxisNumber", "get the encoder value for an axis");
-
-    std::string args;
-    for (size_t i = 0; i < controlledJoints; i++) {
-        if (i > 0) {
-            args += " ";
-        }
-        // removed dependency from yarp internals
-        //args = args + "$f" + yarp::yarp::conf::numeric::to_string(i);
-    }
-    addUsage((std::string("[set] [poss] (") + args + ")").c_str(),
-             "command the position of all axes");
-    addUsage((std::string("[set] [rels] (") + args + ")").c_str(),
-             "command the relative position of all axes");
-    addUsage((std::string("[set] [vmos] (") + args + ")").c_str(),
-             "command the velocity of all axes");
-
-    addUsage("[set] [aen] $iAxisNumber", "enable (amplifier for) the given axis");
-    addUsage("[set] [adi] $iAxisNumber", "disable (amplifier for) the given axis");
-    addUsage("[get] [acu] $iAxisNumber", "get current for the given axis");
-    addUsage("[get] [acus]", "get current for all axes");
 
     return ok;
 }
@@ -2454,4 +2463,49 @@ void RPCMessagesParser::reset()
     rpc_IPWM = nullptr;
     rpc_IJointFault = nullptr;
     controlledJoints = 0;
+}
+
+
+//////////////////////////////////////////////////////////////////////////////////////////
+
+return_getControlMode_singlej IMap2DRPCd::getControlMode_singlej(const std::int16_t j)
+{
+    return_getControlMode_singlej ret;
+    return ret;
+}
+
+return_getControlModes_somej  IMap2DRPCd::getControlModes_somej(const std::vector<std::int16_t>& jnts)
+{
+    return_getControlModes_somej ret;
+    return ret;
+}
+
+return_getControlModes_allj   IMap2DRPCd::getControlModes_allj()
+{
+    return_getControlModes_allj ret;
+    return ret;
+}
+
+return_setControlMode_singlej IMap2DRPCd::setControlMode_singlej(const std::int16_t j, const std::int8_t mode)
+{
+    return_setControlMode_singlej ret;
+    std::lock_guard <std::mutex> lg(m_mutex);
+    ret.retvalue= m_iCmd->setControlMode(j,mode);
+    return ret;
+}
+
+return_setControlModes_somej  IMap2DRPCd::setControlModes_somej(const std::vector<std::int16_t>& jnts, const std::vector<std::int8_t>& modes)
+{
+    return_setControlModes_somej ret;
+    std::lock_guard <std::mutex> lg(m_mutex);
+   // ret.retvalue = m_iCmd->setControlModes(jnts.size(), jnts,modes);
+    return ret;
+}
+
+return_setControlModes_allj   IMap2DRPCd::setControlModes_allj(const std::vector<std::int8_t>& modes)
+{
+    return_setControlModes_allj ret;
+    std::lock_guard <std::mutex> lg(m_mutex);
+ //   ret.retvalue = m_iCmd->setControlModes(modes);
+    return ret;
 }

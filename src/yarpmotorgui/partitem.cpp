@@ -104,7 +104,8 @@ PartItem::PartItem(QString robotName, int id, QString partName, ResourceFinder& 
 
     // Initializing the polydriver options and instantiating the polydrivers
     m_partOptions.put("local", portLocalName.toLatin1().data());
-    m_partOptions.put("device", "remote_controlboard");
+//    m_partOptions.put("device", "remote_controlboard");
+    m_partOptions.put("device", "controlBoard_nwc_yarp");
     m_partOptions.put("remote", m_robotPartPort.toLatin1().data());
     m_partOptions.put("carrier", "udp");
 

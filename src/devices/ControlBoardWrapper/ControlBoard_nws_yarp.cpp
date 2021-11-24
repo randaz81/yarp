@@ -136,8 +136,6 @@ bool ControlBoard_nws_yarp::open(Searchable& config)
         return false;
     }
     inputRPCPort.setReader(RPC_parser);
-    inputRPC_buffer.attach(inputRPCPort);
-    RPC_parser.attach(inputRPC_buffer);
 
     if (!inputStreamingPort.open(rootName + "/command:i")) {
         yCError(CONTROLBOARD) << "Error opening port " << rootName + "/rpc:i";
