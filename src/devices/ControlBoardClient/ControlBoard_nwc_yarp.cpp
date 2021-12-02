@@ -2437,7 +2437,7 @@ bool ControlBoard_nwc_yarp::setControlModes(const int n_joint, const int *joints
         return false;
     }
 
-    std::vector<int8_t>  o_modes  (n_joint);
+    std::vector<int32_t> o_modes  (n_joint);
     std::vector<int16_t> o_joints (n_joint);
     for (size_t i = 0; i < n_joint; i++) { o_modes[i] =  modes[i]; }
     for (size_t i = 0; i < n_joint; i++) { o_joints[i] = joints[i]; }
@@ -2451,7 +2451,7 @@ bool ControlBoard_nwc_yarp::setControlModes(int *modes)
         return false;
     }
 
-    std::vector<int8_t> o_modes(nj);
+    std::vector<int32_t> o_modes(nj);
     for (size_t i = 0; i < nj; i++) {o_modes[i]=modes[i];}
     auto ret = m_iControlModeMsgsRPC.setControlModes_allj(o_modes);
     return ret.retvalue;

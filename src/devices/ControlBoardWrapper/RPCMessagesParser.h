@@ -61,9 +61,9 @@ public:
     return_getControlMode_singlej getControlMode_singlej(const std::int16_t j) override;
     return_getControlModes_somej  getControlModes_somej(const std::vector<std::int16_t>& jnts) override;
     return_getControlModes_allj   getControlModes_allj() override;
-    return_setControlMode_singlej setControlMode_singlej(const std::int16_t j, const std::int8_t mode) override;
-    return_setControlModes_somej  setControlModes_somej(const std::vector<std::int16_t>& jnts, const std::vector<std::int8_t>& modes) override;
-    return_setControlModes_allj   setControlModes_allj(const std::vector<std::int8_t>& modes) override;
+    return_setControlMode_singlej setControlMode_singlej(const std::int16_t j, const std::int32_t mode) override;
+    return_setControlModes_somej  setControlModes_somej(const std::vector<std::int16_t>& jnts, const std::vector<std::int32_t>& modes) override;
+    return_setControlModes_allj   setControlModes_allj(const std::vector<std::int32_t>& modes) override;
 };
 
 /**

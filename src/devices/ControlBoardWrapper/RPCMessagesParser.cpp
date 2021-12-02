@@ -10,6 +10,8 @@
 
 #include "ControlBoardWrapperCommon.h"
 #include "ControlBoardLogComponent.h"
+#include <yarp/os/DummyConnector.h>
+#include <yarp/os/Things.h>
 #include <iostream>
 
 using namespace yarp::os;
@@ -1368,36 +1370,49 @@ void RPCMessagesParser::handleRemoteCalibratorMsg(const yarp::os::Bottle& cmd, y
 // rpc callback
 bool RPCMessagesParser::read(yarp::os::ConnectionReader& connection)
 {
-    yarp::os::Bottle command;
-    yarp::os::Bottle reply;
-    bool ok = command.read(connection);
-    if (!ok) { return false; }
-    reply.clear();
+    yarp::os::ConnectionWriter* rrr = connection.getWriter();
 
-    if (m_iCmd_rpc.read(connection))
+    yarp::os::Bottle command;
+    command.read(connection);  //crea il comando leggendolo da dentro la connessione
+
+    yarp::os::DummyConnector con1;
+    command.write(con1.getWriter());
+
+    yarp::os::DummyConnector con2;
+    if (m_iCmd_rpc.read(con1.getReader(&con2.getWriter())))
     {
-        //parsed ok
-        bool done=true;
+        yarp::os::Bottle replybot;
+        replybot.read(con2.getReader());
+
+        yInfo() << replybot.toString();
+
+        yarp::os::ConnectionWriter* returnToSender = connection.getWriter();
+        if (returnToSender != nullptr)
+        {
+            replybot.write(*returnToSender);
+        }
     }
-    else if (command.get(0).isVocab32())
+
+    yarp::os::Bottle replybot2;
+    if (command.get(0).isVocab32())
     {
         std::string ssss = command.toString();
-        if (respond(command, reply)==false)
+        if (respond(command, replybot2)==false)
         {
-            yCError(CONTROLBOARD) << "Invalid command type";
-            reply.addVocab32(VOCAB_ERR);
+            yCError(CONTROLBOARD) << "Invalid command type" << command.toString();
+            replybot2.addVocab32(VOCAB_ERR);
         }
     }
     else
     {
         yCError(CONTROLBOARD) << "Unable to parse message";
-        reply.addVocab32(VOCAB_ERR);
+        replybot2.addVocab32(VOCAB_ERR);
     }
 
     yarp::os::ConnectionWriter* returnToSender = connection.getWriter();
     if (returnToSender != nullptr)
     {
-        reply.write(*returnToSender);
+        replybot2.write(*returnToSender);
     }
 
     return true;
@@ -2438,6 +2453,7 @@ void RPCMessagesParser::init(yarp::dev::DeviceDriver* x)
     x->view(rpc_IPWM);
     x->view(rpc_IJointFault);
     controlledJoints = 0;
+    m_iCmd_rpc.setInterface(rpc_iCtrlMode);
 }
 
 void RPCMessagesParser::reset()
@@ -2486,7 +2502,7 @@ return_getControlModes_allj   IMap2DRPCd::getControlModes_allj()
     return ret;
 }
 
-return_setControlMode_singlej IMap2DRPCd::setControlMode_singlej(const std::int16_t j, const std::int8_t mode)
+return_setControlMode_singlej IMap2DRPCd::setControlMode_singlej(const std::int16_t j, const std::int32_t mode)
 {
     return_setControlMode_singlej ret;
     std::lock_guard <std::mutex> lg(m_mutex);
@@ -2494,7 +2510,7 @@ return_setControlMode_singlej IMap2DRPCd::setControlMode_singlej(const std::int1
     return ret;
 }
 
-return_setControlModes_somej  IMap2DRPCd::setControlModes_somej(const std::vector<std::int16_t>& jnts, const std::vector<std::int8_t>& modes)
+return_setControlModes_somej  IMap2DRPCd::setControlModes_somej(const std::vector<std::int16_t>& jnts, const std::vector<std::int32_t>& modes)
 {
     return_setControlModes_somej ret;
     std::lock_guard <std::mutex> lg(m_mutex);
@@ -2502,7 +2518,7 @@ return_setControlModes_somej  IMap2DRPCd::setControlModes_somej(const std::vecto
     return ret;
 }
 
-return_setControlModes_allj   IMap2DRPCd::setControlModes_allj(const std::vector<std::int8_t>& modes)
+return_setControlModes_allj   IMap2DRPCd::setControlModes_allj(const std::vector<std::int32_t>& modes)
 {
     return_setControlModes_allj ret;
     std::lock_guard <std::mutex> lg(m_mutex);
