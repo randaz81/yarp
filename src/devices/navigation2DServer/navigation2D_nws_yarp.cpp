@@ -153,7 +153,9 @@ bool navigation2D_nws_yarp::close()
 
 bool navigation2D_nws_yarp::read(yarp::os::ConnectionReader& connection)
 {
-    bool b = m_RPC.read(connection);
+    return m_RPC.read(connection);
+
+   /* bool b = m_RPC.read(connection);
     if (b)
     {
         return true;
@@ -161,8 +163,16 @@ bool navigation2D_nws_yarp::read(yarp::os::ConnectionReader& connection)
     else
     {
         yCDebug(NAVIGATION2D_NWS_YARP) << "read() Command failed";
-        return false;
+        yarp::os::Bottle replybot;
+        replybot.addVocab32(VOCAB_ERR);
+        yarp::os::ConnectionWriter* returnToSender = connection.getWriter();
+        if (returnToSender != nullptr)
+        {
+            replybot.write(*returnToSender);
+        }
     }
+    return true;
+*/
 }
 
 void navigation2D_nws_yarp::run()

@@ -81,6 +81,7 @@ TEST_CASE("dev::Navigation2DNwcTest", "[yarp::dev]")
         // Do tests
         exec_iNav2D_test_1(inav, imap);
         exec_iNav2D_test_2(inav, imap);
+        exec_iNav2D_test_3(inav, imap);
 
         //"Close all polydrivers and check"
         {

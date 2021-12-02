@@ -16,5 +16,6 @@ using namespace yarp::os;
 
 void exec_iNav2D_test_1(INavigation2D* inav, IMap2D* imap);
 void exec_iNav2D_test_2(INavigation2D* inav, IMap2D* imap);
+void exec_iNav2D_test_3(INavigation2D* inav, IMap2D* imap);
 
 #endif

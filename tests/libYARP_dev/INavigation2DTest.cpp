@@ -185,3 +185,30 @@ void exec_iNav2D_test_2(INavigation2D* inav, IMap2D* imap)
     b1 = inav->gotoTargetByLocationName("non-existing-loc"); CHECK(b1 == false);
     b1 = inav->getAbsoluteLocationOfCurrentTarget(gloc1); CHECK(b1); CHECK(gloc1 == gloc_empty);
 }
+
+void exec_iNav2D_test_3(INavigation2D* inav, IMap2D* imap)
+{
+    //////////"Checking INavigation2D methods
+    {
+        bool b0, b1, b2;
+        Map2DLocation waypoint;
+        NavigationStatusEnum status;
+        b0 = inav->stopNavigation(); CHECK(b0);
+        b1 = inav->getNavigationStatus(status); CHECK(b1);
+        b2 = inav->getCurrentNavigationWaypoint(waypoint); CHECK(b2);
+    }
+
+    {
+        bool b0, b1;
+        Map2DPath ppath;
+        b0 = inav->getAllNavigationWaypoints(yarp::dev::Nav2D::global_trajectory,ppath);  CHECK(b0);
+        b1 = inav->getAllNavigationWaypoints(yarp::dev::Nav2D::local_trajectory, ppath);  CHECK(b1);
+    }
+
+    {
+        bool b0, b1;
+        MapGrid2D gmap;
+        b0 = inav->getCurrentNavigationMap(yarp::dev::Nav2D::global_map, gmap); CHECK(b0);
+        b1 = inav->getCurrentNavigationMap(yarp::dev::Nav2D::local_map, gmap);  CHECK(b1);
+    }
+}
