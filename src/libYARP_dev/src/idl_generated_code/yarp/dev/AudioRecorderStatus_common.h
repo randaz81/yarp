@@ -14,6 +14,7 @@
 
 namespace yarp::dev {
 
+/* t_yarp_generator::generate_typedef:1908 */
 typedef size_t size_t;
 
 } // namespace yarp::dev

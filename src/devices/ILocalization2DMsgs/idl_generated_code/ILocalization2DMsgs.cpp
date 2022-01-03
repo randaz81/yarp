@@ -1,3 +1,4 @@
+/* t_yarp_generator::generate_service:3617 */
 /*
  * SPDX-FileCopyrightText: 2006-2021 Istituto Italiano di Tecnologia (IIT)
  * SPDX-License-Identifier: BSD-3-Clause
@@ -14,6 +15,9 @@
 
 #include <algorithm>
 
+/* t_yarp_generator::generate_service:3713 */
+/* t_yarp_generator::generate_service_helper_classes:3761 */
+/* t_yarp_generator::generate_service_helper_classes_decl:3778 */
 // start_localization_service_RPC helper class declaration
 class ILocalization2DMsgs_start_localization_service_RPC_helper :
         public yarp::os::Portable
@@ -72,6 +76,7 @@ public:
     static constexpr const char* s_help{""};
 };
 
+/* t_yarp_generator::generate_service_helper_classes_decl:3778 */
 // stop_localization_service_RPC helper class declaration
 class ILocalization2DMsgs_stop_localization_service_RPC_helper :
         public yarp::os::Portable
@@ -130,6 +135,7 @@ public:
     static constexpr const char* s_help{""};
 };
 
+/* t_yarp_generator::generate_service_helper_classes_decl:3778 */
 // get_localization_status_RPC helper class declaration
 class ILocalization2DMsgs_get_localization_status_RPC_helper :
         public yarp::os::Portable
@@ -171,10 +177,10 @@ public:
         bool write(const yarp::os::idl::WireWriter& writer) const override;
         bool read(yarp::os::idl::WireReader& reader) override;
 
-        return_get_localization_status return_helper{};
+        return_get_localization_statusStorage return_helper{};
     };
 
-    using funcptr_t = return_get_localization_status (*)();
+    using funcptr_t = return_get_localization_statusStorage (*)();
     void call(ILocalization2DMsgs* ptr);
 
     Command cmd;
@@ -184,10 +190,11 @@ public:
     static constexpr size_t s_tag_len{4};
     static constexpr size_t s_cmd_len{4};
     static constexpr size_t s_reply_len{2};
-    static constexpr const char* s_prototype{"return_get_localization_status ILocalization2DMsgs::get_localization_status_RPC()"};
+    static constexpr const char* s_prototype{"return_get_localization_statusStorage ILocalization2DMsgs::get_localization_status_RPC()"};
     static constexpr const char* s_help{""};
 };
 
+/* t_yarp_generator::generate_service_helper_classes_decl:3778 */
 // get_estimated_poses_RPC helper class declaration
 class ILocalization2DMsgs_get_estimated_poses_RPC_helper :
         public yarp::os::Portable
@@ -229,10 +236,10 @@ public:
         bool write(const yarp::os::idl::WireWriter& writer) const override;
         bool read(yarp::os::idl::WireReader& reader) override;
 
-        return_get_estimated_poses return_helper{};
+        return_get_estimated_posesStorage return_helper{};
     };
 
-    using funcptr_t = return_get_estimated_poses (*)();
+    using funcptr_t = return_get_estimated_posesStorage (*)();
     void call(ILocalization2DMsgs* ptr);
 
     Command cmd;
@@ -242,10 +249,11 @@ public:
     static constexpr size_t s_tag_len{4};
     static constexpr size_t s_cmd_len{4};
     static constexpr size_t s_reply_len{2};
-    static constexpr const char* s_prototype{"return_get_estimated_poses ILocalization2DMsgs::get_estimated_poses_RPC()"};
+    static constexpr const char* s_prototype{"return_get_estimated_posesStorage ILocalization2DMsgs::get_estimated_poses_RPC()"};
     static constexpr const char* s_help{""};
 };
 
+/* t_yarp_generator::generate_service_helper_classes_decl:3778 */
 // get_current_position1_RPC helper class declaration
 class ILocalization2DMsgs_get_current_position1_RPC_helper :
         public yarp::os::Portable
@@ -287,10 +295,10 @@ public:
         bool write(const yarp::os::idl::WireWriter& writer) const override;
         bool read(yarp::os::idl::WireReader& reader) override;
 
-        return_get_current_position1 return_helper{};
+        return_get_current_position1Storage return_helper{};
     };
 
-    using funcptr_t = return_get_current_position1 (*)();
+    using funcptr_t = return_get_current_position1Storage (*)();
     void call(ILocalization2DMsgs* ptr);
 
     Command cmd;
@@ -300,10 +308,11 @@ public:
     static constexpr size_t s_tag_len{4};
     static constexpr size_t s_cmd_len{4};
     static constexpr size_t s_reply_len{2};
-    static constexpr const char* s_prototype{"return_get_current_position1 ILocalization2DMsgs::get_current_position1_RPC()"};
+    static constexpr const char* s_prototype{"return_get_current_position1Storage ILocalization2DMsgs::get_current_position1_RPC()"};
     static constexpr const char* s_help{""};
 };
 
+/* t_yarp_generator::generate_service_helper_classes_decl:3778 */
 // get_current_position2_RPC helper class declaration
 class ILocalization2DMsgs_get_current_position2_RPC_helper :
         public yarp::os::Portable
@@ -345,10 +354,10 @@ public:
         bool write(const yarp::os::idl::WireWriter& writer) const override;
         bool read(yarp::os::idl::WireReader& reader) override;
 
-        return_get_current_position2 return_helper{};
+        return_get_current_position2Storage return_helper{};
     };
 
-    using funcptr_t = return_get_current_position2 (*)();
+    using funcptr_t = return_get_current_position2Storage (*)();
     void call(ILocalization2DMsgs* ptr);
 
     Command cmd;
@@ -358,10 +367,11 @@ public:
     static constexpr size_t s_tag_len{4};
     static constexpr size_t s_cmd_len{4};
     static constexpr size_t s_reply_len{3};
-    static constexpr const char* s_prototype{"return_get_current_position2 ILocalization2DMsgs::get_current_position2_RPC()"};
+    static constexpr const char* s_prototype{"return_get_current_position2Storage ILocalization2DMsgs::get_current_position2_RPC()"};
     static constexpr const char* s_help{""};
 };
 
+/* t_yarp_generator::generate_service_helper_classes_decl:3778 */
 // get_estimated_odometry_RPC helper class declaration
 class ILocalization2DMsgs_get_estimated_odometry_RPC_helper :
         public yarp::os::Portable
@@ -403,10 +413,10 @@ public:
         bool write(const yarp::os::idl::WireWriter& writer) const override;
         bool read(yarp::os::idl::WireReader& reader) override;
 
-        return_get_estimated_odometry return_helper{};
+        return_get_estimated_odometryStorage return_helper{};
     };
 
-    using funcptr_t = return_get_estimated_odometry (*)();
+    using funcptr_t = return_get_estimated_odometryStorage (*)();
     void call(ILocalization2DMsgs* ptr);
 
     Command cmd;
@@ -416,10 +426,11 @@ public:
     static constexpr size_t s_tag_len{4};
     static constexpr size_t s_cmd_len{4};
     static constexpr size_t s_reply_len{2};
-    static constexpr const char* s_prototype{"return_get_estimated_odometry ILocalization2DMsgs::get_estimated_odometry_RPC()"};
+    static constexpr const char* s_prototype{"return_get_estimated_odometryStorage ILocalization2DMsgs::get_estimated_odometry_RPC()"};
     static constexpr const char* s_help{""};
 };
 
+/* t_yarp_generator::generate_service_helper_classes_decl:3778 */
 // set_initial_pose1_RPC helper class declaration
 class ILocalization2DMsgs_set_initial_pose1_RPC_helper :
         public yarp::os::Portable
@@ -483,6 +494,7 @@ public:
     static constexpr const char* s_help{""};
 };
 
+/* t_yarp_generator::generate_service_helper_classes_decl:3778 */
 // set_initial_pose2_RPC helper class declaration
 class ILocalization2DMsgs_set_initial_pose2_RPC_helper :
         public yarp::os::Portable
@@ -547,17 +559,21 @@ public:
     static constexpr const char* s_help{""};
 };
 
+/* t_yarp_generator::generate_service_helper_classes_impl:3924 */
 // start_localization_service_RPC helper class implementation
+/* t_yarp_generator::generate_service_helper_classes_impl_write:3990 */
 bool ILocalization2DMsgs_start_localization_service_RPC_helper::write(yarp::os::ConnectionWriter& connection) const
 {
     return cmd.write(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_read:4038 */
 bool ILocalization2DMsgs_start_localization_service_RPC_helper::read(yarp::os::ConnectionReader& connection)
 {
     return reply.read(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_connectionwriter:4058 */
 bool ILocalization2DMsgs_start_localization_service_RPC_helper::Command::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
@@ -567,6 +583,7 @@ bool ILocalization2DMsgs_start_localization_service_RPC_helper::Command::write(y
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_connectionreader:4080 */
 bool ILocalization2DMsgs_start_localization_service_RPC_helper::Command::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
@@ -577,6 +594,7 @@ bool ILocalization2DMsgs_start_localization_service_RPC_helper::Command::read(ya
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_wirewriter:4110 */
 bool ILocalization2DMsgs_start_localization_service_RPC_helper::Command::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writeTag(writer)) {
@@ -588,6 +606,7 @@ bool ILocalization2DMsgs_start_localization_service_RPC_helper::Command::write(c
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writetag:4132 */
 bool ILocalization2DMsgs_start_localization_service_RPC_helper::Command::writeTag(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.writeTag(s_tag, 1, s_tag_len)) {
@@ -596,11 +615,13 @@ bool ILocalization2DMsgs_start_localization_service_RPC_helper::Command::writeTa
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writeargs:4153 */
 bool ILocalization2DMsgs_start_localization_service_RPC_helper::Command::writeArgs(const yarp::os::idl::WireWriter& writer [[maybe_unused]]) const
 {
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_wirereader:4181 */
 bool ILocalization2DMsgs_start_localization_service_RPC_helper::Command::read(yarp::os::idl::WireReader& reader)
 {
     if (!readTag(reader)) {
@@ -612,6 +633,7 @@ bool ILocalization2DMsgs_start_localization_service_RPC_helper::Command::read(ya
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readtag:4201 */
 bool ILocalization2DMsgs_start_localization_service_RPC_helper::Command::readTag(yarp::os::idl::WireReader& reader)
 {
     std::string tag = reader.readTag(s_tag_len);
@@ -625,6 +647,7 @@ bool ILocalization2DMsgs_start_localization_service_RPC_helper::Command::readTag
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readargs:4229 */
 bool ILocalization2DMsgs_start_localization_service_RPC_helper::Command::readArgs(yarp::os::idl::WireReader& reader)
 {
     if (!reader.noMore()) {
@@ -634,24 +657,28 @@ bool ILocalization2DMsgs_start_localization_service_RPC_helper::Command::readArg
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_connectionwriter:4259 */
 bool ILocalization2DMsgs_start_localization_service_RPC_helper::Reply::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_connectionreader:4280 */
 bool ILocalization2DMsgs_start_localization_service_RPC_helper::Reply::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_wirewriter:4301 */
 bool ILocalization2DMsgs_start_localization_service_RPC_helper::Reply::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.isNull()) {
         if (!writer.writeListHeader(s_reply_len)) {
             return false;
         }
+/* t_yarp_generator::generate_serialize_field:1093 */
         if (!writer.writeBool(return_helper)) {
             return false;
         }
@@ -659,38 +686,46 @@ bool ILocalization2DMsgs_start_localization_service_RPC_helper::Reply::write(con
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_wirereader:4347 */
 bool ILocalization2DMsgs_start_localization_service_RPC_helper::Reply::read(yarp::os::idl::WireReader& reader)
 {
     if (!reader.readListReturn()) {
         return false;
     }
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
     if (!reader.readBool(return_helper)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_call:4385 */
 void ILocalization2DMsgs_start_localization_service_RPC_helper::call(ILocalization2DMsgs* ptr)
 {
     reply.return_helper = ptr->start_localization_service_RPC();
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl:3924 */
 // stop_localization_service_RPC helper class implementation
+/* t_yarp_generator::generate_service_helper_classes_impl_write:3990 */
 bool ILocalization2DMsgs_stop_localization_service_RPC_helper::write(yarp::os::ConnectionWriter& connection) const
 {
     return cmd.write(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_read:4038 */
 bool ILocalization2DMsgs_stop_localization_service_RPC_helper::read(yarp::os::ConnectionReader& connection)
 {
     return reply.read(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_connectionwriter:4058 */
 bool ILocalization2DMsgs_stop_localization_service_RPC_helper::Command::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
@@ -700,6 +735,7 @@ bool ILocalization2DMsgs_stop_localization_service_RPC_helper::Command::write(ya
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_connectionreader:4080 */
 bool ILocalization2DMsgs_stop_localization_service_RPC_helper::Command::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
@@ -710,6 +746,7 @@ bool ILocalization2DMsgs_stop_localization_service_RPC_helper::Command::read(yar
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_wirewriter:4110 */
 bool ILocalization2DMsgs_stop_localization_service_RPC_helper::Command::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writeTag(writer)) {
@@ -721,6 +758,7 @@ bool ILocalization2DMsgs_stop_localization_service_RPC_helper::Command::write(co
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writetag:4132 */
 bool ILocalization2DMsgs_stop_localization_service_RPC_helper::Command::writeTag(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.writeTag(s_tag, 1, s_tag_len)) {
@@ -729,11 +767,13 @@ bool ILocalization2DMsgs_stop_localization_service_RPC_helper::Command::writeTag
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writeargs:4153 */
 bool ILocalization2DMsgs_stop_localization_service_RPC_helper::Command::writeArgs(const yarp::os::idl::WireWriter& writer [[maybe_unused]]) const
 {
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_wirereader:4181 */
 bool ILocalization2DMsgs_stop_localization_service_RPC_helper::Command::read(yarp::os::idl::WireReader& reader)
 {
     if (!readTag(reader)) {
@@ -745,6 +785,7 @@ bool ILocalization2DMsgs_stop_localization_service_RPC_helper::Command::read(yar
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readtag:4201 */
 bool ILocalization2DMsgs_stop_localization_service_RPC_helper::Command::readTag(yarp::os::idl::WireReader& reader)
 {
     std::string tag = reader.readTag(s_tag_len);
@@ -758,6 +799,7 @@ bool ILocalization2DMsgs_stop_localization_service_RPC_helper::Command::readTag(
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readargs:4229 */
 bool ILocalization2DMsgs_stop_localization_service_RPC_helper::Command::readArgs(yarp::os::idl::WireReader& reader)
 {
     if (!reader.noMore()) {
@@ -767,24 +809,28 @@ bool ILocalization2DMsgs_stop_localization_service_RPC_helper::Command::readArgs
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_connectionwriter:4259 */
 bool ILocalization2DMsgs_stop_localization_service_RPC_helper::Reply::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_connectionreader:4280 */
 bool ILocalization2DMsgs_stop_localization_service_RPC_helper::Reply::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_wirewriter:4301 */
 bool ILocalization2DMsgs_stop_localization_service_RPC_helper::Reply::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.isNull()) {
         if (!writer.writeListHeader(s_reply_len)) {
             return false;
         }
+/* t_yarp_generator::generate_serialize_field:1093 */
         if (!writer.writeBool(return_helper)) {
             return false;
         }
@@ -792,38 +838,46 @@ bool ILocalization2DMsgs_stop_localization_service_RPC_helper::Reply::write(cons
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_wirereader:4347 */
 bool ILocalization2DMsgs_stop_localization_service_RPC_helper::Reply::read(yarp::os::idl::WireReader& reader)
 {
     if (!reader.readListReturn()) {
         return false;
     }
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
     if (!reader.readBool(return_helper)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_call:4385 */
 void ILocalization2DMsgs_stop_localization_service_RPC_helper::call(ILocalization2DMsgs* ptr)
 {
     reply.return_helper = ptr->stop_localization_service_RPC();
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl:3924 */
 // get_localization_status_RPC helper class implementation
+/* t_yarp_generator::generate_service_helper_classes_impl_write:3990 */
 bool ILocalization2DMsgs_get_localization_status_RPC_helper::write(yarp::os::ConnectionWriter& connection) const
 {
     return cmd.write(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_read:4038 */
 bool ILocalization2DMsgs_get_localization_status_RPC_helper::read(yarp::os::ConnectionReader& connection)
 {
     return reply.read(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_connectionwriter:4058 */
 bool ILocalization2DMsgs_get_localization_status_RPC_helper::Command::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
@@ -833,6 +887,7 @@ bool ILocalization2DMsgs_get_localization_status_RPC_helper::Command::write(yarp
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_connectionreader:4080 */
 bool ILocalization2DMsgs_get_localization_status_RPC_helper::Command::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
@@ -843,6 +898,7 @@ bool ILocalization2DMsgs_get_localization_status_RPC_helper::Command::read(yarp:
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_wirewriter:4110 */
 bool ILocalization2DMsgs_get_localization_status_RPC_helper::Command::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writeTag(writer)) {
@@ -854,6 +910,7 @@ bool ILocalization2DMsgs_get_localization_status_RPC_helper::Command::write(cons
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writetag:4132 */
 bool ILocalization2DMsgs_get_localization_status_RPC_helper::Command::writeTag(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.writeTag(s_tag, 1, s_tag_len)) {
@@ -862,11 +919,13 @@ bool ILocalization2DMsgs_get_localization_status_RPC_helper::Command::writeTag(c
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writeargs:4153 */
 bool ILocalization2DMsgs_get_localization_status_RPC_helper::Command::writeArgs(const yarp::os::idl::WireWriter& writer [[maybe_unused]]) const
 {
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_wirereader:4181 */
 bool ILocalization2DMsgs_get_localization_status_RPC_helper::Command::read(yarp::os::idl::WireReader& reader)
 {
     if (!readTag(reader)) {
@@ -878,6 +937,7 @@ bool ILocalization2DMsgs_get_localization_status_RPC_helper::Command::read(yarp:
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readtag:4201 */
 bool ILocalization2DMsgs_get_localization_status_RPC_helper::Command::readTag(yarp::os::idl::WireReader& reader)
 {
     std::string tag = reader.readTag(s_tag_len);
@@ -891,6 +951,7 @@ bool ILocalization2DMsgs_get_localization_status_RPC_helper::Command::readTag(ya
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readargs:4229 */
 bool ILocalization2DMsgs_get_localization_status_RPC_helper::Command::readArgs(yarp::os::idl::WireReader& reader)
 {
     if (!reader.noMore()) {
@@ -900,63 +961,79 @@ bool ILocalization2DMsgs_get_localization_status_RPC_helper::Command::readArgs(y
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_connectionwriter:4259 */
 bool ILocalization2DMsgs_get_localization_status_RPC_helper::Reply::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_connectionreader:4280 */
 bool ILocalization2DMsgs_get_localization_status_RPC_helper::Reply::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_wirewriter:4301 */
 bool ILocalization2DMsgs_get_localization_status_RPC_helper::Reply::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.isNull()) {
         if (!writer.writeListHeader(s_reply_len)) {
             return false;
         }
-        if (!writer.write(return_helper)) {
+/* t_yarp_generator::generate_serialize_field:1093 */
+/* t_yarp_generator::generate_serialize_struct:1215 */
+        const return_get_localization_statusSerializer tmp_return_get_localization_statusSerializer(return_helper);
+        if (!writer.write(tmp_return_get_localization_statusSerializer)) {
             return false;
         }
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_wirereader:4347 */
 bool ILocalization2DMsgs_get_localization_status_RPC_helper::Reply::read(yarp::os::idl::WireReader& reader)
 {
     if (!reader.readListReturn()) {
         return false;
     }
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
-    if (!reader.read(return_helper)) {
+/* t_yarp_generator::generate_deserialize_struct:1516 */
+    return_get_localization_statusSerializer tmp_return_get_localization_statusSerializer(return_helper);
+    if (!reader.read(tmp_return_get_localization_statusSerializer)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_call:4385 */
 void ILocalization2DMsgs_get_localization_status_RPC_helper::call(ILocalization2DMsgs* ptr)
 {
     reply.return_helper = ptr->get_localization_status_RPC();
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl:3924 */
 // get_estimated_poses_RPC helper class implementation
+/* t_yarp_generator::generate_service_helper_classes_impl_write:3990 */
 bool ILocalization2DMsgs_get_estimated_poses_RPC_helper::write(yarp::os::ConnectionWriter& connection) const
 {
     return cmd.write(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_read:4038 */
 bool ILocalization2DMsgs_get_estimated_poses_RPC_helper::read(yarp::os::ConnectionReader& connection)
 {
     return reply.read(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_connectionwriter:4058 */
 bool ILocalization2DMsgs_get_estimated_poses_RPC_helper::Command::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
@@ -966,6 +1043,7 @@ bool ILocalization2DMsgs_get_estimated_poses_RPC_helper::Command::write(yarp::os
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_connectionreader:4080 */
 bool ILocalization2DMsgs_get_estimated_poses_RPC_helper::Command::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
@@ -976,6 +1054,7 @@ bool ILocalization2DMsgs_get_estimated_poses_RPC_helper::Command::read(yarp::os:
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_wirewriter:4110 */
 bool ILocalization2DMsgs_get_estimated_poses_RPC_helper::Command::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writeTag(writer)) {
@@ -987,6 +1066,7 @@ bool ILocalization2DMsgs_get_estimated_poses_RPC_helper::Command::write(const ya
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writetag:4132 */
 bool ILocalization2DMsgs_get_estimated_poses_RPC_helper::Command::writeTag(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.writeTag(s_tag, 1, s_tag_len)) {
@@ -995,11 +1075,13 @@ bool ILocalization2DMsgs_get_estimated_poses_RPC_helper::Command::writeTag(const
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writeargs:4153 */
 bool ILocalization2DMsgs_get_estimated_poses_RPC_helper::Command::writeArgs(const yarp::os::idl::WireWriter& writer [[maybe_unused]]) const
 {
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_wirereader:4181 */
 bool ILocalization2DMsgs_get_estimated_poses_RPC_helper::Command::read(yarp::os::idl::WireReader& reader)
 {
     if (!readTag(reader)) {
@@ -1011,6 +1093,7 @@ bool ILocalization2DMsgs_get_estimated_poses_RPC_helper::Command::read(yarp::os:
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readtag:4201 */
 bool ILocalization2DMsgs_get_estimated_poses_RPC_helper::Command::readTag(yarp::os::idl::WireReader& reader)
 {
     std::string tag = reader.readTag(s_tag_len);
@@ -1024,6 +1107,7 @@ bool ILocalization2DMsgs_get_estimated_poses_RPC_helper::Command::readTag(yarp::
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readargs:4229 */
 bool ILocalization2DMsgs_get_estimated_poses_RPC_helper::Command::readArgs(yarp::os::idl::WireReader& reader)
 {
     if (!reader.noMore()) {
@@ -1033,63 +1117,79 @@ bool ILocalization2DMsgs_get_estimated_poses_RPC_helper::Command::readArgs(yarp:
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_connectionwriter:4259 */
 bool ILocalization2DMsgs_get_estimated_poses_RPC_helper::Reply::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_connectionreader:4280 */
 bool ILocalization2DMsgs_get_estimated_poses_RPC_helper::Reply::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_wirewriter:4301 */
 bool ILocalization2DMsgs_get_estimated_poses_RPC_helper::Reply::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.isNull()) {
         if (!writer.writeListHeader(s_reply_len)) {
             return false;
         }
-        if (!writer.write(return_helper)) {
+/* t_yarp_generator::generate_serialize_field:1093 */
+/* t_yarp_generator::generate_serialize_struct:1215 */
+        const return_get_estimated_posesSerializer tmp_return_get_estimated_posesSerializer(return_helper);
+        if (!writer.write(tmp_return_get_estimated_posesSerializer)) {
             return false;
         }
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_wirereader:4347 */
 bool ILocalization2DMsgs_get_estimated_poses_RPC_helper::Reply::read(yarp::os::idl::WireReader& reader)
 {
     if (!reader.readListReturn()) {
         return false;
     }
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
-    if (!reader.read(return_helper)) {
+/* t_yarp_generator::generate_deserialize_struct:1516 */
+    return_get_estimated_posesSerializer tmp_return_get_estimated_posesSerializer(return_helper);
+    if (!reader.read(tmp_return_get_estimated_posesSerializer)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_call:4385 */
 void ILocalization2DMsgs_get_estimated_poses_RPC_helper::call(ILocalization2DMsgs* ptr)
 {
     reply.return_helper = ptr->get_estimated_poses_RPC();
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl:3924 */
 // get_current_position1_RPC helper class implementation
+/* t_yarp_generator::generate_service_helper_classes_impl_write:3990 */
 bool ILocalization2DMsgs_get_current_position1_RPC_helper::write(yarp::os::ConnectionWriter& connection) const
 {
     return cmd.write(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_read:4038 */
 bool ILocalization2DMsgs_get_current_position1_RPC_helper::read(yarp::os::ConnectionReader& connection)
 {
     return reply.read(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_connectionwriter:4058 */
 bool ILocalization2DMsgs_get_current_position1_RPC_helper::Command::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
@@ -1099,6 +1199,7 @@ bool ILocalization2DMsgs_get_current_position1_RPC_helper::Command::write(yarp::
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_connectionreader:4080 */
 bool ILocalization2DMsgs_get_current_position1_RPC_helper::Command::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
@@ -1109,6 +1210,7 @@ bool ILocalization2DMsgs_get_current_position1_RPC_helper::Command::read(yarp::o
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_wirewriter:4110 */
 bool ILocalization2DMsgs_get_current_position1_RPC_helper::Command::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writeTag(writer)) {
@@ -1120,6 +1222,7 @@ bool ILocalization2DMsgs_get_current_position1_RPC_helper::Command::write(const 
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writetag:4132 */
 bool ILocalization2DMsgs_get_current_position1_RPC_helper::Command::writeTag(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.writeTag(s_tag, 1, s_tag_len)) {
@@ -1128,11 +1231,13 @@ bool ILocalization2DMsgs_get_current_position1_RPC_helper::Command::writeTag(con
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writeargs:4153 */
 bool ILocalization2DMsgs_get_current_position1_RPC_helper::Command::writeArgs(const yarp::os::idl::WireWriter& writer [[maybe_unused]]) const
 {
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_wirereader:4181 */
 bool ILocalization2DMsgs_get_current_position1_RPC_helper::Command::read(yarp::os::idl::WireReader& reader)
 {
     if (!readTag(reader)) {
@@ -1144,6 +1249,7 @@ bool ILocalization2DMsgs_get_current_position1_RPC_helper::Command::read(yarp::o
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readtag:4201 */
 bool ILocalization2DMsgs_get_current_position1_RPC_helper::Command::readTag(yarp::os::idl::WireReader& reader)
 {
     std::string tag = reader.readTag(s_tag_len);
@@ -1157,6 +1263,7 @@ bool ILocalization2DMsgs_get_current_position1_RPC_helper::Command::readTag(yarp
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readargs:4229 */
 bool ILocalization2DMsgs_get_current_position1_RPC_helper::Command::readArgs(yarp::os::idl::WireReader& reader)
 {
     if (!reader.noMore()) {
@@ -1166,63 +1273,79 @@ bool ILocalization2DMsgs_get_current_position1_RPC_helper::Command::readArgs(yar
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_connectionwriter:4259 */
 bool ILocalization2DMsgs_get_current_position1_RPC_helper::Reply::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_connectionreader:4280 */
 bool ILocalization2DMsgs_get_current_position1_RPC_helper::Reply::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_wirewriter:4301 */
 bool ILocalization2DMsgs_get_current_position1_RPC_helper::Reply::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.isNull()) {
         if (!writer.writeListHeader(s_reply_len)) {
             return false;
         }
-        if (!writer.write(return_helper)) {
+/* t_yarp_generator::generate_serialize_field:1093 */
+/* t_yarp_generator::generate_serialize_struct:1215 */
+        const return_get_current_position1Serializer tmp_return_get_current_position1Serializer(return_helper);
+        if (!writer.write(tmp_return_get_current_position1Serializer)) {
             return false;
         }
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_wirereader:4347 */
 bool ILocalization2DMsgs_get_current_position1_RPC_helper::Reply::read(yarp::os::idl::WireReader& reader)
 {
     if (!reader.readListReturn()) {
         return false;
     }
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
-    if (!reader.read(return_helper)) {
+/* t_yarp_generator::generate_deserialize_struct:1516 */
+    return_get_current_position1Serializer tmp_return_get_current_position1Serializer(return_helper);
+    if (!reader.read(tmp_return_get_current_position1Serializer)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_call:4385 */
 void ILocalization2DMsgs_get_current_position1_RPC_helper::call(ILocalization2DMsgs* ptr)
 {
     reply.return_helper = ptr->get_current_position1_RPC();
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl:3924 */
 // get_current_position2_RPC helper class implementation
+/* t_yarp_generator::generate_service_helper_classes_impl_write:3990 */
 bool ILocalization2DMsgs_get_current_position2_RPC_helper::write(yarp::os::ConnectionWriter& connection) const
 {
     return cmd.write(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_read:4038 */
 bool ILocalization2DMsgs_get_current_position2_RPC_helper::read(yarp::os::ConnectionReader& connection)
 {
     return reply.read(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_connectionwriter:4058 */
 bool ILocalization2DMsgs_get_current_position2_RPC_helper::Command::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
@@ -1232,6 +1355,7 @@ bool ILocalization2DMsgs_get_current_position2_RPC_helper::Command::write(yarp::
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_connectionreader:4080 */
 bool ILocalization2DMsgs_get_current_position2_RPC_helper::Command::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
@@ -1242,6 +1366,7 @@ bool ILocalization2DMsgs_get_current_position2_RPC_helper::Command::read(yarp::o
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_wirewriter:4110 */
 bool ILocalization2DMsgs_get_current_position2_RPC_helper::Command::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writeTag(writer)) {
@@ -1253,6 +1378,7 @@ bool ILocalization2DMsgs_get_current_position2_RPC_helper::Command::write(const 
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writetag:4132 */
 bool ILocalization2DMsgs_get_current_position2_RPC_helper::Command::writeTag(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.writeTag(s_tag, 1, s_tag_len)) {
@@ -1261,11 +1387,13 @@ bool ILocalization2DMsgs_get_current_position2_RPC_helper::Command::writeTag(con
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writeargs:4153 */
 bool ILocalization2DMsgs_get_current_position2_RPC_helper::Command::writeArgs(const yarp::os::idl::WireWriter& writer [[maybe_unused]]) const
 {
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_wirereader:4181 */
 bool ILocalization2DMsgs_get_current_position2_RPC_helper::Command::read(yarp::os::idl::WireReader& reader)
 {
     if (!readTag(reader)) {
@@ -1277,6 +1405,7 @@ bool ILocalization2DMsgs_get_current_position2_RPC_helper::Command::read(yarp::o
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readtag:4201 */
 bool ILocalization2DMsgs_get_current_position2_RPC_helper::Command::readTag(yarp::os::idl::WireReader& reader)
 {
     std::string tag = reader.readTag(s_tag_len);
@@ -1290,6 +1419,7 @@ bool ILocalization2DMsgs_get_current_position2_RPC_helper::Command::readTag(yarp
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readargs:4229 */
 bool ILocalization2DMsgs_get_current_position2_RPC_helper::Command::readArgs(yarp::os::idl::WireReader& reader)
 {
     if (!reader.noMore()) {
@@ -1299,63 +1429,79 @@ bool ILocalization2DMsgs_get_current_position2_RPC_helper::Command::readArgs(yar
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_connectionwriter:4259 */
 bool ILocalization2DMsgs_get_current_position2_RPC_helper::Reply::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_connectionreader:4280 */
 bool ILocalization2DMsgs_get_current_position2_RPC_helper::Reply::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_wirewriter:4301 */
 bool ILocalization2DMsgs_get_current_position2_RPC_helper::Reply::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.isNull()) {
         if (!writer.writeListHeader(s_reply_len)) {
             return false;
         }
-        if (!writer.write(return_helper)) {
+/* t_yarp_generator::generate_serialize_field:1093 */
+/* t_yarp_generator::generate_serialize_struct:1215 */
+        const return_get_current_position2Serializer tmp_return_get_current_position2Serializer(return_helper);
+        if (!writer.write(tmp_return_get_current_position2Serializer)) {
             return false;
         }
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_wirereader:4347 */
 bool ILocalization2DMsgs_get_current_position2_RPC_helper::Reply::read(yarp::os::idl::WireReader& reader)
 {
     if (!reader.readListReturn()) {
         return false;
     }
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
-    if (!reader.read(return_helper)) {
+/* t_yarp_generator::generate_deserialize_struct:1516 */
+    return_get_current_position2Serializer tmp_return_get_current_position2Serializer(return_helper);
+    if (!reader.read(tmp_return_get_current_position2Serializer)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_call:4385 */
 void ILocalization2DMsgs_get_current_position2_RPC_helper::call(ILocalization2DMsgs* ptr)
 {
     reply.return_helper = ptr->get_current_position2_RPC();
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl:3924 */
 // get_estimated_odometry_RPC helper class implementation
+/* t_yarp_generator::generate_service_helper_classes_impl_write:3990 */
 bool ILocalization2DMsgs_get_estimated_odometry_RPC_helper::write(yarp::os::ConnectionWriter& connection) const
 {
     return cmd.write(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_read:4038 */
 bool ILocalization2DMsgs_get_estimated_odometry_RPC_helper::read(yarp::os::ConnectionReader& connection)
 {
     return reply.read(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_connectionwriter:4058 */
 bool ILocalization2DMsgs_get_estimated_odometry_RPC_helper::Command::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
@@ -1365,6 +1511,7 @@ bool ILocalization2DMsgs_get_estimated_odometry_RPC_helper::Command::write(yarp:
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_connectionreader:4080 */
 bool ILocalization2DMsgs_get_estimated_odometry_RPC_helper::Command::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
@@ -1375,6 +1522,7 @@ bool ILocalization2DMsgs_get_estimated_odometry_RPC_helper::Command::read(yarp::
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_wirewriter:4110 */
 bool ILocalization2DMsgs_get_estimated_odometry_RPC_helper::Command::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writeTag(writer)) {
@@ -1386,6 +1534,7 @@ bool ILocalization2DMsgs_get_estimated_odometry_RPC_helper::Command::write(const
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writetag:4132 */
 bool ILocalization2DMsgs_get_estimated_odometry_RPC_helper::Command::writeTag(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.writeTag(s_tag, 1, s_tag_len)) {
@@ -1394,11 +1543,13 @@ bool ILocalization2DMsgs_get_estimated_odometry_RPC_helper::Command::writeTag(co
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writeargs:4153 */
 bool ILocalization2DMsgs_get_estimated_odometry_RPC_helper::Command::writeArgs(const yarp::os::idl::WireWriter& writer [[maybe_unused]]) const
 {
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_wirereader:4181 */
 bool ILocalization2DMsgs_get_estimated_odometry_RPC_helper::Command::read(yarp::os::idl::WireReader& reader)
 {
     if (!readTag(reader)) {
@@ -1410,6 +1561,7 @@ bool ILocalization2DMsgs_get_estimated_odometry_RPC_helper::Command::read(yarp::
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readtag:4201 */
 bool ILocalization2DMsgs_get_estimated_odometry_RPC_helper::Command::readTag(yarp::os::idl::WireReader& reader)
 {
     std::string tag = reader.readTag(s_tag_len);
@@ -1423,6 +1575,7 @@ bool ILocalization2DMsgs_get_estimated_odometry_RPC_helper::Command::readTag(yar
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readargs:4229 */
 bool ILocalization2DMsgs_get_estimated_odometry_RPC_helper::Command::readArgs(yarp::os::idl::WireReader& reader)
 {
     if (!reader.noMore()) {
@@ -1432,73 +1585,91 @@ bool ILocalization2DMsgs_get_estimated_odometry_RPC_helper::Command::readArgs(ya
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_connectionwriter:4259 */
 bool ILocalization2DMsgs_get_estimated_odometry_RPC_helper::Reply::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_connectionreader:4280 */
 bool ILocalization2DMsgs_get_estimated_odometry_RPC_helper::Reply::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_wirewriter:4301 */
 bool ILocalization2DMsgs_get_estimated_odometry_RPC_helper::Reply::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.isNull()) {
         if (!writer.writeListHeader(s_reply_len)) {
             return false;
         }
-        if (!writer.write(return_helper)) {
+/* t_yarp_generator::generate_serialize_field:1093 */
+/* t_yarp_generator::generate_serialize_struct:1215 */
+        const return_get_estimated_odometrySerializer tmp_return_get_estimated_odometrySerializer(return_helper);
+        if (!writer.write(tmp_return_get_estimated_odometrySerializer)) {
             return false;
         }
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_wirereader:4347 */
 bool ILocalization2DMsgs_get_estimated_odometry_RPC_helper::Reply::read(yarp::os::idl::WireReader& reader)
 {
     if (!reader.readListReturn()) {
         return false;
     }
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
-    if (!reader.read(return_helper)) {
+/* t_yarp_generator::generate_deserialize_struct:1516 */
+    return_get_estimated_odometrySerializer tmp_return_get_estimated_odometrySerializer(return_helper);
+    if (!reader.read(tmp_return_get_estimated_odometrySerializer)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_call:4385 */
 void ILocalization2DMsgs_get_estimated_odometry_RPC_helper::call(ILocalization2DMsgs* ptr)
 {
     reply.return_helper = ptr->get_estimated_odometry_RPC();
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl:3924 */
 // set_initial_pose1_RPC helper class implementation
+/* t_yarp_generator::generate_service_helper_classes_impl_ctor:3963 */
 ILocalization2DMsgs_set_initial_pose1_RPC_helper::ILocalization2DMsgs_set_initial_pose1_RPC_helper(const yarp::dev::Nav2D::Map2DLocation& loc) :
         cmd{loc}
 {
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_write:3990 */
 bool ILocalization2DMsgs_set_initial_pose1_RPC_helper::write(yarp::os::ConnectionWriter& connection) const
 {
     return cmd.write(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_read:4038 */
 bool ILocalization2DMsgs_set_initial_pose1_RPC_helper::read(yarp::os::ConnectionReader& connection)
 {
     return reply.read(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_ctor:4010 */
 ILocalization2DMsgs_set_initial_pose1_RPC_helper::Command::Command(const yarp::dev::Nav2D::Map2DLocation& loc) :
         loc{loc}
 {
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_connectionwriter:4058 */
 bool ILocalization2DMsgs_set_initial_pose1_RPC_helper::Command::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
@@ -1508,6 +1679,7 @@ bool ILocalization2DMsgs_set_initial_pose1_RPC_helper::Command::write(yarp::os::
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_connectionreader:4080 */
 bool ILocalization2DMsgs_set_initial_pose1_RPC_helper::Command::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
@@ -1518,6 +1690,7 @@ bool ILocalization2DMsgs_set_initial_pose1_RPC_helper::Command::read(yarp::os::C
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_wirewriter:4110 */
 bool ILocalization2DMsgs_set_initial_pose1_RPC_helper::Command::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writeTag(writer)) {
@@ -1529,6 +1702,7 @@ bool ILocalization2DMsgs_set_initial_pose1_RPC_helper::Command::write(const yarp
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writetag:4132 */
 bool ILocalization2DMsgs_set_initial_pose1_RPC_helper::Command::writeTag(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.writeTag(s_tag, 1, s_tag_len)) {
@@ -1537,14 +1711,19 @@ bool ILocalization2DMsgs_set_initial_pose1_RPC_helper::Command::writeTag(const y
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writeargs:4153 */
 bool ILocalization2DMsgs_set_initial_pose1_RPC_helper::Command::writeArgs(const yarp::os::idl::WireWriter& writer) const
 {
-    if (!writer.writeNested(loc)) {
+/* t_yarp_generator::generate_serialize_field:1093 */
+/* t_yarp_generator::generate_serialize_struct:1215 */
+    const yarp::dev::Nav2D::Map2DLocationDataSerializer tmp_yarp_dev_Nav2D_Map2DLocationDataSerializer(loc);
+    if (!writer.writeNested(tmp_yarp_dev_Nav2D_Map2DLocationDataSerializer)) {
         return false;
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_wirereader:4181 */
 bool ILocalization2DMsgs_set_initial_pose1_RPC_helper::Command::read(yarp::os::idl::WireReader& reader)
 {
     if (!readTag(reader)) {
@@ -1556,6 +1735,7 @@ bool ILocalization2DMsgs_set_initial_pose1_RPC_helper::Command::read(yarp::os::i
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readtag:4201 */
 bool ILocalization2DMsgs_set_initial_pose1_RPC_helper::Command::readTag(yarp::os::idl::WireReader& reader)
 {
     std::string tag = reader.readTag(s_tag_len);
@@ -1569,13 +1749,18 @@ bool ILocalization2DMsgs_set_initial_pose1_RPC_helper::Command::readTag(yarp::os
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readargs:4229 */
 bool ILocalization2DMsgs_set_initial_pose1_RPC_helper::Command::readArgs(yarp::os::idl::WireReader& reader)
 {
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
-    if (!reader.readNested(loc)) {
+/* t_yarp_generator::generate_deserialize_struct:1516 */
+    yarp::dev::Nav2D::Map2DLocationDataSerializer tmp_yarp_dev_Nav2D_Map2DLocationDataSerializer(loc);
+    if (!reader.readNested(tmp_yarp_dev_Nav2D_Map2DLocationDataSerializer)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
@@ -1586,24 +1771,28 @@ bool ILocalization2DMsgs_set_initial_pose1_RPC_helper::Command::readArgs(yarp::o
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_connectionwriter:4259 */
 bool ILocalization2DMsgs_set_initial_pose1_RPC_helper::Reply::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_connectionreader:4280 */
 bool ILocalization2DMsgs_set_initial_pose1_RPC_helper::Reply::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_wirewriter:4301 */
 bool ILocalization2DMsgs_set_initial_pose1_RPC_helper::Reply::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.isNull()) {
         if (!writer.writeListHeader(s_reply_len)) {
             return false;
         }
+/* t_yarp_generator::generate_serialize_field:1093 */
         if (!writer.writeBool(return_helper)) {
             return false;
         }
@@ -1611,49 +1800,59 @@ bool ILocalization2DMsgs_set_initial_pose1_RPC_helper::Reply::write(const yarp::
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_wirereader:4347 */
 bool ILocalization2DMsgs_set_initial_pose1_RPC_helper::Reply::read(yarp::os::idl::WireReader& reader)
 {
     if (!reader.readListReturn()) {
         return false;
     }
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
     if (!reader.readBool(return_helper)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_call:4385 */
 void ILocalization2DMsgs_set_initial_pose1_RPC_helper::call(ILocalization2DMsgs* ptr)
 {
     reply.return_helper = ptr->set_initial_pose1_RPC(cmd.loc);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl:3924 */
 // set_initial_pose2_RPC helper class implementation
+/* t_yarp_generator::generate_service_helper_classes_impl_ctor:3963 */
 ILocalization2DMsgs_set_initial_pose2_RPC_helper::ILocalization2DMsgs_set_initial_pose2_RPC_helper(const yarp::dev::Nav2D::Map2DLocation& loc, const yarp::sig::Matrix& cov) :
         cmd{loc, cov}
 {
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_write:3990 */
 bool ILocalization2DMsgs_set_initial_pose2_RPC_helper::write(yarp::os::ConnectionWriter& connection) const
 {
     return cmd.write(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_read:4038 */
 bool ILocalization2DMsgs_set_initial_pose2_RPC_helper::read(yarp::os::ConnectionReader& connection)
 {
     return reply.read(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_ctor:4010 */
 ILocalization2DMsgs_set_initial_pose2_RPC_helper::Command::Command(const yarp::dev::Nav2D::Map2DLocation& loc, const yarp::sig::Matrix& cov) :
         loc{loc},
         cov{cov}
 {
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_connectionwriter:4058 */
 bool ILocalization2DMsgs_set_initial_pose2_RPC_helper::Command::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
@@ -1663,6 +1862,7 @@ bool ILocalization2DMsgs_set_initial_pose2_RPC_helper::Command::write(yarp::os::
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_connectionreader:4080 */
 bool ILocalization2DMsgs_set_initial_pose2_RPC_helper::Command::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
@@ -1673,6 +1873,7 @@ bool ILocalization2DMsgs_set_initial_pose2_RPC_helper::Command::read(yarp::os::C
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_wirewriter:4110 */
 bool ILocalization2DMsgs_set_initial_pose2_RPC_helper::Command::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writeTag(writer)) {
@@ -1684,6 +1885,7 @@ bool ILocalization2DMsgs_set_initial_pose2_RPC_helper::Command::write(const yarp
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writetag:4132 */
 bool ILocalization2DMsgs_set_initial_pose2_RPC_helper::Command::writeTag(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.writeTag(s_tag, 1, s_tag_len)) {
@@ -1692,17 +1894,25 @@ bool ILocalization2DMsgs_set_initial_pose2_RPC_helper::Command::writeTag(const y
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writeargs:4153 */
 bool ILocalization2DMsgs_set_initial_pose2_RPC_helper::Command::writeArgs(const yarp::os::idl::WireWriter& writer) const
 {
-    if (!writer.writeNested(loc)) {
+/* t_yarp_generator::generate_serialize_field:1093 */
+/* t_yarp_generator::generate_serialize_struct:1215 */
+    const yarp::dev::Nav2D::Map2DLocationDataSerializer tmp_yarp_dev_Nav2D_Map2DLocationDataSerializer(loc);
+    if (!writer.writeNested(tmp_yarp_dev_Nav2D_Map2DLocationDataSerializer)) {
         return false;
     }
-    if (!writer.writeNested(cov)) {
+/* t_yarp_generator::generate_serialize_field:1093 */
+/* t_yarp_generator::generate_serialize_struct:1215 */
+    const yarp::sig::MatrixSerializer tmp_yarp_sig_MatrixSerializer(cov);
+    if (!writer.writeNested(tmp_yarp_sig_MatrixSerializer)) {
         return false;
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_wirereader:4181 */
 bool ILocalization2DMsgs_set_initial_pose2_RPC_helper::Command::read(yarp::os::idl::WireReader& reader)
 {
     if (!readTag(reader)) {
@@ -1714,6 +1924,7 @@ bool ILocalization2DMsgs_set_initial_pose2_RPC_helper::Command::read(yarp::os::i
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readtag:4201 */
 bool ILocalization2DMsgs_set_initial_pose2_RPC_helper::Command::readTag(yarp::os::idl::WireReader& reader)
 {
     std::string tag = reader.readTag(s_tag_len);
@@ -1727,21 +1938,30 @@ bool ILocalization2DMsgs_set_initial_pose2_RPC_helper::Command::readTag(yarp::os
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readargs:4229 */
 bool ILocalization2DMsgs_set_initial_pose2_RPC_helper::Command::readArgs(yarp::os::idl::WireReader& reader)
 {
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
-    if (!reader.readNested(loc)) {
+/* t_yarp_generator::generate_deserialize_struct:1516 */
+    yarp::dev::Nav2D::Map2DLocationDataSerializer tmp_yarp_dev_Nav2D_Map2DLocationDataSerializer(loc);
+    if (!reader.readNested(tmp_yarp_dev_Nav2D_Map2DLocationDataSerializer)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
-    if (!reader.readNested(cov)) {
+/* t_yarp_generator::generate_deserialize_struct:1516 */
+    yarp::sig::MatrixSerializer tmp_yarp_sig_MatrixSerializer(cov);
+    if (!reader.readNested(tmp_yarp_sig_MatrixSerializer)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
@@ -1752,24 +1972,28 @@ bool ILocalization2DMsgs_set_initial_pose2_RPC_helper::Command::readArgs(yarp::o
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_connectionwriter:4259 */
 bool ILocalization2DMsgs_set_initial_pose2_RPC_helper::Reply::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_connectionreader:4280 */
 bool ILocalization2DMsgs_set_initial_pose2_RPC_helper::Reply::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_wirewriter:4301 */
 bool ILocalization2DMsgs_set_initial_pose2_RPC_helper::Reply::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.isNull()) {
         if (!writer.writeListHeader(s_reply_len)) {
             return false;
         }
+/* t_yarp_generator::generate_serialize_field:1093 */
         if (!writer.writeBool(return_helper)) {
             return false;
         }
@@ -1777,33 +2001,39 @@ bool ILocalization2DMsgs_set_initial_pose2_RPC_helper::Reply::write(const yarp::
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_wirereader:4347 */
 bool ILocalization2DMsgs_set_initial_pose2_RPC_helper::Reply::read(yarp::os::idl::WireReader& reader)
 {
     if (!reader.readListReturn()) {
         return false;
     }
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
     if (!reader.readBool(return_helper)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_call:4385 */
 void ILocalization2DMsgs_set_initial_pose2_RPC_helper::call(ILocalization2DMsgs* ptr)
 {
     reply.return_helper = ptr->set_initial_pose2_RPC(cmd.loc, cmd.cov);
 }
 
+/* t_yarp_generator::generate_service_constructor:4425 */
 // Constructor
 ILocalization2DMsgs::ILocalization2DMsgs()
 {
     yarp().setOwner(*this);
 }
 
+/* t_yarp_generator::generate_service_method:4450 */
 bool ILocalization2DMsgs::start_localization_service_RPC()
 {
     if (!yarp().canWrite()) {
@@ -1814,6 +2044,7 @@ bool ILocalization2DMsgs::start_localization_service_RPC()
     return ok ? helper.reply.return_helper : bool{};
 }
 
+/* t_yarp_generator::generate_service_method:4450 */
 bool ILocalization2DMsgs::stop_localization_service_RPC()
 {
     if (!yarp().canWrite()) {
@@ -1824,56 +2055,62 @@ bool ILocalization2DMsgs::stop_localization_service_RPC()
     return ok ? helper.reply.return_helper : bool{};
 }
 
-return_get_localization_status ILocalization2DMsgs::get_localization_status_RPC()
+/* t_yarp_generator::generate_service_method:4450 */
+return_get_localization_statusStorage ILocalization2DMsgs::get_localization_status_RPC()
 {
     if (!yarp().canWrite()) {
         yError("Missing server method '%s'?", ILocalization2DMsgs_get_localization_status_RPC_helper::s_prototype);
     }
     ILocalization2DMsgs_get_localization_status_RPC_helper helper{};
     bool ok = yarp().write(helper, helper);
-    return ok ? helper.reply.return_helper : return_get_localization_status{};
+    return ok ? helper.reply.return_helper : return_get_localization_statusStorage{};
 }
 
-return_get_estimated_poses ILocalization2DMsgs::get_estimated_poses_RPC()
+/* t_yarp_generator::generate_service_method:4450 */
+return_get_estimated_posesStorage ILocalization2DMsgs::get_estimated_poses_RPC()
 {
     if (!yarp().canWrite()) {
         yError("Missing server method '%s'?", ILocalization2DMsgs_get_estimated_poses_RPC_helper::s_prototype);
     }
     ILocalization2DMsgs_get_estimated_poses_RPC_helper helper{};
     bool ok = yarp().write(helper, helper);
-    return ok ? helper.reply.return_helper : return_get_estimated_poses{};
+    return ok ? helper.reply.return_helper : return_get_estimated_posesStorage{};
 }
 
-return_get_current_position1 ILocalization2DMsgs::get_current_position1_RPC()
+/* t_yarp_generator::generate_service_method:4450 */
+return_get_current_position1Storage ILocalization2DMsgs::get_current_position1_RPC()
 {
     if (!yarp().canWrite()) {
         yError("Missing server method '%s'?", ILocalization2DMsgs_get_current_position1_RPC_helper::s_prototype);
     }
     ILocalization2DMsgs_get_current_position1_RPC_helper helper{};
     bool ok = yarp().write(helper, helper);
-    return ok ? helper.reply.return_helper : return_get_current_position1{};
+    return ok ? helper.reply.return_helper : return_get_current_position1Storage{};
 }
 
-return_get_current_position2 ILocalization2DMsgs::get_current_position2_RPC()
+/* t_yarp_generator::generate_service_method:4450 */
+return_get_current_position2Storage ILocalization2DMsgs::get_current_position2_RPC()
 {
     if (!yarp().canWrite()) {
         yError("Missing server method '%s'?", ILocalization2DMsgs_get_current_position2_RPC_helper::s_prototype);
     }
     ILocalization2DMsgs_get_current_position2_RPC_helper helper{};
     bool ok = yarp().write(helper, helper);
-    return ok ? helper.reply.return_helper : return_get_current_position2{};
+    return ok ? helper.reply.return_helper : return_get_current_position2Storage{};
 }
 
-return_get_estimated_odometry ILocalization2DMsgs::get_estimated_odometry_RPC()
+/* t_yarp_generator::generate_service_method:4450 */
+return_get_estimated_odometryStorage ILocalization2DMsgs::get_estimated_odometry_RPC()
 {
     if (!yarp().canWrite()) {
         yError("Missing server method '%s'?", ILocalization2DMsgs_get_estimated_odometry_RPC_helper::s_prototype);
     }
     ILocalization2DMsgs_get_estimated_odometry_RPC_helper helper{};
     bool ok = yarp().write(helper, helper);
-    return ok ? helper.reply.return_helper : return_get_estimated_odometry{};
+    return ok ? helper.reply.return_helper : return_get_estimated_odometryStorage{};
 }
 
+/* t_yarp_generator::generate_service_method:4450 */
 bool ILocalization2DMsgs::set_initial_pose1_RPC(const yarp::dev::Nav2D::Map2DLocation& loc)
 {
     if (!yarp().canWrite()) {
@@ -1884,6 +2121,7 @@ bool ILocalization2DMsgs::set_initial_pose1_RPC(const yarp::dev::Nav2D::Map2DLoc
     return ok ? helper.reply.return_helper : bool{};
 }
 
+/* t_yarp_generator::generate_service_method:4450 */
 bool ILocalization2DMsgs::set_initial_pose2_RPC(const yarp::dev::Nav2D::Map2DLocation& loc, const yarp::sig::Matrix& cov)
 {
     if (!yarp().canWrite()) {
@@ -1894,6 +2132,7 @@ bool ILocalization2DMsgs::set_initial_pose2_RPC(const yarp::dev::Nav2D::Map2DLoc
     return ok ? helper.reply.return_helper : bool{};
 }
 
+/* t_yarp_generator::generate_service_help:4503 */
 // help method
 std::vector<std::string> ILocalization2DMsgs::help(const std::string& functionName)
 {
@@ -1952,6 +2191,7 @@ std::vector<std::string> ILocalization2DMsgs::help(const std::string& functionNa
     return helpString;
 }
 
+/* t_yarp_generator::generate_service_read:4585 */
 // read from ConnectionReader
 bool ILocalization2DMsgs::read(yarp::os::ConnectionReader& connection)
 {

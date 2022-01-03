@@ -24,6 +24,31 @@ namespace yarp::dev {
  * \brief `AudioRecorderStatus`: A class used to describe the status of an audio recorder device.
  * See \ref AudioDoc for additional documentation on YARP audio.
  */
+class YARP_dev_API AudioRecorderStatusRandazClass2{
+public:
+    // Fields
+    /**
+     * true if the playback is currently enabled
+     */
+    bool enabled{false};
+    /**
+     * the size of the audio buffer [samples]
+     */
+    size_t current_buffer_size{0};
+    /**
+     * the max_size of the audio buffer [samples]
+     */
+    size_t max_buffer_size{0};
+
+    // Default constructor
+    AudioRecorderStatusRandazClass2() = default;
+
+    // Constructor with field values
+    AudioRecorderStatusRandazClass2(const bool enabled,
+                                    const size_t current_buffer_size,
+                                    const size_t max_buffer_size);
+
+};
 class YARP_dev_API AudioRecorderStatus :
         public yarp::os::idl::WirePortable
 {

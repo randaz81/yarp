@@ -3,12 +3,14 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-namespace yarp yarp.dev
+namespace yarp yarp.dev.Nav2D
 
 struct Map2DLocation {
 } (
   yarp.name = "yarp::dev::Nav2D::Map2DLocation"
   yarp.includefile="yarp/dev/Map2DLocation.h"
+  yarp.customSerializerName =    "yarp::dev::Nav2D::Map2DLocationDataSerializer"
+  yarp.customSerializerInclude = "yarp/dev/Nav2D/Map2DLocationDataSerializer.h"
 )
 
 struct Map2DPathData

@@ -1,3 +1,4 @@
+/* t_yarp_generator::generate_service:3616 */
 /*
  * SPDX-FileCopyrightText: 2006-2021 Istituto Italiano di Tecnologia (IIT)
  * SPDX-License-Identifier: BSD-3-Clause
@@ -13,23 +14,29 @@
 
 #include <yarp/os/Wire.h>
 #include <yarp/os/idl/WireTypes.h>
-#include <SensorRPCData.h>
+#include <SensorRPCDataStorage.h>
+#include <SensorRPCDataSerializer.h>
 
+/* t_yarp_generator::generate_service:3712 */
 class MultipleAnalogSensorsMetadata :
         public yarp::os::Wire
 {
 public:
+/* t_yarp_generator::generate_service_constructor:4424 */
     // Constructor
     MultipleAnalogSensorsMetadata();
 
+/* t_yarp_generator::generate_service_method:4449 */
     /**
      * Read the sensor metadata necessary to configure the MultipleAnalogSensorsClient device.
      */
-    virtual SensorRPCData getMetadata();
+    virtual SensorRPCDataStorage getMetadata();
 
+/* t_yarp_generator::generate_service_help:4502 */
     // help method
     virtual std::vector<std::string> help(const std::string& functionName = "--all");
 
+/* t_yarp_generator::generate_service_read:4584 */
     // read from ConnectionReader
     bool read(yarp::os::ConnectionReader& connection) override;
 };

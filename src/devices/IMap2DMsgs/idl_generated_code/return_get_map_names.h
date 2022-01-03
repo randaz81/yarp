@@ -14,6 +14,20 @@
 #include <yarp/os/Wire.h>
 #include <yarp/os/idl/WireTypes.h>
 
+class return_get_map_namesRandazClass2{
+public:
+    // Fields
+    bool retval{false};
+    std::vector<std::string> map_names{};
+
+    // Default constructor
+    return_get_map_namesRandazClass2() = default;
+
+    // Constructor with field values
+    return_get_map_namesRandazClass2(const bool retval,
+                                     const std::vector<std::string>& map_names);
+
+};
 class return_get_map_names :
         public yarp::os::idl::WirePortable
 {

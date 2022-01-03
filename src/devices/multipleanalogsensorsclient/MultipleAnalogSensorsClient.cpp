@@ -5,7 +5,7 @@
 
 #include "MultipleAnalogSensorsClient.h"
 
-#include "SensorStreamingData.h"
+#include "SensorStreamingDataSerializer.h"
 #include "MultipleAnalogSensorsMetadata.h"
 
 #include <yarp/os/LogComponent.h>
@@ -14,10 +14,10 @@ namespace {
 YARP_LOG_COMPONENT(MULTIPLEANALOGSENSORSCLIENT, "yarp.device.multipleanalogsensorsclient")
 }
 
-void SensorStreamingDataInputPort::onRead(SensorStreamingData& v)
+void SensorStreamingDataInputPort::onRead(SensorStreamingDataSerializer& v)
 {
     std::lock_guard<std::mutex> guard(dataMutex);
-    receivedData = v;
+    receivedData = v.get();
     lastTimeStampReadInSeconds = yarp::os::Time::now();
     status = yarp::dev::MAS_OK;
 }

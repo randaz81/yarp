@@ -11,6 +11,18 @@
 #include <return_get_last_velocity_command.h>
 
 // Constructor with field values
+return_get_last_velocity_commandRandazClass2::return_get_last_velocity_commandRandazClass2(const bool ret,
+                                                                                           const double x_vel,
+                                                                                           const double y_vel,
+                                                                                           const double theta_vel) :
+        ret(ret),
+        x_vel(x_vel),
+        y_vel(y_vel),
+        theta_vel(theta_vel)
+{
+}
+
+// Constructor with field values
 return_get_last_velocity_command::return_get_last_velocity_command(const bool ret,
                                                                    const double x_vel,
                                                                    const double y_vel,

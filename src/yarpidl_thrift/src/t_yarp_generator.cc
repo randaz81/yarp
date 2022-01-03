@@ -47,6 +47,7 @@ class t_yarp_generator : public t_oop_generator
     bool need_common_{false}; //are there consts and typedef that we need to keep in a common file?
     int indent_h_{0};
     int indent_cpp_{0};
+    const std::string c_mstorage_prefix {"mStorage->"};
 
     // Files
     ofstream_with_content_based_conditional_update f_out_common_;
@@ -819,8 +820,10 @@ void t_yarp_generator::init_generator()
     // annotated with "yarp.includefile"
     for (const auto& obj : program_->get_objects()) {
         if (obj->annotations_.find("yarp.includefile") == obj->annotations_.end()) {
-            f_out_index_ << get_include_prefix(program_) << obj->get_name() << ".h\n";
-            f_out_index_ << get_include_prefix(program_) << obj->get_name() << ".cpp\n";
+            f_out_index_ << get_include_prefix(program_) << obj->get_name() << "Storage.h\n";
+            f_out_index_ << get_include_prefix(program_) << obj->get_name() << "Storage.cpp\n";
+            f_out_index_ << get_include_prefix(program_) << obj->get_name() << "Serializer.h\n";
+            f_out_index_ << get_include_prefix(program_) << obj->get_name() << "Serializer.cpp\n";
         }
     }
 
@@ -1018,6 +1021,7 @@ std::string t_yarp_generator::get_include_prefix(const t_program* const program)
 void t_yarp_generator::get_needed_type(t_type* curType, std::set<std::string>& neededTypes)
 {
     std::string mtype;
+    std::string mtype_serializer;
     const auto& program = curType->get_program();
 
     if (curType->is_struct()) {
@@ -1026,6 +1030,11 @@ void t_yarp_generator::get_needed_type(t_type* curType, std::set<std::string>& n
             mtype = annotations["yarp.includefile"];
         } else {
             mtype = get_include_prefix(program) + curType->get_name() + ".h";
+        }
+
+        if (annotations.find("yarp.customSerializerInclude") != annotations.end()) {
+            mtype_serializer = annotations["yarp.customSerializerInclude"];
+            neededTypes.insert(mtype_serializer);
         }
 
         neededTypes.insert(mtype);
@@ -1260,7 +1269,43 @@ void t_yarp_generator::generate_serialize_struct(std::ostringstream& f_cpp_,
 
     std::string name = prefix + tfield->get_name() + suffix;
 
-    f_cpp_ << indent_cpp() << "if (!writer.write" << (force_nested ? "Nested" : "") << "(" << name << "))" << inline_return_cpp("false");
+    t_type* true_type = get_true_type(tfield->get_type());
+
+    /*
+    //auto it = type->annotations_.find("yarp.serializer");
+    if (it != type->annotations_.end()) {
+        f_cpp_ << indent_cpp() << "const " << it->second << " " << name << "_serializer(" << name << ");\n";
+        name += "_serializer";
+    }*/
+
+    std::string true_type_name = true_type->get_name();
+
+    auto annotations = static_cast<t_struct*>(tfield->get_type())->annotations_;
+    if (annotations.find("yarp.customSerializerName") != annotations.end())
+    {
+        true_type_name = annotations["yarp.customSerializerName"];
+    }
+    else
+    {
+        //fixme randaz
+        size_t pos = true_type_name.find("Storage");
+        if (pos != std::string::npos) {
+            true_type_name.erase(pos, std::string("Storage").length());
+        }
+        true_type_name+="Serializer";
+    }
+
+    std::string temp_name_variable = "tmp_" + true_type_name;
+    temp_name_variable = std::regex_replace(temp_name_variable, std::regex("::"), "_");
+    temp_name_variable = std::regex_replace(temp_name_variable, std::regex("<.*>"), "");
+
+    f_cpp_ << indent_cpp() << "const " << true_type_name << " "
+        << temp_name_variable
+        <<"(" << name << ");\n";
+
+    f_cpp_ << indent_cpp() << "if (!writer.write" << (force_nested ? "Nested" : "") << "(" 
+        << temp_name_variable
+        << "))" << inline_return_cpp("false");
 }
 
 void t_yarp_generator::generate_serialize_container(std::ostringstream& f_cpp_,
@@ -1560,7 +1605,35 @@ void t_yarp_generator::generate_deserialize_struct(std::ostringstream& f_cpp_,
 
     std::string name = prefix + tfield->get_name() + suffix;
 
-    f_cpp_ << indent_cpp() << "if (!reader.read" << (force_nested ? "Nested" : "") << "(" << name << ")) {\n";
+    t_type* true_type = get_true_type(tfield->get_type());
+    std::string true_type_name = true_type->get_name();
+
+    auto annotations = static_cast<t_struct*>(tfield->get_type())->annotations_;
+    if (annotations.find("yarp.customSerializerName") != annotations.end())
+    {
+        true_type_name = annotations["yarp.customSerializerName"];
+    }
+    else
+    {
+        //fixme randaz
+        size_t pos = true_type_name.find("Storage");
+        if (pos != std::string::npos) {
+            true_type_name.erase(pos, std::string("Storage").length());
+            true_type_name += "Serializer";
+        }
+    }
+
+    std::string temp_name_variable = "tmp_"+ true_type_name;
+    temp_name_variable = std::regex_replace(temp_name_variable, std::regex("::"), "_");
+    temp_name_variable = std::regex_replace(temp_name_variable, std::regex("<.*>"), "");
+
+    f_cpp_ << indent_cpp() << true_type_name << " "
+                           << temp_name_variable
+                           << "(" << name << ");\n";
+
+    f_cpp_ << indent_cpp() << "if (!reader.read" << (force_nested ? "Nested" : "") << "("
+                              << temp_name_variable
+                              <<")) {\n";
     indent_up_cpp();
     {
         generate_deserialize_field_fallback(f_cpp_, tfield, prefix, suffix);
@@ -2272,8 +2345,30 @@ void t_yarp_generator::generate_struct(t_struct* tstruct)
         f_h_ << '\n';
     }
 
-    f_h_ << "#include <yarp/os/Wire.h>\n";
-    f_h_ << "#include <yarp/os/idl/WireTypes.h>\n";
+    std::string name_of_the_storage_class = name;
+    size_t pos = name_of_the_storage_class.find("Serializer");
+    if (pos != std::string::npos) { name_of_the_storage_class.erase(pos, name_of_the_storage_class.length()); }
+    name_of_the_storage_class = name_of_the_storage_class + "Storage";
+
+    if (tstruct->isYarpPortable)
+    {
+        f_h_ << "#include <yarp/os/WireSerializer.h>\n";
+        //f_h_ << "#include <"<<"yarp/dev/"<<name_of_the_storage_class << ".h>\n";
+        //f_h_ << "#include <" << name_of_the_storage_class << ".h>\n";
+        f_h_ << "#include <" << get_include_prefix(program_) << name_of_the_storage_class << ".h>\n";
+    }
+    else
+    {
+        //fixme RANDAZ
+        //not all of them are needed, but how to choose which one are mandatory and which not?
+        f_h_ << "#include <cstdint>\n";
+        f_h_ << "#include <cstdio>\n";
+        f_h_ << "#include <map>\n";
+        f_h_ << "#include <set>\n";
+        f_h_ << "#include <string>\n";
+        f_h_ << "#include <vector>\n";
+    }
+
     if (need_common_) {
         f_h_ << '\n';
         f_h_ << "#include <" << get_include_prefix(program_) << program_->get_name() << "_common.h>" << '\n';
@@ -2284,12 +2379,25 @@ void t_yarp_generator::generate_struct(t_struct* tstruct)
         get_needed_type(member->get_type(), neededTypes);
     }
     for (const auto& neededType : neededTypes) {
-        f_h_ << "#include <" << neededType << ">\n";
+        f_h_ << "#include <" << neededType << "> //needed in .h\n";
     }
     f_h_ << '\n';
 
     // Add includes to .cpp file
     f_cpp_ << "#include <" << get_include_prefix(program_) << name << ".h>\n";
+    for (const auto& neededType : neededTypes) {
+        f_cpp_ << "#include <" << neededType << "> //needed in .cpp\n";
+        if (tstruct->isYarpPortable)
+        {
+            //FIXME RANDAZ
+            std::string SerializeType = neededType;
+            size_t pos = SerializeType.find("Storage.h");
+            if (pos != std::string::npos) {
+                SerializeType.erase(pos, std::string("Storage.h").length());
+                f_cpp_ << "#include <" << SerializeType << "Serializer.h> //needed in .cpp\n";
+            }
+        }
+    }
     f_cpp_ << '\n';
 
     // Open namespace
@@ -2301,52 +2409,84 @@ void t_yarp_generator::generate_struct(t_struct* tstruct)
     // Add struct documentation
     print_doc(f_h_, tstruct);
 
+//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& RANDAZ WAS HERE &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+/*    t_struct tstruct2 = *tstruct;
+    tstruct2.set_name(name+ "RandazClass2");
+    tstruct2.isYarpPortable=false;
+    f_h_ << indent_h() << "class " << yarp_api_keyword << (yarp_api_keyword.empty() ? "" : " ") << tstruct2.get_name();
+    f_h_ << indent_h() << "{\n";
+    indent_up_h();
+    f_h_ << indent_access_specifier_h() << "public:\n";
+    generate_struct_fields(&tstruct2, f_h_, f_cpp_);
+    generate_struct_default_constructor(&tstruct2, f_h_, f_cpp_);
+    generate_struct_constructor(&tstruct2, f_h_, f_cpp_);
+    indent_down_h();
+    f_h_ << indent_h() << "};\n";
+*/
+//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& RANDAZ WAS HERE &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
     // Begin class
-    f_h_ << indent_h() << "class " << yarp_api_keyword << (yarp_api_keyword.empty() ? "" : " ") << name << " :\n";
-    f_h_ << indent_initializer_h() << "public yarp::os::idl::WirePortable\n";
+    if (tstruct->isYarpPortable)
+    {
+        f_h_ << indent_h() << "class " << yarp_api_keyword << (yarp_api_keyword.empty() ? "" : " ") << name << " :\n";
+        f_h_ << indent_initializer_h() << "public yarp::os::WireSerializer<" << name_of_the_storage_class << ">";
+    }
+    else
+    {
+        f_h_ << indent_h() << "class " << yarp_api_keyword << (yarp_api_keyword.empty() ? "" : " ") << name << "\n";
+    }
     f_h_ << indent_h() << "{\n";
     indent_up_h();
     f_h_ << indent_access_specifier_h() << "public:\n";
 
-    generate_struct_fields(tstruct, f_h_, f_cpp_);
-    generate_struct_default_constructor(tstruct, f_h_, f_cpp_);
-    generate_struct_constructor(tstruct, f_h_, f_cpp_);
-    generate_struct_read_wirereader(tstruct, f_h_, f_cpp_);
-    generate_struct_read_connectionreader(tstruct, f_h_, f_cpp_);
-    generate_struct_write_wirewriter(tstruct, f_h_, f_cpp_);
-    generate_struct_write_connectionwriter(tstruct, f_h_, f_cpp_);
-    generate_struct_tostring(tstruct, f_h_, f_cpp_);
-    generate_struct_unwrapped_helper(tstruct, f_h_, f_cpp_);
+    if (tstruct->isYarpPortable)
+    {
+        //portable serializer
+        indent_up_h();
+        f_h_ << "using WireSerializer::WireSerializer;\n\n";
+        indent_down_h();
+        generate_struct_read_wirereader(tstruct, f_h_, f_cpp_);
+        generate_struct_read_connectionreader(tstruct, f_h_, f_cpp_);
+        generate_struct_write_wirewriter(tstruct, f_h_, f_cpp_);
+        generate_struct_write_connectionwriter(tstruct, f_h_, f_cpp_);
+        generate_struct_tostring(tstruct, f_h_, f_cpp_);
+        generate_struct_unwrapped_helper(tstruct, f_h_, f_cpp_);
 
-    // Add editor class, if not disabled
-    bool editor_enabled = false;
-    if (annotations.find("yarp.editor") != annotations.end()) {
-        if (annotations.at("yarp.editor") == "true") {
-            editor_enabled = true;
+        // Add editor class, if not disabled
+        bool editor_enabled = false;
+        if (annotations.find("yarp.editor") != annotations.end()) {
+            if (annotations.at("yarp.editor") == "true") {
+                editor_enabled = true;
+            }
+        }
+
+        if (editor_enabled) {
+            generate_struct_editor(tstruct, f_h_, f_cpp_);
+        }
+
+        // Private members (read, write single fields)
+        bool first = true;
+        for (const auto& member : members) {
+            if (first) {
+                f_h_ << indent_access_specifier_h() << "private:\n";
+            } else {
+                f_h_ << '\n';
+                f_cpp_ << '\n';
+            }
+            first = false;
+            f_h_ << indent_h() << "// read/write " << member->get_name() << " field\n";
+            generate_struct_field_read(tstruct, member, f_h_, f_cpp_);
+            generate_struct_field_write(tstruct, member, f_h_, f_cpp_);
+            generate_struct_field_nested_read(tstruct, member, f_h_, f_cpp_);
+            generate_struct_field_nested_write(tstruct, member, f_h_, f_cpp_);
         }
     }
-
-    if (editor_enabled) {
-        generate_struct_editor(tstruct, f_h_, f_cpp_);
+    else
+    {
+        //non portable storage
+        generate_struct_fields(tstruct, f_h_, f_cpp_);
+        generate_struct_default_constructor(tstruct, f_h_, f_cpp_);
+        generate_struct_constructor(tstruct, f_h_, f_cpp_);
     }
-
-    // Private members (read, write single fields)
-    bool first = true;
-    for (const auto& member : members) {
-        if (first) {
-            f_h_ << indent_access_specifier_h() << "private:\n";
-        } else {
-            f_h_ << '\n';
-            f_cpp_ << '\n';
-        }
-        first = false;
-        f_h_ << indent_h() << "// read/write " << member->get_name() << " field\n";
-        generate_struct_field_read(tstruct, member, f_h_, f_cpp_);
-        generate_struct_field_write(tstruct, member, f_h_, f_cpp_);
-        generate_struct_field_nested_read(tstruct, member, f_h_, f_cpp_);
-        generate_struct_field_nested_write(tstruct, member, f_h_, f_cpp_);
-    }
-
     indent_down_h();
 
     // End class
@@ -2431,13 +2571,21 @@ void t_yarp_generator::generate_struct_constructor(t_struct* tstruct, std::ostri
         f_cpp_ << type_name(t, false, true) << " " << member->get_name();
     }
     f_cpp_ << ") :\n";
-    f_cpp_ << indent_initializer_cpp() << "WirePortable()";
-
-    for (const auto& member: members) {
-        f_cpp_ << ",\n";
-        f_cpp_ << indent_initializer_cpp() << member->get_name() << "(" << member->get_name() << ")";
+    
+    if (tstruct->isYarpPortable) {
+        f_cpp_ << indent_initializer_cpp() << "WirePortable(),\n";
+    } else {
     }
-    f_cpp_ << '\n';
+
+    {
+        auto it = members.begin();
+        for (; it != std::prev(members.end()); it++)
+        {
+            f_cpp_ << indent_initializer_cpp() << (*it)->get_name() << "(" << (*it)->get_name() << "),\n";
+        }
+        f_cpp_ << indent_initializer_cpp() << (*it)->get_name() << "(" << (*it)->get_name() << ")\n";
+    }
+
     f_cpp_ << indent_cpp() << "{\n";
     f_cpp_ << indent_cpp() << "}\n";
     f_cpp_ << '\n';
@@ -3480,7 +3628,7 @@ void t_yarp_generator::generate_struct_field_read(t_struct* tstruct, t_field* me
     f_cpp_ << indent_cpp() << "{\n";
     indent_up_cpp();
     {
-        generate_deserialize_field(f_cpp_, member, "");
+        generate_deserialize_field(f_cpp_, member, c_mstorage_prefix);
         f_cpp_ << indent_cpp() << "return true;\n";
     }
     indent_down_cpp();
@@ -3506,7 +3654,7 @@ void t_yarp_generator::generate_struct_field_write(t_struct* tstruct, t_field* m
     f_cpp_ << indent_cpp() << "{\n";
     indent_up_cpp();
     {
-        generate_serialize_field(f_cpp_, member);
+        generate_serialize_field(f_cpp_, member, c_mstorage_prefix);
         f_cpp_ << indent_cpp() << "return true;\n";
     }
     indent_down_cpp();
@@ -3533,7 +3681,7 @@ void t_yarp_generator::generate_struct_field_nested_read(t_struct* tstruct, t_fi
     f_cpp_ << indent_cpp() << "{\n";
     indent_up_cpp();
     {
-        generate_deserialize_field(f_cpp_, member, "", "", true);
+        generate_deserialize_field(f_cpp_, member, c_mstorage_prefix, "", true);
         f_cpp_ << indent_cpp() << "return true;\n";
     }
     indent_down_cpp();
@@ -3559,7 +3707,7 @@ void t_yarp_generator::generate_struct_field_nested_write(t_struct* tstruct, t_f
     f_cpp_ << indent_cpp() << "{\n";
     indent_up_cpp();
     {
-        generate_serialize_field(f_cpp_, member, "", "", true);
+        generate_serialize_field(f_cpp_, member, c_mstorage_prefix , "", true);
         f_cpp_ << indent_cpp() << "return true;\n";
     }
     indent_down_cpp();
@@ -3665,6 +3813,14 @@ void t_yarp_generator::generate_service(t_service* tservice)
 
     for (const auto& neededType: neededTypes) {
         f_h_ << "#include <" << neededType << ">\n";
+
+        //FIXME RANDAZ
+        std::string SerializeType = neededType;
+        size_t pos = SerializeType.find("Storage.h");
+        if (pos != std::string::npos) {
+            SerializeType.erase(pos, std::string("Storage.h").length());
+            f_h_ << "#include <" << SerializeType << "Serializer.h>\n";
+        }
     }
 
     f_h_ << '\n';

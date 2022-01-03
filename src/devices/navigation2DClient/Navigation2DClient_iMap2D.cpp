@@ -5,6 +5,7 @@
 
 #include "Navigation2DClient.h"
 #include <yarp/dev/INavigation2D.h>
+#include <yarp/dev/Nav2D/Map2DAreaDataSerializer.h>
 #include <yarp/os/Log.h>
 #include <yarp/os/LogComponent.h>
 #include <yarp/os/LogStream.h>
@@ -167,12 +168,14 @@ bool Navigation2DClient::getArea(std::string area_name, Map2DArea& area)
             }
             else
             {
+                yarp::dev::Nav2D::Map2DAreaDataSerializer areaser;
                 Value& b = resp_loc.get(1);
-                if (Property::copyPortable(b, area) == false)
+                if (Property::copyPortable(b, areaser) == false)
                 {
                     yCError(NAVIGATION2DCLIENT) << "getArea() received error from locations server";
                     return false;
                 }
+                area= areaser.get();
             }
         }
         else

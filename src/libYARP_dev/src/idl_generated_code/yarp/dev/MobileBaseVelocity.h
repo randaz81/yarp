@@ -18,6 +18,31 @@
 
 namespace yarp::dev {
 
+class YARP_dev_API MobileBaseVelocityRandazClass2{
+public:
+    // Fields
+    /**
+     * velocity of the robot [m/s]
+     */
+    double vel_x{0.0};
+    /**
+     * velocity of the robot [m/s]
+     */
+    double vel_y{0.0};
+    /**
+     * angular velocity of the robot [deg/s]
+     */
+    double vel_theta{0.0};
+
+    // Default constructor
+    MobileBaseVelocityRandazClass2() = default;
+
+    // Constructor with field values
+    MobileBaseVelocityRandazClass2(const double vel_x,
+                                   const double vel_y,
+                                   const double vel_theta);
+
+};
 class YARP_dev_API MobileBaseVelocity :
         public yarp::os::idl::WirePortable
 {

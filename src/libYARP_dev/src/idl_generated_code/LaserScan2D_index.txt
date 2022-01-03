@@ -1,2 +1,4 @@
-yarp/dev/LaserScan2D.h
-yarp/dev/LaserScan2D.cpp
+yarp/dev/LaserScan2DStorage.h
+yarp/dev/LaserScan2DStorage.cpp
+yarp/dev/LaserScan2DSerializer.h
+yarp/dev/LaserScan2DSerializer.cpp

@@ -15,6 +15,20 @@
 #include <yarp/os/idl/WireTypes.h>
 #include <yarp/dev/Map2DLocation.h>
 
+class return_get_locationRandazClass2{
+public:
+    // Fields
+    bool retval{false};
+    yarp::dev::Nav2D::Map2DLocation loc{};
+
+    // Default constructor
+    return_get_locationRandazClass2() = default;
+
+    // Constructor with field values
+    return_get_locationRandazClass2(const bool retval,
+                                    const yarp::dev::Nav2D::Map2DLocation& loc);
+
+};
 class return_get_location :
         public yarp::os::idl::WirePortable
 {

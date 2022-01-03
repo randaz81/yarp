@@ -1,3 +1,4 @@
+/* t_yarp_generator::generate_service:3617 */
 /*
  * SPDX-FileCopyrightText: 2006-2021 Istituto Italiano di Tecnologia (IIT)
  * SPDX-License-Identifier: BSD-3-Clause
@@ -14,6 +15,9 @@
 
 #include <algorithm>
 
+/* t_yarp_generator::generate_service:3713 */
+/* t_yarp_generator::generate_service_helper_classes:3761 */
+/* t_yarp_generator::generate_service_helper_classes_decl:3778 */
 // setTransformsRPC helper class declaration
 class FrameTransformStorageSetRPC_setTransformsRPC_helper :
         public yarp::os::Portable
@@ -77,6 +81,7 @@ public:
     static constexpr const char* s_help{""};
 };
 
+/* t_yarp_generator::generate_service_helper_classes_decl:3778 */
 // setTransformRPC helper class declaration
 class FrameTransformStorageSetRPC_setTransformRPC_helper :
         public yarp::os::Portable
@@ -140,6 +145,7 @@ public:
     static constexpr const char* s_help{""};
 };
 
+/* t_yarp_generator::generate_service_helper_classes_decl:3778 */
 // deleteTransformRPC helper class declaration
 class FrameTransformStorageSetRPC_deleteTransformRPC_helper :
         public yarp::os::Portable
@@ -204,6 +210,7 @@ public:
     static constexpr const char* s_help{""};
 };
 
+/* t_yarp_generator::generate_service_helper_classes_decl:3778 */
 // clearAllRPC helper class declaration
 class FrameTransformStorageSetRPC_clearAllRPC_helper :
         public yarp::os::Portable
@@ -262,27 +269,33 @@ public:
     static constexpr const char* s_help{""};
 };
 
+/* t_yarp_generator::generate_service_helper_classes_impl:3924 */
 // setTransformsRPC helper class implementation
+/* t_yarp_generator::generate_service_helper_classes_impl_ctor:3963 */
 FrameTransformStorageSetRPC_setTransformsRPC_helper::FrameTransformStorageSetRPC_setTransformsRPC_helper(const std::vector<yarp::math::FrameTransform>& transforms) :
         cmd{transforms}
 {
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_write:3990 */
 bool FrameTransformStorageSetRPC_setTransformsRPC_helper::write(yarp::os::ConnectionWriter& connection) const
 {
     return cmd.write(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_read:4038 */
 bool FrameTransformStorageSetRPC_setTransformsRPC_helper::read(yarp::os::ConnectionReader& connection)
 {
     return reply.read(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_ctor:4010 */
 FrameTransformStorageSetRPC_setTransformsRPC_helper::Command::Command(const std::vector<yarp::math::FrameTransform>& transforms) :
         transforms{transforms}
 {
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_connectionwriter:4058 */
 bool FrameTransformStorageSetRPC_setTransformsRPC_helper::Command::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
@@ -292,6 +305,7 @@ bool FrameTransformStorageSetRPC_setTransformsRPC_helper::Command::write(yarp::o
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_connectionreader:4080 */
 bool FrameTransformStorageSetRPC_setTransformsRPC_helper::Command::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
@@ -302,6 +316,7 @@ bool FrameTransformStorageSetRPC_setTransformsRPC_helper::Command::read(yarp::os
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_wirewriter:4110 */
 bool FrameTransformStorageSetRPC_setTransformsRPC_helper::Command::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writeTag(writer)) {
@@ -313,6 +328,7 @@ bool FrameTransformStorageSetRPC_setTransformsRPC_helper::Command::write(const y
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writetag:4132 */
 bool FrameTransformStorageSetRPC_setTransformsRPC_helper::Command::writeTag(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.writeTag(s_tag, 1, s_tag_len)) {
@@ -321,13 +337,20 @@ bool FrameTransformStorageSetRPC_setTransformsRPC_helper::Command::writeTag(cons
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writeargs:4153 */
 bool FrameTransformStorageSetRPC_setTransformsRPC_helper::Command::writeArgs(const yarp::os::idl::WireWriter& writer) const
 {
-    if (!writer.writeListBegin(BOTTLE_TAG_LIST, transforms.size())) {
+/* t_yarp_generator::generate_serialize_field:1093 */
+/* t_yarp_generator::generate_serialize_container:1262 */
+    if (!writer.writeListBegin(BOTTLE_TAG_LIST, static_cast<uint32_t>(transforms.size()))) {
         return false;
     }
     for (const auto& _item : transforms) {
-        if (!writer.writeNested(_item)) {
+/* t_yarp_generator::generate_serialize_list_element:1332 */
+/* t_yarp_generator::generate_serialize_field:1093 */
+/* t_yarp_generator::generate_serialize_struct:1215 */
+        const yarp::math::FrameTransformDataSerializer tmp_yarp_math_FrameTransformDataSerializer(_item);
+        if (!writer.writeNested(tmp_yarp_math_FrameTransformDataSerializer)) {
             return false;
         }
     }
@@ -337,6 +360,7 @@ bool FrameTransformStorageSetRPC_setTransformsRPC_helper::Command::writeArgs(con
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_wirereader:4181 */
 bool FrameTransformStorageSetRPC_setTransformsRPC_helper::Command::read(yarp::os::idl::WireReader& reader)
 {
     if (!readTag(reader)) {
@@ -348,6 +372,7 @@ bool FrameTransformStorageSetRPC_setTransformsRPC_helper::Command::read(yarp::os
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readtag:4201 */
 bool FrameTransformStorageSetRPC_setTransformsRPC_helper::Command::readTag(yarp::os::idl::WireReader& reader)
 {
     std::string tag = reader.readTag(s_tag_len);
@@ -361,29 +386,31 @@ bool FrameTransformStorageSetRPC_setTransformsRPC_helper::Command::readTag(yarp:
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readargs:4229 */
 bool FrameTransformStorageSetRPC_setTransformsRPC_helper::Command::readArgs(yarp::os::idl::WireReader& reader)
 {
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
-    size_t _csize;
+/* t_yarp_generator::generate_deserialize_container:1561 */
+    transforms.clear();
+    uint32_t _csize;
     yarp::os::idl::WireState _etype;
     reader.readListBegin(_etype, _csize);
-    // WireReader removes BOTTLE_TAG_LIST from the tag
-    constexpr int expected_tag = ((BOTTLE_TAG_LIST) & (~BOTTLE_TAG_LIST));
-    if constexpr (expected_tag != 0) {
-        if (_csize != 0 && _etype.code != expected_tag) {
-            return false;
-        }
-    }
     transforms.resize(_csize);
     for (size_t _i = 0; _i < _csize; ++_i) {
+/* t_yarp_generator::generate_deserialize_list_element:1655 */
+/* t_yarp_generator::generate_deserialize_field:1361 */
         if (reader.noMore()) {
             reader.fail();
             return false;
         }
-        if (!reader.readNested(transforms[_i])) {
+/* t_yarp_generator::generate_deserialize_struct:1516 */
+        yarp::math::FrameTransformDataSerializer tmp_yarp_math_FrameTransformDataSerializer(transforms[_i]);
+        if (!reader.readNested(tmp_yarp_math_FrameTransformDataSerializer)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
             reader.fail();
             return false;
         }
@@ -396,24 +423,28 @@ bool FrameTransformStorageSetRPC_setTransformsRPC_helper::Command::readArgs(yarp
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_connectionwriter:4259 */
 bool FrameTransformStorageSetRPC_setTransformsRPC_helper::Reply::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_connectionreader:4280 */
 bool FrameTransformStorageSetRPC_setTransformsRPC_helper::Reply::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_wirewriter:4301 */
 bool FrameTransformStorageSetRPC_setTransformsRPC_helper::Reply::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.isNull()) {
         if (!writer.writeListHeader(s_reply_len)) {
             return false;
         }
+/* t_yarp_generator::generate_serialize_field:1093 */
         if (!writer.writeBool(return_helper)) {
             return false;
         }
@@ -421,48 +452,58 @@ bool FrameTransformStorageSetRPC_setTransformsRPC_helper::Reply::write(const yar
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_wirereader:4347 */
 bool FrameTransformStorageSetRPC_setTransformsRPC_helper::Reply::read(yarp::os::idl::WireReader& reader)
 {
     if (!reader.readListReturn()) {
         return false;
     }
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
     if (!reader.readBool(return_helper)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_call:4385 */
 void FrameTransformStorageSetRPC_setTransformsRPC_helper::call(FrameTransformStorageSetRPC* ptr)
 {
     reply.return_helper = ptr->setTransformsRPC(cmd.transforms);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl:3924 */
 // setTransformRPC helper class implementation
+/* t_yarp_generator::generate_service_helper_classes_impl_ctor:3963 */
 FrameTransformStorageSetRPC_setTransformRPC_helper::FrameTransformStorageSetRPC_setTransformRPC_helper(const yarp::math::FrameTransform& transform) :
         cmd{transform}
 {
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_write:3990 */
 bool FrameTransformStorageSetRPC_setTransformRPC_helper::write(yarp::os::ConnectionWriter& connection) const
 {
     return cmd.write(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_read:4038 */
 bool FrameTransformStorageSetRPC_setTransformRPC_helper::read(yarp::os::ConnectionReader& connection)
 {
     return reply.read(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_ctor:4010 */
 FrameTransformStorageSetRPC_setTransformRPC_helper::Command::Command(const yarp::math::FrameTransform& transform) :
         transform{transform}
 {
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_connectionwriter:4058 */
 bool FrameTransformStorageSetRPC_setTransformRPC_helper::Command::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
@@ -472,6 +513,7 @@ bool FrameTransformStorageSetRPC_setTransformRPC_helper::Command::write(yarp::os
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_connectionreader:4080 */
 bool FrameTransformStorageSetRPC_setTransformRPC_helper::Command::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
@@ -482,6 +524,7 @@ bool FrameTransformStorageSetRPC_setTransformRPC_helper::Command::read(yarp::os:
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_wirewriter:4110 */
 bool FrameTransformStorageSetRPC_setTransformRPC_helper::Command::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writeTag(writer)) {
@@ -493,6 +536,7 @@ bool FrameTransformStorageSetRPC_setTransformRPC_helper::Command::write(const ya
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writetag:4132 */
 bool FrameTransformStorageSetRPC_setTransformRPC_helper::Command::writeTag(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.writeTag(s_tag, 1, s_tag_len)) {
@@ -501,14 +545,19 @@ bool FrameTransformStorageSetRPC_setTransformRPC_helper::Command::writeTag(const
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writeargs:4153 */
 bool FrameTransformStorageSetRPC_setTransformRPC_helper::Command::writeArgs(const yarp::os::idl::WireWriter& writer) const
 {
-    if (!writer.writeNested(transform)) {
+/* t_yarp_generator::generate_serialize_field:1093 */
+/* t_yarp_generator::generate_serialize_struct:1215 */
+    const yarp::math::FrameTransformDataSerializer tmp_yarp_math_FrameTransformDataSerializer(transform);
+    if (!writer.writeNested(tmp_yarp_math_FrameTransformDataSerializer)) {
         return false;
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_wirereader:4181 */
 bool FrameTransformStorageSetRPC_setTransformRPC_helper::Command::read(yarp::os::idl::WireReader& reader)
 {
     if (!readTag(reader)) {
@@ -520,6 +569,7 @@ bool FrameTransformStorageSetRPC_setTransformRPC_helper::Command::read(yarp::os:
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readtag:4201 */
 bool FrameTransformStorageSetRPC_setTransformRPC_helper::Command::readTag(yarp::os::idl::WireReader& reader)
 {
     std::string tag = reader.readTag(s_tag_len);
@@ -533,13 +583,18 @@ bool FrameTransformStorageSetRPC_setTransformRPC_helper::Command::readTag(yarp::
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readargs:4229 */
 bool FrameTransformStorageSetRPC_setTransformRPC_helper::Command::readArgs(yarp::os::idl::WireReader& reader)
 {
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
-    if (!reader.readNested(transform)) {
+/* t_yarp_generator::generate_deserialize_struct:1516 */
+    yarp::math::FrameTransformDataSerializer tmp_yarp_math_FrameTransformDataSerializer(transform);
+    if (!reader.readNested(tmp_yarp_math_FrameTransformDataSerializer)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
@@ -550,24 +605,28 @@ bool FrameTransformStorageSetRPC_setTransformRPC_helper::Command::readArgs(yarp:
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_connectionwriter:4259 */
 bool FrameTransformStorageSetRPC_setTransformRPC_helper::Reply::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_connectionreader:4280 */
 bool FrameTransformStorageSetRPC_setTransformRPC_helper::Reply::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_wirewriter:4301 */
 bool FrameTransformStorageSetRPC_setTransformRPC_helper::Reply::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.isNull()) {
         if (!writer.writeListHeader(s_reply_len)) {
             return false;
         }
+/* t_yarp_generator::generate_serialize_field:1093 */
         if (!writer.writeBool(return_helper)) {
             return false;
         }
@@ -575,49 +634,59 @@ bool FrameTransformStorageSetRPC_setTransformRPC_helper::Reply::write(const yarp
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_wirereader:4347 */
 bool FrameTransformStorageSetRPC_setTransformRPC_helper::Reply::read(yarp::os::idl::WireReader& reader)
 {
     if (!reader.readListReturn()) {
         return false;
     }
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
     if (!reader.readBool(return_helper)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_call:4385 */
 void FrameTransformStorageSetRPC_setTransformRPC_helper::call(FrameTransformStorageSetRPC* ptr)
 {
     reply.return_helper = ptr->setTransformRPC(cmd.transform);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl:3924 */
 // deleteTransformRPC helper class implementation
+/* t_yarp_generator::generate_service_helper_classes_impl_ctor:3963 */
 FrameTransformStorageSetRPC_deleteTransformRPC_helper::FrameTransformStorageSetRPC_deleteTransformRPC_helper(const std::string& src, const std::string& dst) :
         cmd{src, dst}
 {
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_write:3990 */
 bool FrameTransformStorageSetRPC_deleteTransformRPC_helper::write(yarp::os::ConnectionWriter& connection) const
 {
     return cmd.write(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_read:4038 */
 bool FrameTransformStorageSetRPC_deleteTransformRPC_helper::read(yarp::os::ConnectionReader& connection)
 {
     return reply.read(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_ctor:4010 */
 FrameTransformStorageSetRPC_deleteTransformRPC_helper::Command::Command(const std::string& src, const std::string& dst) :
         src{src},
         dst{dst}
 {
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_connectionwriter:4058 */
 bool FrameTransformStorageSetRPC_deleteTransformRPC_helper::Command::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
@@ -627,6 +696,7 @@ bool FrameTransformStorageSetRPC_deleteTransformRPC_helper::Command::write(yarp:
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_connectionreader:4080 */
 bool FrameTransformStorageSetRPC_deleteTransformRPC_helper::Command::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
@@ -637,6 +707,7 @@ bool FrameTransformStorageSetRPC_deleteTransformRPC_helper::Command::read(yarp::
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_wirewriter:4110 */
 bool FrameTransformStorageSetRPC_deleteTransformRPC_helper::Command::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writeTag(writer)) {
@@ -648,6 +719,7 @@ bool FrameTransformStorageSetRPC_deleteTransformRPC_helper::Command::write(const
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writetag:4132 */
 bool FrameTransformStorageSetRPC_deleteTransformRPC_helper::Command::writeTag(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.writeTag(s_tag, 1, s_tag_len)) {
@@ -656,17 +728,21 @@ bool FrameTransformStorageSetRPC_deleteTransformRPC_helper::Command::writeTag(co
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writeargs:4153 */
 bool FrameTransformStorageSetRPC_deleteTransformRPC_helper::Command::writeArgs(const yarp::os::idl::WireWriter& writer) const
 {
+/* t_yarp_generator::generate_serialize_field:1093 */
     if (!writer.writeString(src)) {
         return false;
     }
+/* t_yarp_generator::generate_serialize_field:1093 */
     if (!writer.writeString(dst)) {
         return false;
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_wirereader:4181 */
 bool FrameTransformStorageSetRPC_deleteTransformRPC_helper::Command::read(yarp::os::idl::WireReader& reader)
 {
     if (!readTag(reader)) {
@@ -678,6 +754,7 @@ bool FrameTransformStorageSetRPC_deleteTransformRPC_helper::Command::read(yarp::
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readtag:4201 */
 bool FrameTransformStorageSetRPC_deleteTransformRPC_helper::Command::readTag(yarp::os::idl::WireReader& reader)
 {
     std::string tag = reader.readTag(s_tag_len);
@@ -691,21 +768,26 @@ bool FrameTransformStorageSetRPC_deleteTransformRPC_helper::Command::readTag(yar
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readargs:4229 */
 bool FrameTransformStorageSetRPC_deleteTransformRPC_helper::Command::readArgs(yarp::os::idl::WireReader& reader)
 {
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
     if (!reader.readString(src)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
     if (!reader.readString(dst)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
@@ -716,24 +798,28 @@ bool FrameTransformStorageSetRPC_deleteTransformRPC_helper::Command::readArgs(ya
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_connectionwriter:4259 */
 bool FrameTransformStorageSetRPC_deleteTransformRPC_helper::Reply::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_connectionreader:4280 */
 bool FrameTransformStorageSetRPC_deleteTransformRPC_helper::Reply::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_wirewriter:4301 */
 bool FrameTransformStorageSetRPC_deleteTransformRPC_helper::Reply::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.isNull()) {
         if (!writer.writeListHeader(s_reply_len)) {
             return false;
         }
+/* t_yarp_generator::generate_serialize_field:1093 */
         if (!writer.writeBool(return_helper)) {
             return false;
         }
@@ -741,38 +827,46 @@ bool FrameTransformStorageSetRPC_deleteTransformRPC_helper::Reply::write(const y
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_wirereader:4347 */
 bool FrameTransformStorageSetRPC_deleteTransformRPC_helper::Reply::read(yarp::os::idl::WireReader& reader)
 {
     if (!reader.readListReturn()) {
         return false;
     }
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
     if (!reader.readBool(return_helper)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_call:4385 */
 void FrameTransformStorageSetRPC_deleteTransformRPC_helper::call(FrameTransformStorageSetRPC* ptr)
 {
     reply.return_helper = ptr->deleteTransformRPC(cmd.src, cmd.dst);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl:3924 */
 // clearAllRPC helper class implementation
+/* t_yarp_generator::generate_service_helper_classes_impl_write:3990 */
 bool FrameTransformStorageSetRPC_clearAllRPC_helper::write(yarp::os::ConnectionWriter& connection) const
 {
     return cmd.write(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_read:4038 */
 bool FrameTransformStorageSetRPC_clearAllRPC_helper::read(yarp::os::ConnectionReader& connection)
 {
     return reply.read(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_connectionwriter:4058 */
 bool FrameTransformStorageSetRPC_clearAllRPC_helper::Command::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
@@ -782,6 +876,7 @@ bool FrameTransformStorageSetRPC_clearAllRPC_helper::Command::write(yarp::os::Co
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_connectionreader:4080 */
 bool FrameTransformStorageSetRPC_clearAllRPC_helper::Command::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
@@ -792,6 +887,7 @@ bool FrameTransformStorageSetRPC_clearAllRPC_helper::Command::read(yarp::os::Con
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_wirewriter:4110 */
 bool FrameTransformStorageSetRPC_clearAllRPC_helper::Command::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writeTag(writer)) {
@@ -803,6 +899,7 @@ bool FrameTransformStorageSetRPC_clearAllRPC_helper::Command::write(const yarp::
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writetag:4132 */
 bool FrameTransformStorageSetRPC_clearAllRPC_helper::Command::writeTag(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.writeTag(s_tag, 1, s_tag_len)) {
@@ -811,11 +908,13 @@ bool FrameTransformStorageSetRPC_clearAllRPC_helper::Command::writeTag(const yar
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writeargs:4153 */
 bool FrameTransformStorageSetRPC_clearAllRPC_helper::Command::writeArgs(const yarp::os::idl::WireWriter& writer [[maybe_unused]]) const
 {
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_wirereader:4181 */
 bool FrameTransformStorageSetRPC_clearAllRPC_helper::Command::read(yarp::os::idl::WireReader& reader)
 {
     if (!readTag(reader)) {
@@ -827,6 +926,7 @@ bool FrameTransformStorageSetRPC_clearAllRPC_helper::Command::read(yarp::os::idl
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readtag:4201 */
 bool FrameTransformStorageSetRPC_clearAllRPC_helper::Command::readTag(yarp::os::idl::WireReader& reader)
 {
     std::string tag = reader.readTag(s_tag_len);
@@ -840,6 +940,7 @@ bool FrameTransformStorageSetRPC_clearAllRPC_helper::Command::readTag(yarp::os::
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readargs:4229 */
 bool FrameTransformStorageSetRPC_clearAllRPC_helper::Command::readArgs(yarp::os::idl::WireReader& reader)
 {
     if (!reader.noMore()) {
@@ -849,24 +950,28 @@ bool FrameTransformStorageSetRPC_clearAllRPC_helper::Command::readArgs(yarp::os:
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_connectionwriter:4259 */
 bool FrameTransformStorageSetRPC_clearAllRPC_helper::Reply::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_connectionreader:4280 */
 bool FrameTransformStorageSetRPC_clearAllRPC_helper::Reply::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_wirewriter:4301 */
 bool FrameTransformStorageSetRPC_clearAllRPC_helper::Reply::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.isNull()) {
         if (!writer.writeListHeader(s_reply_len)) {
             return false;
         }
+/* t_yarp_generator::generate_serialize_field:1093 */
         if (!writer.writeBool(return_helper)) {
             return false;
         }
@@ -874,33 +979,39 @@ bool FrameTransformStorageSetRPC_clearAllRPC_helper::Reply::write(const yarp::os
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_wirereader:4347 */
 bool FrameTransformStorageSetRPC_clearAllRPC_helper::Reply::read(yarp::os::idl::WireReader& reader)
 {
     if (!reader.readListReturn()) {
         return false;
     }
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
     if (!reader.readBool(return_helper)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_call:4385 */
 void FrameTransformStorageSetRPC_clearAllRPC_helper::call(FrameTransformStorageSetRPC* ptr)
 {
     reply.return_helper = ptr->clearAllRPC();
 }
 
+/* t_yarp_generator::generate_service_constructor:4425 */
 // Constructor
 FrameTransformStorageSetRPC::FrameTransformStorageSetRPC()
 {
     yarp().setOwner(*this);
 }
 
+/* t_yarp_generator::generate_service_method:4450 */
 bool FrameTransformStorageSetRPC::setTransformsRPC(const std::vector<yarp::math::FrameTransform>& transforms)
 {
     if (!yarp().canWrite()) {
@@ -911,6 +1022,7 @@ bool FrameTransformStorageSetRPC::setTransformsRPC(const std::vector<yarp::math:
     return ok ? helper.reply.return_helper : bool{};
 }
 
+/* t_yarp_generator::generate_service_method:4450 */
 bool FrameTransformStorageSetRPC::setTransformRPC(const yarp::math::FrameTransform& transform)
 {
     if (!yarp().canWrite()) {
@@ -921,6 +1033,7 @@ bool FrameTransformStorageSetRPC::setTransformRPC(const yarp::math::FrameTransfo
     return ok ? helper.reply.return_helper : bool{};
 }
 
+/* t_yarp_generator::generate_service_method:4450 */
 bool FrameTransformStorageSetRPC::deleteTransformRPC(const std::string& src, const std::string& dst)
 {
     if (!yarp().canWrite()) {
@@ -931,6 +1044,7 @@ bool FrameTransformStorageSetRPC::deleteTransformRPC(const std::string& src, con
     return ok ? helper.reply.return_helper : bool{};
 }
 
+/* t_yarp_generator::generate_service_method:4450 */
 bool FrameTransformStorageSetRPC::clearAllRPC()
 {
     if (!yarp().canWrite()) {
@@ -941,6 +1055,7 @@ bool FrameTransformStorageSetRPC::clearAllRPC()
     return ok ? helper.reply.return_helper : bool{};
 }
 
+/* t_yarp_generator::generate_service_help:4503 */
 // help method
 std::vector<std::string> FrameTransformStorageSetRPC::help(const std::string& functionName)
 {
@@ -979,6 +1094,7 @@ std::vector<std::string> FrameTransformStorageSetRPC::help(const std::string& fu
     return helpString;
 }
 
+/* t_yarp_generator::generate_service_read:4585 */
 // read from ConnectionReader
 bool FrameTransformStorageSetRPC::read(yarp::os::ConnectionReader& connection)
 {
@@ -1072,7 +1188,7 @@ bool FrameTransformStorageSetRPC::read(yarp::os::ConnectionReader& connection)
                 if (!writer.writeTag("many", 1, 0)) {
                     return false;
                 }
-                if (!writer.writeListBegin(0, help_strings.size())) {
+                if (!writer.writeListBegin(BOTTLE_TAG_INT32, static_cast<uint32_t>(help_strings.size()))) {
                     return false;
                 }
                 for (const auto& help_string : help_strings) {

@@ -151,7 +151,7 @@ bool Localization2DClient::setInitialPose(const Map2DLocation& loc, const yarp::
     return true;
 }
 
-bool  Localization2DClient::getEstimatedOdometry(yarp::dev::OdometryData& odom)
+bool  Localization2DClient::getEstimatedOdometry(yarp::dev::Nav2D::Odometry& odom)
 {
     yarp::os::Bottle b;
     yarp::os::Bottle resp;

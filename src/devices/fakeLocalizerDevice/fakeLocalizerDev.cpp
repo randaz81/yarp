@@ -96,7 +96,7 @@ bool   fakeLocalizer::setInitialPose(const Map2DLocation& loc, const yarp::sig::
     return true;
 }
 
-bool   fakeLocalizer::getEstimatedOdometry(yarp::dev::OdometryData& odom)
+bool   fakeLocalizer::getEstimatedOdometry(yarp::dev::Nav2D::Odometry& odom)
 {
     Map2DLocation loc;
     locThread->getCurrentLoc(loc);

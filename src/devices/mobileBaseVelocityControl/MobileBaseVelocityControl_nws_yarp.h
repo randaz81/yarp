@@ -75,7 +75,7 @@ public:
 public:
     //* MobileBaseVelocityControlRPC methods*/
     bool applyVelocityCommandRPC(const double x_vel, const double y_vel, const double theta_vel, const double timeout) override;
-    return_getLastVelocityCommand getLastVelocityCommandRPC() override;
+    return_getLastVelocityCommandStorage getLastVelocityCommandRPC() override;
 };
 
 #endif // YARP_DEV_MOBILEBASEVELOCITYCONTROL_NWS_YARP

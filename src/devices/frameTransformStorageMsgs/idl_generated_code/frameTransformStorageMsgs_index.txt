@@ -1,5 +1,7 @@
-return_getAllTransforms.h
-return_getAllTransforms.cpp
+return_getAllTransformsStorage.h
+return_getAllTransformsStorage.cpp
+return_getAllTransformsSerializer.h
+return_getAllTransformsSerializer.cpp
 FrameTransformStorageSetRPC.h
 FrameTransformStorageSetRPC.cpp
 FrameTransformStorageGetRPC.h

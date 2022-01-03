@@ -1,3 +1,4 @@
+/* t_yarp_generator::generate_service:3617 */
 /*
  * SPDX-FileCopyrightText: 2006-2021 Istituto Italiano di Tecnologia (IIT)
  * SPDX-License-Identifier: BSD-3-Clause
@@ -14,6 +15,9 @@
 
 #include <algorithm>
 
+/* t_yarp_generator::generate_service:3713 */
+/* t_yarp_generator::generate_service_helper_classes:3761 */
+/* t_yarp_generator::generate_service_helper_classes_decl:3778 */
 // get_phase helper class declaration
 class yarprobotinterfaceRpc_get_phase_helper :
         public yarp::os::Portable
@@ -74,6 +78,7 @@ public:
     };
 };
 
+/* t_yarp_generator::generate_service_helper_classes_decl:3778 */
 // get_level helper class declaration
 class yarprobotinterfaceRpc_get_level_helper :
         public yarp::os::Portable
@@ -134,6 +139,7 @@ public:
     };
 };
 
+/* t_yarp_generator::generate_service_helper_classes_decl:3778 */
 // get_robot helper class declaration
 class yarprobotinterfaceRpc_get_robot_helper :
         public yarp::os::Portable
@@ -194,6 +200,7 @@ public:
     };
 };
 
+/* t_yarp_generator::generate_service_helper_classes_decl:3778 */
 // is_ready helper class declaration
 class yarprobotinterfaceRpc_is_ready_helper :
         public yarp::os::Portable
@@ -255,6 +262,7 @@ public:
     };
 };
 
+/* t_yarp_generator::generate_service_helper_classes_decl:3778 */
 // quit helper class declaration
 class yarprobotinterfaceRpc_quit_helper :
         public yarp::os::Portable
@@ -315,6 +323,7 @@ public:
     };
 };
 
+/* t_yarp_generator::generate_service_helper_classes_decl:3778 */
 // bye helper class declaration
 class yarprobotinterfaceRpc_bye_helper :
         public yarp::os::Portable
@@ -375,6 +384,7 @@ public:
     };
 };
 
+/* t_yarp_generator::generate_service_helper_classes_decl:3778 */
 // exit helper class declaration
 class yarprobotinterfaceRpc_exit_helper :
         public yarp::os::Portable
@@ -435,17 +445,21 @@ public:
     };
 };
 
+/* t_yarp_generator::generate_service_helper_classes_impl:3924 */
 // get_phase helper class implementation
+/* t_yarp_generator::generate_service_helper_classes_impl_write:3990 */
 bool yarprobotinterfaceRpc_get_phase_helper::write(yarp::os::ConnectionWriter& connection) const
 {
     return cmd.write(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_read:4038 */
 bool yarprobotinterfaceRpc_get_phase_helper::read(yarp::os::ConnectionReader& connection)
 {
     return reply.read(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_connectionwriter:4058 */
 bool yarprobotinterfaceRpc_get_phase_helper::Command::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
@@ -455,6 +469,7 @@ bool yarprobotinterfaceRpc_get_phase_helper::Command::write(yarp::os::Connection
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_connectionreader:4080 */
 bool yarprobotinterfaceRpc_get_phase_helper::Command::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
@@ -465,6 +480,7 @@ bool yarprobotinterfaceRpc_get_phase_helper::Command::read(yarp::os::ConnectionR
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_wirewriter:4110 */
 bool yarprobotinterfaceRpc_get_phase_helper::Command::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writeTag(writer)) {
@@ -476,6 +492,7 @@ bool yarprobotinterfaceRpc_get_phase_helper::Command::write(const yarp::os::idl:
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writetag:4132 */
 bool yarprobotinterfaceRpc_get_phase_helper::Command::writeTag(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.writeTag(s_tag, 1, s_tag_len)) {
@@ -484,11 +501,13 @@ bool yarprobotinterfaceRpc_get_phase_helper::Command::writeTag(const yarp::os::i
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writeargs:4153 */
 bool yarprobotinterfaceRpc_get_phase_helper::Command::writeArgs(const yarp::os::idl::WireWriter& writer [[maybe_unused]]) const
 {
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_wirereader:4181 */
 bool yarprobotinterfaceRpc_get_phase_helper::Command::read(yarp::os::idl::WireReader& reader)
 {
     if (!readTag(reader)) {
@@ -500,6 +519,7 @@ bool yarprobotinterfaceRpc_get_phase_helper::Command::read(yarp::os::idl::WireRe
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readtag:4201 */
 bool yarprobotinterfaceRpc_get_phase_helper::Command::readTag(yarp::os::idl::WireReader& reader)
 {
     std::string tag = reader.readTag(s_tag_len);
@@ -513,6 +533,7 @@ bool yarprobotinterfaceRpc_get_phase_helper::Command::readTag(yarp::os::idl::Wir
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readargs:4229 */
 bool yarprobotinterfaceRpc_get_phase_helper::Command::readArgs(yarp::os::idl::WireReader& reader)
 {
     if (!reader.noMore()) {
@@ -522,24 +543,28 @@ bool yarprobotinterfaceRpc_get_phase_helper::Command::readArgs(yarp::os::idl::Wi
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_connectionwriter:4259 */
 bool yarprobotinterfaceRpc_get_phase_helper::Reply::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_connectionreader:4280 */
 bool yarprobotinterfaceRpc_get_phase_helper::Reply::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_wirewriter:4301 */
 bool yarprobotinterfaceRpc_get_phase_helper::Reply::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.isNull()) {
         if (!writer.writeListHeader(s_reply_len)) {
             return false;
         }
+/* t_yarp_generator::generate_serialize_field:1093 */
         if (!writer.writeString(return_helper)) {
             return false;
         }
@@ -547,38 +572,46 @@ bool yarprobotinterfaceRpc_get_phase_helper::Reply::write(const yarp::os::idl::W
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_wirereader:4347 */
 bool yarprobotinterfaceRpc_get_phase_helper::Reply::read(yarp::os::idl::WireReader& reader)
 {
     if (!reader.readListReturn()) {
         return false;
     }
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
     if (!reader.readString(return_helper)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_call:4385 */
 void yarprobotinterfaceRpc_get_phase_helper::call(yarprobotinterfaceRpc* ptr)
 {
     reply.return_helper = ptr->get_phase();
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl:3924 */
 // get_level helper class implementation
+/* t_yarp_generator::generate_service_helper_classes_impl_write:3990 */
 bool yarprobotinterfaceRpc_get_level_helper::write(yarp::os::ConnectionWriter& connection) const
 {
     return cmd.write(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_read:4038 */
 bool yarprobotinterfaceRpc_get_level_helper::read(yarp::os::ConnectionReader& connection)
 {
     return reply.read(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_connectionwriter:4058 */
 bool yarprobotinterfaceRpc_get_level_helper::Command::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
@@ -588,6 +621,7 @@ bool yarprobotinterfaceRpc_get_level_helper::Command::write(yarp::os::Connection
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_connectionreader:4080 */
 bool yarprobotinterfaceRpc_get_level_helper::Command::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
@@ -598,6 +632,7 @@ bool yarprobotinterfaceRpc_get_level_helper::Command::read(yarp::os::ConnectionR
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_wirewriter:4110 */
 bool yarprobotinterfaceRpc_get_level_helper::Command::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writeTag(writer)) {
@@ -609,6 +644,7 @@ bool yarprobotinterfaceRpc_get_level_helper::Command::write(const yarp::os::idl:
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writetag:4132 */
 bool yarprobotinterfaceRpc_get_level_helper::Command::writeTag(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.writeTag(s_tag, 1, s_tag_len)) {
@@ -617,11 +653,13 @@ bool yarprobotinterfaceRpc_get_level_helper::Command::writeTag(const yarp::os::i
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writeargs:4153 */
 bool yarprobotinterfaceRpc_get_level_helper::Command::writeArgs(const yarp::os::idl::WireWriter& writer [[maybe_unused]]) const
 {
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_wirereader:4181 */
 bool yarprobotinterfaceRpc_get_level_helper::Command::read(yarp::os::idl::WireReader& reader)
 {
     if (!readTag(reader)) {
@@ -633,6 +671,7 @@ bool yarprobotinterfaceRpc_get_level_helper::Command::read(yarp::os::idl::WireRe
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readtag:4201 */
 bool yarprobotinterfaceRpc_get_level_helper::Command::readTag(yarp::os::idl::WireReader& reader)
 {
     std::string tag = reader.readTag(s_tag_len);
@@ -646,6 +685,7 @@ bool yarprobotinterfaceRpc_get_level_helper::Command::readTag(yarp::os::idl::Wir
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readargs:4229 */
 bool yarprobotinterfaceRpc_get_level_helper::Command::readArgs(yarp::os::idl::WireReader& reader)
 {
     if (!reader.noMore()) {
@@ -655,24 +695,28 @@ bool yarprobotinterfaceRpc_get_level_helper::Command::readArgs(yarp::os::idl::Wi
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_connectionwriter:4259 */
 bool yarprobotinterfaceRpc_get_level_helper::Reply::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_connectionreader:4280 */
 bool yarprobotinterfaceRpc_get_level_helper::Reply::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_wirewriter:4301 */
 bool yarprobotinterfaceRpc_get_level_helper::Reply::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.isNull()) {
         if (!writer.writeListHeader(s_reply_len)) {
             return false;
         }
+/* t_yarp_generator::generate_serialize_field:1093 */
         if (!writer.writeI32(return_helper)) {
             return false;
         }
@@ -680,38 +724,46 @@ bool yarprobotinterfaceRpc_get_level_helper::Reply::write(const yarp::os::idl::W
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_wirereader:4347 */
 bool yarprobotinterfaceRpc_get_level_helper::Reply::read(yarp::os::idl::WireReader& reader)
 {
     if (!reader.readListReturn()) {
         return false;
     }
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
     if (!reader.readI32(return_helper)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_call:4385 */
 void yarprobotinterfaceRpc_get_level_helper::call(yarprobotinterfaceRpc* ptr)
 {
     reply.return_helper = ptr->get_level();
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl:3924 */
 // get_robot helper class implementation
+/* t_yarp_generator::generate_service_helper_classes_impl_write:3990 */
 bool yarprobotinterfaceRpc_get_robot_helper::write(yarp::os::ConnectionWriter& connection) const
 {
     return cmd.write(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_read:4038 */
 bool yarprobotinterfaceRpc_get_robot_helper::read(yarp::os::ConnectionReader& connection)
 {
     return reply.read(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_connectionwriter:4058 */
 bool yarprobotinterfaceRpc_get_robot_helper::Command::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
@@ -721,6 +773,7 @@ bool yarprobotinterfaceRpc_get_robot_helper::Command::write(yarp::os::Connection
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_connectionreader:4080 */
 bool yarprobotinterfaceRpc_get_robot_helper::Command::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
@@ -731,6 +784,7 @@ bool yarprobotinterfaceRpc_get_robot_helper::Command::read(yarp::os::ConnectionR
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_wirewriter:4110 */
 bool yarprobotinterfaceRpc_get_robot_helper::Command::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writeTag(writer)) {
@@ -742,6 +796,7 @@ bool yarprobotinterfaceRpc_get_robot_helper::Command::write(const yarp::os::idl:
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writetag:4132 */
 bool yarprobotinterfaceRpc_get_robot_helper::Command::writeTag(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.writeTag(s_tag, 1, s_tag_len)) {
@@ -750,11 +805,13 @@ bool yarprobotinterfaceRpc_get_robot_helper::Command::writeTag(const yarp::os::i
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writeargs:4153 */
 bool yarprobotinterfaceRpc_get_robot_helper::Command::writeArgs(const yarp::os::idl::WireWriter& writer [[maybe_unused]]) const
 {
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_wirereader:4181 */
 bool yarprobotinterfaceRpc_get_robot_helper::Command::read(yarp::os::idl::WireReader& reader)
 {
     if (!readTag(reader)) {
@@ -766,6 +823,7 @@ bool yarprobotinterfaceRpc_get_robot_helper::Command::read(yarp::os::idl::WireRe
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readtag:4201 */
 bool yarprobotinterfaceRpc_get_robot_helper::Command::readTag(yarp::os::idl::WireReader& reader)
 {
     std::string tag = reader.readTag(s_tag_len);
@@ -779,6 +837,7 @@ bool yarprobotinterfaceRpc_get_robot_helper::Command::readTag(yarp::os::idl::Wir
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readargs:4229 */
 bool yarprobotinterfaceRpc_get_robot_helper::Command::readArgs(yarp::os::idl::WireReader& reader)
 {
     if (!reader.noMore()) {
@@ -788,24 +847,28 @@ bool yarprobotinterfaceRpc_get_robot_helper::Command::readArgs(yarp::os::idl::Wi
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_connectionwriter:4259 */
 bool yarprobotinterfaceRpc_get_robot_helper::Reply::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_connectionreader:4280 */
 bool yarprobotinterfaceRpc_get_robot_helper::Reply::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_wirewriter:4301 */
 bool yarprobotinterfaceRpc_get_robot_helper::Reply::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.isNull()) {
         if (!writer.writeListHeader(s_reply_len)) {
             return false;
         }
+/* t_yarp_generator::generate_serialize_field:1093 */
         if (!writer.writeString(return_helper)) {
             return false;
         }
@@ -813,38 +876,46 @@ bool yarprobotinterfaceRpc_get_robot_helper::Reply::write(const yarp::os::idl::W
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_wirereader:4347 */
 bool yarprobotinterfaceRpc_get_robot_helper::Reply::read(yarp::os::idl::WireReader& reader)
 {
     if (!reader.readListReturn()) {
         return false;
     }
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
     if (!reader.readString(return_helper)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_call:4385 */
 void yarprobotinterfaceRpc_get_robot_helper::call(yarprobotinterfaceRpc* ptr)
 {
     reply.return_helper = ptr->get_robot();
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl:3924 */
 // is_ready helper class implementation
+/* t_yarp_generator::generate_service_helper_classes_impl_write:3990 */
 bool yarprobotinterfaceRpc_is_ready_helper::write(yarp::os::ConnectionWriter& connection) const
 {
     return cmd.write(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_read:4038 */
 bool yarprobotinterfaceRpc_is_ready_helper::read(yarp::os::ConnectionReader& connection)
 {
     return reply.read(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_connectionwriter:4058 */
 bool yarprobotinterfaceRpc_is_ready_helper::Command::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
@@ -854,6 +925,7 @@ bool yarprobotinterfaceRpc_is_ready_helper::Command::write(yarp::os::ConnectionW
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_connectionreader:4080 */
 bool yarprobotinterfaceRpc_is_ready_helper::Command::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
@@ -864,6 +936,7 @@ bool yarprobotinterfaceRpc_is_ready_helper::Command::read(yarp::os::ConnectionRe
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_wirewriter:4110 */
 bool yarprobotinterfaceRpc_is_ready_helper::Command::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writeTag(writer)) {
@@ -875,6 +948,7 @@ bool yarprobotinterfaceRpc_is_ready_helper::Command::write(const yarp::os::idl::
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writetag:4132 */
 bool yarprobotinterfaceRpc_is_ready_helper::Command::writeTag(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.writeTag(s_tag, 1, s_tag_len)) {
@@ -883,11 +957,13 @@ bool yarprobotinterfaceRpc_is_ready_helper::Command::writeTag(const yarp::os::id
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writeargs:4153 */
 bool yarprobotinterfaceRpc_is_ready_helper::Command::writeArgs(const yarp::os::idl::WireWriter& writer [[maybe_unused]]) const
 {
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_wirereader:4181 */
 bool yarprobotinterfaceRpc_is_ready_helper::Command::read(yarp::os::idl::WireReader& reader)
 {
     if (!readTag(reader)) {
@@ -899,6 +975,7 @@ bool yarprobotinterfaceRpc_is_ready_helper::Command::read(yarp::os::idl::WireRea
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readtag:4201 */
 bool yarprobotinterfaceRpc_is_ready_helper::Command::readTag(yarp::os::idl::WireReader& reader)
 {
     std::string tag = reader.readTag(s_tag_len);
@@ -912,6 +989,7 @@ bool yarprobotinterfaceRpc_is_ready_helper::Command::readTag(yarp::os::idl::Wire
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readargs:4229 */
 bool yarprobotinterfaceRpc_is_ready_helper::Command::readArgs(yarp::os::idl::WireReader& reader)
 {
     if (!reader.noMore()) {
@@ -921,24 +999,28 @@ bool yarprobotinterfaceRpc_is_ready_helper::Command::readArgs(yarp::os::idl::Wir
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_connectionwriter:4259 */
 bool yarprobotinterfaceRpc_is_ready_helper::Reply::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_connectionreader:4280 */
 bool yarprobotinterfaceRpc_is_ready_helper::Reply::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_wirewriter:4301 */
 bool yarprobotinterfaceRpc_is_ready_helper::Reply::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.isNull()) {
         if (!writer.writeListHeader(s_reply_len)) {
             return false;
         }
+/* t_yarp_generator::generate_serialize_field:1093 */
         if (!writer.writeBool(return_helper)) {
             return false;
         }
@@ -946,38 +1028,46 @@ bool yarprobotinterfaceRpc_is_ready_helper::Reply::write(const yarp::os::idl::Wi
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_wirereader:4347 */
 bool yarprobotinterfaceRpc_is_ready_helper::Reply::read(yarp::os::idl::WireReader& reader)
 {
     if (!reader.readListReturn()) {
         return false;
     }
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
     if (!reader.readBool(return_helper)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_call:4385 */
 void yarprobotinterfaceRpc_is_ready_helper::call(yarprobotinterfaceRpc* ptr)
 {
     reply.return_helper = ptr->is_ready();
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl:3924 */
 // quit helper class implementation
+/* t_yarp_generator::generate_service_helper_classes_impl_write:3990 */
 bool yarprobotinterfaceRpc_quit_helper::write(yarp::os::ConnectionWriter& connection) const
 {
     return cmd.write(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_read:4038 */
 bool yarprobotinterfaceRpc_quit_helper::read(yarp::os::ConnectionReader& connection)
 {
     return reply.read(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_connectionwriter:4058 */
 bool yarprobotinterfaceRpc_quit_helper::Command::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
@@ -987,6 +1077,7 @@ bool yarprobotinterfaceRpc_quit_helper::Command::write(yarp::os::ConnectionWrite
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_connectionreader:4080 */
 bool yarprobotinterfaceRpc_quit_helper::Command::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
@@ -997,6 +1088,7 @@ bool yarprobotinterfaceRpc_quit_helper::Command::read(yarp::os::ConnectionReader
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_wirewriter:4110 */
 bool yarprobotinterfaceRpc_quit_helper::Command::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writeTag(writer)) {
@@ -1008,6 +1100,7 @@ bool yarprobotinterfaceRpc_quit_helper::Command::write(const yarp::os::idl::Wire
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writetag:4132 */
 bool yarprobotinterfaceRpc_quit_helper::Command::writeTag(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.writeTag(s_tag, 1, s_tag_len)) {
@@ -1016,11 +1109,13 @@ bool yarprobotinterfaceRpc_quit_helper::Command::writeTag(const yarp::os::idl::W
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writeargs:4153 */
 bool yarprobotinterfaceRpc_quit_helper::Command::writeArgs(const yarp::os::idl::WireWriter& writer [[maybe_unused]]) const
 {
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_wirereader:4181 */
 bool yarprobotinterfaceRpc_quit_helper::Command::read(yarp::os::idl::WireReader& reader)
 {
     if (!readTag(reader)) {
@@ -1032,6 +1127,7 @@ bool yarprobotinterfaceRpc_quit_helper::Command::read(yarp::os::idl::WireReader&
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readtag:4201 */
 bool yarprobotinterfaceRpc_quit_helper::Command::readTag(yarp::os::idl::WireReader& reader)
 {
     std::string tag = reader.readTag(s_tag_len);
@@ -1045,6 +1141,7 @@ bool yarprobotinterfaceRpc_quit_helper::Command::readTag(yarp::os::idl::WireRead
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readargs:4229 */
 bool yarprobotinterfaceRpc_quit_helper::Command::readArgs(yarp::os::idl::WireReader& reader)
 {
     if (!reader.noMore()) {
@@ -1054,24 +1151,28 @@ bool yarprobotinterfaceRpc_quit_helper::Command::readArgs(yarp::os::idl::WireRea
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_connectionwriter:4259 */
 bool yarprobotinterfaceRpc_quit_helper::Reply::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_connectionreader:4280 */
 bool yarprobotinterfaceRpc_quit_helper::Reply::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_wirewriter:4301 */
 bool yarprobotinterfaceRpc_quit_helper::Reply::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.isNull()) {
         if (!writer.writeListHeader(s_reply_len)) {
             return false;
         }
+/* t_yarp_generator::generate_serialize_field:1093 */
         if (!writer.writeString(return_helper)) {
             return false;
         }
@@ -1079,38 +1180,46 @@ bool yarprobotinterfaceRpc_quit_helper::Reply::write(const yarp::os::idl::WireWr
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_wirereader:4347 */
 bool yarprobotinterfaceRpc_quit_helper::Reply::read(yarp::os::idl::WireReader& reader)
 {
     if (!reader.readListReturn()) {
         return false;
     }
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
     if (!reader.readString(return_helper)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_call:4385 */
 void yarprobotinterfaceRpc_quit_helper::call(yarprobotinterfaceRpc* ptr)
 {
     reply.return_helper = ptr->quit();
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl:3924 */
 // bye helper class implementation
+/* t_yarp_generator::generate_service_helper_classes_impl_write:3990 */
 bool yarprobotinterfaceRpc_bye_helper::write(yarp::os::ConnectionWriter& connection) const
 {
     return cmd.write(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_read:4038 */
 bool yarprobotinterfaceRpc_bye_helper::read(yarp::os::ConnectionReader& connection)
 {
     return reply.read(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_connectionwriter:4058 */
 bool yarprobotinterfaceRpc_bye_helper::Command::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
@@ -1120,6 +1229,7 @@ bool yarprobotinterfaceRpc_bye_helper::Command::write(yarp::os::ConnectionWriter
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_connectionreader:4080 */
 bool yarprobotinterfaceRpc_bye_helper::Command::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
@@ -1130,6 +1240,7 @@ bool yarprobotinterfaceRpc_bye_helper::Command::read(yarp::os::ConnectionReader&
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_wirewriter:4110 */
 bool yarprobotinterfaceRpc_bye_helper::Command::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writeTag(writer)) {
@@ -1141,6 +1252,7 @@ bool yarprobotinterfaceRpc_bye_helper::Command::write(const yarp::os::idl::WireW
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writetag:4132 */
 bool yarprobotinterfaceRpc_bye_helper::Command::writeTag(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.writeTag(s_tag, 1, s_tag_len)) {
@@ -1149,11 +1261,13 @@ bool yarprobotinterfaceRpc_bye_helper::Command::writeTag(const yarp::os::idl::Wi
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writeargs:4153 */
 bool yarprobotinterfaceRpc_bye_helper::Command::writeArgs(const yarp::os::idl::WireWriter& writer [[maybe_unused]]) const
 {
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_wirereader:4181 */
 bool yarprobotinterfaceRpc_bye_helper::Command::read(yarp::os::idl::WireReader& reader)
 {
     if (!readTag(reader)) {
@@ -1165,6 +1279,7 @@ bool yarprobotinterfaceRpc_bye_helper::Command::read(yarp::os::idl::WireReader& 
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readtag:4201 */
 bool yarprobotinterfaceRpc_bye_helper::Command::readTag(yarp::os::idl::WireReader& reader)
 {
     std::string tag = reader.readTag(s_tag_len);
@@ -1178,6 +1293,7 @@ bool yarprobotinterfaceRpc_bye_helper::Command::readTag(yarp::os::idl::WireReade
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readargs:4229 */
 bool yarprobotinterfaceRpc_bye_helper::Command::readArgs(yarp::os::idl::WireReader& reader)
 {
     if (!reader.noMore()) {
@@ -1187,24 +1303,28 @@ bool yarprobotinterfaceRpc_bye_helper::Command::readArgs(yarp::os::idl::WireRead
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_connectionwriter:4259 */
 bool yarprobotinterfaceRpc_bye_helper::Reply::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_connectionreader:4280 */
 bool yarprobotinterfaceRpc_bye_helper::Reply::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_wirewriter:4301 */
 bool yarprobotinterfaceRpc_bye_helper::Reply::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.isNull()) {
         if (!writer.writeListHeader(s_reply_len)) {
             return false;
         }
+/* t_yarp_generator::generate_serialize_field:1093 */
         if (!writer.writeString(return_helper)) {
             return false;
         }
@@ -1212,38 +1332,46 @@ bool yarprobotinterfaceRpc_bye_helper::Reply::write(const yarp::os::idl::WireWri
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_wirereader:4347 */
 bool yarprobotinterfaceRpc_bye_helper::Reply::read(yarp::os::idl::WireReader& reader)
 {
     if (!reader.readListReturn()) {
         return false;
     }
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
     if (!reader.readString(return_helper)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_call:4385 */
 void yarprobotinterfaceRpc_bye_helper::call(yarprobotinterfaceRpc* ptr)
 {
     reply.return_helper = ptr->bye();
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl:3924 */
 // exit helper class implementation
+/* t_yarp_generator::generate_service_helper_classes_impl_write:3990 */
 bool yarprobotinterfaceRpc_exit_helper::write(yarp::os::ConnectionWriter& connection) const
 {
     return cmd.write(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_read:4038 */
 bool yarprobotinterfaceRpc_exit_helper::read(yarp::os::ConnectionReader& connection)
 {
     return reply.read(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_connectionwriter:4058 */
 bool yarprobotinterfaceRpc_exit_helper::Command::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
@@ -1253,6 +1381,7 @@ bool yarprobotinterfaceRpc_exit_helper::Command::write(yarp::os::ConnectionWrite
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_connectionreader:4080 */
 bool yarprobotinterfaceRpc_exit_helper::Command::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
@@ -1263,6 +1392,7 @@ bool yarprobotinterfaceRpc_exit_helper::Command::read(yarp::os::ConnectionReader
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_wirewriter:4110 */
 bool yarprobotinterfaceRpc_exit_helper::Command::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writeTag(writer)) {
@@ -1274,6 +1404,7 @@ bool yarprobotinterfaceRpc_exit_helper::Command::write(const yarp::os::idl::Wire
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writetag:4132 */
 bool yarprobotinterfaceRpc_exit_helper::Command::writeTag(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.writeTag(s_tag, 1, s_tag_len)) {
@@ -1282,11 +1413,13 @@ bool yarprobotinterfaceRpc_exit_helper::Command::writeTag(const yarp::os::idl::W
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writeargs:4153 */
 bool yarprobotinterfaceRpc_exit_helper::Command::writeArgs(const yarp::os::idl::WireWriter& writer [[maybe_unused]]) const
 {
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_wirereader:4181 */
 bool yarprobotinterfaceRpc_exit_helper::Command::read(yarp::os::idl::WireReader& reader)
 {
     if (!readTag(reader)) {
@@ -1298,6 +1431,7 @@ bool yarprobotinterfaceRpc_exit_helper::Command::read(yarp::os::idl::WireReader&
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readtag:4201 */
 bool yarprobotinterfaceRpc_exit_helper::Command::readTag(yarp::os::idl::WireReader& reader)
 {
     std::string tag = reader.readTag(s_tag_len);
@@ -1311,6 +1445,7 @@ bool yarprobotinterfaceRpc_exit_helper::Command::readTag(yarp::os::idl::WireRead
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readargs:4229 */
 bool yarprobotinterfaceRpc_exit_helper::Command::readArgs(yarp::os::idl::WireReader& reader)
 {
     if (!reader.noMore()) {
@@ -1320,24 +1455,28 @@ bool yarprobotinterfaceRpc_exit_helper::Command::readArgs(yarp::os::idl::WireRea
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_connectionwriter:4259 */
 bool yarprobotinterfaceRpc_exit_helper::Reply::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_connectionreader:4280 */
 bool yarprobotinterfaceRpc_exit_helper::Reply::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_wirewriter:4301 */
 bool yarprobotinterfaceRpc_exit_helper::Reply::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.isNull()) {
         if (!writer.writeListHeader(s_reply_len)) {
             return false;
         }
+/* t_yarp_generator::generate_serialize_field:1093 */
         if (!writer.writeString(return_helper)) {
             return false;
         }
@@ -1345,33 +1484,39 @@ bool yarprobotinterfaceRpc_exit_helper::Reply::write(const yarp::os::idl::WireWr
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_wirereader:4347 */
 bool yarprobotinterfaceRpc_exit_helper::Reply::read(yarp::os::idl::WireReader& reader)
 {
     if (!reader.readListReturn()) {
         return false;
     }
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
     if (!reader.readString(return_helper)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_call:4385 */
 void yarprobotinterfaceRpc_exit_helper::call(yarprobotinterfaceRpc* ptr)
 {
     reply.return_helper = ptr->exit();
 }
 
+/* t_yarp_generator::generate_service_constructor:4425 */
 // Constructor
 yarprobotinterfaceRpc::yarprobotinterfaceRpc()
 {
     yarp().setOwner(*this);
 }
 
+/* t_yarp_generator::generate_service_method:4450 */
 std::string yarprobotinterfaceRpc::get_phase()
 {
     if (!yarp().canWrite()) {
@@ -1382,6 +1527,7 @@ std::string yarprobotinterfaceRpc::get_phase()
     return ok ? helper.reply.return_helper : std::string{};
 }
 
+/* t_yarp_generator::generate_service_method:4450 */
 std::int32_t yarprobotinterfaceRpc::get_level()
 {
     if (!yarp().canWrite()) {
@@ -1392,6 +1538,7 @@ std::int32_t yarprobotinterfaceRpc::get_level()
     return ok ? helper.reply.return_helper : std::int32_t{};
 }
 
+/* t_yarp_generator::generate_service_method:4450 */
 std::string yarprobotinterfaceRpc::get_robot()
 {
     if (!yarp().canWrite()) {
@@ -1402,6 +1549,7 @@ std::string yarprobotinterfaceRpc::get_robot()
     return ok ? helper.reply.return_helper : std::string{};
 }
 
+/* t_yarp_generator::generate_service_method:4450 */
 bool yarprobotinterfaceRpc::is_ready()
 {
     if (!yarp().canWrite()) {
@@ -1412,6 +1560,7 @@ bool yarprobotinterfaceRpc::is_ready()
     return ok ? helper.reply.return_helper : bool{};
 }
 
+/* t_yarp_generator::generate_service_method:4450 */
 std::string yarprobotinterfaceRpc::quit()
 {
     if (!yarp().canWrite()) {
@@ -1422,6 +1571,7 @@ std::string yarprobotinterfaceRpc::quit()
     return ok ? helper.reply.return_helper : std::string{};
 }
 
+/* t_yarp_generator::generate_service_method:4450 */
 std::string yarprobotinterfaceRpc::bye()
 {
     if (!yarp().canWrite()) {
@@ -1432,6 +1582,7 @@ std::string yarprobotinterfaceRpc::bye()
     return ok ? helper.reply.return_helper : std::string{};
 }
 
+/* t_yarp_generator::generate_service_method:4450 */
 std::string yarprobotinterfaceRpc::exit()
 {
     if (!yarp().canWrite()) {
@@ -1442,6 +1593,7 @@ std::string yarprobotinterfaceRpc::exit()
     return ok ? helper.reply.return_helper : std::string{};
 }
 
+/* t_yarp_generator::generate_service_help:4503 */
 // help method
 std::vector<std::string> yarprobotinterfaceRpc::help(const std::string& functionName)
 {
@@ -1499,6 +1651,7 @@ std::vector<std::string> yarprobotinterfaceRpc::help(const std::string& function
     return helpString;
 }
 
+/* t_yarp_generator::generate_service_read:4585 */
 // read from ConnectionReader
 bool yarprobotinterfaceRpc::read(yarp::os::ConnectionReader& connection)
 {

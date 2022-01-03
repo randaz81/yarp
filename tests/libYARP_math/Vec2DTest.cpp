@@ -13,6 +13,7 @@
 #include <yarp/math/Math.h>
 #include <yarp/sig/Vector.h>
 #include <yarp/math/Vec2D.h>
+#include <yarp/math/Vec2DSerializer.h>
 
 #include <yarp/os/Time.h>
 #include <yarp/os/LogStream.h>
@@ -77,26 +78,28 @@ TEST_CASE("math::Vec2DTest", "[yarp::math]")
         CHECK((vmat.x == 50 && vmat.y == 110)); // product between Vec2D and yarp::sig::Matrix ok
 
         Bottle bot;
-        Vec2D<int> vecbot1 (1,2);
+        Vec2D<int> vec1 (1,2);
+        Vec2DSerializer<int> vecbot1 (vec1);
         bool copy1 = yarp::os::Portable::copyPortable(vecbot1, bot);
-        CHECK((copy1 && bot.size() == 2 && bot.get(0).asInt32() == vecbot1.x && bot.get(1).asInt32() == vecbot1.y)); //  copyPortable ok
+        CHECK((copy1 && bot.size() == 2 && bot.get(0).asInt32() == vec1.x && bot.get(1).asInt32() == vec1.y)); //  copyPortable ok
 
-        Vec2D<double> vecbot2 (1.1,2.2);
+        Vec2D<double> vec2 (1.1,2.2);
+        Vec2DSerializer<double> vecbot2(vec2);
         bool copy2 = yarp::os::Portable::copyPortable(vecbot2, bot);
-        CHECK((copy2 && bot.size() == 2 && bot.get(0).asInt32() == vecbot1.x && bot.get(1).asInt32() == vecbot1.y)); // copyPortable ok
+        CHECK((copy2 && bot.size() == 2 && bot.get(0).asFloat64() == vec2.x && bot.get(1).asFloat64() == vec2.y)); // copyPortable ok
 
         Bottle bot1; bot1.addInt32(7); bot1.addInt32(9);
-        Vec2D<int> vecbot3;
+        Vec2DSerializer<int> vecbot3;
         bool copy3 = yarp::os::Portable::copyPortable(bot1, vecbot3);
-        CHECK((copy3 && vecbot3.x == 7 && vecbot3.y == 9)); // copyPortable ok
+        CHECK((copy3 && vecbot3.get().x == 7 && vecbot3.get().y == 9)); // copyPortable ok
 
         Bottle bot2; bot2.addFloat64(7.1); bot2.addFloat64(9.1);
-        Vec2D<double> vecbot4;
+        Vec2DSerializer<double> vecbot4;
         bool copy4 = yarp::os::Portable::copyPortable(bot2, vecbot4);
-        CHECK((copy4 && vecbot4.x == 7.1 && vecbot4.y == 9.1)); // copyPortable ok
+        CHECK((copy4 && vecbot4.get().x == 7.1 && vecbot4.get().y == 9.1)); // copyPortable ok
 
-        std::string str1 = vecbot1.toString();
-        std::string str2 = vecbot2.toString();
+        std::string str1 = vecbot1.get().toString();
+        std::string str2 = vecbot2.get().toString();
         //yDebug() << str1 << str2;
         CHECK((str1.size() != 0 && str2.size() != 0)); // toString() method ok
     }

@@ -1,3 +1,5 @@
 yarp/dev/AudioPlayerStatus_common.h
-yarp/dev/AudioPlayerStatus.h
-yarp/dev/AudioPlayerStatus.cpp
+yarp/dev/AudioPlayerStatusStorage.h
+yarp/dev/AudioPlayerStatusStorage.cpp
+yarp/dev/AudioPlayerStatusSerializer.h
+yarp/dev/AudioPlayerStatusSerializer.cpp

@@ -11,6 +11,14 @@
 #include <return_get_estimated_poses.h>
 
 // Constructor with field values
+return_get_estimated_posesRandazClass2::return_get_estimated_posesRandazClass2(const bool ret,
+                                                                               const std::vector<yarp::dev::Nav2D::Map2DLocation>& poses) :
+        ret(ret),
+        poses(poses)
+{
+}
+
+// Constructor with field values
 return_get_estimated_poses::return_get_estimated_poses(const bool ret,
                                                        const std::vector<yarp::dev::Nav2D::Map2DLocation>& poses) :
         WirePortable(),

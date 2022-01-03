@@ -100,17 +100,17 @@ class FrameTransformGet_nwc_yarp:
     public yarp::dev::DeviceDriver,
     public yarp::dev::IFrameTransformStorageGet
 {
-    class DataReader : public yarp::os::BufferedPort<return_getAllTransforms>
+    class DataReader : public yarp::os::BufferedPort<return_getAllTransformsSerializer>
     {
         std::mutex m_mutex;
-        return_getAllTransforms m_Transforms;
+        return_getAllTransformsStorage m_Transforms;
 
         public:
         DataReader() = default;
 
-        using               yarp::os::BufferedPort<return_getAllTransforms>::onRead;
-        void        onRead(return_getAllTransforms& v) override;
-        bool                getData(return_getAllTransforms& data);
+        using               yarp::os::BufferedPort<return_getAllTransformsSerializer>::onRead;
+        void                onRead(return_getAllTransformsSerializer& v) override;
+        bool                getData(return_getAllTransformsStorage& data);
     };
 
 public:

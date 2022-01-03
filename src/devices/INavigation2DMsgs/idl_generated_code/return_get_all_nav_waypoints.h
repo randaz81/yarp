@@ -15,6 +15,20 @@
 #include <yarp/os/idl/WireTypes.h>
 #include <yarp/dev/Map2DPath.h>
 
+class return_get_all_nav_waypointsRandazClass2{
+public:
+    // Fields
+    bool ret{false};
+    yarp::dev::Nav2D::Map2DPath waypoints{};
+
+    // Default constructor
+    return_get_all_nav_waypointsRandazClass2() = default;
+
+    // Constructor with field values
+    return_get_all_nav_waypointsRandazClass2(const bool ret,
+                                             const yarp::dev::Nav2D::Map2DPath& waypoints);
+
+};
 class return_get_all_nav_waypoints :
         public yarp::os::idl::WirePortable
 {

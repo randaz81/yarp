@@ -1,2 +1,4 @@
-yarp/dev/Map2DLocationData.h
-yarp/dev/Map2DLocationData.cpp
+yarp/dev/Nav2D/Map2DLocationDataStorage.h
+yarp/dev/Nav2D/Map2DLocationDataStorage.cpp
+yarp/dev/Nav2D/Map2DLocationDataSerializer.h
+yarp/dev/Nav2D/Map2DLocationDataSerializer.cpp

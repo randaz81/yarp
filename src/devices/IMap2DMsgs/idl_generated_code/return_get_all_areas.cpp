@@ -11,6 +11,14 @@
 #include <return_get_all_areas.h>
 
 // Constructor with field values
+return_get_all_areasRandazClass2::return_get_all_areasRandazClass2(const bool retval,
+                                                                   const std::vector<yarp::dev::Nav2D::Map2DArea>& areas) :
+        retval(retval),
+        areas(areas)
+{
+}
+
+// Constructor with field values
 return_get_all_areas::return_get_all_areas(const bool retval,
                                            const std::vector<yarp::dev::Nav2D::Map2DArea>& areas) :
         WirePortable(),

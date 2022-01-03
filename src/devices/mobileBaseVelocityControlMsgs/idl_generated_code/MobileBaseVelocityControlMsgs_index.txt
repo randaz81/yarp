@@ -1,4 +1,6 @@
-return_getLastVelocityCommand.h
-return_getLastVelocityCommand.cpp
+return_getLastVelocityCommandStorage.h
+return_getLastVelocityCommandStorage.cpp
+return_getLastVelocityCommandSerializer.h
+return_getLastVelocityCommandSerializer.cpp
 MobileBaseVelocityControlRPC.h
 MobileBaseVelocityControlRPC.cpp

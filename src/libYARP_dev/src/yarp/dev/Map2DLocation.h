@@ -12,13 +12,13 @@
 //#include <yarp/math/Vec2D.h>
 #include <yarp/dev/api.h>
 #include <yarp/dev/NavTypes.h>
-#include <yarp/dev/Map2DLocationData.h>
+#include <yarp/dev/Nav2d/Map2DLocationDataStorage.h>
 
 /**
 * \file Map2DLocation.h contains the definition of a Map2DLocation type
 */
 namespace yarp::dev::Nav2D {
-struct YARP_dev_API Map2DLocation : public Map2DLocationData
+struct YARP_dev_API Map2DLocation : public Map2DLocationDataStorage
 {
     /**
      * Constructor
@@ -66,6 +66,11 @@ struct YARP_dev_API Map2DLocation : public Map2DLocationData
     }
 
     /**
+     * Default destructor
+     */
+    virtual ~Map2DLocation() = default;
+
+    /**
      * Returns text representation of the location.
      * @return a human readable string containing the location infos.
      */
@@ -111,25 +116,6 @@ struct YARP_dev_API Map2DLocation : public Map2DLocationData
      */
     bool is_near_to(const Map2DLocation& other_loc, double linear_tolerance, double angular_tolerance) const;
 
-    /**
-     * Serialization methods
-     */
-    bool read(yarp::os::idl::WireReader& reader) override
-    {
-        return Map2DLocationData::read(reader);
-    }
-    bool write(const yarp::os::idl::WireWriter& writer) const override
-    {
-        return Map2DLocationData::write(writer);
-    }
-    bool read(yarp::os::ConnectionReader& reader) override
-    {
-        return Map2DLocationData::read(reader);
-    }
-    bool write(yarp::os::ConnectionWriter& writer) const override
-    {
-        return Map2DLocationData::write(writer);
-    }
 };
 } // namespace yarp::dev::Nav2D
 

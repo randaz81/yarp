@@ -11,6 +11,14 @@
 #include <return_get_all_locations.h>
 
 // Constructor with field values
+return_get_all_locationsRandazClass2::return_get_all_locationsRandazClass2(const bool retval,
+                                                                           const std::vector<yarp::dev::Nav2D::Map2DLocation>& locations) :
+        retval(retval),
+        locations(locations)
+{
+}
+
+// Constructor with field values
 return_get_all_locations::return_get_all_locations(const bool retval,
                                                    const std::vector<yarp::dev::Nav2D::Map2DLocation>& locations) :
         WirePortable(),

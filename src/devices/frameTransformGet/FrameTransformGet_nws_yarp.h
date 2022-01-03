@@ -101,7 +101,7 @@ public:
     bool  detach() override;
 
     // FrameTransformStorageGetRPC
-    return_getAllTransforms getTransformsRPC() override;
+    return_getAllTransformsStorage getTransformsRPC() override;
 
 private:
     // mutable std::vector<std::mutex> m_PolyDriver_mutex;

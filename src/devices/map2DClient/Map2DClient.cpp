@@ -12,6 +12,9 @@
 #include <mutex>
 #include <yarp/dev/INavigation2D.h>
 #include <yarp/dev/GenericVocabs.h>
+#include <yarp/dev/Nav2D/Map2DPathDataSerializer.h>
+#include <yarp/dev/Nav2D/Map2DAreaDataSerializer.h>
+#include <yarp/dev/Nav2D/MapGrid2DDataSerializer.h>
 
 using namespace yarp::dev;
 using namespace yarp::dev::Nav2D;
@@ -79,7 +82,7 @@ bool Map2DClient::store_map(const MapGrid2D& map)
     b.addVocab32(VOCAB_IMAP);
     b.addVocab32(VOCAB_IMAP_SET_MAP);
     yarp::os::Bottle& mapbot = b.addList();
-    MapGrid2D maptemp = map;
+    MapGrid2DDataSerializer maptemp(map);
     if (Property::copyPortable(maptemp, mapbot) == false)
     {
         yCError(MAP2DCLIENT) << "store_map() failed copyPortable()";
@@ -123,8 +126,10 @@ bool Map2DClient::get_map(std::string map_name, MapGrid2D& map)
         else
         {
             Value& bt = resp.get(1);
-            if (Property::copyPortable(bt, map))
+            MapGrid2DDataSerializer mapser;
+            if (Property::copyPortable(bt, mapser))
             {
+                map = mapser.get();
                 return true;
             }
             else
@@ -267,7 +272,7 @@ bool Map2DClient::storeArea(std::string area_name, Map2DArea area)
     b.addVocab32(VOCAB_NAV_AREA);
     b.addString(area_name);
     yarp::os::Bottle& areabot = b.addList();
-    Map2DArea areatemp = area;
+    Map2DAreaDataSerializer areatemp(area);
     if (Property::copyPortable(areatemp, areabot) == false)
     {
         yCError(MAP2DCLIENT) << "storeArea() failed copyPortable()";
@@ -301,7 +306,7 @@ bool Map2DClient::storePath(std::string path_name, Map2DPath path)
     b.addVocab32(VOCAB_NAV_PATH);
     b.addString(path_name);
     yarp::os::Bottle& areabot = b.addList();
-    Map2DPath pathtemp = path;
+    yarp::dev::Nav2D::Map2DPathDataSerializer pathtemp(path);
     if (Property::copyPortable(pathtemp, areabot) == false)
     {
         yCError(MAP2DCLIENT) << "storePath() failed copyPortable()";
@@ -512,8 +517,10 @@ bool   Map2DClient::getArea(std::string location_name, Map2DArea& area)
         else
         {
             Value& bt = resp.get(1);
-            if (Property::copyPortable(bt, area))
+            Map2DAreaDataSerializer area_ser;
+            if (Property::copyPortable(bt, area_ser))
             {
+                area = Map2DAreaDataStorage(area_ser.get());
                 return true;
             }
             else
@@ -552,8 +559,10 @@ bool   Map2DClient::getPath(std::string path_name, Map2DPath& path)
         else
         {
             Value& bt = resp.get(1);
-            if (Property::copyPortable(bt, path))
+            yarp::dev::Nav2D::Map2DPathDataSerializer path_ser;
+            if (Property::copyPortable(bt, path_ser))
             {
+                path = path_ser.get();
                 return true;
             }
             else

@@ -1,3 +1,5 @@
 yarp/dev/AudioRecorderStatus_common.h
-yarp/dev/AudioRecorderStatus.h
-yarp/dev/AudioRecorderStatus.cpp
+yarp/dev/AudioRecorderStatusStorage.h
+yarp/dev/AudioRecorderStatusStorage.cpp
+yarp/dev/AudioRecorderStatusSerializer.h
+yarp/dev/AudioRecorderStatusSerializer.cpp

@@ -132,7 +132,7 @@ bool  Navigation2DClient::getCurrentPosition(Map2DLocation& loc, yarp::sig::Matr
     return true;
 }
 
-bool  Navigation2DClient::getEstimatedOdometry(yarp::dev::OdometryData& odom)
+bool  Navigation2DClient::getEstimatedOdometry(yarp::dev::Nav2D::Odometry& odom)
 {
     yarp::os::Bottle b;
     yarp::os::Bottle resp;

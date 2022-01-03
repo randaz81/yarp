@@ -16,6 +16,7 @@ set(YARP_sig_HDRS
   yarp/sig/ImageUtils.h
   yarp/sig/IntrinsicParams.h
   yarp/sig/Matrix.h
+  yarp/sig/MatrixSerializer.h
   yarp/sig/PointCloud.h
   yarp/sig/PointCloudBase.h
   yarp/sig/PointCloudNetworkHeader.h
@@ -43,6 +44,7 @@ set(YARP_sig_SRCS
   yarp/sig/ImageUtils.cpp
   yarp/sig/IntrinsicParams.cpp
   yarp/sig/Matrix.cpp
+  yarp/sig/MatrixSerializer.cpp
   yarp/sig/PointCloudBase.cpp
   yarp/sig/PointCloudUtils.cpp
   yarp/sig/Sound.cpp

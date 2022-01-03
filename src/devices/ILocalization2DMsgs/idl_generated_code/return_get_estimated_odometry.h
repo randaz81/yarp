@@ -15,6 +15,20 @@
 #include <yarp/os/idl/WireTypes.h>
 #include <yarp/dev/OdometryData.h>
 
+class return_get_estimated_odometryRandazClass2{
+public:
+    // Fields
+    bool ret{false};
+    yarp::dev::OdometryData odom{};
+
+    // Default constructor
+    return_get_estimated_odometryRandazClass2() = default;
+
+    // Constructor with field values
+    return_get_estimated_odometryRandazClass2(const bool ret,
+                                              const yarp::dev::OdometryData& odom);
+
+};
 class return_get_estimated_odometry :
         public yarp::os::idl::WirePortable
 {

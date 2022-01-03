@@ -11,6 +11,14 @@
 #include <return_get_name_of_current_target.h>
 
 // Constructor with field values
+return_get_name_of_current_targetRandazClass2::return_get_name_of_current_targetRandazClass2(const bool ret,
+                                                                                             const std::string& name) :
+        ret(ret),
+        name(name)
+{
+}
+
+// Constructor with field values
 return_get_name_of_current_target::return_get_name_of_current_target(const bool ret,
                                                                      const std::string& name) :
         WirePortable(),

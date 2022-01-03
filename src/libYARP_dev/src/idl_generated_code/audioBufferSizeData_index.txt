@@ -1,2 +1,4 @@
-yarp/dev/audioBufferSizeData.h
-yarp/dev/audioBufferSizeData.cpp
+yarp/dev/audioBufferSizeDataStorage.h
+yarp/dev/audioBufferSizeDataStorage.cpp
+yarp/dev/audioBufferSizeDataSerializer.h
+yarp/dev/audioBufferSizeDataSerializer.cpp

@@ -16,8 +16,11 @@ set(YARP_math_HDRS
   yarp/math/RandVector.h
   yarp/math/SVD.h
   yarp/math/Quaternion.h
+  yarp/math/QuaternionData.h
   yarp/math/Vec2D.h
+  yarp/math/Vec2DSerializer.h
   yarp/math/FrameTransform.h
+  yarp/math/FrameTransformData.h
 )
 
 set(YARP_math_IMPL_HDRS)
@@ -30,8 +33,11 @@ set(YARP_math_SRCS
   yarp/math/RandVector.cpp
   yarp/math/SVD.cpp
   yarp/math/Quaternion.cpp
+  yarp/math/QuaternionData.cpp
   yarp/math/Vec2D.cpp
+  yarp/math/Vec2DSerializer.cpp
   yarp/math/FrameTransform.cpp
+  yarp/math/FrameTransformData.cpp
   yarp/math/RandScalar.cpp
   yarp/math/RandnScalar.cpp
 )

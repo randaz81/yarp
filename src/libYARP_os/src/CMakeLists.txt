@@ -105,6 +105,7 @@ set(YARP_os_HDRS
   yarp/os/RpcServer.h
   yarp/os/Searchable.h
   yarp/os/Semaphore.h
+  yarp/os/Serializer.h
   yarp/os/SharedLibraryClassApi.h
   yarp/os/SharedLibraryClassFactory.h
   yarp/os/SharedLibraryClass.h
@@ -134,6 +135,7 @@ set(YARP_os_HDRS
   yarp/os/Vocab.h
   yarp/os/Wire.h
   yarp/os/WireLink.h
+  yarp/os/WireSerializer.h
   yarp/os/YarpNameSpace.h
   yarp/os/YarpPlugin.h
   yarp/os/YarpPluginSelector.h

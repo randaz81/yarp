@@ -10,6 +10,7 @@
 
 #include <yarp/dev/DeviceDriver.h>
 #include <yarp/dev/IOdometry2D.h>
+#include <yarp/dev/Nav2D/OdometryDataSerializer.h>
 #include <yarp/dev/WrapperSingle.h>
 
 #define DEFAULT_THREAD_PERIOD 0.02 //s
@@ -100,7 +101,7 @@ public:
 
 private:
     //buffered ports
-    yarp::os::BufferedPort<yarp::dev::OdometryData> m_port_odometry;
+    yarp::os::BufferedPort<yarp::dev::Nav2D::OdometryDataSerializer> m_port_odometry;
     yarp::os::BufferedPort<yarp::os::Bottle> m_port_velocity;
     yarp::os::BufferedPort<yarp::os::Bottle> m_port_odometer;
 
@@ -110,7 +111,7 @@ private:
     std::string m_velocityStreamingPortName;
     std::string m_deviceName;
     size_t m_stampCount{0};
-    yarp::dev::OdometryData m_oldOdometryData{0,0,0,0,0,0,0,0,0};
+    yarp::dev::Nav2D::Odometry m_oldOdometryData;
 
     // thread
     double m_period{DEFAULT_THREAD_PERIOD};

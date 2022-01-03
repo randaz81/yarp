@@ -15,6 +15,20 @@
 #include <yarp/os/idl/WireTypes.h>
 #include <yarp/dev/INavigation2D.h>
 
+class return_get_navigation_statusRandazClass2{
+public:
+    // Fields
+    bool ret{false};
+    yarp::dev::Nav2D::NavigationStatusEnum status{};
+
+    // Default constructor
+    return_get_navigation_statusRandazClass2() = default;
+
+    // Constructor with field values
+    return_get_navigation_statusRandazClass2(const bool ret,
+                                             const yarp::dev::Nav2D::NavigationStatusEnum status);
+
+};
 class return_get_navigation_status :
         public yarp::os::idl::WirePortable
 {

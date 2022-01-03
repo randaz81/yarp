@@ -11,6 +11,14 @@
 #include <return_get_areas_list.h>
 
 // Constructor with field values
+return_get_areas_listRandazClass2::return_get_areas_listRandazClass2(const bool retval,
+                                                                     const std::vector<std::string>& areas) :
+        retval(retval),
+        areas(areas)
+{
+}
+
+// Constructor with field values
 return_get_areas_list::return_get_areas_list(const bool retval,
                                              const std::vector<std::string>& areas) :
         WirePortable(),

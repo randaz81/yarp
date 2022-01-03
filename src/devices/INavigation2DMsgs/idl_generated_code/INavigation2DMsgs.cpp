@@ -1,3 +1,4 @@
+/* t_yarp_generator::generate_service:3617 */
 /*
  * SPDX-FileCopyrightText: 2006-2021 Istituto Italiano di Tecnologia (IIT)
  * SPDX-License-Identifier: BSD-3-Clause
@@ -14,6 +15,9 @@
 
 #include <algorithm>
 
+/* t_yarp_generator::generate_service:3713 */
+/* t_yarp_generator::generate_service_helper_classes:3761 */
+/* t_yarp_generator::generate_service_helper_classes_decl:3778 */
 // stop_navigation_RPC helper class declaration
 class INavigation2DMsgs_stop_navigation_RPC_helper :
         public yarp::os::Portable
@@ -72,6 +76,7 @@ public:
     static constexpr const char* s_help{""};
 };
 
+/* t_yarp_generator::generate_service_helper_classes_decl:3778 */
 // resume_navigation_RPC helper class declaration
 class INavigation2DMsgs_resume_navigation_RPC_helper :
         public yarp::os::Portable
@@ -130,6 +135,7 @@ public:
     static constexpr const char* s_help{""};
 };
 
+/* t_yarp_generator::generate_service_helper_classes_decl:3778 */
 // suspend_navigation_RPC helper class declaration
 class INavigation2DMsgs_suspend_navigation_RPC_helper :
         public yarp::os::Portable
@@ -193,6 +199,7 @@ public:
     static constexpr const char* s_help{""};
 };
 
+/* t_yarp_generator::generate_service_helper_classes_decl:3778 */
 // recompute_current_navigation_path_RPC helper class declaration
 class INavigation2DMsgs_recompute_current_navigation_path_RPC_helper :
         public yarp::os::Portable
@@ -251,6 +258,7 @@ public:
     static constexpr const char* s_help{""};
 };
 
+/* t_yarp_generator::generate_service_helper_classes_decl:3778 */
 // get_navigation_status_RPC helper class declaration
 class INavigation2DMsgs_get_navigation_status_RPC_helper :
         public yarp::os::Portable
@@ -292,10 +300,10 @@ public:
         bool write(const yarp::os::idl::WireWriter& writer) const override;
         bool read(yarp::os::idl::WireReader& reader) override;
 
-        return_get_navigation_status return_helper{};
+        return_get_navigation_statusStorage return_helper{};
     };
 
-    using funcptr_t = return_get_navigation_status (*)();
+    using funcptr_t = return_get_navigation_statusStorage (*)();
     void call(INavigation2DMsgs* ptr);
 
     Command cmd;
@@ -305,10 +313,11 @@ public:
     static constexpr size_t s_tag_len{4};
     static constexpr size_t s_cmd_len{4};
     static constexpr size_t s_reply_len{2};
-    static constexpr const char* s_prototype{"return_get_navigation_status INavigation2DMsgs::get_navigation_status_RPC()"};
+    static constexpr const char* s_prototype{"return_get_navigation_statusStorage INavigation2DMsgs::get_navigation_status_RPC()"};
     static constexpr const char* s_help{""};
 };
 
+/* t_yarp_generator::generate_service_helper_classes_decl:3778 */
 // get_current_nav_waypoint_RPC helper class declaration
 class INavigation2DMsgs_get_current_nav_waypoint_RPC_helper :
         public yarp::os::Portable
@@ -350,10 +359,10 @@ public:
         bool write(const yarp::os::idl::WireWriter& writer) const override;
         bool read(yarp::os::idl::WireReader& reader) override;
 
-        return_get_current_nav_waypoint return_helper{};
+        return_get_current_nav_waypointStorage return_helper{};
     };
 
-    using funcptr_t = return_get_current_nav_waypoint (*)();
+    using funcptr_t = return_get_current_nav_waypointStorage (*)();
     void call(INavigation2DMsgs* ptr);
 
     Command cmd;
@@ -363,10 +372,11 @@ public:
     static constexpr size_t s_tag_len{5};
     static constexpr size_t s_cmd_len{5};
     static constexpr size_t s_reply_len{2};
-    static constexpr const char* s_prototype{"return_get_current_nav_waypoint INavigation2DMsgs::get_current_nav_waypoint_RPC()"};
+    static constexpr const char* s_prototype{"return_get_current_nav_waypointStorage INavigation2DMsgs::get_current_nav_waypoint_RPC()"};
     static constexpr const char* s_help{""};
 };
 
+/* t_yarp_generator::generate_service_helper_classes_decl:3778 */
 // get_all_navigation_waypoints_RPC helper class declaration
 class INavigation2DMsgs_get_all_navigation_waypoints_RPC_helper :
         public yarp::os::Portable
@@ -413,10 +423,10 @@ public:
         bool write(const yarp::os::idl::WireWriter& writer) const override;
         bool read(yarp::os::idl::WireReader& reader) override;
 
-        return_get_all_nav_waypoints return_helper{};
+        return_get_all_nav_waypointsStorage return_helper{};
     };
 
-    using funcptr_t = return_get_all_nav_waypoints (*)(const yarp::dev::Nav2D::TrajectoryTypeEnum);
+    using funcptr_t = return_get_all_nav_waypointsStorage (*)(const yarp::dev::Nav2D::TrajectoryTypeEnum);
     void call(INavigation2DMsgs* ptr);
 
     Command cmd;
@@ -426,10 +436,11 @@ public:
     static constexpr size_t s_tag_len{5};
     static constexpr size_t s_cmd_len{6};
     static constexpr size_t s_reply_len{2};
-    static constexpr const char* s_prototype{"return_get_all_nav_waypoints INavigation2DMsgs::get_all_navigation_waypoints_RPC(const yarp::dev::Nav2D::TrajectoryTypeEnum trajectory_type)"};
+    static constexpr const char* s_prototype{"return_get_all_nav_waypointsStorage INavigation2DMsgs::get_all_navigation_waypoints_RPC(const yarp::dev::Nav2D::TrajectoryTypeEnum trajectory_type)"};
     static constexpr const char* s_help{""};
 };
 
+/* t_yarp_generator::generate_service_helper_classes_decl:3778 */
 // get_current_navigation_map_RPC helper class declaration
 class INavigation2DMsgs_get_current_navigation_map_RPC_helper :
         public yarp::os::Portable
@@ -476,10 +487,10 @@ public:
         bool write(const yarp::os::idl::WireWriter& writer) const override;
         bool read(yarp::os::idl::WireReader& reader) override;
 
-        return_get_current_nav_map return_helper{};
+        return_get_current_nav_mapStorage return_helper{};
     };
 
-    using funcptr_t = return_get_current_nav_map (*)(const yarp::dev::Nav2D::NavigationMapTypeEnum);
+    using funcptr_t = return_get_current_nav_mapStorage (*)(const yarp::dev::Nav2D::NavigationMapTypeEnum);
     void call(INavigation2DMsgs* ptr);
 
     Command cmd;
@@ -489,10 +500,11 @@ public:
     static constexpr size_t s_tag_len{5};
     static constexpr size_t s_cmd_len{6};
     static constexpr size_t s_reply_len{2};
-    static constexpr const char* s_prototype{"return_get_current_nav_map INavigation2DMsgs::get_current_navigation_map_RPC(const yarp::dev::Nav2D::NavigationMapTypeEnum map_type)"};
+    static constexpr const char* s_prototype{"return_get_current_nav_mapStorage INavigation2DMsgs::get_current_navigation_map_RPC(const yarp::dev::Nav2D::NavigationMapTypeEnum map_type)"};
     static constexpr const char* s_help{""};
 };
 
+/* t_yarp_generator::generate_service_helper_classes_decl:3778 */
 // goto_target_by_absolute_location_RPC helper class declaration
 class INavigation2DMsgs_goto_target_by_absolute_location_RPC_helper :
         public yarp::os::Portable
@@ -556,6 +568,7 @@ public:
     static constexpr const char* s_help{""};
 };
 
+/* t_yarp_generator::generate_service_helper_classes_decl:3778 */
 // goto_target_by_relative_location1_RPC helper class declaration
 class INavigation2DMsgs_goto_target_by_relative_location1_RPC_helper :
         public yarp::os::Portable
@@ -620,6 +633,7 @@ public:
     static constexpr const char* s_help{""};
 };
 
+/* t_yarp_generator::generate_service_helper_classes_decl:3778 */
 // goto_target_by_relative_location2_RPC helper class declaration
 class INavigation2DMsgs_goto_target_by_relative_location2_RPC_helper :
         public yarp::os::Portable
@@ -685,6 +699,7 @@ public:
     static constexpr const char* s_help{""};
 };
 
+/* t_yarp_generator::generate_service_helper_classes_decl:3778 */
 // get_absolute_location_of_current_target_RPC helper class declaration
 class INavigation2DMsgs_get_absolute_location_of_current_target_RPC_helper :
         public yarp::os::Portable
@@ -726,10 +741,10 @@ public:
         bool write(const yarp::os::idl::WireWriter& writer) const override;
         bool read(yarp::os::idl::WireReader& reader) override;
 
-        return_get_abs_loc_of_curr_target return_helper{};
+        return_get_abs_loc_of_curr_targetStorage return_helper{};
     };
 
-    using funcptr_t = return_get_abs_loc_of_curr_target (*)();
+    using funcptr_t = return_get_abs_loc_of_curr_targetStorage (*)();
     void call(INavigation2DMsgs* ptr);
 
     Command cmd;
@@ -739,10 +754,11 @@ public:
     static constexpr size_t s_tag_len{7};
     static constexpr size_t s_cmd_len{7};
     static constexpr size_t s_reply_len{2};
-    static constexpr const char* s_prototype{"return_get_abs_loc_of_curr_target INavigation2DMsgs::get_absolute_location_of_current_target_RPC()"};
+    static constexpr const char* s_prototype{"return_get_abs_loc_of_curr_targetStorage INavigation2DMsgs::get_absolute_location_of_current_target_RPC()"};
     static constexpr const char* s_help{""};
 };
 
+/* t_yarp_generator::generate_service_helper_classes_decl:3778 */
 // get_relative_location_of_current_target_RPC helper class declaration
 class INavigation2DMsgs_get_relative_location_of_current_target_RPC_helper :
         public yarp::os::Portable
@@ -784,10 +800,10 @@ public:
         bool write(const yarp::os::idl::WireWriter& writer) const override;
         bool read(yarp::os::idl::WireReader& reader) override;
 
-        return_get_rel_loc_of_curr_target return_helper{};
+        return_get_rel_loc_of_curr_targetStorage return_helper{};
     };
 
-    using funcptr_t = return_get_rel_loc_of_curr_target (*)();
+    using funcptr_t = return_get_rel_loc_of_curr_targetStorage (*)();
     void call(INavigation2DMsgs* ptr);
 
     Command cmd;
@@ -797,10 +813,11 @@ public:
     static constexpr size_t s_tag_len{7};
     static constexpr size_t s_cmd_len{7};
     static constexpr size_t s_reply_len{4};
-    static constexpr const char* s_prototype{"return_get_rel_loc_of_curr_target INavigation2DMsgs::get_relative_location_of_current_target_RPC()"};
+    static constexpr const char* s_prototype{"return_get_rel_loc_of_curr_targetStorage INavigation2DMsgs::get_relative_location_of_current_target_RPC()"};
     static constexpr const char* s_help{""};
 };
 
+/* t_yarp_generator::generate_service_helper_classes_decl:3778 */
 // goto_target_by_absolute_location_and_set_name_RPC helper class declaration
 class INavigation2DMsgs_goto_target_by_absolute_location_and_set_name_RPC_helper :
         public yarp::os::Portable
@@ -865,6 +882,7 @@ public:
     static constexpr const char* s_help{""};
 };
 
+/* t_yarp_generator::generate_service_helper_classes_decl:3778 */
 // apply_velocity_command_RPC helper class declaration
 class INavigation2DMsgs_apply_velocity_command_RPC_helper :
         public yarp::os::Portable
@@ -931,6 +949,7 @@ public:
     static constexpr const char* s_help{""};
 };
 
+/* t_yarp_generator::generate_service_helper_classes_decl:3778 */
 // get_last_velocity_command_RPC helper class declaration
 class INavigation2DMsgs_get_last_velocity_command_RPC_helper :
         public yarp::os::Portable
@@ -972,10 +991,10 @@ public:
         bool write(const yarp::os::idl::WireWriter& writer) const override;
         bool read(yarp::os::idl::WireReader& reader) override;
 
-        return_get_last_velocity_command return_helper{};
+        return_get_last_velocity_commandStorage return_helper{};
     };
 
-    using funcptr_t = return_get_last_velocity_command (*)();
+    using funcptr_t = return_get_last_velocity_commandStorage (*)();
     void call(INavigation2DMsgs* ptr);
 
     Command cmd;
@@ -985,10 +1004,11 @@ public:
     static constexpr size_t s_tag_len{5};
     static constexpr size_t s_cmd_len{5};
     static constexpr size_t s_reply_len{4};
-    static constexpr const char* s_prototype{"return_get_last_velocity_command INavigation2DMsgs::get_last_velocity_command_RPC()"};
+    static constexpr const char* s_prototype{"return_get_last_velocity_commandStorage INavigation2DMsgs::get_last_velocity_command_RPC()"};
     static constexpr const char* s_help{""};
 };
 
+/* t_yarp_generator::generate_service_helper_classes_decl:3778 */
 // get_name_of_current_target_RPC helper class declaration
 class INavigation2DMsgs_get_name_of_current_target_RPC_helper :
         public yarp::os::Portable
@@ -1030,10 +1050,10 @@ public:
         bool write(const yarp::os::idl::WireWriter& writer) const override;
         bool read(yarp::os::idl::WireReader& reader) override;
 
-        return_get_name_of_current_target return_helper{};
+        return_get_name_of_current_targetStorage return_helper{};
     };
 
-    using funcptr_t = return_get_name_of_current_target (*)();
+    using funcptr_t = return_get_name_of_current_targetStorage (*)();
     void call(INavigation2DMsgs* ptr);
 
     Command cmd;
@@ -1043,21 +1063,25 @@ public:
     static constexpr size_t s_tag_len{6};
     static constexpr size_t s_cmd_len{6};
     static constexpr size_t s_reply_len{2};
-    static constexpr const char* s_prototype{"return_get_name_of_current_target INavigation2DMsgs::get_name_of_current_target_RPC()"};
+    static constexpr const char* s_prototype{"return_get_name_of_current_targetStorage INavigation2DMsgs::get_name_of_current_target_RPC()"};
     static constexpr const char* s_help{""};
 };
 
+/* t_yarp_generator::generate_service_helper_classes_impl:3924 */
 // stop_navigation_RPC helper class implementation
+/* t_yarp_generator::generate_service_helper_classes_impl_write:3990 */
 bool INavigation2DMsgs_stop_navigation_RPC_helper::write(yarp::os::ConnectionWriter& connection) const
 {
     return cmd.write(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_read:4038 */
 bool INavigation2DMsgs_stop_navigation_RPC_helper::read(yarp::os::ConnectionReader& connection)
 {
     return reply.read(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_connectionwriter:4058 */
 bool INavigation2DMsgs_stop_navigation_RPC_helper::Command::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
@@ -1067,6 +1091,7 @@ bool INavigation2DMsgs_stop_navigation_RPC_helper::Command::write(yarp::os::Conn
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_connectionreader:4080 */
 bool INavigation2DMsgs_stop_navigation_RPC_helper::Command::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
@@ -1077,6 +1102,7 @@ bool INavigation2DMsgs_stop_navigation_RPC_helper::Command::read(yarp::os::Conne
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_wirewriter:4110 */
 bool INavigation2DMsgs_stop_navigation_RPC_helper::Command::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writeTag(writer)) {
@@ -1088,6 +1114,7 @@ bool INavigation2DMsgs_stop_navigation_RPC_helper::Command::write(const yarp::os
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writetag:4132 */
 bool INavigation2DMsgs_stop_navigation_RPC_helper::Command::writeTag(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.writeTag(s_tag, 1, s_tag_len)) {
@@ -1096,11 +1123,13 @@ bool INavigation2DMsgs_stop_navigation_RPC_helper::Command::writeTag(const yarp:
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writeargs:4153 */
 bool INavigation2DMsgs_stop_navigation_RPC_helper::Command::writeArgs(const yarp::os::idl::WireWriter& writer [[maybe_unused]]) const
 {
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_wirereader:4181 */
 bool INavigation2DMsgs_stop_navigation_RPC_helper::Command::read(yarp::os::idl::WireReader& reader)
 {
     if (!readTag(reader)) {
@@ -1112,6 +1141,7 @@ bool INavigation2DMsgs_stop_navigation_RPC_helper::Command::read(yarp::os::idl::
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readtag:4201 */
 bool INavigation2DMsgs_stop_navigation_RPC_helper::Command::readTag(yarp::os::idl::WireReader& reader)
 {
     std::string tag = reader.readTag(s_tag_len);
@@ -1125,6 +1155,7 @@ bool INavigation2DMsgs_stop_navigation_RPC_helper::Command::readTag(yarp::os::id
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readargs:4229 */
 bool INavigation2DMsgs_stop_navigation_RPC_helper::Command::readArgs(yarp::os::idl::WireReader& reader)
 {
     if (!reader.noMore()) {
@@ -1134,24 +1165,28 @@ bool INavigation2DMsgs_stop_navigation_RPC_helper::Command::readArgs(yarp::os::i
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_connectionwriter:4259 */
 bool INavigation2DMsgs_stop_navigation_RPC_helper::Reply::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_connectionreader:4280 */
 bool INavigation2DMsgs_stop_navigation_RPC_helper::Reply::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_wirewriter:4301 */
 bool INavigation2DMsgs_stop_navigation_RPC_helper::Reply::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.isNull()) {
         if (!writer.writeListHeader(s_reply_len)) {
             return false;
         }
+/* t_yarp_generator::generate_serialize_field:1093 */
         if (!writer.writeBool(return_helper)) {
             return false;
         }
@@ -1159,38 +1194,46 @@ bool INavigation2DMsgs_stop_navigation_RPC_helper::Reply::write(const yarp::os::
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_wirereader:4347 */
 bool INavigation2DMsgs_stop_navigation_RPC_helper::Reply::read(yarp::os::idl::WireReader& reader)
 {
     if (!reader.readListReturn()) {
         return false;
     }
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
     if (!reader.readBool(return_helper)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_call:4385 */
 void INavigation2DMsgs_stop_navigation_RPC_helper::call(INavigation2DMsgs* ptr)
 {
     reply.return_helper = ptr->stop_navigation_RPC();
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl:3924 */
 // resume_navigation_RPC helper class implementation
+/* t_yarp_generator::generate_service_helper_classes_impl_write:3990 */
 bool INavigation2DMsgs_resume_navigation_RPC_helper::write(yarp::os::ConnectionWriter& connection) const
 {
     return cmd.write(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_read:4038 */
 bool INavigation2DMsgs_resume_navigation_RPC_helper::read(yarp::os::ConnectionReader& connection)
 {
     return reply.read(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_connectionwriter:4058 */
 bool INavigation2DMsgs_resume_navigation_RPC_helper::Command::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
@@ -1200,6 +1243,7 @@ bool INavigation2DMsgs_resume_navigation_RPC_helper::Command::write(yarp::os::Co
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_connectionreader:4080 */
 bool INavigation2DMsgs_resume_navigation_RPC_helper::Command::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
@@ -1210,6 +1254,7 @@ bool INavigation2DMsgs_resume_navigation_RPC_helper::Command::read(yarp::os::Con
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_wirewriter:4110 */
 bool INavigation2DMsgs_resume_navigation_RPC_helper::Command::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writeTag(writer)) {
@@ -1221,6 +1266,7 @@ bool INavigation2DMsgs_resume_navigation_RPC_helper::Command::write(const yarp::
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writetag:4132 */
 bool INavigation2DMsgs_resume_navigation_RPC_helper::Command::writeTag(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.writeTag(s_tag, 1, s_tag_len)) {
@@ -1229,11 +1275,13 @@ bool INavigation2DMsgs_resume_navigation_RPC_helper::Command::writeTag(const yar
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writeargs:4153 */
 bool INavigation2DMsgs_resume_navigation_RPC_helper::Command::writeArgs(const yarp::os::idl::WireWriter& writer [[maybe_unused]]) const
 {
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_wirereader:4181 */
 bool INavigation2DMsgs_resume_navigation_RPC_helper::Command::read(yarp::os::idl::WireReader& reader)
 {
     if (!readTag(reader)) {
@@ -1245,6 +1293,7 @@ bool INavigation2DMsgs_resume_navigation_RPC_helper::Command::read(yarp::os::idl
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readtag:4201 */
 bool INavigation2DMsgs_resume_navigation_RPC_helper::Command::readTag(yarp::os::idl::WireReader& reader)
 {
     std::string tag = reader.readTag(s_tag_len);
@@ -1258,6 +1307,7 @@ bool INavigation2DMsgs_resume_navigation_RPC_helper::Command::readTag(yarp::os::
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readargs:4229 */
 bool INavigation2DMsgs_resume_navigation_RPC_helper::Command::readArgs(yarp::os::idl::WireReader& reader)
 {
     if (!reader.noMore()) {
@@ -1267,24 +1317,28 @@ bool INavigation2DMsgs_resume_navigation_RPC_helper::Command::readArgs(yarp::os:
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_connectionwriter:4259 */
 bool INavigation2DMsgs_resume_navigation_RPC_helper::Reply::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_connectionreader:4280 */
 bool INavigation2DMsgs_resume_navigation_RPC_helper::Reply::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_wirewriter:4301 */
 bool INavigation2DMsgs_resume_navigation_RPC_helper::Reply::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.isNull()) {
         if (!writer.writeListHeader(s_reply_len)) {
             return false;
         }
+/* t_yarp_generator::generate_serialize_field:1093 */
         if (!writer.writeBool(return_helper)) {
             return false;
         }
@@ -1292,48 +1346,58 @@ bool INavigation2DMsgs_resume_navigation_RPC_helper::Reply::write(const yarp::os
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_wirereader:4347 */
 bool INavigation2DMsgs_resume_navigation_RPC_helper::Reply::read(yarp::os::idl::WireReader& reader)
 {
     if (!reader.readListReturn()) {
         return false;
     }
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
     if (!reader.readBool(return_helper)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_call:4385 */
 void INavigation2DMsgs_resume_navigation_RPC_helper::call(INavigation2DMsgs* ptr)
 {
     reply.return_helper = ptr->resume_navigation_RPC();
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl:3924 */
 // suspend_navigation_RPC helper class implementation
+/* t_yarp_generator::generate_service_helper_classes_impl_ctor:3963 */
 INavigation2DMsgs_suspend_navigation_RPC_helper::INavigation2DMsgs_suspend_navigation_RPC_helper(const double time_s) :
         cmd{time_s}
 {
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_write:3990 */
 bool INavigation2DMsgs_suspend_navigation_RPC_helper::write(yarp::os::ConnectionWriter& connection) const
 {
     return cmd.write(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_read:4038 */
 bool INavigation2DMsgs_suspend_navigation_RPC_helper::read(yarp::os::ConnectionReader& connection)
 {
     return reply.read(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_ctor:4010 */
 INavigation2DMsgs_suspend_navigation_RPC_helper::Command::Command(const double time_s) :
         time_s{time_s}
 {
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_connectionwriter:4058 */
 bool INavigation2DMsgs_suspend_navigation_RPC_helper::Command::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
@@ -1343,6 +1407,7 @@ bool INavigation2DMsgs_suspend_navigation_RPC_helper::Command::write(yarp::os::C
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_connectionreader:4080 */
 bool INavigation2DMsgs_suspend_navigation_RPC_helper::Command::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
@@ -1353,6 +1418,7 @@ bool INavigation2DMsgs_suspend_navigation_RPC_helper::Command::read(yarp::os::Co
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_wirewriter:4110 */
 bool INavigation2DMsgs_suspend_navigation_RPC_helper::Command::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writeTag(writer)) {
@@ -1364,6 +1430,7 @@ bool INavigation2DMsgs_suspend_navigation_RPC_helper::Command::write(const yarp:
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writetag:4132 */
 bool INavigation2DMsgs_suspend_navigation_RPC_helper::Command::writeTag(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.writeTag(s_tag, 1, s_tag_len)) {
@@ -1372,14 +1439,17 @@ bool INavigation2DMsgs_suspend_navigation_RPC_helper::Command::writeTag(const ya
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writeargs:4153 */
 bool INavigation2DMsgs_suspend_navigation_RPC_helper::Command::writeArgs(const yarp::os::idl::WireWriter& writer) const
 {
+/* t_yarp_generator::generate_serialize_field:1093 */
     if (!writer.writeFloat64(time_s)) {
         return false;
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_wirereader:4181 */
 bool INavigation2DMsgs_suspend_navigation_RPC_helper::Command::read(yarp::os::idl::WireReader& reader)
 {
     if (!readTag(reader)) {
@@ -1391,6 +1461,7 @@ bool INavigation2DMsgs_suspend_navigation_RPC_helper::Command::read(yarp::os::id
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readtag:4201 */
 bool INavigation2DMsgs_suspend_navigation_RPC_helper::Command::readTag(yarp::os::idl::WireReader& reader)
 {
     std::string tag = reader.readTag(s_tag_len);
@@ -1404,13 +1475,16 @@ bool INavigation2DMsgs_suspend_navigation_RPC_helper::Command::readTag(yarp::os:
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readargs:4229 */
 bool INavigation2DMsgs_suspend_navigation_RPC_helper::Command::readArgs(yarp::os::idl::WireReader& reader)
 {
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
     if (!reader.readFloat64(time_s)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
@@ -1421,24 +1495,28 @@ bool INavigation2DMsgs_suspend_navigation_RPC_helper::Command::readArgs(yarp::os
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_connectionwriter:4259 */
 bool INavigation2DMsgs_suspend_navigation_RPC_helper::Reply::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_connectionreader:4280 */
 bool INavigation2DMsgs_suspend_navigation_RPC_helper::Reply::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_wirewriter:4301 */
 bool INavigation2DMsgs_suspend_navigation_RPC_helper::Reply::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.isNull()) {
         if (!writer.writeListHeader(s_reply_len)) {
             return false;
         }
+/* t_yarp_generator::generate_serialize_field:1093 */
         if (!writer.writeBool(return_helper)) {
             return false;
         }
@@ -1446,38 +1524,46 @@ bool INavigation2DMsgs_suspend_navigation_RPC_helper::Reply::write(const yarp::o
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_wirereader:4347 */
 bool INavigation2DMsgs_suspend_navigation_RPC_helper::Reply::read(yarp::os::idl::WireReader& reader)
 {
     if (!reader.readListReturn()) {
         return false;
     }
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
     if (!reader.readBool(return_helper)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_call:4385 */
 void INavigation2DMsgs_suspend_navigation_RPC_helper::call(INavigation2DMsgs* ptr)
 {
     reply.return_helper = ptr->suspend_navigation_RPC(cmd.time_s);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl:3924 */
 // recompute_current_navigation_path_RPC helper class implementation
+/* t_yarp_generator::generate_service_helper_classes_impl_write:3990 */
 bool INavigation2DMsgs_recompute_current_navigation_path_RPC_helper::write(yarp::os::ConnectionWriter& connection) const
 {
     return cmd.write(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_read:4038 */
 bool INavigation2DMsgs_recompute_current_navigation_path_RPC_helper::read(yarp::os::ConnectionReader& connection)
 {
     return reply.read(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_connectionwriter:4058 */
 bool INavigation2DMsgs_recompute_current_navigation_path_RPC_helper::Command::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
@@ -1487,6 +1573,7 @@ bool INavigation2DMsgs_recompute_current_navigation_path_RPC_helper::Command::wr
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_connectionreader:4080 */
 bool INavigation2DMsgs_recompute_current_navigation_path_RPC_helper::Command::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
@@ -1497,6 +1584,7 @@ bool INavigation2DMsgs_recompute_current_navigation_path_RPC_helper::Command::re
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_wirewriter:4110 */
 bool INavigation2DMsgs_recompute_current_navigation_path_RPC_helper::Command::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writeTag(writer)) {
@@ -1508,6 +1596,7 @@ bool INavigation2DMsgs_recompute_current_navigation_path_RPC_helper::Command::wr
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writetag:4132 */
 bool INavigation2DMsgs_recompute_current_navigation_path_RPC_helper::Command::writeTag(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.writeTag(s_tag, 1, s_tag_len)) {
@@ -1516,11 +1605,13 @@ bool INavigation2DMsgs_recompute_current_navigation_path_RPC_helper::Command::wr
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writeargs:4153 */
 bool INavigation2DMsgs_recompute_current_navigation_path_RPC_helper::Command::writeArgs(const yarp::os::idl::WireWriter& writer [[maybe_unused]]) const
 {
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_wirereader:4181 */
 bool INavigation2DMsgs_recompute_current_navigation_path_RPC_helper::Command::read(yarp::os::idl::WireReader& reader)
 {
     if (!readTag(reader)) {
@@ -1532,6 +1623,7 @@ bool INavigation2DMsgs_recompute_current_navigation_path_RPC_helper::Command::re
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readtag:4201 */
 bool INavigation2DMsgs_recompute_current_navigation_path_RPC_helper::Command::readTag(yarp::os::idl::WireReader& reader)
 {
     std::string tag = reader.readTag(s_tag_len);
@@ -1545,6 +1637,7 @@ bool INavigation2DMsgs_recompute_current_navigation_path_RPC_helper::Command::re
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readargs:4229 */
 bool INavigation2DMsgs_recompute_current_navigation_path_RPC_helper::Command::readArgs(yarp::os::idl::WireReader& reader)
 {
     if (!reader.noMore()) {
@@ -1554,24 +1647,28 @@ bool INavigation2DMsgs_recompute_current_navigation_path_RPC_helper::Command::re
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_connectionwriter:4259 */
 bool INavigation2DMsgs_recompute_current_navigation_path_RPC_helper::Reply::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_connectionreader:4280 */
 bool INavigation2DMsgs_recompute_current_navigation_path_RPC_helper::Reply::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_wirewriter:4301 */
 bool INavigation2DMsgs_recompute_current_navigation_path_RPC_helper::Reply::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.isNull()) {
         if (!writer.writeListHeader(s_reply_len)) {
             return false;
         }
+/* t_yarp_generator::generate_serialize_field:1093 */
         if (!writer.writeBool(return_helper)) {
             return false;
         }
@@ -1579,38 +1676,46 @@ bool INavigation2DMsgs_recompute_current_navigation_path_RPC_helper::Reply::writ
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_wirereader:4347 */
 bool INavigation2DMsgs_recompute_current_navigation_path_RPC_helper::Reply::read(yarp::os::idl::WireReader& reader)
 {
     if (!reader.readListReturn()) {
         return false;
     }
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
     if (!reader.readBool(return_helper)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_call:4385 */
 void INavigation2DMsgs_recompute_current_navigation_path_RPC_helper::call(INavigation2DMsgs* ptr)
 {
     reply.return_helper = ptr->recompute_current_navigation_path_RPC();
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl:3924 */
 // get_navigation_status_RPC helper class implementation
+/* t_yarp_generator::generate_service_helper_classes_impl_write:3990 */
 bool INavigation2DMsgs_get_navigation_status_RPC_helper::write(yarp::os::ConnectionWriter& connection) const
 {
     return cmd.write(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_read:4038 */
 bool INavigation2DMsgs_get_navigation_status_RPC_helper::read(yarp::os::ConnectionReader& connection)
 {
     return reply.read(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_connectionwriter:4058 */
 bool INavigation2DMsgs_get_navigation_status_RPC_helper::Command::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
@@ -1620,6 +1725,7 @@ bool INavigation2DMsgs_get_navigation_status_RPC_helper::Command::write(yarp::os
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_connectionreader:4080 */
 bool INavigation2DMsgs_get_navigation_status_RPC_helper::Command::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
@@ -1630,6 +1736,7 @@ bool INavigation2DMsgs_get_navigation_status_RPC_helper::Command::read(yarp::os:
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_wirewriter:4110 */
 bool INavigation2DMsgs_get_navigation_status_RPC_helper::Command::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writeTag(writer)) {
@@ -1641,6 +1748,7 @@ bool INavigation2DMsgs_get_navigation_status_RPC_helper::Command::write(const ya
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writetag:4132 */
 bool INavigation2DMsgs_get_navigation_status_RPC_helper::Command::writeTag(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.writeTag(s_tag, 1, s_tag_len)) {
@@ -1649,11 +1757,13 @@ bool INavigation2DMsgs_get_navigation_status_RPC_helper::Command::writeTag(const
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writeargs:4153 */
 bool INavigation2DMsgs_get_navigation_status_RPC_helper::Command::writeArgs(const yarp::os::idl::WireWriter& writer [[maybe_unused]]) const
 {
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_wirereader:4181 */
 bool INavigation2DMsgs_get_navigation_status_RPC_helper::Command::read(yarp::os::idl::WireReader& reader)
 {
     if (!readTag(reader)) {
@@ -1665,6 +1775,7 @@ bool INavigation2DMsgs_get_navigation_status_RPC_helper::Command::read(yarp::os:
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readtag:4201 */
 bool INavigation2DMsgs_get_navigation_status_RPC_helper::Command::readTag(yarp::os::idl::WireReader& reader)
 {
     std::string tag = reader.readTag(s_tag_len);
@@ -1678,6 +1789,7 @@ bool INavigation2DMsgs_get_navigation_status_RPC_helper::Command::readTag(yarp::
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readargs:4229 */
 bool INavigation2DMsgs_get_navigation_status_RPC_helper::Command::readArgs(yarp::os::idl::WireReader& reader)
 {
     if (!reader.noMore()) {
@@ -1687,63 +1799,79 @@ bool INavigation2DMsgs_get_navigation_status_RPC_helper::Command::readArgs(yarp:
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_connectionwriter:4259 */
 bool INavigation2DMsgs_get_navigation_status_RPC_helper::Reply::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_connectionreader:4280 */
 bool INavigation2DMsgs_get_navigation_status_RPC_helper::Reply::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_wirewriter:4301 */
 bool INavigation2DMsgs_get_navigation_status_RPC_helper::Reply::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.isNull()) {
         if (!writer.writeListHeader(s_reply_len)) {
             return false;
         }
-        if (!writer.write(return_helper)) {
+/* t_yarp_generator::generate_serialize_field:1093 */
+/* t_yarp_generator::generate_serialize_struct:1215 */
+        const return_get_navigation_statusSerializer tmp_return_get_navigation_statusSerializer(return_helper);
+        if (!writer.write(tmp_return_get_navigation_statusSerializer)) {
             return false;
         }
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_wirereader:4347 */
 bool INavigation2DMsgs_get_navigation_status_RPC_helper::Reply::read(yarp::os::idl::WireReader& reader)
 {
     if (!reader.readListReturn()) {
         return false;
     }
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
-    if (!reader.read(return_helper)) {
+/* t_yarp_generator::generate_deserialize_struct:1516 */
+    return_get_navigation_statusSerializer tmp_return_get_navigation_statusSerializer(return_helper);
+    if (!reader.read(tmp_return_get_navigation_statusSerializer)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_call:4385 */
 void INavigation2DMsgs_get_navigation_status_RPC_helper::call(INavigation2DMsgs* ptr)
 {
     reply.return_helper = ptr->get_navigation_status_RPC();
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl:3924 */
 // get_current_nav_waypoint_RPC helper class implementation
+/* t_yarp_generator::generate_service_helper_classes_impl_write:3990 */
 bool INavigation2DMsgs_get_current_nav_waypoint_RPC_helper::write(yarp::os::ConnectionWriter& connection) const
 {
     return cmd.write(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_read:4038 */
 bool INavigation2DMsgs_get_current_nav_waypoint_RPC_helper::read(yarp::os::ConnectionReader& connection)
 {
     return reply.read(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_connectionwriter:4058 */
 bool INavigation2DMsgs_get_current_nav_waypoint_RPC_helper::Command::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
@@ -1753,6 +1881,7 @@ bool INavigation2DMsgs_get_current_nav_waypoint_RPC_helper::Command::write(yarp:
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_connectionreader:4080 */
 bool INavigation2DMsgs_get_current_nav_waypoint_RPC_helper::Command::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
@@ -1763,6 +1892,7 @@ bool INavigation2DMsgs_get_current_nav_waypoint_RPC_helper::Command::read(yarp::
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_wirewriter:4110 */
 bool INavigation2DMsgs_get_current_nav_waypoint_RPC_helper::Command::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writeTag(writer)) {
@@ -1774,6 +1904,7 @@ bool INavigation2DMsgs_get_current_nav_waypoint_RPC_helper::Command::write(const
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writetag:4132 */
 bool INavigation2DMsgs_get_current_nav_waypoint_RPC_helper::Command::writeTag(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.writeTag(s_tag, 1, s_tag_len)) {
@@ -1782,11 +1913,13 @@ bool INavigation2DMsgs_get_current_nav_waypoint_RPC_helper::Command::writeTag(co
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writeargs:4153 */
 bool INavigation2DMsgs_get_current_nav_waypoint_RPC_helper::Command::writeArgs(const yarp::os::idl::WireWriter& writer [[maybe_unused]]) const
 {
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_wirereader:4181 */
 bool INavigation2DMsgs_get_current_nav_waypoint_RPC_helper::Command::read(yarp::os::idl::WireReader& reader)
 {
     if (!readTag(reader)) {
@@ -1798,6 +1931,7 @@ bool INavigation2DMsgs_get_current_nav_waypoint_RPC_helper::Command::read(yarp::
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readtag:4201 */
 bool INavigation2DMsgs_get_current_nav_waypoint_RPC_helper::Command::readTag(yarp::os::idl::WireReader& reader)
 {
     std::string tag = reader.readTag(s_tag_len);
@@ -1811,6 +1945,7 @@ bool INavigation2DMsgs_get_current_nav_waypoint_RPC_helper::Command::readTag(yar
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readargs:4229 */
 bool INavigation2DMsgs_get_current_nav_waypoint_RPC_helper::Command::readArgs(yarp::os::idl::WireReader& reader)
 {
     if (!reader.noMore()) {
@@ -1820,73 +1955,91 @@ bool INavigation2DMsgs_get_current_nav_waypoint_RPC_helper::Command::readArgs(ya
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_connectionwriter:4259 */
 bool INavigation2DMsgs_get_current_nav_waypoint_RPC_helper::Reply::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_connectionreader:4280 */
 bool INavigation2DMsgs_get_current_nav_waypoint_RPC_helper::Reply::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_wirewriter:4301 */
 bool INavigation2DMsgs_get_current_nav_waypoint_RPC_helper::Reply::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.isNull()) {
         if (!writer.writeListHeader(s_reply_len)) {
             return false;
         }
-        if (!writer.write(return_helper)) {
+/* t_yarp_generator::generate_serialize_field:1093 */
+/* t_yarp_generator::generate_serialize_struct:1215 */
+        const return_get_current_nav_waypointSerializer tmp_return_get_current_nav_waypointSerializer(return_helper);
+        if (!writer.write(tmp_return_get_current_nav_waypointSerializer)) {
             return false;
         }
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_wirereader:4347 */
 bool INavigation2DMsgs_get_current_nav_waypoint_RPC_helper::Reply::read(yarp::os::idl::WireReader& reader)
 {
     if (!reader.readListReturn()) {
         return false;
     }
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
-    if (!reader.read(return_helper)) {
+/* t_yarp_generator::generate_deserialize_struct:1516 */
+    return_get_current_nav_waypointSerializer tmp_return_get_current_nav_waypointSerializer(return_helper);
+    if (!reader.read(tmp_return_get_current_nav_waypointSerializer)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_call:4385 */
 void INavigation2DMsgs_get_current_nav_waypoint_RPC_helper::call(INavigation2DMsgs* ptr)
 {
     reply.return_helper = ptr->get_current_nav_waypoint_RPC();
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl:3924 */
 // get_all_navigation_waypoints_RPC helper class implementation
+/* t_yarp_generator::generate_service_helper_classes_impl_ctor:3963 */
 INavigation2DMsgs_get_all_navigation_waypoints_RPC_helper::INavigation2DMsgs_get_all_navigation_waypoints_RPC_helper(const yarp::dev::Nav2D::TrajectoryTypeEnum trajectory_type) :
         cmd{trajectory_type}
 {
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_write:3990 */
 bool INavigation2DMsgs_get_all_navigation_waypoints_RPC_helper::write(yarp::os::ConnectionWriter& connection) const
 {
     return cmd.write(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_read:4038 */
 bool INavigation2DMsgs_get_all_navigation_waypoints_RPC_helper::read(yarp::os::ConnectionReader& connection)
 {
     return reply.read(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_ctor:4010 */
 INavigation2DMsgs_get_all_navigation_waypoints_RPC_helper::Command::Command(const yarp::dev::Nav2D::TrajectoryTypeEnum trajectory_type) :
         trajectory_type{trajectory_type}
 {
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_connectionwriter:4058 */
 bool INavigation2DMsgs_get_all_navigation_waypoints_RPC_helper::Command::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
@@ -1896,6 +2049,7 @@ bool INavigation2DMsgs_get_all_navigation_waypoints_RPC_helper::Command::write(y
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_connectionreader:4080 */
 bool INavigation2DMsgs_get_all_navigation_waypoints_RPC_helper::Command::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
@@ -1906,6 +2060,7 @@ bool INavigation2DMsgs_get_all_navigation_waypoints_RPC_helper::Command::read(ya
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_wirewriter:4110 */
 bool INavigation2DMsgs_get_all_navigation_waypoints_RPC_helper::Command::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writeTag(writer)) {
@@ -1917,6 +2072,7 @@ bool INavigation2DMsgs_get_all_navigation_waypoints_RPC_helper::Command::write(c
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writetag:4132 */
 bool INavigation2DMsgs_get_all_navigation_waypoints_RPC_helper::Command::writeTag(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.writeTag(s_tag, 1, s_tag_len)) {
@@ -1925,14 +2081,17 @@ bool INavigation2DMsgs_get_all_navigation_waypoints_RPC_helper::Command::writeTa
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writeargs:4153 */
 bool INavigation2DMsgs_get_all_navigation_waypoints_RPC_helper::Command::writeArgs(const yarp::os::idl::WireWriter& writer) const
 {
+/* t_yarp_generator::generate_serialize_field:1093 */
     if (!writer.writeVocab32(static_cast<yarp::conf::vocab32_t>(trajectory_type))) {
         return false;
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_wirereader:4181 */
 bool INavigation2DMsgs_get_all_navigation_waypoints_RPC_helper::Command::read(yarp::os::idl::WireReader& reader)
 {
     if (!readTag(reader)) {
@@ -1944,6 +2103,7 @@ bool INavigation2DMsgs_get_all_navigation_waypoints_RPC_helper::Command::read(ya
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readtag:4201 */
 bool INavigation2DMsgs_get_all_navigation_waypoints_RPC_helper::Command::readTag(yarp::os::idl::WireReader& reader)
 {
     std::string tag = reader.readTag(s_tag_len);
@@ -1957,14 +2117,17 @@ bool INavigation2DMsgs_get_all_navigation_waypoints_RPC_helper::Command::readTag
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readargs:4229 */
 bool INavigation2DMsgs_get_all_navigation_waypoints_RPC_helper::Command::readArgs(yarp::os::idl::WireReader& reader)
 {
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
     yarp::conf::vocab32_t _ecast;
     if (!reader.readVocab32(_ecast)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
@@ -1976,73 +2139,91 @@ bool INavigation2DMsgs_get_all_navigation_waypoints_RPC_helper::Command::readArg
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_connectionwriter:4259 */
 bool INavigation2DMsgs_get_all_navigation_waypoints_RPC_helper::Reply::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_connectionreader:4280 */
 bool INavigation2DMsgs_get_all_navigation_waypoints_RPC_helper::Reply::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_wirewriter:4301 */
 bool INavigation2DMsgs_get_all_navigation_waypoints_RPC_helper::Reply::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.isNull()) {
         if (!writer.writeListHeader(s_reply_len)) {
             return false;
         }
-        if (!writer.write(return_helper)) {
+/* t_yarp_generator::generate_serialize_field:1093 */
+/* t_yarp_generator::generate_serialize_struct:1215 */
+        const return_get_all_nav_waypointsSerializer tmp_return_get_all_nav_waypointsSerializer(return_helper);
+        if (!writer.write(tmp_return_get_all_nav_waypointsSerializer)) {
             return false;
         }
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_wirereader:4347 */
 bool INavigation2DMsgs_get_all_navigation_waypoints_RPC_helper::Reply::read(yarp::os::idl::WireReader& reader)
 {
     if (!reader.readListReturn()) {
         return false;
     }
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
-    if (!reader.read(return_helper)) {
+/* t_yarp_generator::generate_deserialize_struct:1516 */
+    return_get_all_nav_waypointsSerializer tmp_return_get_all_nav_waypointsSerializer(return_helper);
+    if (!reader.read(tmp_return_get_all_nav_waypointsSerializer)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_call:4385 */
 void INavigation2DMsgs_get_all_navigation_waypoints_RPC_helper::call(INavigation2DMsgs* ptr)
 {
     reply.return_helper = ptr->get_all_navigation_waypoints_RPC(cmd.trajectory_type);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl:3924 */
 // get_current_navigation_map_RPC helper class implementation
+/* t_yarp_generator::generate_service_helper_classes_impl_ctor:3963 */
 INavigation2DMsgs_get_current_navigation_map_RPC_helper::INavigation2DMsgs_get_current_navigation_map_RPC_helper(const yarp::dev::Nav2D::NavigationMapTypeEnum map_type) :
         cmd{map_type}
 {
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_write:3990 */
 bool INavigation2DMsgs_get_current_navigation_map_RPC_helper::write(yarp::os::ConnectionWriter& connection) const
 {
     return cmd.write(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_read:4038 */
 bool INavigation2DMsgs_get_current_navigation_map_RPC_helper::read(yarp::os::ConnectionReader& connection)
 {
     return reply.read(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_ctor:4010 */
 INavigation2DMsgs_get_current_navigation_map_RPC_helper::Command::Command(const yarp::dev::Nav2D::NavigationMapTypeEnum map_type) :
         map_type{map_type}
 {
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_connectionwriter:4058 */
 bool INavigation2DMsgs_get_current_navigation_map_RPC_helper::Command::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
@@ -2052,6 +2233,7 @@ bool INavigation2DMsgs_get_current_navigation_map_RPC_helper::Command::write(yar
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_connectionreader:4080 */
 bool INavigation2DMsgs_get_current_navigation_map_RPC_helper::Command::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
@@ -2062,6 +2244,7 @@ bool INavigation2DMsgs_get_current_navigation_map_RPC_helper::Command::read(yarp
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_wirewriter:4110 */
 bool INavigation2DMsgs_get_current_navigation_map_RPC_helper::Command::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writeTag(writer)) {
@@ -2073,6 +2256,7 @@ bool INavigation2DMsgs_get_current_navigation_map_RPC_helper::Command::write(con
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writetag:4132 */
 bool INavigation2DMsgs_get_current_navigation_map_RPC_helper::Command::writeTag(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.writeTag(s_tag, 1, s_tag_len)) {
@@ -2081,14 +2265,17 @@ bool INavigation2DMsgs_get_current_navigation_map_RPC_helper::Command::writeTag(
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writeargs:4153 */
 bool INavigation2DMsgs_get_current_navigation_map_RPC_helper::Command::writeArgs(const yarp::os::idl::WireWriter& writer) const
 {
+/* t_yarp_generator::generate_serialize_field:1093 */
     if (!writer.writeVocab32(static_cast<yarp::conf::vocab32_t>(map_type))) {
         return false;
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_wirereader:4181 */
 bool INavigation2DMsgs_get_current_navigation_map_RPC_helper::Command::read(yarp::os::idl::WireReader& reader)
 {
     if (!readTag(reader)) {
@@ -2100,6 +2287,7 @@ bool INavigation2DMsgs_get_current_navigation_map_RPC_helper::Command::read(yarp
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readtag:4201 */
 bool INavigation2DMsgs_get_current_navigation_map_RPC_helper::Command::readTag(yarp::os::idl::WireReader& reader)
 {
     std::string tag = reader.readTag(s_tag_len);
@@ -2113,14 +2301,17 @@ bool INavigation2DMsgs_get_current_navigation_map_RPC_helper::Command::readTag(y
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readargs:4229 */
 bool INavigation2DMsgs_get_current_navigation_map_RPC_helper::Command::readArgs(yarp::os::idl::WireReader& reader)
 {
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
     yarp::conf::vocab32_t _ecast;
     if (!reader.readVocab32(_ecast)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
@@ -2132,73 +2323,91 @@ bool INavigation2DMsgs_get_current_navigation_map_RPC_helper::Command::readArgs(
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_connectionwriter:4259 */
 bool INavigation2DMsgs_get_current_navigation_map_RPC_helper::Reply::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_connectionreader:4280 */
 bool INavigation2DMsgs_get_current_navigation_map_RPC_helper::Reply::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_wirewriter:4301 */
 bool INavigation2DMsgs_get_current_navigation_map_RPC_helper::Reply::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.isNull()) {
         if (!writer.writeListHeader(s_reply_len)) {
             return false;
         }
-        if (!writer.write(return_helper)) {
+/* t_yarp_generator::generate_serialize_field:1093 */
+/* t_yarp_generator::generate_serialize_struct:1215 */
+        const return_get_current_nav_mapSerializer tmp_return_get_current_nav_mapSerializer(return_helper);
+        if (!writer.write(tmp_return_get_current_nav_mapSerializer)) {
             return false;
         }
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_wirereader:4347 */
 bool INavigation2DMsgs_get_current_navigation_map_RPC_helper::Reply::read(yarp::os::idl::WireReader& reader)
 {
     if (!reader.readListReturn()) {
         return false;
     }
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
-    if (!reader.read(return_helper)) {
+/* t_yarp_generator::generate_deserialize_struct:1516 */
+    return_get_current_nav_mapSerializer tmp_return_get_current_nav_mapSerializer(return_helper);
+    if (!reader.read(tmp_return_get_current_nav_mapSerializer)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_call:4385 */
 void INavigation2DMsgs_get_current_navigation_map_RPC_helper::call(INavigation2DMsgs* ptr)
 {
     reply.return_helper = ptr->get_current_navigation_map_RPC(cmd.map_type);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl:3924 */
 // goto_target_by_absolute_location_RPC helper class implementation
+/* t_yarp_generator::generate_service_helper_classes_impl_ctor:3963 */
 INavigation2DMsgs_goto_target_by_absolute_location_RPC_helper::INavigation2DMsgs_goto_target_by_absolute_location_RPC_helper(const yarp::dev::Nav2D::Map2DLocation& loc) :
         cmd{loc}
 {
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_write:3990 */
 bool INavigation2DMsgs_goto_target_by_absolute_location_RPC_helper::write(yarp::os::ConnectionWriter& connection) const
 {
     return cmd.write(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_read:4038 */
 bool INavigation2DMsgs_goto_target_by_absolute_location_RPC_helper::read(yarp::os::ConnectionReader& connection)
 {
     return reply.read(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_ctor:4010 */
 INavigation2DMsgs_goto_target_by_absolute_location_RPC_helper::Command::Command(const yarp::dev::Nav2D::Map2DLocation& loc) :
         loc{loc}
 {
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_connectionwriter:4058 */
 bool INavigation2DMsgs_goto_target_by_absolute_location_RPC_helper::Command::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
@@ -2208,6 +2417,7 @@ bool INavigation2DMsgs_goto_target_by_absolute_location_RPC_helper::Command::wri
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_connectionreader:4080 */
 bool INavigation2DMsgs_goto_target_by_absolute_location_RPC_helper::Command::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
@@ -2218,6 +2428,7 @@ bool INavigation2DMsgs_goto_target_by_absolute_location_RPC_helper::Command::rea
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_wirewriter:4110 */
 bool INavigation2DMsgs_goto_target_by_absolute_location_RPC_helper::Command::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writeTag(writer)) {
@@ -2229,6 +2440,7 @@ bool INavigation2DMsgs_goto_target_by_absolute_location_RPC_helper::Command::wri
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writetag:4132 */
 bool INavigation2DMsgs_goto_target_by_absolute_location_RPC_helper::Command::writeTag(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.writeTag(s_tag, 1, s_tag_len)) {
@@ -2237,14 +2449,19 @@ bool INavigation2DMsgs_goto_target_by_absolute_location_RPC_helper::Command::wri
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writeargs:4153 */
 bool INavigation2DMsgs_goto_target_by_absolute_location_RPC_helper::Command::writeArgs(const yarp::os::idl::WireWriter& writer) const
 {
-    if (!writer.writeNested(loc)) {
+/* t_yarp_generator::generate_serialize_field:1093 */
+/* t_yarp_generator::generate_serialize_struct:1215 */
+    const yarp::dev::Nav2D::Map2DLocationDataSerializer tmp_yarp_dev_Nav2D_Map2DLocationDataSerializer(loc);
+    if (!writer.writeNested(tmp_yarp_dev_Nav2D_Map2DLocationDataSerializer)) {
         return false;
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_wirereader:4181 */
 bool INavigation2DMsgs_goto_target_by_absolute_location_RPC_helper::Command::read(yarp::os::idl::WireReader& reader)
 {
     if (!readTag(reader)) {
@@ -2256,6 +2473,7 @@ bool INavigation2DMsgs_goto_target_by_absolute_location_RPC_helper::Command::rea
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readtag:4201 */
 bool INavigation2DMsgs_goto_target_by_absolute_location_RPC_helper::Command::readTag(yarp::os::idl::WireReader& reader)
 {
     std::string tag = reader.readTag(s_tag_len);
@@ -2269,13 +2487,18 @@ bool INavigation2DMsgs_goto_target_by_absolute_location_RPC_helper::Command::rea
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readargs:4229 */
 bool INavigation2DMsgs_goto_target_by_absolute_location_RPC_helper::Command::readArgs(yarp::os::idl::WireReader& reader)
 {
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
-    if (!reader.readNested(loc)) {
+/* t_yarp_generator::generate_deserialize_struct:1516 */
+    yarp::dev::Nav2D::Map2DLocationDataSerializer tmp_yarp_dev_Nav2D_Map2DLocationDataSerializer(loc);
+    if (!reader.readNested(tmp_yarp_dev_Nav2D_Map2DLocationDataSerializer)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
@@ -2286,24 +2509,28 @@ bool INavigation2DMsgs_goto_target_by_absolute_location_RPC_helper::Command::rea
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_connectionwriter:4259 */
 bool INavigation2DMsgs_goto_target_by_absolute_location_RPC_helper::Reply::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_connectionreader:4280 */
 bool INavigation2DMsgs_goto_target_by_absolute_location_RPC_helper::Reply::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_wirewriter:4301 */
 bool INavigation2DMsgs_goto_target_by_absolute_location_RPC_helper::Reply::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.isNull()) {
         if (!writer.writeListHeader(s_reply_len)) {
             return false;
         }
+/* t_yarp_generator::generate_serialize_field:1093 */
         if (!writer.writeBool(return_helper)) {
             return false;
         }
@@ -2311,49 +2538,59 @@ bool INavigation2DMsgs_goto_target_by_absolute_location_RPC_helper::Reply::write
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_wirereader:4347 */
 bool INavigation2DMsgs_goto_target_by_absolute_location_RPC_helper::Reply::read(yarp::os::idl::WireReader& reader)
 {
     if (!reader.readListReturn()) {
         return false;
     }
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
     if (!reader.readBool(return_helper)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_call:4385 */
 void INavigation2DMsgs_goto_target_by_absolute_location_RPC_helper::call(INavigation2DMsgs* ptr)
 {
     reply.return_helper = ptr->goto_target_by_absolute_location_RPC(cmd.loc);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl:3924 */
 // goto_target_by_relative_location1_RPC helper class implementation
+/* t_yarp_generator::generate_service_helper_classes_impl_ctor:3963 */
 INavigation2DMsgs_goto_target_by_relative_location1_RPC_helper::INavigation2DMsgs_goto_target_by_relative_location1_RPC_helper(const double x, const double y) :
         cmd{x, y}
 {
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_write:3990 */
 bool INavigation2DMsgs_goto_target_by_relative_location1_RPC_helper::write(yarp::os::ConnectionWriter& connection) const
 {
     return cmd.write(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_read:4038 */
 bool INavigation2DMsgs_goto_target_by_relative_location1_RPC_helper::read(yarp::os::ConnectionReader& connection)
 {
     return reply.read(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_ctor:4010 */
 INavigation2DMsgs_goto_target_by_relative_location1_RPC_helper::Command::Command(const double x, const double y) :
         x{x},
         y{y}
 {
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_connectionwriter:4058 */
 bool INavigation2DMsgs_goto_target_by_relative_location1_RPC_helper::Command::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
@@ -2363,6 +2600,7 @@ bool INavigation2DMsgs_goto_target_by_relative_location1_RPC_helper::Command::wr
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_connectionreader:4080 */
 bool INavigation2DMsgs_goto_target_by_relative_location1_RPC_helper::Command::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
@@ -2373,6 +2611,7 @@ bool INavigation2DMsgs_goto_target_by_relative_location1_RPC_helper::Command::re
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_wirewriter:4110 */
 bool INavigation2DMsgs_goto_target_by_relative_location1_RPC_helper::Command::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writeTag(writer)) {
@@ -2384,6 +2623,7 @@ bool INavigation2DMsgs_goto_target_by_relative_location1_RPC_helper::Command::wr
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writetag:4132 */
 bool INavigation2DMsgs_goto_target_by_relative_location1_RPC_helper::Command::writeTag(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.writeTag(s_tag, 1, s_tag_len)) {
@@ -2392,17 +2632,21 @@ bool INavigation2DMsgs_goto_target_by_relative_location1_RPC_helper::Command::wr
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writeargs:4153 */
 bool INavigation2DMsgs_goto_target_by_relative_location1_RPC_helper::Command::writeArgs(const yarp::os::idl::WireWriter& writer) const
 {
+/* t_yarp_generator::generate_serialize_field:1093 */
     if (!writer.writeFloat64(x)) {
         return false;
     }
+/* t_yarp_generator::generate_serialize_field:1093 */
     if (!writer.writeFloat64(y)) {
         return false;
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_wirereader:4181 */
 bool INavigation2DMsgs_goto_target_by_relative_location1_RPC_helper::Command::read(yarp::os::idl::WireReader& reader)
 {
     if (!readTag(reader)) {
@@ -2414,6 +2658,7 @@ bool INavigation2DMsgs_goto_target_by_relative_location1_RPC_helper::Command::re
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readtag:4201 */
 bool INavigation2DMsgs_goto_target_by_relative_location1_RPC_helper::Command::readTag(yarp::os::idl::WireReader& reader)
 {
     std::string tag = reader.readTag(s_tag_len);
@@ -2427,21 +2672,26 @@ bool INavigation2DMsgs_goto_target_by_relative_location1_RPC_helper::Command::re
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readargs:4229 */
 bool INavigation2DMsgs_goto_target_by_relative_location1_RPC_helper::Command::readArgs(yarp::os::idl::WireReader& reader)
 {
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
     if (!reader.readFloat64(x)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
     if (!reader.readFloat64(y)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
@@ -2452,24 +2702,28 @@ bool INavigation2DMsgs_goto_target_by_relative_location1_RPC_helper::Command::re
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_connectionwriter:4259 */
 bool INavigation2DMsgs_goto_target_by_relative_location1_RPC_helper::Reply::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_connectionreader:4280 */
 bool INavigation2DMsgs_goto_target_by_relative_location1_RPC_helper::Reply::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_wirewriter:4301 */
 bool INavigation2DMsgs_goto_target_by_relative_location1_RPC_helper::Reply::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.isNull()) {
         if (!writer.writeListHeader(s_reply_len)) {
             return false;
         }
+/* t_yarp_generator::generate_serialize_field:1093 */
         if (!writer.writeBool(return_helper)) {
             return false;
         }
@@ -2477,43 +2731,52 @@ bool INavigation2DMsgs_goto_target_by_relative_location1_RPC_helper::Reply::writ
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_wirereader:4347 */
 bool INavigation2DMsgs_goto_target_by_relative_location1_RPC_helper::Reply::read(yarp::os::idl::WireReader& reader)
 {
     if (!reader.readListReturn()) {
         return false;
     }
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
     if (!reader.readBool(return_helper)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_call:4385 */
 void INavigation2DMsgs_goto_target_by_relative_location1_RPC_helper::call(INavigation2DMsgs* ptr)
 {
     reply.return_helper = ptr->goto_target_by_relative_location1_RPC(cmd.x, cmd.y);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl:3924 */
 // goto_target_by_relative_location2_RPC helper class implementation
+/* t_yarp_generator::generate_service_helper_classes_impl_ctor:3963 */
 INavigation2DMsgs_goto_target_by_relative_location2_RPC_helper::INavigation2DMsgs_goto_target_by_relative_location2_RPC_helper(const double x, const double y, const double theta) :
         cmd{x, y, theta}
 {
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_write:3990 */
 bool INavigation2DMsgs_goto_target_by_relative_location2_RPC_helper::write(yarp::os::ConnectionWriter& connection) const
 {
     return cmd.write(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_read:4038 */
 bool INavigation2DMsgs_goto_target_by_relative_location2_RPC_helper::read(yarp::os::ConnectionReader& connection)
 {
     return reply.read(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_ctor:4010 */
 INavigation2DMsgs_goto_target_by_relative_location2_RPC_helper::Command::Command(const double x, const double y, const double theta) :
         x{x},
         y{y},
@@ -2521,6 +2784,7 @@ INavigation2DMsgs_goto_target_by_relative_location2_RPC_helper::Command::Command
 {
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_connectionwriter:4058 */
 bool INavigation2DMsgs_goto_target_by_relative_location2_RPC_helper::Command::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
@@ -2530,6 +2794,7 @@ bool INavigation2DMsgs_goto_target_by_relative_location2_RPC_helper::Command::wr
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_connectionreader:4080 */
 bool INavigation2DMsgs_goto_target_by_relative_location2_RPC_helper::Command::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
@@ -2540,6 +2805,7 @@ bool INavigation2DMsgs_goto_target_by_relative_location2_RPC_helper::Command::re
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_wirewriter:4110 */
 bool INavigation2DMsgs_goto_target_by_relative_location2_RPC_helper::Command::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writeTag(writer)) {
@@ -2551,6 +2817,7 @@ bool INavigation2DMsgs_goto_target_by_relative_location2_RPC_helper::Command::wr
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writetag:4132 */
 bool INavigation2DMsgs_goto_target_by_relative_location2_RPC_helper::Command::writeTag(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.writeTag(s_tag, 1, s_tag_len)) {
@@ -2559,20 +2826,25 @@ bool INavigation2DMsgs_goto_target_by_relative_location2_RPC_helper::Command::wr
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writeargs:4153 */
 bool INavigation2DMsgs_goto_target_by_relative_location2_RPC_helper::Command::writeArgs(const yarp::os::idl::WireWriter& writer) const
 {
+/* t_yarp_generator::generate_serialize_field:1093 */
     if (!writer.writeFloat64(x)) {
         return false;
     }
+/* t_yarp_generator::generate_serialize_field:1093 */
     if (!writer.writeFloat64(y)) {
         return false;
     }
+/* t_yarp_generator::generate_serialize_field:1093 */
     if (!writer.writeFloat64(theta)) {
         return false;
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_wirereader:4181 */
 bool INavigation2DMsgs_goto_target_by_relative_location2_RPC_helper::Command::read(yarp::os::idl::WireReader& reader)
 {
     if (!readTag(reader)) {
@@ -2584,6 +2856,7 @@ bool INavigation2DMsgs_goto_target_by_relative_location2_RPC_helper::Command::re
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readtag:4201 */
 bool INavigation2DMsgs_goto_target_by_relative_location2_RPC_helper::Command::readTag(yarp::os::idl::WireReader& reader)
 {
     std::string tag = reader.readTag(s_tag_len);
@@ -2597,29 +2870,36 @@ bool INavigation2DMsgs_goto_target_by_relative_location2_RPC_helper::Command::re
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readargs:4229 */
 bool INavigation2DMsgs_goto_target_by_relative_location2_RPC_helper::Command::readArgs(yarp::os::idl::WireReader& reader)
 {
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
     if (!reader.readFloat64(x)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
     if (!reader.readFloat64(y)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
     if (!reader.readFloat64(theta)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
@@ -2630,24 +2910,28 @@ bool INavigation2DMsgs_goto_target_by_relative_location2_RPC_helper::Command::re
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_connectionwriter:4259 */
 bool INavigation2DMsgs_goto_target_by_relative_location2_RPC_helper::Reply::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_connectionreader:4280 */
 bool INavigation2DMsgs_goto_target_by_relative_location2_RPC_helper::Reply::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_wirewriter:4301 */
 bool INavigation2DMsgs_goto_target_by_relative_location2_RPC_helper::Reply::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.isNull()) {
         if (!writer.writeListHeader(s_reply_len)) {
             return false;
         }
+/* t_yarp_generator::generate_serialize_field:1093 */
         if (!writer.writeBool(return_helper)) {
             return false;
         }
@@ -2655,38 +2939,46 @@ bool INavigation2DMsgs_goto_target_by_relative_location2_RPC_helper::Reply::writ
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_wirereader:4347 */
 bool INavigation2DMsgs_goto_target_by_relative_location2_RPC_helper::Reply::read(yarp::os::idl::WireReader& reader)
 {
     if (!reader.readListReturn()) {
         return false;
     }
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
     if (!reader.readBool(return_helper)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_call:4385 */
 void INavigation2DMsgs_goto_target_by_relative_location2_RPC_helper::call(INavigation2DMsgs* ptr)
 {
     reply.return_helper = ptr->goto_target_by_relative_location2_RPC(cmd.x, cmd.y, cmd.theta);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl:3924 */
 // get_absolute_location_of_current_target_RPC helper class implementation
+/* t_yarp_generator::generate_service_helper_classes_impl_write:3990 */
 bool INavigation2DMsgs_get_absolute_location_of_current_target_RPC_helper::write(yarp::os::ConnectionWriter& connection) const
 {
     return cmd.write(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_read:4038 */
 bool INavigation2DMsgs_get_absolute_location_of_current_target_RPC_helper::read(yarp::os::ConnectionReader& connection)
 {
     return reply.read(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_connectionwriter:4058 */
 bool INavigation2DMsgs_get_absolute_location_of_current_target_RPC_helper::Command::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
@@ -2696,6 +2988,7 @@ bool INavigation2DMsgs_get_absolute_location_of_current_target_RPC_helper::Comma
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_connectionreader:4080 */
 bool INavigation2DMsgs_get_absolute_location_of_current_target_RPC_helper::Command::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
@@ -2706,6 +2999,7 @@ bool INavigation2DMsgs_get_absolute_location_of_current_target_RPC_helper::Comma
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_wirewriter:4110 */
 bool INavigation2DMsgs_get_absolute_location_of_current_target_RPC_helper::Command::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writeTag(writer)) {
@@ -2717,6 +3011,7 @@ bool INavigation2DMsgs_get_absolute_location_of_current_target_RPC_helper::Comma
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writetag:4132 */
 bool INavigation2DMsgs_get_absolute_location_of_current_target_RPC_helper::Command::writeTag(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.writeTag(s_tag, 1, s_tag_len)) {
@@ -2725,11 +3020,13 @@ bool INavigation2DMsgs_get_absolute_location_of_current_target_RPC_helper::Comma
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writeargs:4153 */
 bool INavigation2DMsgs_get_absolute_location_of_current_target_RPC_helper::Command::writeArgs(const yarp::os::idl::WireWriter& writer [[maybe_unused]]) const
 {
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_wirereader:4181 */
 bool INavigation2DMsgs_get_absolute_location_of_current_target_RPC_helper::Command::read(yarp::os::idl::WireReader& reader)
 {
     if (!readTag(reader)) {
@@ -2741,6 +3038,7 @@ bool INavigation2DMsgs_get_absolute_location_of_current_target_RPC_helper::Comma
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readtag:4201 */
 bool INavigation2DMsgs_get_absolute_location_of_current_target_RPC_helper::Command::readTag(yarp::os::idl::WireReader& reader)
 {
     std::string tag = reader.readTag(s_tag_len);
@@ -2754,6 +3052,7 @@ bool INavigation2DMsgs_get_absolute_location_of_current_target_RPC_helper::Comma
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readargs:4229 */
 bool INavigation2DMsgs_get_absolute_location_of_current_target_RPC_helper::Command::readArgs(yarp::os::idl::WireReader& reader)
 {
     if (!reader.noMore()) {
@@ -2763,63 +3062,79 @@ bool INavigation2DMsgs_get_absolute_location_of_current_target_RPC_helper::Comma
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_connectionwriter:4259 */
 bool INavigation2DMsgs_get_absolute_location_of_current_target_RPC_helper::Reply::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_connectionreader:4280 */
 bool INavigation2DMsgs_get_absolute_location_of_current_target_RPC_helper::Reply::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_wirewriter:4301 */
 bool INavigation2DMsgs_get_absolute_location_of_current_target_RPC_helper::Reply::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.isNull()) {
         if (!writer.writeListHeader(s_reply_len)) {
             return false;
         }
-        if (!writer.write(return_helper)) {
+/* t_yarp_generator::generate_serialize_field:1093 */
+/* t_yarp_generator::generate_serialize_struct:1215 */
+        const return_get_abs_loc_of_curr_targetSerializer tmp_return_get_abs_loc_of_curr_targetSerializer(return_helper);
+        if (!writer.write(tmp_return_get_abs_loc_of_curr_targetSerializer)) {
             return false;
         }
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_wirereader:4347 */
 bool INavigation2DMsgs_get_absolute_location_of_current_target_RPC_helper::Reply::read(yarp::os::idl::WireReader& reader)
 {
     if (!reader.readListReturn()) {
         return false;
     }
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
-    if (!reader.read(return_helper)) {
+/* t_yarp_generator::generate_deserialize_struct:1516 */
+    return_get_abs_loc_of_curr_targetSerializer tmp_return_get_abs_loc_of_curr_targetSerializer(return_helper);
+    if (!reader.read(tmp_return_get_abs_loc_of_curr_targetSerializer)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_call:4385 */
 void INavigation2DMsgs_get_absolute_location_of_current_target_RPC_helper::call(INavigation2DMsgs* ptr)
 {
     reply.return_helper = ptr->get_absolute_location_of_current_target_RPC();
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl:3924 */
 // get_relative_location_of_current_target_RPC helper class implementation
+/* t_yarp_generator::generate_service_helper_classes_impl_write:3990 */
 bool INavigation2DMsgs_get_relative_location_of_current_target_RPC_helper::write(yarp::os::ConnectionWriter& connection) const
 {
     return cmd.write(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_read:4038 */
 bool INavigation2DMsgs_get_relative_location_of_current_target_RPC_helper::read(yarp::os::ConnectionReader& connection)
 {
     return reply.read(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_connectionwriter:4058 */
 bool INavigation2DMsgs_get_relative_location_of_current_target_RPC_helper::Command::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
@@ -2829,6 +3144,7 @@ bool INavigation2DMsgs_get_relative_location_of_current_target_RPC_helper::Comma
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_connectionreader:4080 */
 bool INavigation2DMsgs_get_relative_location_of_current_target_RPC_helper::Command::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
@@ -2839,6 +3155,7 @@ bool INavigation2DMsgs_get_relative_location_of_current_target_RPC_helper::Comma
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_wirewriter:4110 */
 bool INavigation2DMsgs_get_relative_location_of_current_target_RPC_helper::Command::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writeTag(writer)) {
@@ -2850,6 +3167,7 @@ bool INavigation2DMsgs_get_relative_location_of_current_target_RPC_helper::Comma
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writetag:4132 */
 bool INavigation2DMsgs_get_relative_location_of_current_target_RPC_helper::Command::writeTag(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.writeTag(s_tag, 1, s_tag_len)) {
@@ -2858,11 +3176,13 @@ bool INavigation2DMsgs_get_relative_location_of_current_target_RPC_helper::Comma
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writeargs:4153 */
 bool INavigation2DMsgs_get_relative_location_of_current_target_RPC_helper::Command::writeArgs(const yarp::os::idl::WireWriter& writer [[maybe_unused]]) const
 {
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_wirereader:4181 */
 bool INavigation2DMsgs_get_relative_location_of_current_target_RPC_helper::Command::read(yarp::os::idl::WireReader& reader)
 {
     if (!readTag(reader)) {
@@ -2874,6 +3194,7 @@ bool INavigation2DMsgs_get_relative_location_of_current_target_RPC_helper::Comma
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readtag:4201 */
 bool INavigation2DMsgs_get_relative_location_of_current_target_RPC_helper::Command::readTag(yarp::os::idl::WireReader& reader)
 {
     std::string tag = reader.readTag(s_tag_len);
@@ -2887,6 +3208,7 @@ bool INavigation2DMsgs_get_relative_location_of_current_target_RPC_helper::Comma
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readargs:4229 */
 bool INavigation2DMsgs_get_relative_location_of_current_target_RPC_helper::Command::readArgs(yarp::os::idl::WireReader& reader)
 {
     if (!reader.noMore()) {
@@ -2896,74 +3218,92 @@ bool INavigation2DMsgs_get_relative_location_of_current_target_RPC_helper::Comma
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_connectionwriter:4259 */
 bool INavigation2DMsgs_get_relative_location_of_current_target_RPC_helper::Reply::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_connectionreader:4280 */
 bool INavigation2DMsgs_get_relative_location_of_current_target_RPC_helper::Reply::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_wirewriter:4301 */
 bool INavigation2DMsgs_get_relative_location_of_current_target_RPC_helper::Reply::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.isNull()) {
         if (!writer.writeListHeader(s_reply_len)) {
             return false;
         }
-        if (!writer.write(return_helper)) {
+/* t_yarp_generator::generate_serialize_field:1093 */
+/* t_yarp_generator::generate_serialize_struct:1215 */
+        const return_get_rel_loc_of_curr_targetSerializer tmp_return_get_rel_loc_of_curr_targetSerializer(return_helper);
+        if (!writer.write(tmp_return_get_rel_loc_of_curr_targetSerializer)) {
             return false;
         }
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_wirereader:4347 */
 bool INavigation2DMsgs_get_relative_location_of_current_target_RPC_helper::Reply::read(yarp::os::idl::WireReader& reader)
 {
     if (!reader.readListReturn()) {
         return false;
     }
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
-    if (!reader.read(return_helper)) {
+/* t_yarp_generator::generate_deserialize_struct:1516 */
+    return_get_rel_loc_of_curr_targetSerializer tmp_return_get_rel_loc_of_curr_targetSerializer(return_helper);
+    if (!reader.read(tmp_return_get_rel_loc_of_curr_targetSerializer)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_call:4385 */
 void INavigation2DMsgs_get_relative_location_of_current_target_RPC_helper::call(INavigation2DMsgs* ptr)
 {
     reply.return_helper = ptr->get_relative_location_of_current_target_RPC();
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl:3924 */
 // goto_target_by_absolute_location_and_set_name_RPC helper class implementation
+/* t_yarp_generator::generate_service_helper_classes_impl_ctor:3963 */
 INavigation2DMsgs_goto_target_by_absolute_location_and_set_name_RPC_helper::INavigation2DMsgs_goto_target_by_absolute_location_and_set_name_RPC_helper(const yarp::dev::Nav2D::Map2DLocation& loc, const std::string& name) :
         cmd{loc, name}
 {
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_write:3990 */
 bool INavigation2DMsgs_goto_target_by_absolute_location_and_set_name_RPC_helper::write(yarp::os::ConnectionWriter& connection) const
 {
     return cmd.write(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_read:4038 */
 bool INavigation2DMsgs_goto_target_by_absolute_location_and_set_name_RPC_helper::read(yarp::os::ConnectionReader& connection)
 {
     return reply.read(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_ctor:4010 */
 INavigation2DMsgs_goto_target_by_absolute_location_and_set_name_RPC_helper::Command::Command(const yarp::dev::Nav2D::Map2DLocation& loc, const std::string& name) :
         loc{loc},
         name{name}
 {
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_connectionwriter:4058 */
 bool INavigation2DMsgs_goto_target_by_absolute_location_and_set_name_RPC_helper::Command::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
@@ -2973,6 +3313,7 @@ bool INavigation2DMsgs_goto_target_by_absolute_location_and_set_name_RPC_helper:
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_connectionreader:4080 */
 bool INavigation2DMsgs_goto_target_by_absolute_location_and_set_name_RPC_helper::Command::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
@@ -2983,6 +3324,7 @@ bool INavigation2DMsgs_goto_target_by_absolute_location_and_set_name_RPC_helper:
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_wirewriter:4110 */
 bool INavigation2DMsgs_goto_target_by_absolute_location_and_set_name_RPC_helper::Command::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writeTag(writer)) {
@@ -2994,6 +3336,7 @@ bool INavigation2DMsgs_goto_target_by_absolute_location_and_set_name_RPC_helper:
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writetag:4132 */
 bool INavigation2DMsgs_goto_target_by_absolute_location_and_set_name_RPC_helper::Command::writeTag(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.writeTag(s_tag, 1, s_tag_len)) {
@@ -3002,17 +3345,23 @@ bool INavigation2DMsgs_goto_target_by_absolute_location_and_set_name_RPC_helper:
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writeargs:4153 */
 bool INavigation2DMsgs_goto_target_by_absolute_location_and_set_name_RPC_helper::Command::writeArgs(const yarp::os::idl::WireWriter& writer) const
 {
-    if (!writer.writeNested(loc)) {
+/* t_yarp_generator::generate_serialize_field:1093 */
+/* t_yarp_generator::generate_serialize_struct:1215 */
+    const yarp::dev::Nav2D::Map2DLocationDataSerializer tmp_yarp_dev_Nav2D_Map2DLocationDataSerializer(loc);
+    if (!writer.writeNested(tmp_yarp_dev_Nav2D_Map2DLocationDataSerializer)) {
         return false;
     }
+/* t_yarp_generator::generate_serialize_field:1093 */
     if (!writer.writeString(name)) {
         return false;
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_wirereader:4181 */
 bool INavigation2DMsgs_goto_target_by_absolute_location_and_set_name_RPC_helper::Command::read(yarp::os::idl::WireReader& reader)
 {
     if (!readTag(reader)) {
@@ -3024,6 +3373,7 @@ bool INavigation2DMsgs_goto_target_by_absolute_location_and_set_name_RPC_helper:
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readtag:4201 */
 bool INavigation2DMsgs_goto_target_by_absolute_location_and_set_name_RPC_helper::Command::readTag(yarp::os::idl::WireReader& reader)
 {
     std::string tag = reader.readTag(s_tag_len);
@@ -3037,21 +3387,28 @@ bool INavigation2DMsgs_goto_target_by_absolute_location_and_set_name_RPC_helper:
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readargs:4229 */
 bool INavigation2DMsgs_goto_target_by_absolute_location_and_set_name_RPC_helper::Command::readArgs(yarp::os::idl::WireReader& reader)
 {
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
-    if (!reader.readNested(loc)) {
+/* t_yarp_generator::generate_deserialize_struct:1516 */
+    yarp::dev::Nav2D::Map2DLocationDataSerializer tmp_yarp_dev_Nav2D_Map2DLocationDataSerializer(loc);
+    if (!reader.readNested(tmp_yarp_dev_Nav2D_Map2DLocationDataSerializer)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
     if (!reader.readString(name)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
@@ -3062,24 +3419,28 @@ bool INavigation2DMsgs_goto_target_by_absolute_location_and_set_name_RPC_helper:
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_connectionwriter:4259 */
 bool INavigation2DMsgs_goto_target_by_absolute_location_and_set_name_RPC_helper::Reply::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_connectionreader:4280 */
 bool INavigation2DMsgs_goto_target_by_absolute_location_and_set_name_RPC_helper::Reply::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_wirewriter:4301 */
 bool INavigation2DMsgs_goto_target_by_absolute_location_and_set_name_RPC_helper::Reply::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.isNull()) {
         if (!writer.writeListHeader(s_reply_len)) {
             return false;
         }
+/* t_yarp_generator::generate_serialize_field:1093 */
         if (!writer.writeBool(return_helper)) {
             return false;
         }
@@ -3087,43 +3448,52 @@ bool INavigation2DMsgs_goto_target_by_absolute_location_and_set_name_RPC_helper:
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_wirereader:4347 */
 bool INavigation2DMsgs_goto_target_by_absolute_location_and_set_name_RPC_helper::Reply::read(yarp::os::idl::WireReader& reader)
 {
     if (!reader.readListReturn()) {
         return false;
     }
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
     if (!reader.readBool(return_helper)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_call:4385 */
 void INavigation2DMsgs_goto_target_by_absolute_location_and_set_name_RPC_helper::call(INavigation2DMsgs* ptr)
 {
     reply.return_helper = ptr->goto_target_by_absolute_location_and_set_name_RPC(cmd.loc, cmd.name);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl:3924 */
 // apply_velocity_command_RPC helper class implementation
+/* t_yarp_generator::generate_service_helper_classes_impl_ctor:3963 */
 INavigation2DMsgs_apply_velocity_command_RPC_helper::INavigation2DMsgs_apply_velocity_command_RPC_helper(const double x_vel, const double y_vel, const double theta_vel, const double timeout) :
         cmd{x_vel, y_vel, theta_vel, timeout}
 {
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_write:3990 */
 bool INavigation2DMsgs_apply_velocity_command_RPC_helper::write(yarp::os::ConnectionWriter& connection) const
 {
     return cmd.write(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_read:4038 */
 bool INavigation2DMsgs_apply_velocity_command_RPC_helper::read(yarp::os::ConnectionReader& connection)
 {
     return reply.read(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_ctor:4010 */
 INavigation2DMsgs_apply_velocity_command_RPC_helper::Command::Command(const double x_vel, const double y_vel, const double theta_vel, const double timeout) :
         x_vel{x_vel},
         y_vel{y_vel},
@@ -3132,6 +3502,7 @@ INavigation2DMsgs_apply_velocity_command_RPC_helper::Command::Command(const doub
 {
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_connectionwriter:4058 */
 bool INavigation2DMsgs_apply_velocity_command_RPC_helper::Command::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
@@ -3141,6 +3512,7 @@ bool INavigation2DMsgs_apply_velocity_command_RPC_helper::Command::write(yarp::o
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_connectionreader:4080 */
 bool INavigation2DMsgs_apply_velocity_command_RPC_helper::Command::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
@@ -3151,6 +3523,7 @@ bool INavigation2DMsgs_apply_velocity_command_RPC_helper::Command::read(yarp::os
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_wirewriter:4110 */
 bool INavigation2DMsgs_apply_velocity_command_RPC_helper::Command::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writeTag(writer)) {
@@ -3162,6 +3535,7 @@ bool INavigation2DMsgs_apply_velocity_command_RPC_helper::Command::write(const y
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writetag:4132 */
 bool INavigation2DMsgs_apply_velocity_command_RPC_helper::Command::writeTag(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.writeTag(s_tag, 1, s_tag_len)) {
@@ -3170,23 +3544,29 @@ bool INavigation2DMsgs_apply_velocity_command_RPC_helper::Command::writeTag(cons
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writeargs:4153 */
 bool INavigation2DMsgs_apply_velocity_command_RPC_helper::Command::writeArgs(const yarp::os::idl::WireWriter& writer) const
 {
+/* t_yarp_generator::generate_serialize_field:1093 */
     if (!writer.writeFloat64(x_vel)) {
         return false;
     }
+/* t_yarp_generator::generate_serialize_field:1093 */
     if (!writer.writeFloat64(y_vel)) {
         return false;
     }
+/* t_yarp_generator::generate_serialize_field:1093 */
     if (!writer.writeFloat64(theta_vel)) {
         return false;
     }
+/* t_yarp_generator::generate_serialize_field:1093 */
     if (!writer.writeFloat64(timeout)) {
         return false;
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_wirereader:4181 */
 bool INavigation2DMsgs_apply_velocity_command_RPC_helper::Command::read(yarp::os::idl::WireReader& reader)
 {
     if (!readTag(reader)) {
@@ -3198,6 +3578,7 @@ bool INavigation2DMsgs_apply_velocity_command_RPC_helper::Command::read(yarp::os
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readtag:4201 */
 bool INavigation2DMsgs_apply_velocity_command_RPC_helper::Command::readTag(yarp::os::idl::WireReader& reader)
 {
     std::string tag = reader.readTag(s_tag_len);
@@ -3211,37 +3592,46 @@ bool INavigation2DMsgs_apply_velocity_command_RPC_helper::Command::readTag(yarp:
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readargs:4229 */
 bool INavigation2DMsgs_apply_velocity_command_RPC_helper::Command::readArgs(yarp::os::idl::WireReader& reader)
 {
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
     if (!reader.readFloat64(x_vel)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
     if (!reader.readFloat64(y_vel)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
     if (!reader.readFloat64(theta_vel)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
     if (!reader.readFloat64(timeout)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
@@ -3252,24 +3642,28 @@ bool INavigation2DMsgs_apply_velocity_command_RPC_helper::Command::readArgs(yarp
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_connectionwriter:4259 */
 bool INavigation2DMsgs_apply_velocity_command_RPC_helper::Reply::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_connectionreader:4280 */
 bool INavigation2DMsgs_apply_velocity_command_RPC_helper::Reply::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_wirewriter:4301 */
 bool INavigation2DMsgs_apply_velocity_command_RPC_helper::Reply::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.isNull()) {
         if (!writer.writeListHeader(s_reply_len)) {
             return false;
         }
+/* t_yarp_generator::generate_serialize_field:1093 */
         if (!writer.writeBool(return_helper)) {
             return false;
         }
@@ -3277,38 +3671,46 @@ bool INavigation2DMsgs_apply_velocity_command_RPC_helper::Reply::write(const yar
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_wirereader:4347 */
 bool INavigation2DMsgs_apply_velocity_command_RPC_helper::Reply::read(yarp::os::idl::WireReader& reader)
 {
     if (!reader.readListReturn()) {
         return false;
     }
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
     if (!reader.readBool(return_helper)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_call:4385 */
 void INavigation2DMsgs_apply_velocity_command_RPC_helper::call(INavigation2DMsgs* ptr)
 {
     reply.return_helper = ptr->apply_velocity_command_RPC(cmd.x_vel, cmd.y_vel, cmd.theta_vel, cmd.timeout);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl:3924 */
 // get_last_velocity_command_RPC helper class implementation
+/* t_yarp_generator::generate_service_helper_classes_impl_write:3990 */
 bool INavigation2DMsgs_get_last_velocity_command_RPC_helper::write(yarp::os::ConnectionWriter& connection) const
 {
     return cmd.write(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_read:4038 */
 bool INavigation2DMsgs_get_last_velocity_command_RPC_helper::read(yarp::os::ConnectionReader& connection)
 {
     return reply.read(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_connectionwriter:4058 */
 bool INavigation2DMsgs_get_last_velocity_command_RPC_helper::Command::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
@@ -3318,6 +3720,7 @@ bool INavigation2DMsgs_get_last_velocity_command_RPC_helper::Command::write(yarp
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_connectionreader:4080 */
 bool INavigation2DMsgs_get_last_velocity_command_RPC_helper::Command::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
@@ -3328,6 +3731,7 @@ bool INavigation2DMsgs_get_last_velocity_command_RPC_helper::Command::read(yarp:
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_wirewriter:4110 */
 bool INavigation2DMsgs_get_last_velocity_command_RPC_helper::Command::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writeTag(writer)) {
@@ -3339,6 +3743,7 @@ bool INavigation2DMsgs_get_last_velocity_command_RPC_helper::Command::write(cons
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writetag:4132 */
 bool INavigation2DMsgs_get_last_velocity_command_RPC_helper::Command::writeTag(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.writeTag(s_tag, 1, s_tag_len)) {
@@ -3347,11 +3752,13 @@ bool INavigation2DMsgs_get_last_velocity_command_RPC_helper::Command::writeTag(c
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writeargs:4153 */
 bool INavigation2DMsgs_get_last_velocity_command_RPC_helper::Command::writeArgs(const yarp::os::idl::WireWriter& writer [[maybe_unused]]) const
 {
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_wirereader:4181 */
 bool INavigation2DMsgs_get_last_velocity_command_RPC_helper::Command::read(yarp::os::idl::WireReader& reader)
 {
     if (!readTag(reader)) {
@@ -3363,6 +3770,7 @@ bool INavigation2DMsgs_get_last_velocity_command_RPC_helper::Command::read(yarp:
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readtag:4201 */
 bool INavigation2DMsgs_get_last_velocity_command_RPC_helper::Command::readTag(yarp::os::idl::WireReader& reader)
 {
     std::string tag = reader.readTag(s_tag_len);
@@ -3376,6 +3784,7 @@ bool INavigation2DMsgs_get_last_velocity_command_RPC_helper::Command::readTag(ya
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readargs:4229 */
 bool INavigation2DMsgs_get_last_velocity_command_RPC_helper::Command::readArgs(yarp::os::idl::WireReader& reader)
 {
     if (!reader.noMore()) {
@@ -3385,63 +3794,79 @@ bool INavigation2DMsgs_get_last_velocity_command_RPC_helper::Command::readArgs(y
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_connectionwriter:4259 */
 bool INavigation2DMsgs_get_last_velocity_command_RPC_helper::Reply::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_connectionreader:4280 */
 bool INavigation2DMsgs_get_last_velocity_command_RPC_helper::Reply::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_wirewriter:4301 */
 bool INavigation2DMsgs_get_last_velocity_command_RPC_helper::Reply::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.isNull()) {
         if (!writer.writeListHeader(s_reply_len)) {
             return false;
         }
-        if (!writer.write(return_helper)) {
+/* t_yarp_generator::generate_serialize_field:1093 */
+/* t_yarp_generator::generate_serialize_struct:1215 */
+        const return_get_last_velocity_commandSerializer tmp_return_get_last_velocity_commandSerializer(return_helper);
+        if (!writer.write(tmp_return_get_last_velocity_commandSerializer)) {
             return false;
         }
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_wirereader:4347 */
 bool INavigation2DMsgs_get_last_velocity_command_RPC_helper::Reply::read(yarp::os::idl::WireReader& reader)
 {
     if (!reader.readListReturn()) {
         return false;
     }
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
-    if (!reader.read(return_helper)) {
+/* t_yarp_generator::generate_deserialize_struct:1516 */
+    return_get_last_velocity_commandSerializer tmp_return_get_last_velocity_commandSerializer(return_helper);
+    if (!reader.read(tmp_return_get_last_velocity_commandSerializer)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_call:4385 */
 void INavigation2DMsgs_get_last_velocity_command_RPC_helper::call(INavigation2DMsgs* ptr)
 {
     reply.return_helper = ptr->get_last_velocity_command_RPC();
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl:3924 */
 // get_name_of_current_target_RPC helper class implementation
+/* t_yarp_generator::generate_service_helper_classes_impl_write:3990 */
 bool INavigation2DMsgs_get_name_of_current_target_RPC_helper::write(yarp::os::ConnectionWriter& connection) const
 {
     return cmd.write(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_read:4038 */
 bool INavigation2DMsgs_get_name_of_current_target_RPC_helper::read(yarp::os::ConnectionReader& connection)
 {
     return reply.read(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_connectionwriter:4058 */
 bool INavigation2DMsgs_get_name_of_current_target_RPC_helper::Command::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
@@ -3451,6 +3876,7 @@ bool INavigation2DMsgs_get_name_of_current_target_RPC_helper::Command::write(yar
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_connectionreader:4080 */
 bool INavigation2DMsgs_get_name_of_current_target_RPC_helper::Command::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
@@ -3461,6 +3887,7 @@ bool INavigation2DMsgs_get_name_of_current_target_RPC_helper::Command::read(yarp
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_wirewriter:4110 */
 bool INavigation2DMsgs_get_name_of_current_target_RPC_helper::Command::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writeTag(writer)) {
@@ -3472,6 +3899,7 @@ bool INavigation2DMsgs_get_name_of_current_target_RPC_helper::Command::write(con
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writetag:4132 */
 bool INavigation2DMsgs_get_name_of_current_target_RPC_helper::Command::writeTag(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.writeTag(s_tag, 1, s_tag_len)) {
@@ -3480,11 +3908,13 @@ bool INavigation2DMsgs_get_name_of_current_target_RPC_helper::Command::writeTag(
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writeargs:4153 */
 bool INavigation2DMsgs_get_name_of_current_target_RPC_helper::Command::writeArgs(const yarp::os::idl::WireWriter& writer [[maybe_unused]]) const
 {
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_wirereader:4181 */
 bool INavigation2DMsgs_get_name_of_current_target_RPC_helper::Command::read(yarp::os::idl::WireReader& reader)
 {
     if (!readTag(reader)) {
@@ -3496,6 +3926,7 @@ bool INavigation2DMsgs_get_name_of_current_target_RPC_helper::Command::read(yarp
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readtag:4201 */
 bool INavigation2DMsgs_get_name_of_current_target_RPC_helper::Command::readTag(yarp::os::idl::WireReader& reader)
 {
     std::string tag = reader.readTag(s_tag_len);
@@ -3509,6 +3940,7 @@ bool INavigation2DMsgs_get_name_of_current_target_RPC_helper::Command::readTag(y
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readargs:4229 */
 bool INavigation2DMsgs_get_name_of_current_target_RPC_helper::Command::readArgs(yarp::os::idl::WireReader& reader)
 {
     if (!reader.noMore()) {
@@ -3518,58 +3950,72 @@ bool INavigation2DMsgs_get_name_of_current_target_RPC_helper::Command::readArgs(
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_connectionwriter:4259 */
 bool INavigation2DMsgs_get_name_of_current_target_RPC_helper::Reply::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_connectionreader:4280 */
 bool INavigation2DMsgs_get_name_of_current_target_RPC_helper::Reply::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_wirewriter:4301 */
 bool INavigation2DMsgs_get_name_of_current_target_RPC_helper::Reply::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.isNull()) {
         if (!writer.writeListHeader(s_reply_len)) {
             return false;
         }
-        if (!writer.write(return_helper)) {
+/* t_yarp_generator::generate_serialize_field:1093 */
+/* t_yarp_generator::generate_serialize_struct:1215 */
+        const return_get_name_of_current_targetSerializer tmp_return_get_name_of_current_targetSerializer(return_helper);
+        if (!writer.write(tmp_return_get_name_of_current_targetSerializer)) {
             return false;
         }
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_wirereader:4347 */
 bool INavigation2DMsgs_get_name_of_current_target_RPC_helper::Reply::read(yarp::os::idl::WireReader& reader)
 {
     if (!reader.readListReturn()) {
         return false;
     }
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
-    if (!reader.read(return_helper)) {
+/* t_yarp_generator::generate_deserialize_struct:1516 */
+    return_get_name_of_current_targetSerializer tmp_return_get_name_of_current_targetSerializer(return_helper);
+    if (!reader.read(tmp_return_get_name_of_current_targetSerializer)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_call:4385 */
 void INavigation2DMsgs_get_name_of_current_target_RPC_helper::call(INavigation2DMsgs* ptr)
 {
     reply.return_helper = ptr->get_name_of_current_target_RPC();
 }
 
+/* t_yarp_generator::generate_service_constructor:4425 */
 // Constructor
 INavigation2DMsgs::INavigation2DMsgs()
 {
     yarp().setOwner(*this);
 }
 
+/* t_yarp_generator::generate_service_method:4450 */
 bool INavigation2DMsgs::stop_navigation_RPC()
 {
     if (!yarp().canWrite()) {
@@ -3580,6 +4026,7 @@ bool INavigation2DMsgs::stop_navigation_RPC()
     return ok ? helper.reply.return_helper : bool{};
 }
 
+/* t_yarp_generator::generate_service_method:4450 */
 bool INavigation2DMsgs::resume_navigation_RPC()
 {
     if (!yarp().canWrite()) {
@@ -3590,6 +4037,7 @@ bool INavigation2DMsgs::resume_navigation_RPC()
     return ok ? helper.reply.return_helper : bool{};
 }
 
+/* t_yarp_generator::generate_service_method:4450 */
 bool INavigation2DMsgs::suspend_navigation_RPC(const double time_s)
 {
     if (!yarp().canWrite()) {
@@ -3600,6 +4048,7 @@ bool INavigation2DMsgs::suspend_navigation_RPC(const double time_s)
     return ok ? helper.reply.return_helper : bool{};
 }
 
+/* t_yarp_generator::generate_service_method:4450 */
 bool INavigation2DMsgs::recompute_current_navigation_path_RPC()
 {
     if (!yarp().canWrite()) {
@@ -3610,46 +4059,51 @@ bool INavigation2DMsgs::recompute_current_navigation_path_RPC()
     return ok ? helper.reply.return_helper : bool{};
 }
 
-return_get_navigation_status INavigation2DMsgs::get_navigation_status_RPC()
+/* t_yarp_generator::generate_service_method:4450 */
+return_get_navigation_statusStorage INavigation2DMsgs::get_navigation_status_RPC()
 {
     if (!yarp().canWrite()) {
         yError("Missing server method '%s'?", INavigation2DMsgs_get_navigation_status_RPC_helper::s_prototype);
     }
     INavigation2DMsgs_get_navigation_status_RPC_helper helper{};
     bool ok = yarp().write(helper, helper);
-    return ok ? helper.reply.return_helper : return_get_navigation_status{};
+    return ok ? helper.reply.return_helper : return_get_navigation_statusStorage{};
 }
 
-return_get_current_nav_waypoint INavigation2DMsgs::get_current_nav_waypoint_RPC()
+/* t_yarp_generator::generate_service_method:4450 */
+return_get_current_nav_waypointStorage INavigation2DMsgs::get_current_nav_waypoint_RPC()
 {
     if (!yarp().canWrite()) {
         yError("Missing server method '%s'?", INavigation2DMsgs_get_current_nav_waypoint_RPC_helper::s_prototype);
     }
     INavigation2DMsgs_get_current_nav_waypoint_RPC_helper helper{};
     bool ok = yarp().write(helper, helper);
-    return ok ? helper.reply.return_helper : return_get_current_nav_waypoint{};
+    return ok ? helper.reply.return_helper : return_get_current_nav_waypointStorage{};
 }
 
-return_get_all_nav_waypoints INavigation2DMsgs::get_all_navigation_waypoints_RPC(const yarp::dev::Nav2D::TrajectoryTypeEnum trajectory_type)
+/* t_yarp_generator::generate_service_method:4450 */
+return_get_all_nav_waypointsStorage INavigation2DMsgs::get_all_navigation_waypoints_RPC(const yarp::dev::Nav2D::TrajectoryTypeEnum trajectory_type)
 {
     if (!yarp().canWrite()) {
         yError("Missing server method '%s'?", INavigation2DMsgs_get_all_navigation_waypoints_RPC_helper::s_prototype);
     }
     INavigation2DMsgs_get_all_navigation_waypoints_RPC_helper helper{trajectory_type};
     bool ok = yarp().write(helper, helper);
-    return ok ? helper.reply.return_helper : return_get_all_nav_waypoints{};
+    return ok ? helper.reply.return_helper : return_get_all_nav_waypointsStorage{};
 }
 
-return_get_current_nav_map INavigation2DMsgs::get_current_navigation_map_RPC(const yarp::dev::Nav2D::NavigationMapTypeEnum map_type)
+/* t_yarp_generator::generate_service_method:4450 */
+return_get_current_nav_mapStorage INavigation2DMsgs::get_current_navigation_map_RPC(const yarp::dev::Nav2D::NavigationMapTypeEnum map_type)
 {
     if (!yarp().canWrite()) {
         yError("Missing server method '%s'?", INavigation2DMsgs_get_current_navigation_map_RPC_helper::s_prototype);
     }
     INavigation2DMsgs_get_current_navigation_map_RPC_helper helper{map_type};
     bool ok = yarp().write(helper, helper);
-    return ok ? helper.reply.return_helper : return_get_current_nav_map{};
+    return ok ? helper.reply.return_helper : return_get_current_nav_mapStorage{};
 }
 
+/* t_yarp_generator::generate_service_method:4450 */
 bool INavigation2DMsgs::goto_target_by_absolute_location_RPC(const yarp::dev::Nav2D::Map2DLocation& loc)
 {
     if (!yarp().canWrite()) {
@@ -3660,6 +4114,7 @@ bool INavigation2DMsgs::goto_target_by_absolute_location_RPC(const yarp::dev::Na
     return ok ? helper.reply.return_helper : bool{};
 }
 
+/* t_yarp_generator::generate_service_method:4450 */
 bool INavigation2DMsgs::goto_target_by_relative_location1_RPC(const double x, const double y)
 {
     if (!yarp().canWrite()) {
@@ -3670,6 +4125,7 @@ bool INavigation2DMsgs::goto_target_by_relative_location1_RPC(const double x, co
     return ok ? helper.reply.return_helper : bool{};
 }
 
+/* t_yarp_generator::generate_service_method:4450 */
 bool INavigation2DMsgs::goto_target_by_relative_location2_RPC(const double x, const double y, const double theta)
 {
     if (!yarp().canWrite()) {
@@ -3680,26 +4136,29 @@ bool INavigation2DMsgs::goto_target_by_relative_location2_RPC(const double x, co
     return ok ? helper.reply.return_helper : bool{};
 }
 
-return_get_abs_loc_of_curr_target INavigation2DMsgs::get_absolute_location_of_current_target_RPC()
+/* t_yarp_generator::generate_service_method:4450 */
+return_get_abs_loc_of_curr_targetStorage INavigation2DMsgs::get_absolute_location_of_current_target_RPC()
 {
     if (!yarp().canWrite()) {
         yError("Missing server method '%s'?", INavigation2DMsgs_get_absolute_location_of_current_target_RPC_helper::s_prototype);
     }
     INavigation2DMsgs_get_absolute_location_of_current_target_RPC_helper helper{};
     bool ok = yarp().write(helper, helper);
-    return ok ? helper.reply.return_helper : return_get_abs_loc_of_curr_target{};
+    return ok ? helper.reply.return_helper : return_get_abs_loc_of_curr_targetStorage{};
 }
 
-return_get_rel_loc_of_curr_target INavigation2DMsgs::get_relative_location_of_current_target_RPC()
+/* t_yarp_generator::generate_service_method:4450 */
+return_get_rel_loc_of_curr_targetStorage INavigation2DMsgs::get_relative_location_of_current_target_RPC()
 {
     if (!yarp().canWrite()) {
         yError("Missing server method '%s'?", INavigation2DMsgs_get_relative_location_of_current_target_RPC_helper::s_prototype);
     }
     INavigation2DMsgs_get_relative_location_of_current_target_RPC_helper helper{};
     bool ok = yarp().write(helper, helper);
-    return ok ? helper.reply.return_helper : return_get_rel_loc_of_curr_target{};
+    return ok ? helper.reply.return_helper : return_get_rel_loc_of_curr_targetStorage{};
 }
 
+/* t_yarp_generator::generate_service_method:4450 */
 bool INavigation2DMsgs::goto_target_by_absolute_location_and_set_name_RPC(const yarp::dev::Nav2D::Map2DLocation& loc, const std::string& name)
 {
     if (!yarp().canWrite()) {
@@ -3710,6 +4169,7 @@ bool INavigation2DMsgs::goto_target_by_absolute_location_and_set_name_RPC(const 
     return ok ? helper.reply.return_helper : bool{};
 }
 
+/* t_yarp_generator::generate_service_method:4450 */
 bool INavigation2DMsgs::apply_velocity_command_RPC(const double x_vel, const double y_vel, const double theta_vel, const double timeout)
 {
     if (!yarp().canWrite()) {
@@ -3720,26 +4180,29 @@ bool INavigation2DMsgs::apply_velocity_command_RPC(const double x_vel, const dou
     return ok ? helper.reply.return_helper : bool{};
 }
 
-return_get_last_velocity_command INavigation2DMsgs::get_last_velocity_command_RPC()
+/* t_yarp_generator::generate_service_method:4450 */
+return_get_last_velocity_commandStorage INavigation2DMsgs::get_last_velocity_command_RPC()
 {
     if (!yarp().canWrite()) {
         yError("Missing server method '%s'?", INavigation2DMsgs_get_last_velocity_command_RPC_helper::s_prototype);
     }
     INavigation2DMsgs_get_last_velocity_command_RPC_helper helper{};
     bool ok = yarp().write(helper, helper);
-    return ok ? helper.reply.return_helper : return_get_last_velocity_command{};
+    return ok ? helper.reply.return_helper : return_get_last_velocity_commandStorage{};
 }
 
-return_get_name_of_current_target INavigation2DMsgs::get_name_of_current_target_RPC()
+/* t_yarp_generator::generate_service_method:4450 */
+return_get_name_of_current_targetStorage INavigation2DMsgs::get_name_of_current_target_RPC()
 {
     if (!yarp().canWrite()) {
         yError("Missing server method '%s'?", INavigation2DMsgs_get_name_of_current_target_RPC_helper::s_prototype);
     }
     INavigation2DMsgs_get_name_of_current_target_RPC_helper helper{};
     bool ok = yarp().write(helper, helper);
-    return ok ? helper.reply.return_helper : return_get_name_of_current_target{};
+    return ok ? helper.reply.return_helper : return_get_name_of_current_targetStorage{};
 }
 
+/* t_yarp_generator::generate_service_help:4503 */
 // help method
 std::vector<std::string> INavigation2DMsgs::help(const std::string& functionName)
 {
@@ -3830,6 +4293,7 @@ std::vector<std::string> INavigation2DMsgs::help(const std::string& functionName
     return helpString;
 }
 
+/* t_yarp_generator::generate_service_read:4585 */
 // read from ConnectionReader
 bool INavigation2DMsgs::read(yarp::os::ConnectionReader& connection)
 {

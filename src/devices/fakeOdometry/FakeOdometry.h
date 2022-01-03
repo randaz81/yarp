@@ -70,11 +70,11 @@ public:
     bool close() override;
 
     // IOdometry2D
-    bool   getOdometry(yarp::dev::OdometryData& odom) override;
+    bool   getOdometry(yarp::dev::Nav2D::Odometry& odom) override;
     bool   resetOdometry() override;
 
 private:
-    yarp::dev::OdometryData m_odometryData;
+    yarp::dev::Nav2D::Odometry m_odometryData;
 
     std::mutex m_odometry_mutex;
     double m_period;

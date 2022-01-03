@@ -53,9 +53,22 @@ void t_generator::generate_program() {
     generate_forward_declaration(*o_iter);
   }
   for (o_iter = objects.begin(); o_iter != objects.end(); ++o_iter) {
+    std::string name = (*o_iter)->get_name();
     if ((*o_iter)->is_xception()) {
+      (*o_iter)->set_name(name + "Serializer");
+      (*o_iter)->isYarpPortable=true;
+      generate_xception(*o_iter);
+
+      (*o_iter)->set_name(name + "Storage");
+      (*o_iter)->isYarpPortable = false;
       generate_xception(*o_iter);
     } else {
+      (*o_iter)->set_name(name + "Serializer");
+      (*o_iter)->isYarpPortable = true;
+      generate_struct(*o_iter);
+
+      (*o_iter)->set_name(name + "Storage");
+      (*o_iter)->isYarpPortable = false;
       generate_struct(*o_iter);
     }
   }

@@ -13,6 +13,16 @@
 namespace yarp::dev {
 
 // Constructor with field values
+AudioRecorderStatusRandazClass2::AudioRecorderStatusRandazClass2(const bool enabled,
+                                                                 const size_t current_buffer_size,
+                                                                 const size_t max_buffer_size) :
+        enabled(enabled),
+        current_buffer_size(current_buffer_size),
+        max_buffer_size(max_buffer_size)
+{
+}
+
+// Constructor with field values
 AudioRecorderStatus::AudioRecorderStatus(const bool enabled,
                                          const size_t current_buffer_size,
                                          const size_t max_buffer_size) :

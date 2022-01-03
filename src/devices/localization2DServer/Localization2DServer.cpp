@@ -590,8 +590,8 @@ void Localization2DServer::publish_odometry_on_yarp_port()
 {
     if (m_odometryPort.getOutputCount() > 0)
     {
-        yarp::dev::OdometryData& odom = m_odometryPort.prepare();
-        odom = m_current_odometry;
+        yarp::dev::OdometryDataSerializer& odom = m_odometryPort.prepare();
+        odom.get() = m_current_odometry;
 
         //send data to port
         m_odometryPort.setEnvelope(m_odom_stamp);
@@ -603,10 +603,10 @@ void Localization2DServer::publish_2DLocation_on_yarp_port()
 {
     if (m_2DLocationPort.getOutputCount() > 0)
     {
-        Nav2D::Map2DLocation& loc = m_2DLocationPort.prepare();
+        yarp::dev::Map2DLocationDataSerializer& loc = m_2DLocationPort.prepare();
         if (m_current_status == LocalizationStatusEnum::localization_status_localized_ok)
         {
-            loc = m_current_position;
+            loc.get() = m_current_position;
         }
         else
         {
@@ -614,7 +614,7 @@ void Localization2DServer::publish_2DLocation_on_yarp_port()
             temp_loc.x = std::nan("");
             temp_loc.y = std::nan("");
             temp_loc.theta = std::nan("");
-            loc = temp_loc;
+            loc.get() = temp_loc;
         }
 
         //send data to port

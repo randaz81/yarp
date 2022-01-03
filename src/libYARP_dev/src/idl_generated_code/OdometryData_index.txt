@@ -1,2 +1,4 @@
-yarp/dev/OdometryData.h
-yarp/dev/OdometryData.cpp
+yarp/dev/Nav2D/OdometryDataStorage.h
+yarp/dev/Nav2D/OdometryDataStorage.cpp
+yarp/dev/Nav2D/OdometryDataSerializer.h
+yarp/dev/Nav2D/OdometryDataSerializer.cpp

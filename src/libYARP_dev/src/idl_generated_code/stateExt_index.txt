@@ -1,2 +1,4 @@
-yarp/dev/impl/jointData.h
-yarp/dev/impl/jointData.cpp
+yarp/dev/impl/jointDataStorage.h
+yarp/dev/impl/jointDataStorage.cpp
+yarp/dev/impl/jointDataSerializer.h
+yarp/dev/impl/jointDataSerializer.cpp

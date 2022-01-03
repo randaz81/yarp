@@ -55,11 +55,11 @@ bool IMap2DRPCd::store_map_RPC(const yarp::dev::Nav2D::MapGrid2D& themap)
     return true;
 }
 
-return_get_map IMap2DRPCd::get_map_RPC(const std::string& map_name)
+return_get_mapStorage IMap2DRPCd::get_map_RPC(const std::string& map_name)
 {
     std::lock_guard <std::mutex> lg(m_mutex);
 
-    return_get_map ret;
+    return_get_mapStorage ret;
     {if (m_iMap == nullptr) { yCError(MAP2D_RPC, "Invalid interface"); return ret; }}
     yarp::dev::Nav2D::MapGrid2D map;
     if (!m_iMap->get_map(map_name,map))
@@ -75,11 +75,11 @@ return_get_map IMap2DRPCd::get_map_RPC(const std::string& map_name)
     return ret;
 }
 
-return_get_map_names IMap2DRPCd::get_map_names_RPC()
+return_get_map_namesStorage IMap2DRPCd::get_map_names_RPC()
 {
     std::lock_guard <std::mutex> lg(m_mutex);
 
-    return_get_map_names ret;
+    return_get_map_namesStorage ret;
     {if (m_iMap == nullptr) { yCError(MAP2D_RPC, "Invalid interface"); return ret; }}
     std::vector<string> map_names;
     if (!m_iMap->get_map_names(map_names))
@@ -361,11 +361,11 @@ bool IMap2DRPCd::load_locations_and_extras_RPC(const std::string& locations_coll
     return true;
 }
 
-return_get_location IMap2DRPCd::get_location_RPC(const std::string& location_name)
+return_get_locationStorage IMap2DRPCd::get_location_RPC(const std::string& location_name)
 {
     std::lock_guard <std::mutex> lg(m_mutex);
 
-    return_get_location ret;
+    return_get_locationStorage ret;
     {if (m_iMap == nullptr) { yCError(MAP2D_RPC, "Invalid interface"); return ret; }}
     yarp::dev::Nav2D::Map2DLocation loc;
     if (!m_iMap->getLocation(location_name, loc))
@@ -381,11 +381,11 @@ return_get_location IMap2DRPCd::get_location_RPC(const std::string& location_nam
     return ret;
 }
 
-return_get_area IMap2DRPCd::get_area_RPC(const std::string& area_name)
+return_get_areaStorage IMap2DRPCd::get_area_RPC(const std::string& area_name)
 {
     std::lock_guard <std::mutex> lg(m_mutex);
 
-    return_get_area ret;
+    return_get_areaStorage ret;
     {if (m_iMap == nullptr) { yCError(MAP2D_RPC, "Invalid interface"); return ret; }}
     yarp::dev::Nav2D::Map2DArea area;
     if (!m_iMap->getArea(area_name,area))
@@ -401,11 +401,11 @@ return_get_area IMap2DRPCd::get_area_RPC(const std::string& area_name)
     return ret;
 }
 
-return_get_path IMap2DRPCd::get_path_RPC(const std::string& path_name)
+return_get_pathStorage IMap2DRPCd::get_path_RPC(const std::string& path_name)
 {
     std::lock_guard <std::mutex> lg(m_mutex);
 
-    return_get_path ret;
+    return_get_pathStorage ret;
     {if (m_iMap == nullptr) { yCError(MAP2D_RPC, "Invalid interface"); return ret; }}
     yarp::dev::Nav2D::Map2DPath path;
     if (!m_iMap->getPath(path_name, path))
@@ -421,11 +421,11 @@ return_get_path IMap2DRPCd::get_path_RPC(const std::string& path_name)
     return ret;
 }
 
-return_get_locations_list IMap2DRPCd::get_locations_list_RPC()
+return_get_locations_listStorage IMap2DRPCd::get_locations_list_RPC()
 {
     std::lock_guard <std::mutex> lg(m_mutex);
 
-    return_get_locations_list ret;
+    return_get_locations_listStorage ret;
     {if (m_iMap == nullptr) { yCError(MAP2D_RPC, "Invalid interface"); return ret; }}
     std::vector<string> loc_names;
     if (!m_iMap->getLocationsList(loc_names))
@@ -441,11 +441,11 @@ return_get_locations_list IMap2DRPCd::get_locations_list_RPC()
     return ret;
 }
 
-return_get_areas_list IMap2DRPCd::get_areas_list_RPC()
+return_get_areas_listStorage IMap2DRPCd::get_areas_list_RPC()
 {
     std::lock_guard <std::mutex> lg(m_mutex);
 
-    return_get_areas_list ret;
+    return_get_areas_listStorage ret;
     {if (m_iMap == nullptr) { yCError(MAP2D_RPC, "Invalid interface"); return ret; }}
     std::vector<string> area_names;
     if (!m_iMap->getAreasList(area_names))
@@ -461,11 +461,11 @@ return_get_areas_list IMap2DRPCd::get_areas_list_RPC()
     return ret;
 }
 
-return_get_paths_list IMap2DRPCd::get_paths_list_RPC()
+return_get_paths_listStorage IMap2DRPCd::get_paths_list_RPC()
 {
     std::lock_guard <std::mutex> lg(m_mutex);
 
-    return_get_paths_list ret;
+    return_get_paths_listStorage ret;
     {if (m_iMap == nullptr) { yCError(MAP2D_RPC, "Invalid interface"); return ret; }}
     std::vector<string> path_names;
     if (!m_iMap->getPathsList(path_names))

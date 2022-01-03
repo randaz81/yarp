@@ -124,7 +124,7 @@ void exec_iNav2D_test_1(INavigation2D* inav, IMap2D* imap)
     }
     {
         b0 = inav->setInitialPose(my_current_loc); CHECK(b0); yarp::os::Time::delay(0.1);
-        yarp::dev::OdometryData my_current_odom;
+        yarp::dev::Nav2D::Odometry my_current_odom;
         b1 = inav->getEstimatedOdometry(my_current_odom); CHECK(b1);
         yInfo() << "Current position is:" << my_current_loc.toString();
         yInfo() << "Estimated Odometry is:"<< my_current_odom.toString();

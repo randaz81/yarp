@@ -11,6 +11,14 @@
 #include <return_get_locations_list.h>
 
 // Constructor with field values
+return_get_locations_listRandazClass2::return_get_locations_listRandazClass2(const bool retval,
+                                                                             const std::vector<std::string>& locations) :
+        retval(retval),
+        locations(locations)
+{
+}
+
+// Constructor with field values
 return_get_locations_list::return_get_locations_list(const bool retval,
                                                      const std::vector<std::string>& locations) :
         WirePortable(),

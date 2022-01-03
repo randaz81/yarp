@@ -127,9 +127,12 @@ if(TARGET YARP::YARP_math)
     yarp/dev/Map2DLocation.h
     yarp/dev/Map2DArea.h
     yarp/dev/MapGrid2D.h
+    yarp/dev/Nav2D/MapGrid2DDataStorage.h
+    yarp/dev/Nav2D/MapGrid2DDataSerializer.h
     yarp/dev/Map2DPath.h
     yarp/dev/NavTypes.h
     yarp/dev/MapGrid2DInfo.h
+    yarp/dev/Odometry.h
   )
 endif()
 
@@ -239,6 +242,8 @@ if(TARGET YARP::YARP_math)
     yarp/dev/INavigation2D.cpp
     yarp/dev/IOdometry2D.cpp
     yarp/dev/MapGrid2D.cpp
+    yarp/dev/Nav2D/MapGrid2DDataStorage.cpp
+    yarp/dev/Nav2D/MapGrid2DDataSerializer.cpp
     yarp/dev/Map2DLocation.cpp
     yarp/dev/Map2DArea.cpp
     yarp/dev/Map2DPath.cpp

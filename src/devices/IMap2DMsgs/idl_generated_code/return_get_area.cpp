@@ -11,6 +11,14 @@
 #include <return_get_area.h>
 
 // Constructor with field values
+return_get_areaRandazClass2::return_get_areaRandazClass2(const bool retval,
+                                                         const yarp::dev::Nav2D::Map2DArea& area) :
+        retval(retval),
+        area(area)
+{
+}
+
+// Constructor with field values
 return_get_area::return_get_area(const bool retval,
                                  const yarp::dev::Nav2D::Map2DArea& area) :
         WirePortable(),

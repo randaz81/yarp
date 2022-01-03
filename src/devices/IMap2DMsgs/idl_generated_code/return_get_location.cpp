@@ -11,6 +11,14 @@
 #include <return_get_location.h>
 
 // Constructor with field values
+return_get_locationRandazClass2::return_get_locationRandazClass2(const bool retval,
+                                                                 const yarp::dev::Nav2D::Map2DLocation& loc) :
+        retval(retval),
+        loc(loc)
+{
+}
+
+// Constructor with field values
 return_get_location::return_get_location(const bool retval,
                                          const yarp::dev::Nav2D::Map2DLocation& loc) :
         WirePortable(),

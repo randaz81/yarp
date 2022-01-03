@@ -5,13 +5,6 @@
 
 namespace yarp yarp.dev
 
-struct YarpVector {
-  1: list<double> content;
-} (
-  yarp.name = "yarp::sig::Vector"
-  yarp.includefile="yarp/sig/Vector.h"
-)
-
 struct LaserScan2D
 {
     /** first angle of the scan [deg] */
@@ -27,7 +20,7 @@ struct LaserScan2D
     4: double       range_max;
 
     /** the scan data, measured in [m]. The angular increment of each ray is obtained by (angle_max-angle_min)/num_of_elements. Invalid data are represented as std::inf.  */
-    5: YarpVector   scans;
+    5: list<double> scans;
 
     6: i32          status;
 }

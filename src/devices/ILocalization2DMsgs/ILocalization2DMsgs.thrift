@@ -7,18 +7,24 @@ struct yarp_sig_Matrix {
 } (
   yarp.name = "yarp::sig::Matrix"
   yarp.includefile="yarp/sig/Matrix.h"
+  yarp.customSerializerName = "yarp::sig::MatrixSerializer"
+  yarp.customSerializerInclude = "yarp/sig/MatrixSerializer.h"
 )
 
 struct yarp_dev_Nav2D_Map2DLocation {
 } (
   yarp.name = "yarp::dev::Nav2D::Map2DLocation"
   yarp.includefile = "yarp/dev/Map2DLocation.h"
+  yarp.customSerializerName = "yarp::dev::Nav2D::Map2DLocationDataSerializer"
+  yarp.customSerializerInclude = "yarp/dev/Nav2D/Map2DLocationDataSerializer.h"
 )
 
 struct yarp_dev_OdometryData {
 } (
-  yarp.name = "yarp::dev::OdometryData"
-  yarp.includefile="yarp/dev/OdometryData.h"
+  yarp.name = "yarp::dev::Nav2D::Odometry"
+  yarp.includefile="yarp/dev/Odometry.h"
+  yarp.customSerializerName = "yarp::dev::Nav2D::OdometryDataSerializer"
+  yarp.customSerializerInclude = "yarp/dev/Nav2D/OdometryDataSerializer.h"
 )
 
 enum yarp_dev_Nav2D_LocalizationStatusEnum {

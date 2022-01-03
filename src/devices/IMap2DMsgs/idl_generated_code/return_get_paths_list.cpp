@@ -11,6 +11,14 @@
 #include <return_get_paths_list.h>
 
 // Constructor with field values
+return_get_paths_listRandazClass2::return_get_paths_listRandazClass2(const bool retval,
+                                                                     const std::vector<std::string>& paths) :
+        retval(retval),
+        paths(paths)
+{
+}
+
+// Constructor with field values
 return_get_paths_list::return_get_paths_list(const bool retval,
                                              const std::vector<std::string>& paths) :
         WirePortable(),

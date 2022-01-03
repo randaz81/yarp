@@ -161,21 +161,21 @@ void Odometry2D_nws_yarp::run()
     if (m_odometry2D_interface!=nullptr)
     {
         yarp::os::Stamp timeStamp(static_cast<int>(m_stampCount++), yarp::os::Time::now());
-        yarp::dev::OdometryData odometryData;
+        yarp::dev::Nav2D::Odometry odometryData;
         m_odometry2D_interface->getOdometry(odometryData);
         if (m_port_odometry.getOutputCount()>0)
         {
             m_port_odometry.setEnvelope(timeStamp);
-            yarp::dev::OdometryData &odometryDataFromPort = m_port_odometry.prepare();
-            odometryDataFromPort.odom_x= odometryData.odom_x; //position in the odom reference frame
-            odometryDataFromPort.odom_y= odometryData.odom_y;
-            odometryDataFromPort.odom_theta= odometryData.odom_theta;
-            odometryDataFromPort.base_vel_x= odometryData.base_vel_x; //velocity in the robot reference frame
-            odometryDataFromPort.base_vel_y= odometryData.base_vel_y;
-            odometryDataFromPort.base_vel_theta= odometryData.base_vel_theta;
-            odometryDataFromPort.odom_vel_x= odometryData.odom_vel_x; //velocity in the odom reference frame
-            odometryDataFromPort.odom_vel_y= odometryData.odom_vel_y;
-            odometryDataFromPort.odom_vel_theta= odometryData.odom_vel_theta;
+            yarp::dev::Nav2D::OdometryDataSerializer &odometryDataFromPort = m_port_odometry.prepare();
+            odometryDataFromPort.get().odom_x= odometryData.odom_x; //position in the odom reference frame
+            odometryDataFromPort.get().odom_y= odometryData.odom_y;
+            odometryDataFromPort.get().odom_theta= odometryData.odom_theta;
+            odometryDataFromPort.get().base_vel_x= odometryData.base_vel_x; //velocity in the robot reference frame
+            odometryDataFromPort.get().base_vel_y= odometryData.base_vel_y;
+            odometryDataFromPort.get().base_vel_theta= odometryData.base_vel_theta;
+            odometryDataFromPort.get().odom_vel_x= odometryData.odom_vel_x; //velocity in the odom reference frame
+            odometryDataFromPort.get().odom_vel_y= odometryData.odom_vel_y;
+            odometryDataFromPort.get().odom_vel_theta= odometryData.odom_vel_theta;
             m_port_odometry.write();
         }
 

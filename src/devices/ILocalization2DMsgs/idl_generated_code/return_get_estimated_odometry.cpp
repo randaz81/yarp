@@ -11,6 +11,14 @@
 #include <return_get_estimated_odometry.h>
 
 // Constructor with field values
+return_get_estimated_odometryRandazClass2::return_get_estimated_odometryRandazClass2(const bool ret,
+                                                                                     const yarp::dev::OdometryData& odom) :
+        ret(ret),
+        odom(odom)
+{
+}
+
+// Constructor with field values
 return_get_estimated_odometry::return_get_estimated_odometry(const bool ret,
                                                              const yarp::dev::OdometryData& odom) :
         WirePortable(),

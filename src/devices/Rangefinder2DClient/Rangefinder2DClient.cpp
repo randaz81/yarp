@@ -48,7 +48,7 @@ Rangefinder2DInputPortProcessor::Rangefinder2DInputPortProcessor()
     resetStat();
 }
 
-void Rangefinder2DInputPortProcessor::onRead(yarp::dev::LaserScan2D&b)
+void Rangefinder2DInputPortProcessor::onRead(yarp::dev::LaserScan2DSerializer& b)
 {
     now=SystemClock::nowSystem();
     mutex.lock();
@@ -67,7 +67,7 @@ void Rangefinder2DInputPortProcessor::onRead(yarp::dev::LaserScan2D&b)
         //compare network time
         if (tmpDT*1000<LASER_TIMEOUT)
         {
-            state = b.status;
+            state = b.get().status;
         }
         else
         {
@@ -78,7 +78,7 @@ void Rangefinder2DInputPortProcessor::onRead(yarp::dev::LaserScan2D&b)
     prev=now;
     count++;
 
-    lastScan=b;
+    lastScan=b.get();
     Stamp newStamp;
     getEnvelope(newStamp);
 
@@ -91,7 +91,7 @@ void Rangefinder2DInputPortProcessor::onRead(yarp::dev::LaserScan2D&b)
     //now compare timestamps
     if ((1000*(newStamp.getTime()-lastStamp.getTime()))<LASER_TIMEOUT)
     {
-        state = b.status;
+        state = b.get().status;
     }
     else
     {
@@ -102,7 +102,7 @@ void Rangefinder2DInputPortProcessor::onRead(yarp::dev::LaserScan2D&b)
     mutex.unlock();
 }
 
-inline int Rangefinder2DInputPortProcessor::getLast(yarp::dev::LaserScan2D&data, Stamp &stmp)
+inline int Rangefinder2DInputPortProcessor::getLast(yarp::dev::LaserScan2DStorage& data, Stamp &stmp)
 {
     mutex.lock();
     int ret=state;
@@ -284,10 +284,11 @@ bool Rangefinder2DClient::close()
 
 bool Rangefinder2DClient::getRawData(yarp::sig::Vector &data, double* timestamp)
 {
-    yarp::dev::LaserScan2D scan;
+    yarp::dev::LaserScan2DStorage scan;
     inputPort.getLast(scan, lastTs);
 
-    data = scan.scans;
+    data.resize(scan.scans.size());
+    for (auto i=0; i< scan.scans.size(); i++) {data[i] = scan.scans[i];}
 
     if (timestamp != nullptr)
     {
@@ -298,7 +299,7 @@ bool Rangefinder2DClient::getRawData(yarp::sig::Vector &data, double* timestamp)
 
 bool Rangefinder2DClient::getLaserMeasurement(std::vector<LaserMeasurementData> &data, double* timestamp)
 {
-    yarp::dev::LaserScan2D scan;
+    yarp::dev::LaserScan2DStorage scan;
     inputPort.getLast(scan, lastTs);
     size_t size = scan.scans.size();
     data.resize(size);

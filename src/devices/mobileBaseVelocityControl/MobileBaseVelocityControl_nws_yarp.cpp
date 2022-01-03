@@ -159,9 +159,9 @@ bool MobileBaseVelocityControl_nws_yarp::applyVelocityCommandRPC(const double x_
     return true;
 }
 
-return_getLastVelocityCommand MobileBaseVelocityControl_nws_yarp::getLastVelocityCommandRPC()
+return_getLastVelocityCommandStorage MobileBaseVelocityControl_nws_yarp::getLastVelocityCommandRPC()
 {
-    return_getLastVelocityCommand retrievedFromRPC;
+    return_getLastVelocityCommandStorage retrievedFromRPC;
     std::lock_guard <std::mutex> lg(m_mutex);
     if (nullptr == m_iNavVel)
     {

@@ -14,6 +14,24 @@
 #include <yarp/os/Wire.h>
 #include <yarp/os/idl/WireTypes.h>
 
+class return_get_rel_loc_of_curr_targetRandazClass2{
+public:
+    // Fields
+    bool ret{false};
+    double x{0.0};
+    double y{0.0};
+    double theta{0.0};
+
+    // Default constructor
+    return_get_rel_loc_of_curr_targetRandazClass2() = default;
+
+    // Constructor with field values
+    return_get_rel_loc_of_curr_targetRandazClass2(const bool ret,
+                                                  const double x,
+                                                  const double y,
+                                                  const double theta);
+
+};
 class return_get_rel_loc_of_curr_target :
         public yarp::os::idl::WirePortable
 {

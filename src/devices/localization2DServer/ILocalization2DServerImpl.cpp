@@ -6,6 +6,7 @@
 #include <yarp/os/LogComponent.h>
 #include <yarp/os/LogStream.h>
 #include <yarp/dev/ILocalization2D.h>
+#include <yarp/dev/Odometry.h>
 #include "ILocalization2DServerImpl.h"
 
 /*! \file ILocalization2DServerImpl.cpp */
@@ -55,11 +56,11 @@ bool ILocalization2DRPCd::stop_localization_service_RPC()
     return true;
 }
 
-return_get_localization_status ILocalization2DRPCd::get_localization_status_RPC()
+return_get_localization_statusStorage ILocalization2DRPCd::get_localization_status_RPC()
 {
     std::lock_guard <std::mutex> lg(m_mutex);
 
-    return_get_localization_status ret;
+    return_get_localization_statusStorage ret;
     if (m_getdata_using_periodic_thread)
     {
         ret.ret = true;
@@ -84,11 +85,11 @@ return_get_localization_status ILocalization2DRPCd::get_localization_status_RPC(
     return ret;
 }
 
-return_get_estimated_poses ILocalization2DRPCd::get_estimated_poses_RPC()
+return_get_estimated_posesStorage ILocalization2DRPCd::get_estimated_poses_RPC()
 {
     std::lock_guard <std::mutex> lg(m_mutex);
 
-    return_get_estimated_poses ret;
+    return_get_estimated_posesStorage ret;
     {if (m_iLoc == nullptr) { yCError(LOCALIZATION2DSERVER, "Invalid interface"); return ret; }}
     std::vector<yarp::dev::Nav2D::Map2DLocation> poses;
     if (!m_iLoc->getEstimatedPoses(poses))
@@ -104,11 +105,11 @@ return_get_estimated_poses ILocalization2DRPCd::get_estimated_poses_RPC()
     return ret;
 }
 
-return_get_current_position1 ILocalization2DRPCd::get_current_position1_RPC()
+return_get_current_position1Storage ILocalization2DRPCd::get_current_position1_RPC()
 {
     std::lock_guard <std::mutex> lg(m_mutex);
 
-    return_get_current_position1 ret;
+    return_get_current_position1Storage ret;
     if (m_getdata_using_periodic_thread)
     {
         ret.ret = true;
@@ -132,11 +133,11 @@ return_get_current_position1 ILocalization2DRPCd::get_current_position1_RPC()
     return ret;
 }
 
-return_get_current_position2 ILocalization2DRPCd::get_current_position2_RPC()
+return_get_current_position2Storage ILocalization2DRPCd::get_current_position2_RPC()
 {
     std::lock_guard <std::mutex> lg(m_mutex);
 
-    return_get_current_position2 ret;
+    return_get_current_position2Storage ret;
     {if (m_iLoc == nullptr) { yCError(LOCALIZATION2DSERVER, "Invalid interface"); return ret; }}
     yarp::dev::Nav2D::Map2DLocation pos;
     yarp::sig::Matrix cov;
@@ -154,11 +155,11 @@ return_get_current_position2 ILocalization2DRPCd::get_current_position2_RPC()
     return ret;
 }
 
-return_get_estimated_odometry ILocalization2DRPCd::get_estimated_odometry_RPC()
+return_get_estimated_odometryStorage ILocalization2DRPCd::get_estimated_odometry_RPC()
 {
     std::lock_guard <std::mutex> lg(m_mutex);
 
-    return_get_estimated_odometry ret;
+    return_get_estimated_odometryStorage ret;
     if (m_getdata_using_periodic_thread)
     {
         ret.ret = true;
@@ -168,7 +169,7 @@ return_get_estimated_odometry ILocalization2DRPCd::get_estimated_odometry_RPC()
 
     {if (m_iLoc == nullptr) { yCError(LOCALIZATION2DSERVER, "Invalid interface"); return ret; }}
 
-    yarp::dev::OdometryData odom;
+    yarp::dev::Nav2D::Odometry odom;
     if (!m_iLoc->getEstimatedOdometry(odom))
     {
         yCError(LOCALIZATION2DSERVER, "Unable to getEstimatedOdometry");

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-namespace yarp yarp.dev
+namespace yarp yarp.dev.Nav2D
 
 struct OdometryData
 {

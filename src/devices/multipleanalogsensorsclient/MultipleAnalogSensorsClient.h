@@ -9,7 +9,7 @@
 #include <yarp/dev/MultipleAnalogSensorsInterfaces.h>
 
 #include "MultipleAnalogSensorsMetadata.h"
-#include "SensorStreamingData.h"
+#include "SensorStreamingDataSerializer.h"
 
 #include <yarp/os/BufferedPort.h>
 #include <yarp/os/Network.h>
@@ -19,17 +19,17 @@
 
 
 class SensorStreamingDataInputPort :
-        public yarp::os::BufferedPort<SensorStreamingData>
+        public yarp::os::BufferedPort<SensorStreamingDataSerializer>
 {
 public:
-    SensorStreamingData receivedData;
+    SensorStreamingDataStorage receivedData;
     mutable yarp::dev::MAS_status status{yarp::dev::MAS_WAITING_FOR_FIRST_READ};
     mutable std::mutex dataMutex;
     double timeoutInSeconds{0.01};
     double lastTimeStampReadInSeconds{0.0};
 
-    using yarp::os::BufferedPort<SensorStreamingData>::onRead;
-    void onRead(SensorStreamingData &v) override;
+    using yarp::os::BufferedPort<SensorStreamingDataSerializer>::onRead;
+    void onRead(SensorStreamingDataSerializer&v) override;
     void updateTimeoutStatus() const;
 };
 
@@ -52,6 +52,14 @@ public:
 * | carrier            |     -          | string  | -              | tcp           | No           | The carier used for the connection with the server.          |  |
 *
 */
+
+#include <SensorRPCDataStorage.h>
+typedef SensorRPCDataStorage SensorRPCData;
+#include <SensorMeasurementsStorage.h>
+typedef SensorMeasurementsStorage SensorMeasurements;
+#include <SensorMetadataStorage.h>
+typedef SensorMetadataStorage SensorMetadata;
+
 class MultipleAnalogSensorsClient :
         public yarp::dev::DeviceDriver,
         public yarp::dev::IThreeAxisGyroscopes,

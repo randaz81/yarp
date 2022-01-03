@@ -7,22 +7,30 @@ struct yarp_dev_Nav2D_Map2DLocation{
 } (
   yarp.name = "yarp::dev::Nav2D::Map2DLocation"
   yarp.includefile="yarp/dev/Map2DLocation.h"
+  yarp.customSerializerName = "yarp::dev::Nav2D::Map2DLocationDataSerializer"
+  yarp.customSerializerInclude = "yarp/dev/Nav2D/Map2DLocationDataSerializer.h"
 )
 struct yarp_dev_Nav2D_Map2DArea{
 } (
   yarp.name = "yarp::dev::Nav2D::Map2DArea"
   yarp.includefile="yarp/dev/Map2DArea.h"
+  yarp.customSerializerName = "yarp::dev::Nav2D::Map2DAreaDataSerializer"
+  yarp.customSerializerInclude = "yarp/dev/Nav2D/Map2DAreaDataSerializer.h"
 )
 struct yarp_dev_Nav2D_Map2DPath{
 } (
   yarp.name = "yarp::dev::Nav2D::Map2DPath"
   yarp.includefile="yarp/dev/Map2DPath.h"
+  yarp.customSerializerName = "yarp::dev::Nav2D::Map2DPathDataSerializer"
+  yarp.customSerializerInclude = "yarp/dev/Nav2D/Map2DPathDataSerializer.h"
 )
 
 struct yarp_dev_Nav2D_MapGrid2D{
 } (
   yarp.name = "yarp::dev::Nav2D::MapGrid2D"
   yarp.includefile="yarp/dev/MapGrid2D.h"
+  yarp.customSerializerName = "yarp::dev::Nav2D::MapGrid2DDataSerializer"
+  yarp.customSerializerInclude = "yarp/dev/Nav2D/MapGrid2DDataSerializer.h"
 )
 
 //-------------------------------------------------

@@ -140,7 +140,7 @@ bool FrameTransformGet_nwc_yarp::getTransforms(std::vector<yarp::math::FrameTran
 {
     if (!m_streaming_port_enabled)
     {
-        return_getAllTransforms retrievedFromRPC = m_frameTransformStorageGetRPC.getTransformsRPC();
+        return_getAllTransformsStorage retrievedFromRPC = m_frameTransformStorageGetRPC.getTransformsRPC();
         if(!retrievedFromRPC.retvalue)
         {
             yCError(FRAMETRANSFORMGETNWCYARP, "Unable to get transformations");
@@ -153,7 +153,7 @@ bool FrameTransformGet_nwc_yarp::getTransforms(std::vector<yarp::math::FrameTran
     {
         if (m_dataReader)
         {
-            return_getAllTransforms retrievedFromSteaming;
+            return_getAllTransformsStorage retrievedFromSteaming;
             m_dataReader->getData(retrievedFromSteaming);
             transforms = retrievedFromSteaming.transforms_list;
             return true;
@@ -163,7 +163,7 @@ bool FrameTransformGet_nwc_yarp::getTransforms(std::vector<yarp::math::FrameTran
     }
 }
 
-bool FrameTransformGet_nwc_yarp::DataReader::getData(return_getAllTransforms& data)
+bool FrameTransformGet_nwc_yarp::DataReader::getData(return_getAllTransformsStorage& data)
 {
     m_mutex.lock();
     data = m_Transforms;
@@ -171,9 +171,9 @@ bool FrameTransformGet_nwc_yarp::DataReader::getData(return_getAllTransforms& da
     return true;
 }
 
-void FrameTransformGet_nwc_yarp::DataReader::onRead(return_getAllTransforms& v)
+void FrameTransformGet_nwc_yarp::DataReader::onRead(return_getAllTransformsSerializer& v)
 {
     m_mutex.lock();
-    m_Transforms = v;
+    m_Transforms = v.get();
     m_mutex.unlock();
 }

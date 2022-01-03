@@ -24,6 +24,31 @@ namespace yarp::dev {
  * \brief `AudioPlayerStatus`: A class used to describe the status of an audio player device.
  * See \ref AudioDoc for additional documentation on YARP audio.
  */
+class YARP_dev_API AudioPlayerStatusRandazClass2{
+public:
+    // Fields
+    /**
+     * true if the playback is currently enabled
+     */
+    bool enabled{false};
+    /**
+     * the size of the audio buffer [samples]
+     */
+    size_t current_buffer_size{0};
+    /**
+     * the max_size of the audio buffer [samples]
+     */
+    size_t max_buffer_size{0};
+
+    // Default constructor
+    AudioPlayerStatusRandazClass2() = default;
+
+    // Constructor with field values
+    AudioPlayerStatusRandazClass2(const bool enabled,
+                                  const size_t current_buffer_size,
+                                  const size_t max_buffer_size);
+
+};
 class YARP_dev_API AudioPlayerStatus :
         public yarp::os::idl::WirePortable
 {

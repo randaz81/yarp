@@ -16,6 +16,22 @@
 #include <yarp/dev/Map2DLocation.h>
 #include <yarp/sig/Matrix.h>
 
+class return_get_current_position2RandazClass2{
+public:
+    // Fields
+    bool ret{false};
+    yarp::dev::Nav2D::Map2DLocation loc{};
+    yarp::sig::Matrix cov{};
+
+    // Default constructor
+    return_get_current_position2RandazClass2() = default;
+
+    // Constructor with field values
+    return_get_current_position2RandazClass2(const bool ret,
+                                             const yarp::dev::Nav2D::Map2DLocation& loc,
+                                             const yarp::sig::Matrix& cov);
+
+};
 class return_get_current_position2 :
         public yarp::os::idl::WirePortable
 {

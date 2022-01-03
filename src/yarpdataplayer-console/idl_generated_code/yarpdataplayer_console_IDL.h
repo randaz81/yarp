@@ -1,3 +1,4 @@
+/* t_yarp_generator::generate_service:3616 */
 /*
  * SPDX-FileCopyrightText: 2006-2021 Istituto Italiano di Tecnologia (IIT)
  * SPDX-License-Identifier: BSD-3-Clause
@@ -14,6 +15,7 @@
 #include <yarp/os/Wire.h>
 #include <yarp/os/idl/WireTypes.h>
 
+/* t_yarp_generator::generate_service:3712 */
 /**
  * yarpdataplayer_console_IDL
  * Interface.
@@ -22,9 +24,11 @@ class yarpdataplayer_console_IDL :
         public yarp::os::Wire
 {
 public:
+/* t_yarp_generator::generate_service_constructor:4424 */
     // Constructor
     yarpdataplayer_console_IDL();
 
+/* t_yarp_generator::generate_service_method:4449 */
     /**
      * Steps the player once. The player will be stepped
      * until all parts have sent data
@@ -32,6 +36,7 @@ public:
      */
     virtual bool step();
 
+/* t_yarp_generator::generate_service_method:4449 */
     /**
      * Sets the frame number to the user desired frame.
      * @param frameNum specifies the frame number the user
@@ -40,6 +45,7 @@ public:
      */
     virtual bool setFrame(const std::int32_t frameNum);
 
+/* t_yarp_generator::generate_service_method:4449 */
     /**
      * Gets the frame number the user is requesting
      * @param name specifies the name of the data to modify
@@ -48,30 +54,35 @@ public:
      */
     virtual std::int32_t getFrame(const std::string& name);
 
+/* t_yarp_generator::generate_service_method:4449 */
     /**
      * Loads a dataset from a path
      * @return true/false on success/failure
      */
     virtual bool load(const std::string& path);
 
+/* t_yarp_generator::generate_service_method:4449 */
     /**
      * Plays the dataSets
      * @return true/false on success/failure
      */
     virtual bool play();
 
+/* t_yarp_generator::generate_service_method:4449 */
     /**
      * Pauses the dataSets
      * @return true/false on success/failure
      */
     virtual bool pause();
 
+/* t_yarp_generator::generate_service_method:4449 */
     /**
      * Stops the dataSets
      * @return true/false on success/failure
      */
     virtual bool stop();
 
+/* t_yarp_generator::generate_service_method:4449 */
     /**
      * Enables the specified part.
      * @param name specifies the name of the loaded data
@@ -79,6 +90,7 @@ public:
      */
     virtual bool enable(const std::string& part);
 
+/* t_yarp_generator::generate_service_method:4449 */
     /**
      * Disable the specified part.
      * @param name specifies the name of the loaded data
@@ -86,12 +98,14 @@ public:
      */
     virtual bool disable(const std::string& part);
 
+/* t_yarp_generator::generate_service_method:4449 */
     /**
      * Gets the names of all parts loaded.
      * @return list of names of the loaded parts.
      */
     virtual std::vector<std::string> getAllParts();
 
+/* t_yarp_generator::generate_service_method:4449 */
     /**
      * Gets the name of the port associated to the specified part
      * @param name specifies the name of the data to modify
@@ -99,6 +113,7 @@ public:
      */
     virtual std::string getPortName(const std::string& part);
 
+/* t_yarp_generator::generate_service_method:4449 */
     /**
      * Sets the name of the port associated to the specified part
      * @param part specifies the name of the data to modify
@@ -107,6 +122,7 @@ public:
      */
     virtual bool setPortName(const std::string& part, const std::string& new_name);
 
+/* t_yarp_generator::generate_service_method:4449 */
     /**
      * Sets the player speed
      * @param speed specifies
@@ -114,12 +130,14 @@ public:
      */
     virtual bool setSpeed(const double speed);
 
+/* t_yarp_generator::generate_service_method:4449 */
     /**
      * Gets the player speed
      * @return value of the player speed
      */
     virtual double getSpeed();
 
+/* t_yarp_generator::generate_service_method:4449 */
     /**
      * Sets repeat mode
      * @param val if true repeat mode is active.
@@ -127,6 +145,7 @@ public:
      */
     virtual bool repeat(const bool val = false);
 
+/* t_yarp_generator::generate_service_method:4449 */
     /**
      * Sets strict mode
      * @param val if true strict mode is active.
@@ -134,6 +153,7 @@ public:
      */
     virtual bool setStrict(const bool val = false);
 
+/* t_yarp_generator::generate_service_method:4449 */
     /**
      * Steps forward
      * @param steps number of steps to go forward (default=5).
@@ -141,6 +161,7 @@ public:
      */
     virtual bool forward(const std::int32_t steps = 5);
 
+/* t_yarp_generator::generate_service_method:4449 */
     /**
      * Steps backward
      * @param steps number of steps to go backward (default=5).
@@ -148,33 +169,39 @@ public:
      */
     virtual bool backward(const std::int32_t steps = 5);
 
+/* t_yarp_generator::generate_service_method:4449 */
     /**
      * Get the progress of the parts
      * @return the progress of the parts
      */
     virtual double getProgress();
 
+/* t_yarp_generator::generate_service_method:4449 */
     /**
      * Get the status of playing
      * @return the status (playing, paused, stopped)
      */
     virtual std::string getStatus();
 
+/* t_yarp_generator::generate_service_method:4449 */
     /**
      * Resume dataset from where it was paused
      * @return true/false on success/failure
      */
     virtual bool resume();
 
+/* t_yarp_generator::generate_service_method:4449 */
     /**
      * Quit the module.
      * @return true/false on success/failure
      */
     virtual bool quit();
 
+/* t_yarp_generator::generate_service_help:4502 */
     // help method
     virtual std::vector<std::string> help(const std::string& functionName = "--all");
 
+/* t_yarp_generator::generate_service_read:4584 */
     // read from ConnectionReader
     bool read(yarp::os::ConnectionReader& connection) override;
 };

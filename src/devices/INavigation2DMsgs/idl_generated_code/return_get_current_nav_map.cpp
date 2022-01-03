@@ -11,6 +11,14 @@
 #include <return_get_current_nav_map.h>
 
 // Constructor with field values
+return_get_current_nav_mapRandazClass2::return_get_current_nav_mapRandazClass2(const bool ret,
+                                                                               const yarp::dev::Nav2D::MapGrid2D& mapgrid) :
+        ret(ret),
+        mapgrid(mapgrid)
+{
+}
+
+// Constructor with field values
 return_get_current_nav_map::return_get_current_nav_map(const bool ret,
                                                        const yarp::dev::Nav2D::MapGrid2D& mapgrid) :
         WirePortable(),

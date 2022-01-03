@@ -9,13 +9,13 @@
 #include <vector>
 #include <yarp/dev/MapGrid2D.h>
 #include <yarp/dev/Map2DLocation.h>
-#include <yarp/dev/Map2DPathData.h>
+#include <yarp/dev/Nav2D/Map2DPathDataStorage.h>
 
  /**
  * \file Map2DPath.h contains the definition of a Map2DPath type
  */
 namespace yarp::dev::Nav2D {
-class YARP_dev_API Map2DPath : public yarp::dev::Map2DPathData
+class YARP_dev_API Map2DPath : public yarp::dev::Nav2D::Map2DPathDataStorage
 {
 public:
     /**
@@ -28,6 +28,16 @@ public:
      * Default constructor: the map name is empty, coordinates are set to zero.
      */
     Map2DPath();
+
+    /**
+     * Conversion Constructor
+     */
+    Map2DPath(const Map2DPathDataStorage& s_path);
+
+    /**
+     * Default destructor
+     */
+    virtual ~Map2DPath() = default;
 
     /**
      * Returns text representation of the path.
@@ -71,24 +81,6 @@ public:
      * return true if the test is successful
      */
     bool isOnSingleMap() const;
-
-public:
-    bool read(yarp::os::idl::WireReader& reader) override
-    {
-        return Map2DPathData::read(reader);
-    }
-    bool write(const yarp::os::idl::WireWriter& writer) const override
-    {
-        return Map2DPathData::write(writer);
-    }
-    bool read(yarp::os::ConnectionReader& reader) override
-    {
-        return Map2DPathData::read(reader);
-    }
-    bool write(yarp::os::ConnectionWriter& writer) const override
-    {
-        return Map2DPathData::write(writer);
-    }
 
 public:
     /**

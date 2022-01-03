@@ -81,11 +81,11 @@ bool INavigation2DRPCd::recompute_current_navigation_path_RPC()
     return true;
 }
 
-return_get_navigation_status       INavigation2DRPCd::get_navigation_status_RPC()
+return_get_navigation_statusStorage       INavigation2DRPCd::get_navigation_status_RPC()
 {
     std::lock_guard <std::mutex> lg(m_mutex);
 
-    return_get_navigation_status ret;
+    return_get_navigation_statusStorage ret;
 
     {if (m_iNav_ctrl == nullptr) { yCError(NAVIGATION2DSERVER, "Invalid interface"); return ret; }}
 
@@ -103,11 +103,11 @@ return_get_navigation_status       INavigation2DRPCd::get_navigation_status_RPC(
     return ret;
 }
 
-return_get_current_nav_waypoint    INavigation2DRPCd::get_current_nav_waypoint_RPC()
+return_get_current_nav_waypointStorage    INavigation2DRPCd::get_current_nav_waypoint_RPC()
 {
     std::lock_guard <std::mutex> lg(m_mutex);
 
-    return_get_current_nav_waypoint ret;
+    return_get_current_nav_waypointStorage ret;
 
     {if (m_iNav_ctrl == nullptr) { yCError(NAVIGATION2DSERVER, "Invalid interface"); return ret; }}
 
@@ -125,11 +125,11 @@ return_get_current_nav_waypoint    INavigation2DRPCd::get_current_nav_waypoint_R
     return ret;
 }
 
-return_get_all_nav_waypoints       INavigation2DRPCd::get_all_navigation_waypoints_RPC(yarp::dev::Nav2D::TrajectoryTypeEnum trajectory_type)
+return_get_all_nav_waypointsStorage       INavigation2DRPCd::get_all_navigation_waypoints_RPC(yarp::dev::Nav2D::TrajectoryTypeEnum trajectory_type)
 {
     std::lock_guard <std::mutex> lg(m_mutex);
 
-    return_get_all_nav_waypoints ret;
+    return_get_all_nav_waypointsStorage ret;
 
     {if (m_iNav_ctrl == nullptr) { yCError(NAVIGATION2DSERVER, "Invalid interface"); return ret; }}
 
@@ -147,11 +147,11 @@ return_get_all_nav_waypoints       INavigation2DRPCd::get_all_navigation_waypoin
     return ret;
 }
 
-return_get_current_nav_map         INavigation2DRPCd::get_current_navigation_map_RPC(yarp::dev::Nav2D::NavigationMapTypeEnum map_type)
+return_get_current_nav_mapStorage         INavigation2DRPCd::get_current_navigation_map_RPC(yarp::dev::Nav2D::NavigationMapTypeEnum map_type)
 {
     std::lock_guard <std::mutex> lg(m_mutex);
 
-    return_get_current_nav_map ret;
+    return_get_current_nav_mapStorage ret;
 
     {if (m_iNav_ctrl == nullptr) { yCError(NAVIGATION2DSERVER, "Invalid interface"); return ret; }}
 
@@ -229,11 +229,11 @@ bool INavigation2DRPCd::goto_target_by_absolute_location_and_set_name_RPC(const 
     return true;
 }
 
-return_get_abs_loc_of_curr_target  INavigation2DRPCd::get_absolute_location_of_current_target_RPC()
+return_get_abs_loc_of_curr_targetStorage  INavigation2DRPCd::get_absolute_location_of_current_target_RPC()
 {
     std::lock_guard <std::mutex> lg(m_mutex);
 
-    return_get_abs_loc_of_curr_target ret;
+    return_get_abs_loc_of_curr_targetStorage ret;
 
     {if (m_iNav_target == nullptr) { yCError(NAVIGATION2DSERVER, "Invalid interface"); return ret; }}
 
@@ -251,11 +251,11 @@ return_get_abs_loc_of_curr_target  INavigation2DRPCd::get_absolute_location_of_c
     return ret;
 }
 
-return_get_rel_loc_of_curr_target  INavigation2DRPCd::get_relative_location_of_current_target_RPC()
+return_get_rel_loc_of_curr_targetStorage  INavigation2DRPCd::get_relative_location_of_current_target_RPC()
 {
     std::lock_guard <std::mutex> lg(m_mutex);
 
-    return_get_rel_loc_of_curr_target ret;
+    return_get_rel_loc_of_curr_targetStorage ret;
 
     {if (m_iNav_target == nullptr) { yCError(NAVIGATION2DSERVER, "Invalid interface"); return ret; }}
 
@@ -289,11 +289,11 @@ bool INavigation2DRPCd::apply_velocity_command_RPC(double x_vel, double y_vel, d
     return true;
 }
 
-return_get_last_velocity_command   INavigation2DRPCd::get_last_velocity_command_RPC()
+return_get_last_velocity_commandStorage   INavigation2DRPCd::get_last_velocity_command_RPC()
 {
     std::lock_guard <std::mutex> lg(m_mutex);
 
-    return_get_last_velocity_command ret;
+    return_get_last_velocity_commandStorage ret;
 
     {if (m_iNav_vel == nullptr) { yCError(NAVIGATION2DSERVER, "Invalid interface"); return ret; }}
 
@@ -314,11 +314,11 @@ return_get_last_velocity_command   INavigation2DRPCd::get_last_velocity_command_
 }
 
 // ------------ extra
-return_get_name_of_current_target  INavigation2DRPCd::get_name_of_current_target_RPC()
+return_get_name_of_current_targetStorage  INavigation2DRPCd::get_name_of_current_target_RPC()
 {
     std::lock_guard <std::mutex> lg(m_mutex);
 
-    return_get_name_of_current_target ret;
+    return_get_name_of_current_targetStorage ret;
 
     if (m_current_goal_name.get_current_goal_name(ret.name))
     {

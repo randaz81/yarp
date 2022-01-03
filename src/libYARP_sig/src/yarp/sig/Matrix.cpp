@@ -24,26 +24,6 @@ using namespace yarp::os;
 
 #define RES(v) ((std::vector<T> *)v)
 
-YARP_BEGIN_PACK
-class MatrixPortContentHeader
-{
-public:
-    yarp::os::NetInt32 outerListTag{0};
-    yarp::os::NetInt32 outerListLen{0};
-    yarp::os::NetInt32 rowsTag{0};
-    yarp::os::NetInt32 rows{0};
-    yarp::os::NetInt32 colsTag{0};
-    yarp::os::NetInt32 cols{0};
-    yarp::os::NetInt32 listTag{0};
-    yarp::os::NetInt32 listLen{0};
-
-    MatrixPortContentHeader() = default;
-};
-YARP_END_PACK
-
-// network stuff
-#include <yarp/os/NetInt32.h>
-
 bool yarp::sig::removeCols(const Matrix &in, Matrix &out, size_t first_col, size_t how_many)
 {
     size_t nrows = in.rows();
@@ -107,66 +87,6 @@ bool yarp::sig::submatrix(const Matrix &in, Matrix &out, size_t r1, size_t r2, s
 
     return true;
 }
-
-
-bool Matrix::read(yarp::os::ConnectionReader& connection) {
-    // auto-convert text mode interaction
-    connection.convertTextMode();
-    MatrixPortContentHeader header;
-    bool ok = connection.expectBlock((char*)&header, sizeof(header));
-    if (!ok) {
-        return false;
-    }
-    size_t r=rows();
-    size_t c=cols();
-    if (header.listLen > 0)
-    {
-        if ( r != (size_t)(header.rows) || c!=(size_t)(header.cols))
-        {
-            resize(header.rows, header.cols);
-        }
-
-        int l=0;
-        double *tmp=data();
-        for (l = 0; l < header.listLen; l++) {
-            tmp[l] = connection.expectFloat64();
-        }
-    } else {
-        return false;
-    }
-
-    return true;
-}
-
-
-bool Matrix::write(yarp::os::ConnectionWriter& connection) const {
-    MatrixPortContentHeader header;
-
-    //header.totalLen = sizeof(header)+sizeof(double)*this->size();
-    header.outerListTag = BOTTLE_TAG_LIST;
-    header.outerListLen = 3;
-    header.rowsTag = BOTTLE_TAG_INT32;
-    header.colsTag = BOTTLE_TAG_INT32;
-    header.listTag = BOTTLE_TAG_LIST + BOTTLE_TAG_FLOAT64;
-    header.rows=rows();
-    header.cols=cols();
-    header.listLen = header.rows*header.cols;
-
-    connection.appendBlock((char*)&header, sizeof(header));
-
-    int l=0;
-    const double *tmp=data();
-    for (l = 0; l < header.listLen; l++) {
-        connection.appendFloat64(tmp[l]);
-    }
-
-    // if someone is foolish enough to connect in text mode,
-    // let them see something readable.
-    connection.convertTextMode();
-
-    return true;
-}
-
 
 std::string Matrix::toString(int precision, int width, const char* endRowStr) const {
 

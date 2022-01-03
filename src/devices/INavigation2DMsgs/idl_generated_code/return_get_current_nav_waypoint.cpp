@@ -11,6 +11,14 @@
 #include <return_get_current_nav_waypoint.h>
 
 // Constructor with field values
+return_get_current_nav_waypointRandazClass2::return_get_current_nav_waypointRandazClass2(const bool ret,
+                                                                                         const yarp::dev::Nav2D::Map2DLocation& waypoint) :
+        ret(ret),
+        waypoint(waypoint)
+{
+}
+
+// Constructor with field values
 return_get_current_nav_waypoint::return_get_current_nav_waypoint(const bool ret,
                                                                  const yarp::dev::Nav2D::Map2DLocation& waypoint) :
         WirePortable(),

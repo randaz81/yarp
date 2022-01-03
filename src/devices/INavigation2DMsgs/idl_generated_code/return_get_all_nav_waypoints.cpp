@@ -11,6 +11,14 @@
 #include <return_get_all_nav_waypoints.h>
 
 // Constructor with field values
+return_get_all_nav_waypointsRandazClass2::return_get_all_nav_waypointsRandazClass2(const bool ret,
+                                                                                   const yarp::dev::Nav2D::Map2DPath& waypoints) :
+        ret(ret),
+        waypoints(waypoints)
+{
+}
+
+// Constructor with field values
 return_get_all_nav_waypoints::return_get_all_nav_waypoints(const bool ret,
                                                            const yarp::dev::Nav2D::Map2DPath& waypoints) :
         WirePortable(),

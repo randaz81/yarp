@@ -11,6 +11,18 @@
 #include <return_get_rel_loc_of_curr_target.h>
 
 // Constructor with field values
+return_get_rel_loc_of_curr_targetRandazClass2::return_get_rel_loc_of_curr_targetRandazClass2(const bool ret,
+                                                                                             const double x,
+                                                                                             const double y,
+                                                                                             const double theta) :
+        ret(ret),
+        x(x),
+        y(y),
+        theta(theta)
+{
+}
+
+// Constructor with field values
 return_get_rel_loc_of_curr_target::return_get_rel_loc_of_curr_target(const bool ret,
                                                                      const double x,
                                                                      const double y,

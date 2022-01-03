@@ -11,6 +11,16 @@
 #include <return_get_current_position2.h>
 
 // Constructor with field values
+return_get_current_position2RandazClass2::return_get_current_position2RandazClass2(const bool ret,
+                                                                                   const yarp::dev::Nav2D::Map2DLocation& loc,
+                                                                                   const yarp::sig::Matrix& cov) :
+        ret(ret),
+        loc(loc),
+        cov(cov)
+{
+}
+
+// Constructor with field values
 return_get_current_position2::return_get_current_position2(const bool ret,
                                                            const yarp::dev::Nav2D::Map2DLocation& loc,
                                                            const yarp::sig::Matrix& cov) :

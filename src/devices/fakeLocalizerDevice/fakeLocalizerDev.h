@@ -113,7 +113,7 @@ public:
     * @param loc the estimated odometry.
     * @return true/false
     */
-    virtual bool   getEstimatedOdometry(yarp::dev::OdometryData& odom)  override;
+    virtual bool   getEstimatedOdometry(yarp::dev::Nav2D::Odometry& odom)  override;
 
     /**
     * Starts the localization service

@@ -13,6 +13,18 @@
 namespace yarp::dev {
 
 // Constructor with field values
+audioBufferSizeDataRandazClass2::audioBufferSizeDataRandazClass2(const std::int32_t m_samples,
+                                                                 const std::int32_t m_channels,
+                                                                 const std::int32_t m_depth,
+                                                                 const std::int32_t size) :
+        m_samples(m_samples),
+        m_channels(m_channels),
+        m_depth(m_depth),
+        size(size)
+{
+}
+
+// Constructor with field values
 audioBufferSizeData::audioBufferSizeData(const std::int32_t m_samples,
                                          const std::int32_t m_channels,
                                          const std::int32_t m_depth,

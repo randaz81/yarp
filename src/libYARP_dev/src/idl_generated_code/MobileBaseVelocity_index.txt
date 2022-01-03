@@ -1,2 +1,4 @@
-yarp/dev/MobileBaseVelocity.h
-yarp/dev/MobileBaseVelocity.cpp
+yarp/dev/Nav2D/MobileBaseVelocityStorage.h
+yarp/dev/Nav2D/MobileBaseVelocityStorage.cpp
+yarp/dev/Nav2D/MobileBaseVelocitySerializer.h
+yarp/dev/Nav2D/MobileBaseVelocitySerializer.cpp

@@ -15,6 +15,20 @@
 #include <yarp/os/idl/WireTypes.h>
 #include <yarp/dev/Map2DArea.h>
 
+class return_get_all_areasRandazClass2{
+public:
+    // Fields
+    bool retval{false};
+    std::vector<yarp::dev::Nav2D::Map2DArea> areas{};
+
+    // Default constructor
+    return_get_all_areasRandazClass2() = default;
+
+    // Constructor with field values
+    return_get_all_areasRandazClass2(const bool retval,
+                                     const std::vector<yarp::dev::Nav2D::Map2DArea>& areas);
+
+};
 class return_get_all_areas :
         public yarp::os::idl::WirePortable
 {

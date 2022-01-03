@@ -15,6 +15,20 @@
 #include <yarp/os/idl/WireTypes.h>
 #include <yarp/dev/Map2DPath.h>
 
+class return_get_all_pathsRandazClass2{
+public:
+    // Fields
+    bool retval{false};
+    std::vector<yarp::dev::Nav2D::Map2DPath> paths{};
+
+    // Default constructor
+    return_get_all_pathsRandazClass2() = default;
+
+    // Constructor with field values
+    return_get_all_pathsRandazClass2(const bool retval,
+                                     const std::vector<yarp::dev::Nav2D::Map2DPath>& paths);
+
+};
 class return_get_all_paths :
         public yarp::os::idl::WirePortable
 {

@@ -3,12 +3,14 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-namespace yarp yarp.dev
+namespace yarp yarp.dev.Nav2D
 
 struct Vec2D {
 } (
   yarp.name = "yarp::math::Vec2D<double>"
   yarp.includefile="yarp/math/Vec2D.h"
+  yarp.customSerializerName =    "yarp::math::Vec2DSerializer<double>"
+  yarp.customSerializerInclude = "yarp/math/Vec2DSerializer.h"
 )
 
 struct Map2DAreaData

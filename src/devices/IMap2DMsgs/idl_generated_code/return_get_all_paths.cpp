@@ -11,6 +11,14 @@
 #include <return_get_all_paths.h>
 
 // Constructor with field values
+return_get_all_pathsRandazClass2::return_get_all_pathsRandazClass2(const bool retval,
+                                                                   const std::vector<yarp::dev::Nav2D::Map2DPath>& paths) :
+        retval(retval),
+        paths(paths)
+{
+}
+
+// Constructor with field values
 return_get_all_paths::return_get_all_paths(const bool retval,
                                            const std::vector<yarp::dev::Nav2D::Map2DPath>& paths) :
         WirePortable(),

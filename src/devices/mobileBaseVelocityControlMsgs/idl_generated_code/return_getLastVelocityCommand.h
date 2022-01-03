@@ -14,6 +14,24 @@
 #include <yarp/os/Wire.h>
 #include <yarp/os/idl/WireTypes.h>
 
+class return_getLastVelocityCommandRandazClass2{
+public:
+    // Fields
+    bool retvalue{false};
+    double x_vel{0.0};
+    double y_vel{0.0};
+    double theta_vel{0.0};
+
+    // Default constructor
+    return_getLastVelocityCommandRandazClass2() = default;
+
+    // Constructor with field values
+    return_getLastVelocityCommandRandazClass2(const bool retvalue,
+                                              const double x_vel,
+                                              const double y_vel,
+                                              const double theta_vel);
+
+};
 class return_getLastVelocityCommand :
         public yarp::os::idl::WirePortable
 {

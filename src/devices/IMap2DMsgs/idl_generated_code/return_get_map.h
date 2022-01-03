@@ -15,6 +15,20 @@
 #include <yarp/os/idl/WireTypes.h>
 #include <yarp/dev/MapGrid2D.h>
 
+class return_get_mapRandazClass2{
+public:
+    // Fields
+    bool retval{false};
+    yarp::dev::Nav2D::MapGrid2D themap{};
+
+    // Default constructor
+    return_get_mapRandazClass2() = default;
+
+    // Constructor with field values
+    return_get_mapRandazClass2(const bool retval,
+                               const yarp::dev::Nav2D::MapGrid2D& themap);
+
+};
 class return_get_map :
         public yarp::os::idl::WirePortable
 {

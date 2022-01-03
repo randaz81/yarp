@@ -124,16 +124,16 @@ bool FrameTransformGet_nws_yarp::attach( yarp::dev::PolyDriver* deviceToAttach)
 }
 
 
-return_getAllTransforms FrameTransformGet_nws_yarp::getTransformsRPC()
+return_getAllTransformsStorage FrameTransformGet_nws_yarp::getTransformsRPC()
 {
     if (m_iFrameTransformStorageGet != nullptr) {
         std::vector<yarp::math::FrameTransform> localTransform;
         if (m_iFrameTransformStorageGet->getTransforms(localTransform)) {
-            return return_getAllTransforms(true, localTransform);
+            return return_getAllTransformsStorage(true, localTransform);
         }
     }
     yCError(FRAMETRANSFORMGETNWSYARP) << "error getting transform from interface";
-    return return_getAllTransforms(false, std::vector<yarp::math::FrameTransform>());;
+    return return_getAllTransformsStorage(false, std::vector<yarp::math::FrameTransform>());;
 
 }
 
@@ -160,8 +160,9 @@ void FrameTransformGet_nws_yarp::run()
         std::vector<yarp::math::FrameTransform> localTransform;
         if (m_iFrameTransformStorageGet->getTransforms(localTransform))
         {
-            return_getAllTransforms rgt(true, localTransform);
-            m_streaming_port.write(rgt);
+            return_getAllTransformsStorage rgt(true, localTransform);
+            return_getAllTransformsSerializer rgt_ser (rgt);
+            m_streaming_port.write(rgt_ser);
         }
     }
 }

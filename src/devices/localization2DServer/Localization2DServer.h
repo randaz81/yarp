@@ -20,7 +20,8 @@
 #include <yarp/dev/IMultipleWrapper.h>
 #include <yarp/dev/ControlBoardInterfaces.h>
 #include <yarp/dev/ILocalization2D.h>
-#include <yarp/dev/OdometryData.h>
+#include <yarp/dev/Nav2D/OdometryDataSerializer.h>
+#include <yarp/dev/Nav2D/Map2DLocationDataSerializer.h>
 #include <yarp/rosmsg/nav_msgs/Odometry.h>
 #include <yarp/rosmsg/tf2_msgs/TFMessage.h>
 #include <math.h>
@@ -59,9 +60,9 @@ protected:
     std::string                               m_local_name;
     yarp::os::Port                            m_rpcPort;
     std::string                               m_rpcPortName;
-    yarp::os::BufferedPort<yarp::dev::Nav2D::Map2DLocation>  m_2DLocationPort;
+    yarp::os::BufferedPort<yarp::dev::Nav2D::Map2DLocationDataSerializer>  m_2DLocationPort;
     std::string                               m_2DLocationPortName;
-    yarp::os::BufferedPort<yarp::dev::OdometryData>  m_odometryPort;
+    yarp::os::BufferedPort<yarp::dev::Nav2D::OdometryDataSerializer>  m_odometryPort;
     std::string                               m_odometryPortName;
     std::string                               m_robot_frame;
     std::string                               m_fixed_frame;
@@ -83,7 +84,7 @@ protected:
     yarp::os::Stamp                         m_odom_stamp;
     bool                                    m_getdata_using_periodic_thread;
 
-    yarp::dev::OdometryData                     m_current_odometry;
+    yarp::dev::Nav2D::Odometry                  m_current_odometry;
     yarp::dev::Nav2D::Map2DLocation             m_current_position;
     yarp::dev::Nav2D::LocalizationStatusEnum    m_current_status;
 

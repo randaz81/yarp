@@ -10,6 +10,7 @@
 #include <yarp/sig/Vector.h>
 #include <yarp/sig/Matrix.h>
 #include <yarp/os/Portable.h>
+#include <yarp/math/QuaternionData.h>
 
 // network stuff
 #include <yarp/os/NetInt32.h>
@@ -18,7 +19,7 @@ namespace yarp::math {
 class Quaternion;
 }
 
-class YARP_math_API yarp::math::Quaternion : public yarp::os::Portable
+class YARP_math_API yarp::math::Quaternion : public yarp::math::QuaternionDataStorage
 {
     double internal_data[4]; // stored as [w x y z]
 
@@ -153,26 +154,6 @@ public:
     * Converts the quaternion to a vector of length 4.
     */
     yarp::sig::Vector toVector() const;
-
-    ///////// Serialization methods
-    /*
-    * Read vector from a connection.
-    * return true iff a vector was read correctly
-    */
-    bool read(yarp::os::ConnectionReader& connection) override;
-
-    /**
-    * Write vector to a connection.
-    * return true iff a vector was written correctly
-    */
-    bool write(yarp::os::ConnectionWriter& connection) const override;
-
-    yarp::os::Type getType() const override
-    {
-        return yarp::os::Type::byName("yarp/quaternion");
-    }
-
-
 };
 
 #endif

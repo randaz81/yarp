@@ -20,7 +20,8 @@
 #include <yarp/dev/WrapperSingle.h>
 #include <yarp/dev/ControlBoardInterfaces.h>
 #include <yarp/dev/ILocalization2D.h>
-#include <yarp/dev/OdometryData.h>
+#include <yarp/dev/Nav2D/Map2DLocationDataSerializer.h>
+#include <yarp/dev/Nav2D/OdometryDataSerializer.h>
 #include <math.h>
 
 #include "ILocalization2DServerImpl.h"
@@ -58,9 +59,9 @@ protected:
     std::string                               m_local_name = "/localization2D_nws_yarp";
     yarp::os::Port                            m_rpcPort;
     std::string                               m_rpcPortName;
-    yarp::os::BufferedPort<yarp::dev::Nav2D::Map2DLocation>  m_2DLocationPort;
+    yarp::os::BufferedPort<yarp::dev::Nav2D::Map2DLocationDataSerializer>  m_2DLocationPort;
     std::string                               m_2DLocationPortName;
-    yarp::os::BufferedPort<yarp::dev::OdometryData>  m_odometryPort;
+    yarp::os::BufferedPort<yarp::dev::Nav2D::OdometryDataSerializer>  m_odometryPort;
     std::string                               m_odometryPortName;
     bool                                      m_enable_publish_odometry=true;
     bool                                      m_enable_publish_location=true;

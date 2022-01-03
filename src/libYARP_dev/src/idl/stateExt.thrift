@@ -5,43 +5,29 @@
 
 namespace yarp yarp.dev.impl
 
-struct VectorOfDouble {
-  1: list<double> content;
-} (
-  yarp.name = "yarp::sig::VectorOf<double>"
-  yarp.includefile="yarp/sig/Vector.h"
-)
-
-struct VectorOfInt {
-  1: list<i32> content;
-} (
-  yarp.name = "yarp::sig::VectorOf<int>"
-  yarp.includefile="yarp/sig/Vector.h"
-)
-
 struct jointData
 {
-  1: VectorOfDouble jointPosition;
+  1: list<double> jointPosition;
   2: bool jointPosition_isValid;
-  3: VectorOfDouble jointVelocity;
+  3: list<double> jointVelocity;
   4: bool jointVelocity_isValid;
-  5: VectorOfDouble jointAcceleration;
+  5: list<double> jointAcceleration;
   6: bool jointAcceleration_isValid;
-  7: VectorOfDouble motorPosition;
+  7: list<double> motorPosition;
   8: bool motorPosition_isValid;
-  9: VectorOfDouble motorVelocity;
+  9: list<double> motorVelocity;
   10: bool motorVelocity_isValid;
-  11: VectorOfDouble motorAcceleration;
+  11: list<double> motorAcceleration;
   12: bool motorAcceleration_isValid;
-  13: VectorOfDouble torque;
+  13: list<double> torque;
   14: bool torque_isValid;
-  15: VectorOfDouble pwmDutycycle;
+  15: list<double> pwmDutycycle;
   16: bool pwmDutycycle_isValid;
-  17: VectorOfDouble current;
+  17: list<double> current;
   18: bool current_isValid;
-  19: VectorOfInt controlMode;
+  19: list<i32> controlMode;
   20: bool controlMode_isValid;
-  21: VectorOfInt interactionMode;
+  21: list<i32> interactionMode;
   22: bool interactionMode_isValid;
 } (
     yarp.api.include = "yarp/dev/api.h"

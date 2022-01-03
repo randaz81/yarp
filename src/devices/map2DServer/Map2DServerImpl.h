@@ -21,18 +21,18 @@ class IMap2DRPCd : public IMap2DMsgs
 
     bool clear_all_maps_RPC() override;
     bool store_map_RPC(const yarp::dev::Nav2D::MapGrid2D& themap) override;
-    return_get_map get_map_RPC(const std::string& map_name) override;
-    return_get_map_names get_map_names_RPC() override;
+    return_get_mapStorage get_map_RPC(const std::string& map_name) override;
+    return_get_map_namesStorage get_map_names_RPC() override;
     bool remove_map_RPC(const std::string& map_name) override;
     bool store_location_RPC(const std::string& location_name, const yarp::dev::Nav2D::Map2DLocation& loc) override;
     bool store_area_RPC(const std::string& area_name, const yarp::dev::Nav2D::Map2DArea& area) override;
     bool store_path_RPC(const std::string& path_name, const yarp::dev::Nav2D::Map2DPath& path) override;
-    return_get_location get_location_RPC(const std::string& location_name) override;
-    return_get_area get_area_RPC(const std::string& area_name) override;
-    return_get_path get_path_RPC(const std::string& path_name) override;
-    return_get_locations_list get_locations_list_RPC() override;
-    return_get_areas_list get_areas_list_RPC() override;
-    return_get_paths_list get_paths_list_RPC() override;
+    return_get_locationStorage get_location_RPC(const std::string& location_name) override;
+    return_get_areaStorage get_area_RPC(const std::string& area_name) override;
+    return_get_pathStorage get_path_RPC(const std::string& path_name) override;
+    return_get_locations_listStorage get_locations_list_RPC() override;
+    return_get_areas_listStorage get_areas_list_RPC() override;
+    return_get_paths_listStorage get_paths_list_RPC() override;
     bool rename_location_RPC(const std::string& original_name, const std::string& new_name) override;
     bool delete_location_RPC(const std::string& location_name) override;
     bool delete_path_RPC(const std::string& path_name) override;

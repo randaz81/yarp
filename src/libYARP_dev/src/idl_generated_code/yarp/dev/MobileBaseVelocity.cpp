@@ -13,6 +13,16 @@
 namespace yarp::dev {
 
 // Constructor with field values
+MobileBaseVelocityRandazClass2::MobileBaseVelocityRandazClass2(const double vel_x,
+                                                               const double vel_y,
+                                                               const double vel_theta) :
+        vel_x(vel_x),
+        vel_y(vel_y),
+        vel_theta(vel_theta)
+{
+}
+
+// Constructor with field values
 MobileBaseVelocity::MobileBaseVelocity(const double vel_x,
                                        const double vel_y,
                                        const double vel_theta) :

@@ -1,3 +1,4 @@
+/* t_yarp_generator::generate_service:3617 */
 /*
  * SPDX-FileCopyrightText: 2006-2021 Istituto Italiano di Tecnologia (IIT)
  * SPDX-License-Identifier: BSD-3-Clause
@@ -14,6 +15,9 @@
 
 #include <algorithm>
 
+/* t_yarp_generator::generate_service:3713 */
+/* t_yarp_generator::generate_service_helper_classes:3761 */
+/* t_yarp_generator::generate_service_helper_classes_decl:3778 */
 // getTransformsRPC helper class declaration
 class FrameTransformStorageGetRPC_getTransformsRPC_helper :
         public yarp::os::Portable
@@ -55,10 +59,10 @@ public:
         bool write(const yarp::os::idl::WireWriter& writer) const override;
         bool read(yarp::os::idl::WireReader& reader) override;
 
-        return_getAllTransforms return_helper{};
+        return_getAllTransformsStorage return_helper{};
     };
 
-    using funcptr_t = return_getAllTransforms (*)();
+    using funcptr_t = return_getAllTransformsStorage (*)();
     void call(FrameTransformStorageGetRPC* ptr);
 
     Command cmd;
@@ -68,21 +72,25 @@ public:
     static constexpr size_t s_tag_len{1};
     static constexpr size_t s_cmd_len{1};
     static constexpr size_t s_reply_len{2};
-    static constexpr const char* s_prototype{"return_getAllTransforms FrameTransformStorageGetRPC::getTransformsRPC()"};
+    static constexpr const char* s_prototype{"return_getAllTransformsStorage FrameTransformStorageGetRPC::getTransformsRPC()"};
     static constexpr const char* s_help{""};
 };
 
+/* t_yarp_generator::generate_service_helper_classes_impl:3924 */
 // getTransformsRPC helper class implementation
+/* t_yarp_generator::generate_service_helper_classes_impl_write:3990 */
 bool FrameTransformStorageGetRPC_getTransformsRPC_helper::write(yarp::os::ConnectionWriter& connection) const
 {
     return cmd.write(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_read:4038 */
 bool FrameTransformStorageGetRPC_getTransformsRPC_helper::read(yarp::os::ConnectionReader& connection)
 {
     return reply.read(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_connectionwriter:4058 */
 bool FrameTransformStorageGetRPC_getTransformsRPC_helper::Command::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
@@ -92,6 +100,7 @@ bool FrameTransformStorageGetRPC_getTransformsRPC_helper::Command::write(yarp::o
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_connectionreader:4080 */
 bool FrameTransformStorageGetRPC_getTransformsRPC_helper::Command::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
@@ -102,6 +111,7 @@ bool FrameTransformStorageGetRPC_getTransformsRPC_helper::Command::read(yarp::os
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_wirewriter:4110 */
 bool FrameTransformStorageGetRPC_getTransformsRPC_helper::Command::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writeTag(writer)) {
@@ -113,6 +123,7 @@ bool FrameTransformStorageGetRPC_getTransformsRPC_helper::Command::write(const y
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writetag:4132 */
 bool FrameTransformStorageGetRPC_getTransformsRPC_helper::Command::writeTag(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.writeTag(s_tag, 1, s_tag_len)) {
@@ -121,11 +132,13 @@ bool FrameTransformStorageGetRPC_getTransformsRPC_helper::Command::writeTag(cons
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writeargs:4153 */
 bool FrameTransformStorageGetRPC_getTransformsRPC_helper::Command::writeArgs(const yarp::os::idl::WireWriter& writer [[maybe_unused]]) const
 {
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_wirereader:4181 */
 bool FrameTransformStorageGetRPC_getTransformsRPC_helper::Command::read(yarp::os::idl::WireReader& reader)
 {
     if (!readTag(reader)) {
@@ -137,6 +150,7 @@ bool FrameTransformStorageGetRPC_getTransformsRPC_helper::Command::read(yarp::os
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readtag:4201 */
 bool FrameTransformStorageGetRPC_getTransformsRPC_helper::Command::readTag(yarp::os::idl::WireReader& reader)
 {
     std::string tag = reader.readTag(s_tag_len);
@@ -150,6 +164,7 @@ bool FrameTransformStorageGetRPC_getTransformsRPC_helper::Command::readTag(yarp:
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readargs:4229 */
 bool FrameTransformStorageGetRPC_getTransformsRPC_helper::Command::readArgs(yarp::os::idl::WireReader& reader)
 {
     if (!reader.noMore()) {
@@ -159,68 +174,83 @@ bool FrameTransformStorageGetRPC_getTransformsRPC_helper::Command::readArgs(yarp
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_connectionwriter:4259 */
 bool FrameTransformStorageGetRPC_getTransformsRPC_helper::Reply::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_connectionreader:4280 */
 bool FrameTransformStorageGetRPC_getTransformsRPC_helper::Reply::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_wirewriter:4301 */
 bool FrameTransformStorageGetRPC_getTransformsRPC_helper::Reply::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.isNull()) {
         if (!writer.writeListHeader(s_reply_len)) {
             return false;
         }
-        if (!writer.write(return_helper)) {
+/* t_yarp_generator::generate_serialize_field:1093 */
+/* t_yarp_generator::generate_serialize_struct:1215 */
+        const return_getAllTransformsSerializer tmp_return_getAllTransformsSerializer(return_helper);
+        if (!writer.write(tmp_return_getAllTransformsSerializer)) {
             return false;
         }
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_wirereader:4347 */
 bool FrameTransformStorageGetRPC_getTransformsRPC_helper::Reply::read(yarp::os::idl::WireReader& reader)
 {
     if (!reader.readListReturn()) {
         return false;
     }
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
-    if (!reader.read(return_helper)) {
+/* t_yarp_generator::generate_deserialize_struct:1516 */
+    return_getAllTransformsSerializer tmp_return_getAllTransformsSerializer(return_helper);
+    if (!reader.read(tmp_return_getAllTransformsSerializer)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_call:4385 */
 void FrameTransformStorageGetRPC_getTransformsRPC_helper::call(FrameTransformStorageGetRPC* ptr)
 {
     reply.return_helper = ptr->getTransformsRPC();
 }
 
+/* t_yarp_generator::generate_service_constructor:4425 */
 // Constructor
 FrameTransformStorageGetRPC::FrameTransformStorageGetRPC()
 {
     yarp().setOwner(*this);
 }
 
-return_getAllTransforms FrameTransformStorageGetRPC::getTransformsRPC()
+/* t_yarp_generator::generate_service_method:4450 */
+return_getAllTransformsStorage FrameTransformStorageGetRPC::getTransformsRPC()
 {
     if (!yarp().canWrite()) {
         yError("Missing server method '%s'?", FrameTransformStorageGetRPC_getTransformsRPC_helper::s_prototype);
     }
     FrameTransformStorageGetRPC_getTransformsRPC_helper helper{};
     bool ok = yarp().write(helper, helper);
-    return ok ? helper.reply.return_helper : return_getAllTransforms{};
+    return ok ? helper.reply.return_helper : return_getAllTransformsStorage{};
 }
 
+/* t_yarp_generator::generate_service_help:4503 */
 // help method
 std::vector<std::string> FrameTransformStorageGetRPC::help(const std::string& functionName)
 {
@@ -247,6 +277,7 @@ std::vector<std::string> FrameTransformStorageGetRPC::help(const std::string& fu
     return helpString;
 }
 
+/* t_yarp_generator::generate_service_read:4585 */
 // read from ConnectionReader
 bool FrameTransformStorageGetRPC::read(yarp::os::ConnectionReader& connection)
 {

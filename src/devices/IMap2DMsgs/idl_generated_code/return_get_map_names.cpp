@@ -11,6 +11,14 @@
 #include <return_get_map_names.h>
 
 // Constructor with field values
+return_get_map_namesRandazClass2::return_get_map_namesRandazClass2(const bool retval,
+                                                                   const std::vector<std::string>& map_names) :
+        retval(retval),
+        map_names(map_names)
+{
+}
+
+// Constructor with field values
 return_get_map_names::return_get_map_names(const bool retval,
                                            const std::vector<std::string>& map_names) :
         WirePortable(),

@@ -11,6 +11,14 @@
 #include <return_get_localization_status.h>
 
 // Constructor with field values
+return_get_localization_statusRandazClass2::return_get_localization_statusRandazClass2(const bool ret,
+                                                                                       const yarp::dev::Nav2D::LocalizationStatusEnum status) :
+        ret(ret),
+        status(status)
+{
+}
+
+// Constructor with field values
 return_get_localization_status::return_get_localization_status(const bool ret,
                                                                const yarp::dev::Nav2D::LocalizationStatusEnum status) :
         WirePortable(),

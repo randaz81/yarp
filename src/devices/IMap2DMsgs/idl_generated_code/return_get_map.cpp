@@ -11,6 +11,14 @@
 #include <return_get_map.h>
 
 // Constructor with field values
+return_get_mapRandazClass2::return_get_mapRandazClass2(const bool retval,
+                                                       const yarp::dev::Nav2D::MapGrid2D& themap) :
+        retval(retval),
+        themap(themap)
+{
+}
+
+// Constructor with field values
 return_get_map::return_get_map(const bool retval,
                                const yarp::dev::Nav2D::MapGrid2D& themap) :
         WirePortable(),

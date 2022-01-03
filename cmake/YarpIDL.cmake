@@ -126,6 +126,8 @@ function(_YARP_IDL_TO_DIR_GENERATE _family _file _name _index_file_name _output_
     NO_DEFAULT_PATH
   )
 
+  message (">>>>>>>>>>1 ${_index}")
+  
   if("${_family}" STREQUAL "thrift")
     _yarp_idl_thrift_args(_YITD "${_temp_dir}" ${_verbose} _args)
   else()
@@ -137,6 +139,8 @@ function(_YARP_IDL_TO_DIR_GENERATE _family _file _name _index_file_name _output_
     set(_output_quiet)
   endif()
 
+  message (">>>>>>>>>>2 ${_index}")
+
   set(_cmd "${YARPIDL_${_family}_LOCATION}" ${_args} "${_file}")
 
   if(_verbose)
@@ -145,6 +149,8 @@ function(_YARP_IDL_TO_DIR_GENERATE _family _file _name _index_file_name _output_
     message(STATUS "    COMMAND = [${_cmd_str}]")
   endif()
 
+  message (">>>>>>>>>>3 ${_index}")
+  
   # Go ahead and generate files.
   execute_process(
     COMMAND ${_cmd}
@@ -152,14 +158,22 @@ function(_YARP_IDL_TO_DIR_GENERATE _family _file _name _index_file_name _output_
     RESULT_VARIABLE res
     ${_output_quiet}
   )
+  
+  message (">>>>>>>>>>4 ${_index}")
+    
   # Failure is bad news, let user know.
   if(NOT "${res}" STREQUAL "0")
     message(FATAL_ERROR "yarpidl_${_family} (${YARPIDL_${_family}_LOCATION}) failed, aborting.")
   endif()
 
+  message (">>>>>>>>>>5")
+  
   # Place the files in their final location.
   file(STRINGS "${_temp_dir}/${_index_file_name}" _index)
   file(WRITE "${_output_dir}/${_index_file_name}" "")
+
+  message (">>>>>>>>>>5 ${_index}" )
+  
   foreach(_gen_file ${_index})
     if(NOT EXISTS "${_temp_dir}/${_gen_file}")
       message(FATAL_ERROR "${_gen_file} not found in ${_temp_dir} dir!")
@@ -180,6 +194,8 @@ function(_YARP_IDL_TO_DIR_GENERATE _family _file _name _index_file_name _output_
     endif()
     string(REGEX REPLACE "^/+" "" _dest_file "${_dest_file}")
 
+    message (">>>>>>>>>>>>>>>>>>>file(APPEND ${_output_dir}/${_index_file_name} ${_dest_file}")
+    
     file(APPEND "${_output_dir}/${_index_file_name}" "${_dest_file}\n")
     configure_file(
       "${_temp_dir}/${_gen_file}"
@@ -316,6 +332,8 @@ function(YARP_IDL_TO_DIR)
       message(FATAL_ERROR "yarp_idl_to_dir does not know what to do with \"${_file}\", unrecognized extension \"${_ext}\"")
     endif()
 
+    message ("randaz YARP_IDL_TO_DIR")
+  
     if("${_family}" STREQUAL "thrift")
       set(_target_name "${_file}")
       set(_index_file_name "${_name}_index.txt")
@@ -341,6 +359,17 @@ function(YARP_IDL_TO_DIR)
     string(REGEX REPLACE "^/+" "" _include_prefix "${_include_prefix}")
     string(REGEX REPLACE "/+$" "" _include_prefix "${_include_prefix}")
 
+message (${_family}) #thrift
+message (${_file})   #idl/stateExt.thrift
+message (${_name})   #stateExt
+message (${_index_file_name}) #stateExt_index.txt
+message ("${_YITD_OUTPUT_DIR}")  #C:/Software/yarp_software/yarp/src/libYARP_dev/src/idl_generated_code
+message ("${_include_prefix}")   #idl/stateext
+message ("${_cpp_placement_dir}")
+message ("${_h_placement_dir}")
+message (${_cpp_placement_ns})   # 1
+message (${_YITD_VERBOSE})       # false 
+
     if(ALLOW_IDL_GENERATION OR NOT EXISTS "${_index_file}")
       _yarp_idl_to_dir_generate(
         ${_family}
@@ -354,7 +383,7 @@ function(YARP_IDL_TO_DIR)
         ${_cpp_placement_ns}
         ${_YITD_VERBOSE}
       )
-    endif()
+      endif()
 
     # Sanity check, it should never happen
     if(NOT EXISTS "${_index_file}")
@@ -411,6 +440,7 @@ function(_YARP_IDL_THRIFT_TO_FILE_LIST file path basename ext gen_srcs_var gen_h
   string(REGEX REPLACE "//[^\n]+" "" file_content ${file_content})
 
   # Match "namespace"
+  message ("randaz YARP_ADD_IDL")
   string(REGEX MATCH "namespace[ \t\n]+yarp[ \t\n]+([^ \t\n]+)" _unused ${file_content})
   string(REPLACE "." "/" namespace_dir "${CMAKE_MATCH_1}")
 

@@ -1,3 +1,4 @@
+/* t_yarp_generator::generate_service:3616 */
 /*
  * SPDX-FileCopyrightText: 2006-2021 Istituto Italiano di Tecnologia (IIT)
  * SPDX-License-Identifier: BSD-3-Clause
@@ -13,42 +14,62 @@
 
 #include <yarp/os/Wire.h>
 #include <yarp/os/idl/WireTypes.h>
-#include <return_get_current_position1.h>
-#include <return_get_current_position2.h>
-#include <return_get_estimated_odometry.h>
-#include <return_get_estimated_poses.h>
-#include <return_get_localization_status.h>
+#include <return_get_current_position1Storage.h>
+#include <return_get_current_position1Serializer.h>
+#include <return_get_current_position2Storage.h>
+#include <return_get_current_position2Serializer.h>
+#include <return_get_estimated_odometryStorage.h>
+#include <return_get_estimated_odometrySerializer.h>
+#include <return_get_estimated_posesStorage.h>
+#include <return_get_estimated_posesSerializer.h>
+#include <return_get_localization_statusStorage.h>
+#include <return_get_localization_statusSerializer.h>
 #include <yarp/dev/Map2DLocation.h>
+#include <yarp/dev/Nav2D/Map2DLocationDataSerializer.h>
 #include <yarp/sig/Matrix.h>
+#include <yarp/sig/MatrixSerializer.h>
 
+/* t_yarp_generator::generate_service:3712 */
 class ILocalization2DMsgs :
         public yarp::os::Wire
 {
 public:
+/* t_yarp_generator::generate_service_constructor:4424 */
     // Constructor
     ILocalization2DMsgs();
 
+/* t_yarp_generator::generate_service_method:4449 */
     virtual bool start_localization_service_RPC();
 
+/* t_yarp_generator::generate_service_method:4449 */
     virtual bool stop_localization_service_RPC();
 
-    virtual return_get_localization_status get_localization_status_RPC();
+/* t_yarp_generator::generate_service_method:4449 */
+    virtual return_get_localization_statusStorage get_localization_status_RPC();
 
-    virtual return_get_estimated_poses get_estimated_poses_RPC();
+/* t_yarp_generator::generate_service_method:4449 */
+    virtual return_get_estimated_posesStorage get_estimated_poses_RPC();
 
-    virtual return_get_current_position1 get_current_position1_RPC();
+/* t_yarp_generator::generate_service_method:4449 */
+    virtual return_get_current_position1Storage get_current_position1_RPC();
 
-    virtual return_get_current_position2 get_current_position2_RPC();
+/* t_yarp_generator::generate_service_method:4449 */
+    virtual return_get_current_position2Storage get_current_position2_RPC();
 
-    virtual return_get_estimated_odometry get_estimated_odometry_RPC();
+/* t_yarp_generator::generate_service_method:4449 */
+    virtual return_get_estimated_odometryStorage get_estimated_odometry_RPC();
 
+/* t_yarp_generator::generate_service_method:4449 */
     virtual bool set_initial_pose1_RPC(const yarp::dev::Nav2D::Map2DLocation& loc);
 
+/* t_yarp_generator::generate_service_method:4449 */
     virtual bool set_initial_pose2_RPC(const yarp::dev::Nav2D::Map2DLocation& loc, const yarp::sig::Matrix& cov);
 
+/* t_yarp_generator::generate_service_help:4502 */
     // help method
     virtual std::vector<std::string> help(const std::string& functionName = "--all");
 
+/* t_yarp_generator::generate_service_read:4584 */
     // read from ConnectionReader
     bool read(yarp::os::ConnectionReader& connection) override;
 };

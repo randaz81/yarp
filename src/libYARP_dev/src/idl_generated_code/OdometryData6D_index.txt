@@ -1,2 +1,4 @@
-yarp/dev/OdometryData6D.h
-yarp/dev/OdometryData6D.cpp
+yarp/dev/OdometryData6DStorage.h
+yarp/dev/OdometryData6DStorage.cpp
+yarp/dev/OdometryData6DSerializer.h
+yarp/dev/OdometryData6DSerializer.cpp

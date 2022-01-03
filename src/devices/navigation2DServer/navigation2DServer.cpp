@@ -14,6 +14,7 @@
 #include <yarp/dev/ControlBoardInterfaces.h>
 #include <yarp/dev/INavigation2D.h>
 #include <yarp/dev/MapGrid2D.h>
+#include <yarp/dev/MapGrid2DDataSerializer.h>
 #include <math.h>
 #include <cmath>
 #include "navigation2DServer.h"
@@ -416,7 +417,8 @@ bool navigation2DServer::parse_respond_vocab(const yarp::os::Bottle& command, ya
         {
             reply.addVocab32(VOCAB_OK);
             yarp::os::Bottle& mapbot = reply.addList();
-            Property::copyPortable(map, mapbot);
+            yarp::dev::Nav2D::MapGrid2DDataSerializer sermap(map);
+            Property::copyPortable(sermap, mapbot);
         }
         else
         {

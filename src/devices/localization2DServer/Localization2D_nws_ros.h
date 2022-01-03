@@ -20,7 +20,7 @@
 #include <yarp/dev/WrapperSingle.h>
 #include <yarp/dev/ControlBoardInterfaces.h>
 #include <yarp/dev/ILocalization2D.h>
-#include <yarp/dev/OdometryData.h>
+#include <yarp/dev/Odometry.h>
 #include <yarp/rosmsg/nav_msgs/Odometry.h>
 #include <yarp/rosmsg/tf2_msgs/TFMessage.h>
 #include <math.h>
@@ -81,7 +81,7 @@ protected:
     yarp::os::Stamp                         m_loc_stamp;
     yarp::os::Stamp                         m_odom_stamp;
 
-    yarp::dev::OdometryData                     m_current_odometry;
+    yarp::dev::Nav2D::Odometry                  m_current_odometry;
     yarp::dev::Nav2D::Map2DLocation             m_current_position;
     yarp::dev::Nav2D::LocalizationStatusEnum    m_current_status = yarp::dev::Nav2D::LocalizationStatusEnum::localization_status_not_yet_localized;
 

@@ -151,6 +151,9 @@ public:
     return nullptr;
   }
 
+public:
+  bool isYarpPortable = true;
+
 private:
   members_type members_;
   members_type members_in_id_order_;

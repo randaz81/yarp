@@ -1,3 +1,4 @@
+/* t_yarp_generator::generate_service:3616 */
 /*
  * SPDX-FileCopyrightText: 2006-2021 Istituto Italiano di Tecnologia (IIT)
  * SPDX-License-Identifier: BSD-3-Clause
@@ -14,6 +15,7 @@
 #include <yarp/os/Wire.h>
 #include <yarp/os/idl/WireTypes.h>
 
+/* t_yarp_generator::generate_service:3712 */
 /**
  * yarpdataplayer_IDL
  * Interface.
@@ -22,9 +24,11 @@ class yarpdataplayer_IDL :
         public yarp::os::Wire
 {
 public:
+/* t_yarp_generator::generate_service_constructor:4424 */
     // Constructor
     yarpdataplayer_IDL();
 
+/* t_yarp_generator::generate_service_method:4449 */
     /**
      * Steps the player once. The player will be stepped
      * until all parts have sent data
@@ -32,6 +36,7 @@ public:
      */
     virtual bool step();
 
+/* t_yarp_generator::generate_service_method:4449 */
     /**
      * Sets the frame number to the user desired frame.
      * @param frameNum specifies the frame number the user
@@ -40,6 +45,7 @@ public:
      */
     virtual bool setFrame(const std::int32_t frameNum);
 
+/* t_yarp_generator::generate_service_method:4449 */
     /**
      * Gets the frame number the user is requesting
      * @param name specifies the name of the data to modify
@@ -48,51 +54,60 @@ public:
      */
     virtual std::int32_t getFrame(const std::string& name);
 
+/* t_yarp_generator::generate_service_method:4449 */
     /**
      * Loads a dataset from a path
      * @return true/false on success/failure
      */
     virtual bool load(const std::string& path);
 
+/* t_yarp_generator::generate_service_method:4449 */
     /**
      * Get slider percentage
      * @return i32 percentage
      */
     virtual std::int32_t getSliderPercentage();
 
+/* t_yarp_generator::generate_service_method:4449 */
     /**
      * Get the status of playing
      * @return the status (playing, paused, stopped)
      */
     virtual std::string getStatus();
 
+/* t_yarp_generator::generate_service_method:4449 */
     /**
      * Plays the dataSets
      * @return true/false on success/failure
      */
     virtual bool play();
 
+/* t_yarp_generator::generate_service_method:4449 */
     /**
      * Pauses the dataSets
      * @return true/false on success/failure
      */
     virtual bool pause();
 
+/* t_yarp_generator::generate_service_method:4449 */
     /**
      * Stops the dataSets
      * @return true/false on success/failure
      */
     virtual bool stop();
 
+/* t_yarp_generator::generate_service_method:4449 */
     /**
      * Quit the module.
      * @return true/false on success/failure
      */
     virtual bool quit();
 
+/* t_yarp_generator::generate_service_help:4502 */
     // help method
     virtual std::vector<std::string> help(const std::string& functionName = "--all");
 
+/* t_yarp_generator::generate_service_read:4584 */
     // read from ConnectionReader
     bool read(yarp::os::ConnectionReader& connection) override;
 };

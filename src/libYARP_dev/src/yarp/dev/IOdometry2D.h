@@ -7,7 +7,7 @@
 #define YARP_DEV_IODOMETRY2D_H
 
 #include <yarp/dev/api.h>
-#include <yarp/dev/OdometryData.h>
+#include <yarp/dev/Odometry.h>
 
 namespace yarp::dev::Nav2D {
 class IOdometry2D;
@@ -31,7 +31,7 @@ public:
     * @param odom the odometry.
     * @return true/false
     */
-    virtual bool   getOdometry(yarp::dev::OdometryData& odom) = 0;
+    virtual bool   getOdometry(yarp::dev::Nav2D::Odometry& odom) = 0;
 
     /**
     * Resets the odometry of the robot to zero

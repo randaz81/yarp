@@ -21,6 +21,9 @@
 #include <yarp/os/Node.h>
 #include <yarp/rosmsg/TickDuration.h>
 #include <yarp/rosmsg/TickTime.h>
+#include <yarp/dev/Nav2D/Map2DAreaDataSerializer.h>
+#include <yarp/dev/Nav2D/Map2DPathDataSerializer.h>
+#include <yarp/dev/Nav2D/MapGrid2DDataSerializer.h>
 
 using namespace yarp::sig;
 using namespace yarp::dev;
@@ -53,23 +56,25 @@ void Map2DServer::parse_vocab_command(yarp::os::Bottle& in, yarp::os::Bottle& ou
         int cmd = in.get(1).asVocab32();
         if (cmd == VOCAB_IMAP_SET_MAP)
         {
-            MapGrid2D the_map;
+            MapGrid2DDataSerializer the_map;
             Value& b = in.get(2);
             if (Property::copyPortable(b, the_map))
             {
-                std::string map_name = the_map.getMapName();
+                std::string map_name = the_map.get().getMapName();
                 auto it = m_maps_storage.find(map_name);
                 if (it == m_maps_storage.end())
                 {
                     //add a new map
-                    m_maps_storage[map_name] = the_map;
+                    MapGrid2D mmg = the_map.get();
+                    m_maps_storage[map_name] = mmg;
                     out.clear();
                     out.addVocab32(VOCAB_IMAP_OK);
                 }
                 else
                 {
                     //the map already exists
-                    m_maps_storage[map_name] = the_map;
+                    MapGrid2D mmg = the_map.get();
+                    m_maps_storage[map_name] = mmg;
                     out.clear();
                     out.addVocab32(VOCAB_IMAP_OK);
                 }
@@ -90,7 +95,7 @@ void Map2DServer::parse_vocab_command(yarp::os::Bottle& in, yarp::os::Bottle& ou
                 out.clear();
                 out.addVocab32(VOCAB_IMAP_OK);
                 yarp::os::Bottle& mapbot = out.addList();
-                Property::copyPortable(it->second, mapbot);
+                Property::copyPortable(MapGrid2DDataSerializer(it->second), mapbot);
             }
             else
             {
@@ -483,7 +488,7 @@ void Map2DServer::parse_vocab_command(yarp::os::Bottle& in, yarp::os::Bottle& ou
             {
                 Map2DArea area = it->second;
                 yarp::os::Bottle areabot;
-                Map2DArea areatemp = area;
+                yarp::dev::Nav2D::Map2DAreaDataSerializer areatemp(area);
                 if (Property::copyPortable(areatemp, areabot) == false)
                 {
                     yCError(MAP2DSERVER) << "VOCAB_NAV_GET_X VOCAB_NAV_AREA failed copyPortable()";
@@ -515,7 +520,7 @@ void Map2DServer::parse_vocab_command(yarp::os::Bottle& in, yarp::os::Bottle& ou
         {
             Map2DPath path = it->second;
             yarp::os::Bottle pathbot;
-            Map2DPath pathtemp = path;
+            Map2DPathDataSerializer pathtemp(path);
             if (Property::copyPortable(pathtemp, pathbot) == false)
             {
                 yCError(MAP2DSERVER) << "VOCAB_NAV_GET_X VOCAB_NAV_PATH failed copyPortable()";
@@ -554,14 +559,14 @@ void Map2DServer::parse_vocab_command(yarp::os::Bottle& in, yarp::os::Bottle& ou
         }
         else if (cmd == VOCAB_NAV_STORE_X && in.get(2).asVocab32() == VOCAB_NAV_AREA)
         {
-            Map2DArea         area;
+            Map2DAreaDataSerializer area_ser;
             std::string area_name = in.get(3).asString();
 
             Value& b = in.get(4);
-            if (Property::copyPortable(b, area))
+            if (Property::copyPortable(b, area_ser))
             {
-                m_areas_storage.insert(std::pair<std::string, Map2DArea>(area_name, area));
-                yCInfo(MAP2DSERVER) << "Added area" << area_name << "at" << area.toString();
+                m_areas_storage.insert(std::pair<std::string, Map2DArea>(area_name, area_ser.get()));
+                yCInfo(MAP2DSERVER) << "Added area" << area_name << "at" << area_ser.toString();
                 out.addVocab32(VOCAB_OK);
             }
             else
@@ -573,14 +578,14 @@ void Map2DServer::parse_vocab_command(yarp::os::Bottle& in, yarp::os::Bottle& ou
         }
         else if (cmd == VOCAB_NAV_STORE_X && in.get(2).asVocab32() == VOCAB_NAV_PATH)
         {
-            Map2DPath         path;
+            Map2DPathDataSerializer      pathser;
             std::string path_name = in.get(3).asString();
 
             Value& b = in.get(4);
-            if (Property::copyPortable(b, path))
+            if (Property::copyPortable(b, pathser))
             {
-                m_paths_storage.insert(std::pair<std::string, Map2DPath>(path_name, path));
-                yCInfo(MAP2DSERVER) << "Added path" << path_name << "at" << path.toString();
+                m_paths_storage.insert(std::pair<std::string, Map2DPath>(path_name, pathser.get()));
+                yCInfo(MAP2DSERVER) << "Added path" << path_name << "at" << pathser.toString();
                 out.addVocab32(VOCAB_OK);
             }
             else

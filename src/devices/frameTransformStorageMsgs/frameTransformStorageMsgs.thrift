@@ -7,6 +7,8 @@ struct YarpFrameTransform {
 } (
   yarp.name = "yarp::math::FrameTransform"
   yarp.includefile="yarp/math/FrameTransform.h"
+  yarp.customSerializerName = "yarp::math::FrameTransformDataSerializer"
+  yarp.customSerializerInclude = "yarp/math/FrameTransformData.h"
 )
 
 struct return_getAllTransforms

@@ -3,15 +3,8 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-struct YarpVector {
-  1: list<double> content;
-} (
-  yarp.name = "yarp::sig::Vector"
-  yarp.includefile="yarp/sig/Vector.h"
-)
-
 struct SensorMeasurement {
-  1: YarpVector measurement;
+  1: list<double> measurement;
   2: double timestamp;
 }
 

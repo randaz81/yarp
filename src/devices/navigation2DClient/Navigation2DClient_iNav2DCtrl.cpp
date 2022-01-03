@@ -10,6 +10,7 @@
 #include <yarp/os/LogStream.h>
 #include <mutex>
 #include <cmath>
+#include <yarp/dev/MapGrid2DDataSerializer.h>
 
 /*! \file Navigation2DClient.cpp */
 
@@ -266,8 +267,10 @@ bool Navigation2DClient::getCurrentNavigationMap(yarp::dev::Nav2D::NavigationMap
         else
         {
             Value& b = resp.get(1);
-            if (Property::copyPortable(b, map))
+            yarp::dev::Nav2D::MapGrid2DDataSerializer tmpser;
+            if (Property::copyPortable(b, tmpser))
             {
+                map = tmpser.get();
                 return true;
             }
             else

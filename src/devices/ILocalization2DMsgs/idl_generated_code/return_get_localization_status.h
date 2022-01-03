@@ -15,6 +15,20 @@
 #include <yarp/os/idl/WireTypes.h>
 #include <yarp/dev/ILocalization2D.h>
 
+class return_get_localization_statusRandazClass2{
+public:
+    // Fields
+    bool ret{false};
+    yarp::dev::Nav2D::LocalizationStatusEnum status{};
+
+    // Default constructor
+    return_get_localization_statusRandazClass2() = default;
+
+    // Constructor with field values
+    return_get_localization_statusRandazClass2(const bool ret,
+                                               const yarp::dev::Nav2D::LocalizationStatusEnum status);
+
+};
 class return_get_localization_status :
         public yarp::os::idl::WirePortable
 {

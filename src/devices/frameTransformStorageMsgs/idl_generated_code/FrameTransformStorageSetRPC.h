@@ -1,3 +1,4 @@
+/* t_yarp_generator::generate_service:3616 */
 /*
  * SPDX-FileCopyrightText: 2006-2021 Istituto Italiano di Tecnologia (IIT)
  * SPDX-License-Identifier: BSD-3-Clause
@@ -14,25 +15,34 @@
 #include <yarp/os/Wire.h>
 #include <yarp/os/idl/WireTypes.h>
 #include <yarp/math/FrameTransform.h>
+#include <yarp/math/FrameTransformData.h>
 
+/* t_yarp_generator::generate_service:3712 */
 class FrameTransformStorageSetRPC :
         public yarp::os::Wire
 {
 public:
+/* t_yarp_generator::generate_service_constructor:4424 */
     // Constructor
     FrameTransformStorageSetRPC();
 
+/* t_yarp_generator::generate_service_method:4449 */
     virtual bool setTransformsRPC(const std::vector<yarp::math::FrameTransform>& transforms);
 
+/* t_yarp_generator::generate_service_method:4449 */
     virtual bool setTransformRPC(const yarp::math::FrameTransform& transform);
 
+/* t_yarp_generator::generate_service_method:4449 */
     virtual bool deleteTransformRPC(const std::string& src, const std::string& dst);
 
+/* t_yarp_generator::generate_service_method:4449 */
     virtual bool clearAllRPC();
 
+/* t_yarp_generator::generate_service_help:4502 */
     // help method
     virtual std::vector<std::string> help(const std::string& functionName = "--all");
 
+/* t_yarp_generator::generate_service_read:4584 */
     // read from ConnectionReader
     bool read(yarp::os::ConnectionReader& connection) override;
 };

@@ -5,8 +5,6 @@
 
 #include <yarp/math/Quaternion.h>
 
-#include <yarp/os/ConnectionReader.h>
-#include <yarp/os/ConnectionWriter.h>
 #include <yarp/os/LogComponent.h>
 #include <yarp/math/Math.h>
 #include <cmath>
@@ -17,16 +15,6 @@ using namespace yarp::math;
 namespace {
 YARP_LOG_COMPONENT(QUATERNION, "yarp.math.Quaternion")
 }
-
-YARP_BEGIN_PACK
-class QuaternionPortContentHeader
-{
-public:
-    yarp::os::NetInt32 listTag{0};
-    yarp::os::NetInt32 listLen{0};
-    QuaternionPortContentHeader() = default;
-};
-YARP_END_PACK
 
 Quaternion::Quaternion()
 {
@@ -111,52 +99,6 @@ double& Quaternion::y()
 double& Quaternion::z()
 {
     return internal_data[3];
-}
-
-bool Quaternion::read(yarp::os::ConnectionReader& connection)
-{
-    // auto-convert text mode interaction
-    connection.convertTextMode();
-    QuaternionPortContentHeader header;
-    bool ok = connection.expectBlock((char*)&header, sizeof(header));
-    if (!ok) {
-        return false;
-    }
-
-    if (header.listLen == 4 &&  header.listTag == (BOTTLE_TAG_LIST | BOTTLE_TAG_FLOAT64))
-    {
-        this->internal_data[0] = connection.expectFloat64();
-        this->internal_data[1] = connection.expectFloat64();
-        this->internal_data[2] = connection.expectFloat64();
-        this->internal_data[3] = connection.expectFloat64();
-    }
-    else
-    {
-        return false;
-    }
-
-    return !connection.isError();
-}
-
-bool Quaternion::write(yarp::os::ConnectionWriter& connection) const
-{
-    QuaternionPortContentHeader header;
-
-    header.listTag = (BOTTLE_TAG_LIST | BOTTLE_TAG_FLOAT64);
-    header.listLen = 4;
-
-    connection.appendBlock((char*)&header, sizeof(header));
-
-    connection.appendFloat64(this->internal_data[0]);
-    connection.appendFloat64(this->internal_data[1]);
-    connection.appendFloat64(this->internal_data[2]);
-    connection.appendFloat64(this->internal_data[3]);
-
-    // if someone is foolish enough to connect in text mode,
-    // let them see something readable.
-    connection.convertTextMode();
-
-    return !connection.isError();
 }
 
 void Quaternion::fromRotationMatrix(const yarp::sig::Matrix &R)

@@ -1,3 +1,4 @@
+/* t_yarp_generator::generate_service:3617 */
 /*
  * SPDX-FileCopyrightText: 2006-2021 Istituto Italiano di Tecnologia (IIT)
  * SPDX-License-Identifier: BSD-3-Clause
@@ -14,6 +15,9 @@
 
 #include <algorithm>
 
+/* t_yarp_generator::generate_service:3713 */
+/* t_yarp_generator::generate_service_helper_classes:3761 */
+/* t_yarp_generator::generate_service_helper_classes_decl:3778 */
 // setBatteryVoltage helper class declaration
 class FakeBatteryService_setBatteryVoltage_helper :
         public yarp::os::Portable
@@ -75,6 +79,7 @@ public:
     static constexpr const char* s_help{""};
 };
 
+/* t_yarp_generator::generate_service_helper_classes_decl:3778 */
 // setBatteryCurrent helper class declaration
 class FakeBatteryService_setBatteryCurrent_helper :
         public yarp::os::Portable
@@ -136,6 +141,7 @@ public:
     static constexpr const char* s_help{""};
 };
 
+/* t_yarp_generator::generate_service_helper_classes_decl:3778 */
 // setBatteryCharge helper class declaration
 class FakeBatteryService_setBatteryCharge_helper :
         public yarp::os::Portable
@@ -197,6 +203,7 @@ public:
     static constexpr const char* s_help{""};
 };
 
+/* t_yarp_generator::generate_service_helper_classes_decl:3778 */
 // setBatteryStatus helper class declaration
 class FakeBatteryService_setBatteryStatus_helper :
         public yarp::os::Portable
@@ -258,6 +265,7 @@ public:
     static constexpr const char* s_help{""};
 };
 
+/* t_yarp_generator::generate_service_helper_classes_decl:3778 */
 // setBatteryInfo helper class declaration
 class FakeBatteryService_setBatteryInfo_helper :
         public yarp::os::Portable
@@ -319,6 +327,7 @@ public:
     static constexpr const char* s_help{""};
 };
 
+/* t_yarp_generator::generate_service_helper_classes_decl:3778 */
 // setBatteryTemperature helper class declaration
 class FakeBatteryService_setBatteryTemperature_helper :
         public yarp::os::Portable
@@ -380,6 +389,7 @@ public:
     static constexpr const char* s_help{""};
 };
 
+/* t_yarp_generator::generate_service_helper_classes_decl:3778 */
 // getBatteryVoltage helper class declaration
 class FakeBatteryService_getBatteryVoltage_helper :
         public yarp::os::Portable
@@ -438,6 +448,7 @@ public:
     static constexpr const char* s_help{""};
 };
 
+/* t_yarp_generator::generate_service_helper_classes_decl:3778 */
 // getBatteryCurrent helper class declaration
 class FakeBatteryService_getBatteryCurrent_helper :
         public yarp::os::Portable
@@ -496,6 +507,7 @@ public:
     static constexpr const char* s_help{""};
 };
 
+/* t_yarp_generator::generate_service_helper_classes_decl:3778 */
 // getBatteryCharge helper class declaration
 class FakeBatteryService_getBatteryCharge_helper :
         public yarp::os::Portable
@@ -554,6 +566,7 @@ public:
     static constexpr const char* s_help{""};
 };
 
+/* t_yarp_generator::generate_service_helper_classes_decl:3778 */
 // getBatteryStatus helper class declaration
 class FakeBatteryService_getBatteryStatus_helper :
         public yarp::os::Portable
@@ -612,6 +625,7 @@ public:
     static constexpr const char* s_help{""};
 };
 
+/* t_yarp_generator::generate_service_helper_classes_decl:3778 */
 // getBatteryStatusString helper class declaration
 class FakeBatteryService_getBatteryStatusString_helper :
         public yarp::os::Portable
@@ -670,6 +684,7 @@ public:
     static constexpr const char* s_help{""};
 };
 
+/* t_yarp_generator::generate_service_helper_classes_decl:3778 */
 // getBatteryInfo helper class declaration
 class FakeBatteryService_getBatteryInfo_helper :
         public yarp::os::Portable
@@ -728,6 +743,7 @@ public:
     static constexpr const char* s_help{""};
 };
 
+/* t_yarp_generator::generate_service_helper_classes_decl:3778 */
 // getBatteryTemperature helper class declaration
 class FakeBatteryService_getBatteryTemperature_helper :
         public yarp::os::Portable
@@ -786,27 +802,33 @@ public:
     static constexpr const char* s_help{""};
 };
 
+/* t_yarp_generator::generate_service_helper_classes_impl:3924 */
 // setBatteryVoltage helper class implementation
+/* t_yarp_generator::generate_service_helper_classes_impl_ctor:3963 */
 FakeBatteryService_setBatteryVoltage_helper::FakeBatteryService_setBatteryVoltage_helper(const double voltage) :
         cmd{voltage}
 {
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_write:3990 */
 bool FakeBatteryService_setBatteryVoltage_helper::write(yarp::os::ConnectionWriter& connection) const
 {
     return cmd.write(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_read:4038 */
 bool FakeBatteryService_setBatteryVoltage_helper::read(yarp::os::ConnectionReader& connection)
 {
     return reply.read(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_ctor:4010 */
 FakeBatteryService_setBatteryVoltage_helper::Command::Command(const double voltage) :
         voltage{voltage}
 {
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_connectionwriter:4058 */
 bool FakeBatteryService_setBatteryVoltage_helper::Command::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
@@ -816,6 +838,7 @@ bool FakeBatteryService_setBatteryVoltage_helper::Command::write(yarp::os::Conne
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_connectionreader:4080 */
 bool FakeBatteryService_setBatteryVoltage_helper::Command::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
@@ -826,6 +849,7 @@ bool FakeBatteryService_setBatteryVoltage_helper::Command::read(yarp::os::Connec
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_wirewriter:4110 */
 bool FakeBatteryService_setBatteryVoltage_helper::Command::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writeTag(writer)) {
@@ -837,6 +861,7 @@ bool FakeBatteryService_setBatteryVoltage_helper::Command::write(const yarp::os:
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writetag:4132 */
 bool FakeBatteryService_setBatteryVoltage_helper::Command::writeTag(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.writeTag(s_tag, 1, s_tag_len)) {
@@ -845,14 +870,17 @@ bool FakeBatteryService_setBatteryVoltage_helper::Command::writeTag(const yarp::
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writeargs:4153 */
 bool FakeBatteryService_setBatteryVoltage_helper::Command::writeArgs(const yarp::os::idl::WireWriter& writer) const
 {
+/* t_yarp_generator::generate_serialize_field:1093 */
     if (!writer.writeFloat64(voltage)) {
         return false;
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_wirereader:4181 */
 bool FakeBatteryService_setBatteryVoltage_helper::Command::read(yarp::os::idl::WireReader& reader)
 {
     if (!readTag(reader)) {
@@ -864,6 +892,7 @@ bool FakeBatteryService_setBatteryVoltage_helper::Command::read(yarp::os::idl::W
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readtag:4201 */
 bool FakeBatteryService_setBatteryVoltage_helper::Command::readTag(yarp::os::idl::WireReader& reader)
 {
     std::string tag = reader.readTag(s_tag_len);
@@ -877,13 +906,16 @@ bool FakeBatteryService_setBatteryVoltage_helper::Command::readTag(yarp::os::idl
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readargs:4229 */
 bool FakeBatteryService_setBatteryVoltage_helper::Command::readArgs(yarp::os::idl::WireReader& reader)
 {
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
     if (!reader.readFloat64(voltage)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
@@ -894,18 +926,21 @@ bool FakeBatteryService_setBatteryVoltage_helper::Command::readArgs(yarp::os::id
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_connectionwriter:4259 */
 bool FakeBatteryService_setBatteryVoltage_helper::Reply::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_connectionreader:4280 */
 bool FakeBatteryService_setBatteryVoltage_helper::Reply::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_wirewriter:4301 */
 bool FakeBatteryService_setBatteryVoltage_helper::Reply::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.isNull()) {
@@ -916,37 +951,45 @@ bool FakeBatteryService_setBatteryVoltage_helper::Reply::write(const yarp::os::i
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_wirereader:4347 */
 bool FakeBatteryService_setBatteryVoltage_helper::Reply::read(yarp::os::idl::WireReader& reader [[maybe_unused]])
 {
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_call:4385 */
 void FakeBatteryService_setBatteryVoltage_helper::call(FakeBatteryService* ptr) const
 {
     ptr->setBatteryVoltage(cmd.voltage);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl:3924 */
 // setBatteryCurrent helper class implementation
+/* t_yarp_generator::generate_service_helper_classes_impl_ctor:3963 */
 FakeBatteryService_setBatteryCurrent_helper::FakeBatteryService_setBatteryCurrent_helper(const double current) :
         cmd{current}
 {
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_write:3990 */
 bool FakeBatteryService_setBatteryCurrent_helper::write(yarp::os::ConnectionWriter& connection) const
 {
     return cmd.write(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_read:4038 */
 bool FakeBatteryService_setBatteryCurrent_helper::read(yarp::os::ConnectionReader& connection)
 {
     return reply.read(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_ctor:4010 */
 FakeBatteryService_setBatteryCurrent_helper::Command::Command(const double current) :
         current{current}
 {
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_connectionwriter:4058 */
 bool FakeBatteryService_setBatteryCurrent_helper::Command::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
@@ -956,6 +999,7 @@ bool FakeBatteryService_setBatteryCurrent_helper::Command::write(yarp::os::Conne
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_connectionreader:4080 */
 bool FakeBatteryService_setBatteryCurrent_helper::Command::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
@@ -966,6 +1010,7 @@ bool FakeBatteryService_setBatteryCurrent_helper::Command::read(yarp::os::Connec
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_wirewriter:4110 */
 bool FakeBatteryService_setBatteryCurrent_helper::Command::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writeTag(writer)) {
@@ -977,6 +1022,7 @@ bool FakeBatteryService_setBatteryCurrent_helper::Command::write(const yarp::os:
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writetag:4132 */
 bool FakeBatteryService_setBatteryCurrent_helper::Command::writeTag(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.writeTag(s_tag, 1, s_tag_len)) {
@@ -985,14 +1031,17 @@ bool FakeBatteryService_setBatteryCurrent_helper::Command::writeTag(const yarp::
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writeargs:4153 */
 bool FakeBatteryService_setBatteryCurrent_helper::Command::writeArgs(const yarp::os::idl::WireWriter& writer) const
 {
+/* t_yarp_generator::generate_serialize_field:1093 */
     if (!writer.writeFloat64(current)) {
         return false;
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_wirereader:4181 */
 bool FakeBatteryService_setBatteryCurrent_helper::Command::read(yarp::os::idl::WireReader& reader)
 {
     if (!readTag(reader)) {
@@ -1004,6 +1053,7 @@ bool FakeBatteryService_setBatteryCurrent_helper::Command::read(yarp::os::idl::W
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readtag:4201 */
 bool FakeBatteryService_setBatteryCurrent_helper::Command::readTag(yarp::os::idl::WireReader& reader)
 {
     std::string tag = reader.readTag(s_tag_len);
@@ -1017,13 +1067,16 @@ bool FakeBatteryService_setBatteryCurrent_helper::Command::readTag(yarp::os::idl
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readargs:4229 */
 bool FakeBatteryService_setBatteryCurrent_helper::Command::readArgs(yarp::os::idl::WireReader& reader)
 {
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
     if (!reader.readFloat64(current)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
@@ -1034,18 +1087,21 @@ bool FakeBatteryService_setBatteryCurrent_helper::Command::readArgs(yarp::os::id
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_connectionwriter:4259 */
 bool FakeBatteryService_setBatteryCurrent_helper::Reply::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_connectionreader:4280 */
 bool FakeBatteryService_setBatteryCurrent_helper::Reply::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_wirewriter:4301 */
 bool FakeBatteryService_setBatteryCurrent_helper::Reply::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.isNull()) {
@@ -1056,37 +1112,45 @@ bool FakeBatteryService_setBatteryCurrent_helper::Reply::write(const yarp::os::i
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_wirereader:4347 */
 bool FakeBatteryService_setBatteryCurrent_helper::Reply::read(yarp::os::idl::WireReader& reader [[maybe_unused]])
 {
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_call:4385 */
 void FakeBatteryService_setBatteryCurrent_helper::call(FakeBatteryService* ptr) const
 {
     ptr->setBatteryCurrent(cmd.current);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl:3924 */
 // setBatteryCharge helper class implementation
+/* t_yarp_generator::generate_service_helper_classes_impl_ctor:3963 */
 FakeBatteryService_setBatteryCharge_helper::FakeBatteryService_setBatteryCharge_helper(const double charge) :
         cmd{charge}
 {
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_write:3990 */
 bool FakeBatteryService_setBatteryCharge_helper::write(yarp::os::ConnectionWriter& connection) const
 {
     return cmd.write(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_read:4038 */
 bool FakeBatteryService_setBatteryCharge_helper::read(yarp::os::ConnectionReader& connection)
 {
     return reply.read(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_ctor:4010 */
 FakeBatteryService_setBatteryCharge_helper::Command::Command(const double charge) :
         charge{charge}
 {
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_connectionwriter:4058 */
 bool FakeBatteryService_setBatteryCharge_helper::Command::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
@@ -1096,6 +1160,7 @@ bool FakeBatteryService_setBatteryCharge_helper::Command::write(yarp::os::Connec
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_connectionreader:4080 */
 bool FakeBatteryService_setBatteryCharge_helper::Command::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
@@ -1106,6 +1171,7 @@ bool FakeBatteryService_setBatteryCharge_helper::Command::read(yarp::os::Connect
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_wirewriter:4110 */
 bool FakeBatteryService_setBatteryCharge_helper::Command::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writeTag(writer)) {
@@ -1117,6 +1183,7 @@ bool FakeBatteryService_setBatteryCharge_helper::Command::write(const yarp::os::
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writetag:4132 */
 bool FakeBatteryService_setBatteryCharge_helper::Command::writeTag(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.writeTag(s_tag, 1, s_tag_len)) {
@@ -1125,14 +1192,17 @@ bool FakeBatteryService_setBatteryCharge_helper::Command::writeTag(const yarp::o
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writeargs:4153 */
 bool FakeBatteryService_setBatteryCharge_helper::Command::writeArgs(const yarp::os::idl::WireWriter& writer) const
 {
+/* t_yarp_generator::generate_serialize_field:1093 */
     if (!writer.writeFloat64(charge)) {
         return false;
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_wirereader:4181 */
 bool FakeBatteryService_setBatteryCharge_helper::Command::read(yarp::os::idl::WireReader& reader)
 {
     if (!readTag(reader)) {
@@ -1144,6 +1214,7 @@ bool FakeBatteryService_setBatteryCharge_helper::Command::read(yarp::os::idl::Wi
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readtag:4201 */
 bool FakeBatteryService_setBatteryCharge_helper::Command::readTag(yarp::os::idl::WireReader& reader)
 {
     std::string tag = reader.readTag(s_tag_len);
@@ -1157,13 +1228,16 @@ bool FakeBatteryService_setBatteryCharge_helper::Command::readTag(yarp::os::idl:
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readargs:4229 */
 bool FakeBatteryService_setBatteryCharge_helper::Command::readArgs(yarp::os::idl::WireReader& reader)
 {
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
     if (!reader.readFloat64(charge)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
@@ -1174,18 +1248,21 @@ bool FakeBatteryService_setBatteryCharge_helper::Command::readArgs(yarp::os::idl
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_connectionwriter:4259 */
 bool FakeBatteryService_setBatteryCharge_helper::Reply::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_connectionreader:4280 */
 bool FakeBatteryService_setBatteryCharge_helper::Reply::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_wirewriter:4301 */
 bool FakeBatteryService_setBatteryCharge_helper::Reply::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.isNull()) {
@@ -1196,37 +1273,45 @@ bool FakeBatteryService_setBatteryCharge_helper::Reply::write(const yarp::os::id
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_wirereader:4347 */
 bool FakeBatteryService_setBatteryCharge_helper::Reply::read(yarp::os::idl::WireReader& reader [[maybe_unused]])
 {
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_call:4385 */
 void FakeBatteryService_setBatteryCharge_helper::call(FakeBatteryService* ptr) const
 {
     ptr->setBatteryCharge(cmd.charge);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl:3924 */
 // setBatteryStatus helper class implementation
+/* t_yarp_generator::generate_service_helper_classes_impl_ctor:3963 */
 FakeBatteryService_setBatteryStatus_helper::FakeBatteryService_setBatteryStatus_helper(const yarp::dev::IBattery::Battery_status status) :
         cmd{status}
 {
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_write:3990 */
 bool FakeBatteryService_setBatteryStatus_helper::write(yarp::os::ConnectionWriter& connection) const
 {
     return cmd.write(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_read:4038 */
 bool FakeBatteryService_setBatteryStatus_helper::read(yarp::os::ConnectionReader& connection)
 {
     return reply.read(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_ctor:4010 */
 FakeBatteryService_setBatteryStatus_helper::Command::Command(const yarp::dev::IBattery::Battery_status status) :
         status{status}
 {
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_connectionwriter:4058 */
 bool FakeBatteryService_setBatteryStatus_helper::Command::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
@@ -1236,6 +1321,7 @@ bool FakeBatteryService_setBatteryStatus_helper::Command::write(yarp::os::Connec
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_connectionreader:4080 */
 bool FakeBatteryService_setBatteryStatus_helper::Command::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
@@ -1246,6 +1332,7 @@ bool FakeBatteryService_setBatteryStatus_helper::Command::read(yarp::os::Connect
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_wirewriter:4110 */
 bool FakeBatteryService_setBatteryStatus_helper::Command::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writeTag(writer)) {
@@ -1257,6 +1344,7 @@ bool FakeBatteryService_setBatteryStatus_helper::Command::write(const yarp::os::
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writetag:4132 */
 bool FakeBatteryService_setBatteryStatus_helper::Command::writeTag(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.writeTag(s_tag, 1, s_tag_len)) {
@@ -1265,14 +1353,17 @@ bool FakeBatteryService_setBatteryStatus_helper::Command::writeTag(const yarp::o
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writeargs:4153 */
 bool FakeBatteryService_setBatteryStatus_helper::Command::writeArgs(const yarp::os::idl::WireWriter& writer) const
 {
+/* t_yarp_generator::generate_serialize_field:1093 */
     if (!writer.writeVocab32(static_cast<yarp::conf::vocab32_t>(status))) {
         return false;
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_wirereader:4181 */
 bool FakeBatteryService_setBatteryStatus_helper::Command::read(yarp::os::idl::WireReader& reader)
 {
     if (!readTag(reader)) {
@@ -1284,6 +1375,7 @@ bool FakeBatteryService_setBatteryStatus_helper::Command::read(yarp::os::idl::Wi
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readtag:4201 */
 bool FakeBatteryService_setBatteryStatus_helper::Command::readTag(yarp::os::idl::WireReader& reader)
 {
     std::string tag = reader.readTag(s_tag_len);
@@ -1297,14 +1389,17 @@ bool FakeBatteryService_setBatteryStatus_helper::Command::readTag(yarp::os::idl:
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readargs:4229 */
 bool FakeBatteryService_setBatteryStatus_helper::Command::readArgs(yarp::os::idl::WireReader& reader)
 {
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
     yarp::conf::vocab32_t _ecast;
     if (!reader.readVocab32(_ecast)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
@@ -1316,18 +1411,21 @@ bool FakeBatteryService_setBatteryStatus_helper::Command::readArgs(yarp::os::idl
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_connectionwriter:4259 */
 bool FakeBatteryService_setBatteryStatus_helper::Reply::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_connectionreader:4280 */
 bool FakeBatteryService_setBatteryStatus_helper::Reply::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_wirewriter:4301 */
 bool FakeBatteryService_setBatteryStatus_helper::Reply::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.isNull()) {
@@ -1338,37 +1436,45 @@ bool FakeBatteryService_setBatteryStatus_helper::Reply::write(const yarp::os::id
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_wirereader:4347 */
 bool FakeBatteryService_setBatteryStatus_helper::Reply::read(yarp::os::idl::WireReader& reader [[maybe_unused]])
 {
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_call:4385 */
 void FakeBatteryService_setBatteryStatus_helper::call(FakeBatteryService* ptr) const
 {
     ptr->setBatteryStatus(cmd.status);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl:3924 */
 // setBatteryInfo helper class implementation
+/* t_yarp_generator::generate_service_helper_classes_impl_ctor:3963 */
 FakeBatteryService_setBatteryInfo_helper::FakeBatteryService_setBatteryInfo_helper(const std::string& info) :
         cmd{info}
 {
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_write:3990 */
 bool FakeBatteryService_setBatteryInfo_helper::write(yarp::os::ConnectionWriter& connection) const
 {
     return cmd.write(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_read:4038 */
 bool FakeBatteryService_setBatteryInfo_helper::read(yarp::os::ConnectionReader& connection)
 {
     return reply.read(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_ctor:4010 */
 FakeBatteryService_setBatteryInfo_helper::Command::Command(const std::string& info) :
         info{info}
 {
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_connectionwriter:4058 */
 bool FakeBatteryService_setBatteryInfo_helper::Command::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
@@ -1378,6 +1484,7 @@ bool FakeBatteryService_setBatteryInfo_helper::Command::write(yarp::os::Connecti
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_connectionreader:4080 */
 bool FakeBatteryService_setBatteryInfo_helper::Command::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
@@ -1388,6 +1495,7 @@ bool FakeBatteryService_setBatteryInfo_helper::Command::read(yarp::os::Connectio
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_wirewriter:4110 */
 bool FakeBatteryService_setBatteryInfo_helper::Command::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writeTag(writer)) {
@@ -1399,6 +1507,7 @@ bool FakeBatteryService_setBatteryInfo_helper::Command::write(const yarp::os::id
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writetag:4132 */
 bool FakeBatteryService_setBatteryInfo_helper::Command::writeTag(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.writeTag(s_tag, 1, s_tag_len)) {
@@ -1407,14 +1516,17 @@ bool FakeBatteryService_setBatteryInfo_helper::Command::writeTag(const yarp::os:
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writeargs:4153 */
 bool FakeBatteryService_setBatteryInfo_helper::Command::writeArgs(const yarp::os::idl::WireWriter& writer) const
 {
+/* t_yarp_generator::generate_serialize_field:1093 */
     if (!writer.writeString(info)) {
         return false;
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_wirereader:4181 */
 bool FakeBatteryService_setBatteryInfo_helper::Command::read(yarp::os::idl::WireReader& reader)
 {
     if (!readTag(reader)) {
@@ -1426,6 +1538,7 @@ bool FakeBatteryService_setBatteryInfo_helper::Command::read(yarp::os::idl::Wire
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readtag:4201 */
 bool FakeBatteryService_setBatteryInfo_helper::Command::readTag(yarp::os::idl::WireReader& reader)
 {
     std::string tag = reader.readTag(s_tag_len);
@@ -1439,13 +1552,16 @@ bool FakeBatteryService_setBatteryInfo_helper::Command::readTag(yarp::os::idl::W
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readargs:4229 */
 bool FakeBatteryService_setBatteryInfo_helper::Command::readArgs(yarp::os::idl::WireReader& reader)
 {
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
     if (!reader.readString(info)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
@@ -1456,18 +1572,21 @@ bool FakeBatteryService_setBatteryInfo_helper::Command::readArgs(yarp::os::idl::
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_connectionwriter:4259 */
 bool FakeBatteryService_setBatteryInfo_helper::Reply::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_connectionreader:4280 */
 bool FakeBatteryService_setBatteryInfo_helper::Reply::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_wirewriter:4301 */
 bool FakeBatteryService_setBatteryInfo_helper::Reply::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.isNull()) {
@@ -1478,37 +1597,45 @@ bool FakeBatteryService_setBatteryInfo_helper::Reply::write(const yarp::os::idl:
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_wirereader:4347 */
 bool FakeBatteryService_setBatteryInfo_helper::Reply::read(yarp::os::idl::WireReader& reader [[maybe_unused]])
 {
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_call:4385 */
 void FakeBatteryService_setBatteryInfo_helper::call(FakeBatteryService* ptr) const
 {
     ptr->setBatteryInfo(cmd.info);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl:3924 */
 // setBatteryTemperature helper class implementation
+/* t_yarp_generator::generate_service_helper_classes_impl_ctor:3963 */
 FakeBatteryService_setBatteryTemperature_helper::FakeBatteryService_setBatteryTemperature_helper(const double temperature) :
         cmd{temperature}
 {
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_write:3990 */
 bool FakeBatteryService_setBatteryTemperature_helper::write(yarp::os::ConnectionWriter& connection) const
 {
     return cmd.write(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_read:4038 */
 bool FakeBatteryService_setBatteryTemperature_helper::read(yarp::os::ConnectionReader& connection)
 {
     return reply.read(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_ctor:4010 */
 FakeBatteryService_setBatteryTemperature_helper::Command::Command(const double temperature) :
         temperature{temperature}
 {
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_connectionwriter:4058 */
 bool FakeBatteryService_setBatteryTemperature_helper::Command::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
@@ -1518,6 +1645,7 @@ bool FakeBatteryService_setBatteryTemperature_helper::Command::write(yarp::os::C
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_connectionreader:4080 */
 bool FakeBatteryService_setBatteryTemperature_helper::Command::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
@@ -1528,6 +1656,7 @@ bool FakeBatteryService_setBatteryTemperature_helper::Command::read(yarp::os::Co
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_wirewriter:4110 */
 bool FakeBatteryService_setBatteryTemperature_helper::Command::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writeTag(writer)) {
@@ -1539,6 +1668,7 @@ bool FakeBatteryService_setBatteryTemperature_helper::Command::write(const yarp:
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writetag:4132 */
 bool FakeBatteryService_setBatteryTemperature_helper::Command::writeTag(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.writeTag(s_tag, 1, s_tag_len)) {
@@ -1547,14 +1677,17 @@ bool FakeBatteryService_setBatteryTemperature_helper::Command::writeTag(const ya
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writeargs:4153 */
 bool FakeBatteryService_setBatteryTemperature_helper::Command::writeArgs(const yarp::os::idl::WireWriter& writer) const
 {
+/* t_yarp_generator::generate_serialize_field:1093 */
     if (!writer.writeFloat64(temperature)) {
         return false;
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_wirereader:4181 */
 bool FakeBatteryService_setBatteryTemperature_helper::Command::read(yarp::os::idl::WireReader& reader)
 {
     if (!readTag(reader)) {
@@ -1566,6 +1699,7 @@ bool FakeBatteryService_setBatteryTemperature_helper::Command::read(yarp::os::id
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readtag:4201 */
 bool FakeBatteryService_setBatteryTemperature_helper::Command::readTag(yarp::os::idl::WireReader& reader)
 {
     std::string tag = reader.readTag(s_tag_len);
@@ -1579,13 +1713,16 @@ bool FakeBatteryService_setBatteryTemperature_helper::Command::readTag(yarp::os:
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readargs:4229 */
 bool FakeBatteryService_setBatteryTemperature_helper::Command::readArgs(yarp::os::idl::WireReader& reader)
 {
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
     if (!reader.readFloat64(temperature)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
@@ -1596,18 +1733,21 @@ bool FakeBatteryService_setBatteryTemperature_helper::Command::readArgs(yarp::os
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_connectionwriter:4259 */
 bool FakeBatteryService_setBatteryTemperature_helper::Reply::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_connectionreader:4280 */
 bool FakeBatteryService_setBatteryTemperature_helper::Reply::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_wirewriter:4301 */
 bool FakeBatteryService_setBatteryTemperature_helper::Reply::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.isNull()) {
@@ -1618,27 +1758,33 @@ bool FakeBatteryService_setBatteryTemperature_helper::Reply::write(const yarp::o
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_wirereader:4347 */
 bool FakeBatteryService_setBatteryTemperature_helper::Reply::read(yarp::os::idl::WireReader& reader [[maybe_unused]])
 {
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_call:4385 */
 void FakeBatteryService_setBatteryTemperature_helper::call(FakeBatteryService* ptr) const
 {
     ptr->setBatteryTemperature(cmd.temperature);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl:3924 */
 // getBatteryVoltage helper class implementation
+/* t_yarp_generator::generate_service_helper_classes_impl_write:3990 */
 bool FakeBatteryService_getBatteryVoltage_helper::write(yarp::os::ConnectionWriter& connection) const
 {
     return cmd.write(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_read:4038 */
 bool FakeBatteryService_getBatteryVoltage_helper::read(yarp::os::ConnectionReader& connection)
 {
     return reply.read(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_connectionwriter:4058 */
 bool FakeBatteryService_getBatteryVoltage_helper::Command::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
@@ -1648,6 +1794,7 @@ bool FakeBatteryService_getBatteryVoltage_helper::Command::write(yarp::os::Conne
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_connectionreader:4080 */
 bool FakeBatteryService_getBatteryVoltage_helper::Command::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
@@ -1658,6 +1805,7 @@ bool FakeBatteryService_getBatteryVoltage_helper::Command::read(yarp::os::Connec
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_wirewriter:4110 */
 bool FakeBatteryService_getBatteryVoltage_helper::Command::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writeTag(writer)) {
@@ -1669,6 +1817,7 @@ bool FakeBatteryService_getBatteryVoltage_helper::Command::write(const yarp::os:
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writetag:4132 */
 bool FakeBatteryService_getBatteryVoltage_helper::Command::writeTag(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.writeTag(s_tag, 1, s_tag_len)) {
@@ -1677,11 +1826,13 @@ bool FakeBatteryService_getBatteryVoltage_helper::Command::writeTag(const yarp::
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writeargs:4153 */
 bool FakeBatteryService_getBatteryVoltage_helper::Command::writeArgs(const yarp::os::idl::WireWriter& writer [[maybe_unused]]) const
 {
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_wirereader:4181 */
 bool FakeBatteryService_getBatteryVoltage_helper::Command::read(yarp::os::idl::WireReader& reader)
 {
     if (!readTag(reader)) {
@@ -1693,6 +1844,7 @@ bool FakeBatteryService_getBatteryVoltage_helper::Command::read(yarp::os::idl::W
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readtag:4201 */
 bool FakeBatteryService_getBatteryVoltage_helper::Command::readTag(yarp::os::idl::WireReader& reader)
 {
     std::string tag = reader.readTag(s_tag_len);
@@ -1706,6 +1858,7 @@ bool FakeBatteryService_getBatteryVoltage_helper::Command::readTag(yarp::os::idl
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readargs:4229 */
 bool FakeBatteryService_getBatteryVoltage_helper::Command::readArgs(yarp::os::idl::WireReader& reader)
 {
     if (!reader.noMore()) {
@@ -1715,24 +1868,28 @@ bool FakeBatteryService_getBatteryVoltage_helper::Command::readArgs(yarp::os::id
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_connectionwriter:4259 */
 bool FakeBatteryService_getBatteryVoltage_helper::Reply::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_connectionreader:4280 */
 bool FakeBatteryService_getBatteryVoltage_helper::Reply::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_wirewriter:4301 */
 bool FakeBatteryService_getBatteryVoltage_helper::Reply::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.isNull()) {
         if (!writer.writeListHeader(s_reply_len)) {
             return false;
         }
+/* t_yarp_generator::generate_serialize_field:1093 */
         if (!writer.writeFloat64(return_helper)) {
             return false;
         }
@@ -1740,38 +1897,46 @@ bool FakeBatteryService_getBatteryVoltage_helper::Reply::write(const yarp::os::i
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_wirereader:4347 */
 bool FakeBatteryService_getBatteryVoltage_helper::Reply::read(yarp::os::idl::WireReader& reader)
 {
     if (!reader.readListReturn()) {
         return false;
     }
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
     if (!reader.readFloat64(return_helper)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_call:4385 */
 void FakeBatteryService_getBatteryVoltage_helper::call(FakeBatteryService* ptr)
 {
     reply.return_helper = ptr->getBatteryVoltage();
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl:3924 */
 // getBatteryCurrent helper class implementation
+/* t_yarp_generator::generate_service_helper_classes_impl_write:3990 */
 bool FakeBatteryService_getBatteryCurrent_helper::write(yarp::os::ConnectionWriter& connection) const
 {
     return cmd.write(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_read:4038 */
 bool FakeBatteryService_getBatteryCurrent_helper::read(yarp::os::ConnectionReader& connection)
 {
     return reply.read(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_connectionwriter:4058 */
 bool FakeBatteryService_getBatteryCurrent_helper::Command::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
@@ -1781,6 +1946,7 @@ bool FakeBatteryService_getBatteryCurrent_helper::Command::write(yarp::os::Conne
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_connectionreader:4080 */
 bool FakeBatteryService_getBatteryCurrent_helper::Command::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
@@ -1791,6 +1957,7 @@ bool FakeBatteryService_getBatteryCurrent_helper::Command::read(yarp::os::Connec
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_wirewriter:4110 */
 bool FakeBatteryService_getBatteryCurrent_helper::Command::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writeTag(writer)) {
@@ -1802,6 +1969,7 @@ bool FakeBatteryService_getBatteryCurrent_helper::Command::write(const yarp::os:
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writetag:4132 */
 bool FakeBatteryService_getBatteryCurrent_helper::Command::writeTag(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.writeTag(s_tag, 1, s_tag_len)) {
@@ -1810,11 +1978,13 @@ bool FakeBatteryService_getBatteryCurrent_helper::Command::writeTag(const yarp::
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writeargs:4153 */
 bool FakeBatteryService_getBatteryCurrent_helper::Command::writeArgs(const yarp::os::idl::WireWriter& writer [[maybe_unused]]) const
 {
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_wirereader:4181 */
 bool FakeBatteryService_getBatteryCurrent_helper::Command::read(yarp::os::idl::WireReader& reader)
 {
     if (!readTag(reader)) {
@@ -1826,6 +1996,7 @@ bool FakeBatteryService_getBatteryCurrent_helper::Command::read(yarp::os::idl::W
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readtag:4201 */
 bool FakeBatteryService_getBatteryCurrent_helper::Command::readTag(yarp::os::idl::WireReader& reader)
 {
     std::string tag = reader.readTag(s_tag_len);
@@ -1839,6 +2010,7 @@ bool FakeBatteryService_getBatteryCurrent_helper::Command::readTag(yarp::os::idl
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readargs:4229 */
 bool FakeBatteryService_getBatteryCurrent_helper::Command::readArgs(yarp::os::idl::WireReader& reader)
 {
     if (!reader.noMore()) {
@@ -1848,24 +2020,28 @@ bool FakeBatteryService_getBatteryCurrent_helper::Command::readArgs(yarp::os::id
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_connectionwriter:4259 */
 bool FakeBatteryService_getBatteryCurrent_helper::Reply::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_connectionreader:4280 */
 bool FakeBatteryService_getBatteryCurrent_helper::Reply::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_wirewriter:4301 */
 bool FakeBatteryService_getBatteryCurrent_helper::Reply::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.isNull()) {
         if (!writer.writeListHeader(s_reply_len)) {
             return false;
         }
+/* t_yarp_generator::generate_serialize_field:1093 */
         if (!writer.writeFloat64(return_helper)) {
             return false;
         }
@@ -1873,38 +2049,46 @@ bool FakeBatteryService_getBatteryCurrent_helper::Reply::write(const yarp::os::i
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_wirereader:4347 */
 bool FakeBatteryService_getBatteryCurrent_helper::Reply::read(yarp::os::idl::WireReader& reader)
 {
     if (!reader.readListReturn()) {
         return false;
     }
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
     if (!reader.readFloat64(return_helper)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_call:4385 */
 void FakeBatteryService_getBatteryCurrent_helper::call(FakeBatteryService* ptr)
 {
     reply.return_helper = ptr->getBatteryCurrent();
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl:3924 */
 // getBatteryCharge helper class implementation
+/* t_yarp_generator::generate_service_helper_classes_impl_write:3990 */
 bool FakeBatteryService_getBatteryCharge_helper::write(yarp::os::ConnectionWriter& connection) const
 {
     return cmd.write(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_read:4038 */
 bool FakeBatteryService_getBatteryCharge_helper::read(yarp::os::ConnectionReader& connection)
 {
     return reply.read(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_connectionwriter:4058 */
 bool FakeBatteryService_getBatteryCharge_helper::Command::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
@@ -1914,6 +2098,7 @@ bool FakeBatteryService_getBatteryCharge_helper::Command::write(yarp::os::Connec
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_connectionreader:4080 */
 bool FakeBatteryService_getBatteryCharge_helper::Command::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
@@ -1924,6 +2109,7 @@ bool FakeBatteryService_getBatteryCharge_helper::Command::read(yarp::os::Connect
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_wirewriter:4110 */
 bool FakeBatteryService_getBatteryCharge_helper::Command::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writeTag(writer)) {
@@ -1935,6 +2121,7 @@ bool FakeBatteryService_getBatteryCharge_helper::Command::write(const yarp::os::
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writetag:4132 */
 bool FakeBatteryService_getBatteryCharge_helper::Command::writeTag(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.writeTag(s_tag, 1, s_tag_len)) {
@@ -1943,11 +2130,13 @@ bool FakeBatteryService_getBatteryCharge_helper::Command::writeTag(const yarp::o
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writeargs:4153 */
 bool FakeBatteryService_getBatteryCharge_helper::Command::writeArgs(const yarp::os::idl::WireWriter& writer [[maybe_unused]]) const
 {
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_wirereader:4181 */
 bool FakeBatteryService_getBatteryCharge_helper::Command::read(yarp::os::idl::WireReader& reader)
 {
     if (!readTag(reader)) {
@@ -1959,6 +2148,7 @@ bool FakeBatteryService_getBatteryCharge_helper::Command::read(yarp::os::idl::Wi
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readtag:4201 */
 bool FakeBatteryService_getBatteryCharge_helper::Command::readTag(yarp::os::idl::WireReader& reader)
 {
     std::string tag = reader.readTag(s_tag_len);
@@ -1972,6 +2162,7 @@ bool FakeBatteryService_getBatteryCharge_helper::Command::readTag(yarp::os::idl:
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readargs:4229 */
 bool FakeBatteryService_getBatteryCharge_helper::Command::readArgs(yarp::os::idl::WireReader& reader)
 {
     if (!reader.noMore()) {
@@ -1981,24 +2172,28 @@ bool FakeBatteryService_getBatteryCharge_helper::Command::readArgs(yarp::os::idl
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_connectionwriter:4259 */
 bool FakeBatteryService_getBatteryCharge_helper::Reply::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_connectionreader:4280 */
 bool FakeBatteryService_getBatteryCharge_helper::Reply::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_wirewriter:4301 */
 bool FakeBatteryService_getBatteryCharge_helper::Reply::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.isNull()) {
         if (!writer.writeListHeader(s_reply_len)) {
             return false;
         }
+/* t_yarp_generator::generate_serialize_field:1093 */
         if (!writer.writeFloat64(return_helper)) {
             return false;
         }
@@ -2006,38 +2201,46 @@ bool FakeBatteryService_getBatteryCharge_helper::Reply::write(const yarp::os::id
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_wirereader:4347 */
 bool FakeBatteryService_getBatteryCharge_helper::Reply::read(yarp::os::idl::WireReader& reader)
 {
     if (!reader.readListReturn()) {
         return false;
     }
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
     if (!reader.readFloat64(return_helper)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_call:4385 */
 void FakeBatteryService_getBatteryCharge_helper::call(FakeBatteryService* ptr)
 {
     reply.return_helper = ptr->getBatteryCharge();
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl:3924 */
 // getBatteryStatus helper class implementation
+/* t_yarp_generator::generate_service_helper_classes_impl_write:3990 */
 bool FakeBatteryService_getBatteryStatus_helper::write(yarp::os::ConnectionWriter& connection) const
 {
     return cmd.write(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_read:4038 */
 bool FakeBatteryService_getBatteryStatus_helper::read(yarp::os::ConnectionReader& connection)
 {
     return reply.read(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_connectionwriter:4058 */
 bool FakeBatteryService_getBatteryStatus_helper::Command::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
@@ -2047,6 +2250,7 @@ bool FakeBatteryService_getBatteryStatus_helper::Command::write(yarp::os::Connec
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_connectionreader:4080 */
 bool FakeBatteryService_getBatteryStatus_helper::Command::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
@@ -2057,6 +2261,7 @@ bool FakeBatteryService_getBatteryStatus_helper::Command::read(yarp::os::Connect
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_wirewriter:4110 */
 bool FakeBatteryService_getBatteryStatus_helper::Command::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writeTag(writer)) {
@@ -2068,6 +2273,7 @@ bool FakeBatteryService_getBatteryStatus_helper::Command::write(const yarp::os::
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writetag:4132 */
 bool FakeBatteryService_getBatteryStatus_helper::Command::writeTag(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.writeTag(s_tag, 1, s_tag_len)) {
@@ -2076,11 +2282,13 @@ bool FakeBatteryService_getBatteryStatus_helper::Command::writeTag(const yarp::o
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writeargs:4153 */
 bool FakeBatteryService_getBatteryStatus_helper::Command::writeArgs(const yarp::os::idl::WireWriter& writer [[maybe_unused]]) const
 {
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_wirereader:4181 */
 bool FakeBatteryService_getBatteryStatus_helper::Command::read(yarp::os::idl::WireReader& reader)
 {
     if (!readTag(reader)) {
@@ -2092,6 +2300,7 @@ bool FakeBatteryService_getBatteryStatus_helper::Command::read(yarp::os::idl::Wi
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readtag:4201 */
 bool FakeBatteryService_getBatteryStatus_helper::Command::readTag(yarp::os::idl::WireReader& reader)
 {
     std::string tag = reader.readTag(s_tag_len);
@@ -2105,6 +2314,7 @@ bool FakeBatteryService_getBatteryStatus_helper::Command::readTag(yarp::os::idl:
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readargs:4229 */
 bool FakeBatteryService_getBatteryStatus_helper::Command::readArgs(yarp::os::idl::WireReader& reader)
 {
     if (!reader.noMore()) {
@@ -2114,24 +2324,28 @@ bool FakeBatteryService_getBatteryStatus_helper::Command::readArgs(yarp::os::idl
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_connectionwriter:4259 */
 bool FakeBatteryService_getBatteryStatus_helper::Reply::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_connectionreader:4280 */
 bool FakeBatteryService_getBatteryStatus_helper::Reply::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_wirewriter:4301 */
 bool FakeBatteryService_getBatteryStatus_helper::Reply::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.isNull()) {
         if (!writer.writeListHeader(s_reply_len)) {
             return false;
         }
+/* t_yarp_generator::generate_serialize_field:1093 */
         if (!writer.writeVocab32(static_cast<yarp::conf::vocab32_t>(return_helper))) {
             return false;
         }
@@ -2139,17 +2353,20 @@ bool FakeBatteryService_getBatteryStatus_helper::Reply::write(const yarp::os::id
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_wirereader:4347 */
 bool FakeBatteryService_getBatteryStatus_helper::Reply::read(yarp::os::idl::WireReader& reader)
 {
     if (!reader.readListReturn()) {
         return false;
     }
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
     yarp::conf::vocab32_t _ecast;
     if (!reader.readVocab32(_ecast)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
@@ -2157,22 +2374,27 @@ bool FakeBatteryService_getBatteryStatus_helper::Reply::read(yarp::os::idl::Wire
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_call:4385 */
 void FakeBatteryService_getBatteryStatus_helper::call(FakeBatteryService* ptr)
 {
     reply.return_helper = ptr->getBatteryStatus();
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl:3924 */
 // getBatteryStatusString helper class implementation
+/* t_yarp_generator::generate_service_helper_classes_impl_write:3990 */
 bool FakeBatteryService_getBatteryStatusString_helper::write(yarp::os::ConnectionWriter& connection) const
 {
     return cmd.write(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_read:4038 */
 bool FakeBatteryService_getBatteryStatusString_helper::read(yarp::os::ConnectionReader& connection)
 {
     return reply.read(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_connectionwriter:4058 */
 bool FakeBatteryService_getBatteryStatusString_helper::Command::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
@@ -2182,6 +2404,7 @@ bool FakeBatteryService_getBatteryStatusString_helper::Command::write(yarp::os::
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_connectionreader:4080 */
 bool FakeBatteryService_getBatteryStatusString_helper::Command::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
@@ -2192,6 +2415,7 @@ bool FakeBatteryService_getBatteryStatusString_helper::Command::read(yarp::os::C
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_wirewriter:4110 */
 bool FakeBatteryService_getBatteryStatusString_helper::Command::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writeTag(writer)) {
@@ -2203,6 +2427,7 @@ bool FakeBatteryService_getBatteryStatusString_helper::Command::write(const yarp
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writetag:4132 */
 bool FakeBatteryService_getBatteryStatusString_helper::Command::writeTag(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.writeTag(s_tag, 1, s_tag_len)) {
@@ -2211,11 +2436,13 @@ bool FakeBatteryService_getBatteryStatusString_helper::Command::writeTag(const y
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writeargs:4153 */
 bool FakeBatteryService_getBatteryStatusString_helper::Command::writeArgs(const yarp::os::idl::WireWriter& writer [[maybe_unused]]) const
 {
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_wirereader:4181 */
 bool FakeBatteryService_getBatteryStatusString_helper::Command::read(yarp::os::idl::WireReader& reader)
 {
     if (!readTag(reader)) {
@@ -2227,6 +2454,7 @@ bool FakeBatteryService_getBatteryStatusString_helper::Command::read(yarp::os::i
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readtag:4201 */
 bool FakeBatteryService_getBatteryStatusString_helper::Command::readTag(yarp::os::idl::WireReader& reader)
 {
     std::string tag = reader.readTag(s_tag_len);
@@ -2240,6 +2468,7 @@ bool FakeBatteryService_getBatteryStatusString_helper::Command::readTag(yarp::os
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readargs:4229 */
 bool FakeBatteryService_getBatteryStatusString_helper::Command::readArgs(yarp::os::idl::WireReader& reader)
 {
     if (!reader.noMore()) {
@@ -2249,24 +2478,28 @@ bool FakeBatteryService_getBatteryStatusString_helper::Command::readArgs(yarp::o
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_connectionwriter:4259 */
 bool FakeBatteryService_getBatteryStatusString_helper::Reply::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_connectionreader:4280 */
 bool FakeBatteryService_getBatteryStatusString_helper::Reply::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_wirewriter:4301 */
 bool FakeBatteryService_getBatteryStatusString_helper::Reply::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.isNull()) {
         if (!writer.writeListHeader(s_reply_len)) {
             return false;
         }
+/* t_yarp_generator::generate_serialize_field:1093 */
         if (!writer.writeString(return_helper)) {
             return false;
         }
@@ -2274,38 +2507,46 @@ bool FakeBatteryService_getBatteryStatusString_helper::Reply::write(const yarp::
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_wirereader:4347 */
 bool FakeBatteryService_getBatteryStatusString_helper::Reply::read(yarp::os::idl::WireReader& reader)
 {
     if (!reader.readListReturn()) {
         return false;
     }
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
     if (!reader.readString(return_helper)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_call:4385 */
 void FakeBatteryService_getBatteryStatusString_helper::call(FakeBatteryService* ptr)
 {
     reply.return_helper = ptr->getBatteryStatusString();
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl:3924 */
 // getBatteryInfo helper class implementation
+/* t_yarp_generator::generate_service_helper_classes_impl_write:3990 */
 bool FakeBatteryService_getBatteryInfo_helper::write(yarp::os::ConnectionWriter& connection) const
 {
     return cmd.write(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_read:4038 */
 bool FakeBatteryService_getBatteryInfo_helper::read(yarp::os::ConnectionReader& connection)
 {
     return reply.read(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_connectionwriter:4058 */
 bool FakeBatteryService_getBatteryInfo_helper::Command::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
@@ -2315,6 +2556,7 @@ bool FakeBatteryService_getBatteryInfo_helper::Command::write(yarp::os::Connecti
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_connectionreader:4080 */
 bool FakeBatteryService_getBatteryInfo_helper::Command::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
@@ -2325,6 +2567,7 @@ bool FakeBatteryService_getBatteryInfo_helper::Command::read(yarp::os::Connectio
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_wirewriter:4110 */
 bool FakeBatteryService_getBatteryInfo_helper::Command::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writeTag(writer)) {
@@ -2336,6 +2579,7 @@ bool FakeBatteryService_getBatteryInfo_helper::Command::write(const yarp::os::id
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writetag:4132 */
 bool FakeBatteryService_getBatteryInfo_helper::Command::writeTag(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.writeTag(s_tag, 1, s_tag_len)) {
@@ -2344,11 +2588,13 @@ bool FakeBatteryService_getBatteryInfo_helper::Command::writeTag(const yarp::os:
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writeargs:4153 */
 bool FakeBatteryService_getBatteryInfo_helper::Command::writeArgs(const yarp::os::idl::WireWriter& writer [[maybe_unused]]) const
 {
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_wirereader:4181 */
 bool FakeBatteryService_getBatteryInfo_helper::Command::read(yarp::os::idl::WireReader& reader)
 {
     if (!readTag(reader)) {
@@ -2360,6 +2606,7 @@ bool FakeBatteryService_getBatteryInfo_helper::Command::read(yarp::os::idl::Wire
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readtag:4201 */
 bool FakeBatteryService_getBatteryInfo_helper::Command::readTag(yarp::os::idl::WireReader& reader)
 {
     std::string tag = reader.readTag(s_tag_len);
@@ -2373,6 +2620,7 @@ bool FakeBatteryService_getBatteryInfo_helper::Command::readTag(yarp::os::idl::W
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readargs:4229 */
 bool FakeBatteryService_getBatteryInfo_helper::Command::readArgs(yarp::os::idl::WireReader& reader)
 {
     if (!reader.noMore()) {
@@ -2382,24 +2630,28 @@ bool FakeBatteryService_getBatteryInfo_helper::Command::readArgs(yarp::os::idl::
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_connectionwriter:4259 */
 bool FakeBatteryService_getBatteryInfo_helper::Reply::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_connectionreader:4280 */
 bool FakeBatteryService_getBatteryInfo_helper::Reply::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_wirewriter:4301 */
 bool FakeBatteryService_getBatteryInfo_helper::Reply::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.isNull()) {
         if (!writer.writeListHeader(s_reply_len)) {
             return false;
         }
+/* t_yarp_generator::generate_serialize_field:1093 */
         if (!writer.writeString(return_helper)) {
             return false;
         }
@@ -2407,38 +2659,46 @@ bool FakeBatteryService_getBatteryInfo_helper::Reply::write(const yarp::os::idl:
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_wirereader:4347 */
 bool FakeBatteryService_getBatteryInfo_helper::Reply::read(yarp::os::idl::WireReader& reader)
 {
     if (!reader.readListReturn()) {
         return false;
     }
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
     if (!reader.readString(return_helper)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_call:4385 */
 void FakeBatteryService_getBatteryInfo_helper::call(FakeBatteryService* ptr)
 {
     reply.return_helper = ptr->getBatteryInfo();
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl:3924 */
 // getBatteryTemperature helper class implementation
+/* t_yarp_generator::generate_service_helper_classes_impl_write:3990 */
 bool FakeBatteryService_getBatteryTemperature_helper::write(yarp::os::ConnectionWriter& connection) const
 {
     return cmd.write(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_read:4038 */
 bool FakeBatteryService_getBatteryTemperature_helper::read(yarp::os::ConnectionReader& connection)
 {
     return reply.read(connection);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_connectionwriter:4058 */
 bool FakeBatteryService_getBatteryTemperature_helper::Command::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
@@ -2448,6 +2708,7 @@ bool FakeBatteryService_getBatteryTemperature_helper::Command::write(yarp::os::C
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_connectionreader:4080 */
 bool FakeBatteryService_getBatteryTemperature_helper::Command::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
@@ -2458,6 +2719,7 @@ bool FakeBatteryService_getBatteryTemperature_helper::Command::read(yarp::os::Co
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_write_wirewriter:4110 */
 bool FakeBatteryService_getBatteryTemperature_helper::Command::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writeTag(writer)) {
@@ -2469,6 +2731,7 @@ bool FakeBatteryService_getBatteryTemperature_helper::Command::write(const yarp:
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writetag:4132 */
 bool FakeBatteryService_getBatteryTemperature_helper::Command::writeTag(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.writeTag(s_tag, 1, s_tag_len)) {
@@ -2477,11 +2740,13 @@ bool FakeBatteryService_getBatteryTemperature_helper::Command::writeTag(const ya
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_writeargs:4153 */
 bool FakeBatteryService_getBatteryTemperature_helper::Command::writeArgs(const yarp::os::idl::WireWriter& writer [[maybe_unused]]) const
 {
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_read_wirereader:4181 */
 bool FakeBatteryService_getBatteryTemperature_helper::Command::read(yarp::os::idl::WireReader& reader)
 {
     if (!readTag(reader)) {
@@ -2493,6 +2758,7 @@ bool FakeBatteryService_getBatteryTemperature_helper::Command::read(yarp::os::id
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readtag:4201 */
 bool FakeBatteryService_getBatteryTemperature_helper::Command::readTag(yarp::os::idl::WireReader& reader)
 {
     std::string tag = reader.readTag(s_tag_len);
@@ -2506,6 +2772,7 @@ bool FakeBatteryService_getBatteryTemperature_helper::Command::readTag(yarp::os:
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_command_readargs:4229 */
 bool FakeBatteryService_getBatteryTemperature_helper::Command::readArgs(yarp::os::idl::WireReader& reader)
 {
     if (!reader.noMore()) {
@@ -2515,24 +2782,28 @@ bool FakeBatteryService_getBatteryTemperature_helper::Command::readArgs(yarp::os
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_connectionwriter:4259 */
 bool FakeBatteryService_getBatteryTemperature_helper::Reply::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
     return write(writer);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_connectionreader:4280 */
 bool FakeBatteryService_getBatteryTemperature_helper::Reply::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
     return read(reader);
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_write_wirewriter:4301 */
 bool FakeBatteryService_getBatteryTemperature_helper::Reply::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!writer.isNull()) {
         if (!writer.writeListHeader(s_reply_len)) {
             return false;
         }
+/* t_yarp_generator::generate_serialize_field:1093 */
         if (!writer.writeFloat64(return_helper)) {
             return false;
         }
@@ -2540,33 +2811,39 @@ bool FakeBatteryService_getBatteryTemperature_helper::Reply::write(const yarp::o
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_reply_read_wirereader:4347 */
 bool FakeBatteryService_getBatteryTemperature_helper::Reply::read(yarp::os::idl::WireReader& reader)
 {
     if (!reader.readListReturn()) {
         return false;
     }
+/* t_yarp_generator::generate_deserialize_field:1361 */
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
     if (!reader.readFloat64(return_helper)) {
+/* t_yarp_generator::generate_deserialize_field_fallback:1344 */
         reader.fail();
         return false;
     }
     return true;
 }
 
+/* t_yarp_generator::generate_service_helper_classes_impl_call:4385 */
 void FakeBatteryService_getBatteryTemperature_helper::call(FakeBatteryService* ptr)
 {
     reply.return_helper = ptr->getBatteryTemperature();
 }
 
+/* t_yarp_generator::generate_service_constructor:4425 */
 // Constructor
 FakeBatteryService::FakeBatteryService()
 {
     yarp().setOwner(*this);
 }
 
+/* t_yarp_generator::generate_service_method:4450 */
 void FakeBatteryService::setBatteryVoltage(const double voltage)
 {
     if (!yarp().canWrite()) {
@@ -2576,6 +2853,7 @@ void FakeBatteryService::setBatteryVoltage(const double voltage)
     yarp().write(helper);
 }
 
+/* t_yarp_generator::generate_service_method:4450 */
 void FakeBatteryService::setBatteryCurrent(const double current)
 {
     if (!yarp().canWrite()) {
@@ -2585,6 +2863,7 @@ void FakeBatteryService::setBatteryCurrent(const double current)
     yarp().write(helper);
 }
 
+/* t_yarp_generator::generate_service_method:4450 */
 void FakeBatteryService::setBatteryCharge(const double charge)
 {
     if (!yarp().canWrite()) {
@@ -2594,6 +2873,7 @@ void FakeBatteryService::setBatteryCharge(const double charge)
     yarp().write(helper);
 }
 
+/* t_yarp_generator::generate_service_method:4450 */
 void FakeBatteryService::setBatteryStatus(const yarp::dev::IBattery::Battery_status status)
 {
     if (!yarp().canWrite()) {
@@ -2603,6 +2883,7 @@ void FakeBatteryService::setBatteryStatus(const yarp::dev::IBattery::Battery_sta
     yarp().write(helper);
 }
 
+/* t_yarp_generator::generate_service_method:4450 */
 void FakeBatteryService::setBatteryInfo(const std::string& info)
 {
     if (!yarp().canWrite()) {
@@ -2612,6 +2893,7 @@ void FakeBatteryService::setBatteryInfo(const std::string& info)
     yarp().write(helper);
 }
 
+/* t_yarp_generator::generate_service_method:4450 */
 void FakeBatteryService::setBatteryTemperature(const double temperature)
 {
     if (!yarp().canWrite()) {
@@ -2621,6 +2903,7 @@ void FakeBatteryService::setBatteryTemperature(const double temperature)
     yarp().write(helper);
 }
 
+/* t_yarp_generator::generate_service_method:4450 */
 double FakeBatteryService::getBatteryVoltage()
 {
     if (!yarp().canWrite()) {
@@ -2631,6 +2914,7 @@ double FakeBatteryService::getBatteryVoltage()
     return ok ? helper.reply.return_helper : double{};
 }
 
+/* t_yarp_generator::generate_service_method:4450 */
 double FakeBatteryService::getBatteryCurrent()
 {
     if (!yarp().canWrite()) {
@@ -2641,6 +2925,7 @@ double FakeBatteryService::getBatteryCurrent()
     return ok ? helper.reply.return_helper : double{};
 }
 
+/* t_yarp_generator::generate_service_method:4450 */
 double FakeBatteryService::getBatteryCharge()
 {
     if (!yarp().canWrite()) {
@@ -2651,6 +2936,7 @@ double FakeBatteryService::getBatteryCharge()
     return ok ? helper.reply.return_helper : double{};
 }
 
+/* t_yarp_generator::generate_service_method:4450 */
 yarp::dev::IBattery::Battery_status FakeBatteryService::getBatteryStatus()
 {
     if (!yarp().canWrite()) {
@@ -2661,6 +2947,7 @@ yarp::dev::IBattery::Battery_status FakeBatteryService::getBatteryStatus()
     return ok ? helper.reply.return_helper : yarp::dev::IBattery::Battery_status{};
 }
 
+/* t_yarp_generator::generate_service_method:4450 */
 std::string FakeBatteryService::getBatteryStatusString()
 {
     if (!yarp().canWrite()) {
@@ -2671,6 +2958,7 @@ std::string FakeBatteryService::getBatteryStatusString()
     return ok ? helper.reply.return_helper : std::string{};
 }
 
+/* t_yarp_generator::generate_service_method:4450 */
 std::string FakeBatteryService::getBatteryInfo()
 {
     if (!yarp().canWrite()) {
@@ -2681,6 +2969,7 @@ std::string FakeBatteryService::getBatteryInfo()
     return ok ? helper.reply.return_helper : std::string{};
 }
 
+/* t_yarp_generator::generate_service_method:4450 */
 double FakeBatteryService::getBatteryTemperature()
 {
     if (!yarp().canWrite()) {
@@ -2691,6 +2980,7 @@ double FakeBatteryService::getBatteryTemperature()
     return ok ? helper.reply.return_helper : double{};
 }
 
+/* t_yarp_generator::generate_service_help:4503 */
 // help method
 std::vector<std::string> FakeBatteryService::help(const std::string& functionName)
 {
@@ -2765,6 +3055,7 @@ std::vector<std::string> FakeBatteryService::help(const std::string& functionNam
     return helpString;
 }
 
+/* t_yarp_generator::generate_service_read:4585 */
 // read from ConnectionReader
 bool FakeBatteryService::read(yarp::os::ConnectionReader& connection)
 {

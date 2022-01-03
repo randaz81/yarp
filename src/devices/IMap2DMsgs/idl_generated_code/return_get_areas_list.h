@@ -14,6 +14,20 @@
 #include <yarp/os/Wire.h>
 #include <yarp/os/idl/WireTypes.h>
 
+class return_get_areas_listRandazClass2{
+public:
+    // Fields
+    bool retval{false};
+    std::vector<std::string> areas{};
+
+    // Default constructor
+    return_get_areas_listRandazClass2() = default;
+
+    // Constructor with field values
+    return_get_areas_listRandazClass2(const bool retval,
+                                      const std::vector<std::string>& areas);
+
+};
 class return_get_areas_list :
         public yarp::os::idl::WirePortable
 {

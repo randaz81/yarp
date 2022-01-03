@@ -23,17 +23,17 @@ class ILocalization2DRPCd : public ILocalization2DMsgs
 
     bool start_localization_service_RPC() override;
     bool stop_localization_service_RPC()  override;
-    return_get_localization_status get_localization_status_RPC() override;
-    return_get_estimated_poses     get_estimated_poses_RPC() override;
-    return_get_current_position1   get_current_position1_RPC() override;
-    return_get_current_position2   get_current_position2_RPC() override;
-    return_get_estimated_odometry  get_estimated_odometry_RPC() override;
+    return_get_localization_statusStorage get_localization_status_RPC() override;
+    return_get_estimated_posesStorage     get_estimated_poses_RPC() override;
+    return_get_current_position1Storage   get_current_position1_RPC() override;
+    return_get_current_position2Storage   get_current_position2_RPC() override;
+    return_get_estimated_odometryStorage  get_estimated_odometry_RPC() override;
     bool set_initial_pose1_RPC(const yarp::dev::Nav2D::Map2DLocation& loc) override;
     bool set_initial_pose2_RPC(const yarp::dev::Nav2D::Map2DLocation& loc, const yarp::sig::Matrix& cov) override;
 
     std::mutex* getMutex() {return &m_mutex;}
 
-    yarp::dev::OdometryData                     m_current_odometry;
+    yarp::dev::Nav2D::Odometry                  m_current_odometry;
     yarp::dev::Nav2D::Map2DLocation             m_current_position;
     yarp::dev::Nav2D::LocalizationStatusEnum    m_current_status = yarp::dev::Nav2D::LocalizationStatusEnum::localization_status_not_yet_localized;
 

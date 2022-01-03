@@ -14,6 +14,20 @@
 #include <yarp/os/Wire.h>
 #include <yarp/os/idl/WireTypes.h>
 
+class return_get_name_of_current_targetRandazClass2{
+public:
+    // Fields
+    bool ret{false};
+    std::string name{};
+
+    // Default constructor
+    return_get_name_of_current_targetRandazClass2() = default;
+
+    // Constructor with field values
+    return_get_name_of_current_targetRandazClass2(const bool ret,
+                                                  const std::string& name);
+
+};
 class return_get_name_of_current_target :
         public yarp::os::idl::WirePortable
 {

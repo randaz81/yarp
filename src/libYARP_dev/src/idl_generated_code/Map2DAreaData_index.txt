@@ -1,2 +1,4 @@
-yarp/dev/Map2DAreaData.h
-yarp/dev/Map2DAreaData.cpp
+yarp/dev/Nav2D/Map2DAreaDataStorage.h
+yarp/dev/Nav2D/Map2DAreaDataStorage.cpp
+yarp/dev/Nav2D/Map2DAreaDataSerializer.h
+yarp/dev/Nav2D/Map2DAreaDataSerializer.cpp

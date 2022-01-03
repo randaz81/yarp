@@ -18,6 +18,24 @@
 
 namespace yarp::dev {
 
+class YARP_dev_API audioBufferSizeDataRandazClass2{
+public:
+    // Fields
+    std::int32_t m_samples{0};
+    std::int32_t m_channels{0};
+    std::int32_t m_depth{0};
+    std::int32_t size{0};
+
+    // Default constructor
+    audioBufferSizeDataRandazClass2() = default;
+
+    // Constructor with field values
+    audioBufferSizeDataRandazClass2(const std::int32_t m_samples,
+                                    const std::int32_t m_channels,
+                                    const std::int32_t m_depth,
+                                    const std::int32_t size);
+
+};
 class YARP_dev_API audioBufferSizeData :
         public yarp::os::idl::WirePortable
 {

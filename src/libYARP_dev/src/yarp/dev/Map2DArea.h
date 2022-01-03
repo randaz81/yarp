@@ -10,7 +10,7 @@
 #include <yarp/math/Vec2D.h>
 #include <yarp/dev/api.h>
 #include <yarp/dev/Map2DLocation.h>
-#include <yarp/dev/Map2DAreaData.h>
+#include <yarp/dev/Nav2D/Map2DAreaDataStorage.h>
 #include <sstream>
 #include <string>
 #include <vector>
@@ -19,7 +19,7 @@
 * \file Map2DArea.h contains the definition of a Map2DArea type
 */
 namespace yarp::dev::Nav2D {
-class YARP_dev_API Map2DArea : public Map2DAreaData
+class YARP_dev_API Map2DArea : public Map2DAreaDataStorage
 {
 public:
     /**
@@ -37,9 +37,19 @@ public:
     Map2DArea(const std::string& map_name, const std::vector<yarp::dev::Nav2D::Map2DLocation>& area_points, const std::string& desc = "");
 
     /**
+     * Conversion Constructor
+     */
+    Map2DArea(const Map2DAreaDataStorage& s_map);
+
+    /**
      * Default constructor: the map name is empty, coordinates are set to zero.
      */
     Map2DArea();
+
+    /**
+     * Default destructor
+     */
+    virtual ~Map2DArea() = default;
 
     /**
      * Returns text representation of the area.
@@ -106,25 +116,6 @@ public:
      */
     void clear();
 
-    /**
-     * Serialization methods
-     */
-    bool read(yarp::os::idl::WireReader& reader) override
-    {
-        return Map2DAreaData::read(reader);
-    }
-    bool write(const yarp::os::idl::WireWriter& writer) const override
-    {
-        return Map2DAreaData::write(writer);
-    }
-    bool read(yarp::os::ConnectionReader& reader) override
-    {
-        return Map2DAreaData::read(reader);
-    }
-    bool write(yarp::os::ConnectionWriter& writer) const override
-    {
-        return Map2DAreaData::write(writer);
-    }
 };
 } // namespace yarp::dev::Nav2D
 

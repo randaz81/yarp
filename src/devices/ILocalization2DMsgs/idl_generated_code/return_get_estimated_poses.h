@@ -15,6 +15,20 @@
 #include <yarp/os/idl/WireTypes.h>
 #include <yarp/dev/Map2DLocation.h>
 
+class return_get_estimated_posesRandazClass2{
+public:
+    // Fields
+    bool ret{false};
+    std::vector<yarp::dev::Nav2D::Map2DLocation> poses{};
+
+    // Default constructor
+    return_get_estimated_posesRandazClass2() = default;
+
+    // Constructor with field values
+    return_get_estimated_posesRandazClass2(const bool ret,
+                                           const std::vector<yarp::dev::Nav2D::Map2DLocation>& poses);
+
+};
 class return_get_estimated_poses :
         public yarp::os::idl::WirePortable
 {

@@ -11,6 +11,14 @@
 #include <return_get_abs_loc_of_curr_target.h>
 
 // Constructor with field values
+return_get_abs_loc_of_curr_targetRandazClass2::return_get_abs_loc_of_curr_targetRandazClass2(const bool ret,
+                                                                                             const yarp::dev::Nav2D::Map2DLocation& loc) :
+        ret(ret),
+        loc(loc)
+{
+}
+
+// Constructor with field values
 return_get_abs_loc_of_curr_target::return_get_abs_loc_of_curr_target(const bool ret,
                                                                      const yarp::dev::Nav2D::Map2DLocation& loc) :
         WirePortable(),

@@ -19,6 +19,60 @@
 
 namespace yarp::dev::impl {
 
+class YARP_dev_API jointDataRandazClass2{
+public:
+    // Fields
+    yarp::sig::VectorOf<double> jointPosition{};
+    bool jointPosition_isValid{false};
+    yarp::sig::VectorOf<double> jointVelocity{};
+    bool jointVelocity_isValid{false};
+    yarp::sig::VectorOf<double> jointAcceleration{};
+    bool jointAcceleration_isValid{false};
+    yarp::sig::VectorOf<double> motorPosition{};
+    bool motorPosition_isValid{false};
+    yarp::sig::VectorOf<double> motorVelocity{};
+    bool motorVelocity_isValid{false};
+    yarp::sig::VectorOf<double> motorAcceleration{};
+    bool motorAcceleration_isValid{false};
+    yarp::sig::VectorOf<double> torque{};
+    bool torque_isValid{false};
+    yarp::sig::VectorOf<double> pwmDutycycle{};
+    bool pwmDutycycle_isValid{false};
+    yarp::sig::VectorOf<double> current{};
+    bool current_isValid{false};
+    yarp::sig::VectorOf<int> controlMode{};
+    bool controlMode_isValid{false};
+    yarp::sig::VectorOf<int> interactionMode{};
+    bool interactionMode_isValid{false};
+
+    // Default constructor
+    jointDataRandazClass2() = default;
+
+    // Constructor with field values
+    jointDataRandazClass2(const yarp::sig::VectorOf<double>& jointPosition,
+                          const bool jointPosition_isValid,
+                          const yarp::sig::VectorOf<double>& jointVelocity,
+                          const bool jointVelocity_isValid,
+                          const yarp::sig::VectorOf<double>& jointAcceleration,
+                          const bool jointAcceleration_isValid,
+                          const yarp::sig::VectorOf<double>& motorPosition,
+                          const bool motorPosition_isValid,
+                          const yarp::sig::VectorOf<double>& motorVelocity,
+                          const bool motorVelocity_isValid,
+                          const yarp::sig::VectorOf<double>& motorAcceleration,
+                          const bool motorAcceleration_isValid,
+                          const yarp::sig::VectorOf<double>& torque,
+                          const bool torque_isValid,
+                          const yarp::sig::VectorOf<double>& pwmDutycycle,
+                          const bool pwmDutycycle_isValid,
+                          const yarp::sig::VectorOf<double>& current,
+                          const bool current_isValid,
+                          const yarp::sig::VectorOf<int>& controlMode,
+                          const bool controlMode_isValid,
+                          const yarp::sig::VectorOf<int>& interactionMode,
+                          const bool interactionMode_isValid);
+
+};
 class YARP_dev_API jointData :
         public yarp::os::idl::WirePortable
 {

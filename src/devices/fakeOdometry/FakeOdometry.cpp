@@ -73,7 +73,7 @@ bool FakeOdometry::close()
 }
 
 
-bool FakeOdometry::getOdometry(yarp::dev::OdometryData& odom)
+bool FakeOdometry::getOdometry(yarp::dev::Nav2D::Odometry& odom)
 {
     std::lock_guard lock(m_odometry_mutex);
     odom.odom_x = m_odometryData.odom_x;
