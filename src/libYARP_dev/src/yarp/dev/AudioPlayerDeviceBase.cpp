@@ -7,6 +7,7 @@
 
 #include <yarp/dev/AudioPlayerDeviceBase.h>
 #include <yarp/os/LogStream.h>
+#include <yarp/os/Value.h>
 #include <mutex>
 #include <limits>
 #include <cmath>

@@ -8,125 +8,20 @@
 // This is an automatically generated file.
 // It could get re-generated if the ALLOW_IDL_GENERATION flag is on.
 
-#ifndef YARP_THRIFT_GENERATOR_STRUCT_JOINTDATA_H
-#define YARP_THRIFT_GENERATOR_STRUCT_JOINTDATA_H
+#ifndef YARP_THRIFT_GENERATOR_STRUCT_JOINTDATASERIALIZER_H
+#define YARP_THRIFT_GENERATOR_STRUCT_JOINTDATASERIALIZER_H
 
 #include <yarp/dev/api.h>
 
-#include <yarp/os/Wire.h>
-#include <yarp/os/idl/WireTypes.h>
-#include <yarp/sig/Vector.h>
+#include <yarp/os/WireSerializer.h>
+#include <yarp/dev/impl/jointDataStorage.h>
 
 namespace yarp::dev::impl {
 
-class YARP_dev_API jointDataRandazClass2{
+class YARP_dev_API jointDataSerializer :
+        public yarp::os::WireSerializer<jointDataStorage>{
 public:
-    // Fields
-    yarp::sig::VectorOf<double> jointPosition{};
-    bool jointPosition_isValid{false};
-    yarp::sig::VectorOf<double> jointVelocity{};
-    bool jointVelocity_isValid{false};
-    yarp::sig::VectorOf<double> jointAcceleration{};
-    bool jointAcceleration_isValid{false};
-    yarp::sig::VectorOf<double> motorPosition{};
-    bool motorPosition_isValid{false};
-    yarp::sig::VectorOf<double> motorVelocity{};
-    bool motorVelocity_isValid{false};
-    yarp::sig::VectorOf<double> motorAcceleration{};
-    bool motorAcceleration_isValid{false};
-    yarp::sig::VectorOf<double> torque{};
-    bool torque_isValid{false};
-    yarp::sig::VectorOf<double> pwmDutycycle{};
-    bool pwmDutycycle_isValid{false};
-    yarp::sig::VectorOf<double> current{};
-    bool current_isValid{false};
-    yarp::sig::VectorOf<int> controlMode{};
-    bool controlMode_isValid{false};
-    yarp::sig::VectorOf<int> interactionMode{};
-    bool interactionMode_isValid{false};
-
-    // Default constructor
-    jointDataRandazClass2() = default;
-
-    // Constructor with field values
-    jointDataRandazClass2(const yarp::sig::VectorOf<double>& jointPosition,
-                          const bool jointPosition_isValid,
-                          const yarp::sig::VectorOf<double>& jointVelocity,
-                          const bool jointVelocity_isValid,
-                          const yarp::sig::VectorOf<double>& jointAcceleration,
-                          const bool jointAcceleration_isValid,
-                          const yarp::sig::VectorOf<double>& motorPosition,
-                          const bool motorPosition_isValid,
-                          const yarp::sig::VectorOf<double>& motorVelocity,
-                          const bool motorVelocity_isValid,
-                          const yarp::sig::VectorOf<double>& motorAcceleration,
-                          const bool motorAcceleration_isValid,
-                          const yarp::sig::VectorOf<double>& torque,
-                          const bool torque_isValid,
-                          const yarp::sig::VectorOf<double>& pwmDutycycle,
-                          const bool pwmDutycycle_isValid,
-                          const yarp::sig::VectorOf<double>& current,
-                          const bool current_isValid,
-                          const yarp::sig::VectorOf<int>& controlMode,
-                          const bool controlMode_isValid,
-                          const yarp::sig::VectorOf<int>& interactionMode,
-                          const bool interactionMode_isValid);
-
-};
-class YARP_dev_API jointData :
-        public yarp::os::idl::WirePortable
-{
-public:
-    // Fields
-    yarp::sig::VectorOf<double> jointPosition{};
-    bool jointPosition_isValid{false};
-    yarp::sig::VectorOf<double> jointVelocity{};
-    bool jointVelocity_isValid{false};
-    yarp::sig::VectorOf<double> jointAcceleration{};
-    bool jointAcceleration_isValid{false};
-    yarp::sig::VectorOf<double> motorPosition{};
-    bool motorPosition_isValid{false};
-    yarp::sig::VectorOf<double> motorVelocity{};
-    bool motorVelocity_isValid{false};
-    yarp::sig::VectorOf<double> motorAcceleration{};
-    bool motorAcceleration_isValid{false};
-    yarp::sig::VectorOf<double> torque{};
-    bool torque_isValid{false};
-    yarp::sig::VectorOf<double> pwmDutycycle{};
-    bool pwmDutycycle_isValid{false};
-    yarp::sig::VectorOf<double> current{};
-    bool current_isValid{false};
-    yarp::sig::VectorOf<int> controlMode{};
-    bool controlMode_isValid{false};
-    yarp::sig::VectorOf<int> interactionMode{};
-    bool interactionMode_isValid{false};
-
-    // Default constructor
-    jointData() = default;
-
-    // Constructor with field values
-    jointData(const yarp::sig::VectorOf<double>& jointPosition,
-              const bool jointPosition_isValid,
-              const yarp::sig::VectorOf<double>& jointVelocity,
-              const bool jointVelocity_isValid,
-              const yarp::sig::VectorOf<double>& jointAcceleration,
-              const bool jointAcceleration_isValid,
-              const yarp::sig::VectorOf<double>& motorPosition,
-              const bool motorPosition_isValid,
-              const yarp::sig::VectorOf<double>& motorVelocity,
-              const bool motorVelocity_isValid,
-              const yarp::sig::VectorOf<double>& motorAcceleration,
-              const bool motorAcceleration_isValid,
-              const yarp::sig::VectorOf<double>& torque,
-              const bool torque_isValid,
-              const yarp::sig::VectorOf<double>& pwmDutycycle,
-              const bool pwmDutycycle_isValid,
-              const yarp::sig::VectorOf<double>& current,
-              const bool current_isValid,
-              const yarp::sig::VectorOf<int>& controlMode,
-              const bool controlMode_isValid,
-              const yarp::sig::VectorOf<int>& interactionMode,
-              const bool interactionMode_isValid);
+using WireSerializer::WireSerializer;
 
     // Read structure on a Wire
     bool read(yarp::os::idl::WireReader& reader) override;
@@ -144,7 +39,7 @@ public:
     std::string toString() const;
 
     // If you want to serialize this class without nesting, use this helper
-    typedef yarp::os::idl::Unwrapped<jointData> unwrapped;
+    typedef yarp::os::idl::Unwrapped<jointDataSerializer> unwrapped;
 
 private:
     // read/write jointPosition field
@@ -282,4 +177,4 @@ private:
 
 } // namespace yarp::dev::impl
 
-#endif // YARP_THRIFT_GENERATOR_STRUCT_JOINTDATA_H
+#endif // YARP_THRIFT_GENERATOR_STRUCT_JOINTDATASERIALIZER_H

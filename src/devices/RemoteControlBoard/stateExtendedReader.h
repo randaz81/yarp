@@ -24,7 +24,8 @@
 #include <yarp/dev/ControlBoardHelpers.h>
 #include <yarp/dev/IPreciselyTimed.h>
 
-#include <yarp/dev/impl/jointData.h>
+#include <yarp/dev/impl/jointDataStorage.h>
+#include <yarp/dev/impl/jointDataSerializer.h>
 
 #include <cstring>
 #include <mutex>
@@ -37,9 +38,9 @@ using namespace yarp::dev;
 using namespace yarp::sig;
 
 class StateExtendedInputPort :
-        public yarp::os::BufferedPort<yarp::dev::impl::jointData>
+        public yarp::os::BufferedPort<yarp::dev::impl::jointDataSerializer>
 {
-    yarp::dev::impl::jointData last;
+    yarp::dev::impl::jointDataStorage last;
     std::mutex mutex;
     Stamp lastStamp;
     double deltaT;
@@ -58,8 +59,8 @@ public:
     void resetStat();
     void init(int numberOfJoints);
 
-    using yarp::os::BufferedPort<yarp::dev::impl::jointData>::onRead;
-    void onRead(yarp::dev::impl::jointData &v) override;
+    using yarp::os::BufferedPort<yarp::dev::impl::jointDataSerializer>::onRead;
+    void onRead(yarp::dev::impl::jointDataSerializer&v) override;
 
     /**
      * @brief setTimeout, set the timeout for retrieving data

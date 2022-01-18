@@ -122,7 +122,8 @@ void MainWindow::updateMain()
     snprintf(buff, 100, s_cur_ang_vel, cur_vel_theta);
     ui->label_cur_ang_vel->setText(buff);
 
-    outputport.write(output_data);
+    yarp::dev::Nav2D::MobileBaseVelocitySerializer output_data_ser (output_data);
+    outputport.write(output_data_ser);
 
     return;
 }

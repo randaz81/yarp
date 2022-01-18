@@ -11,7 +11,8 @@
 #include "StreamingMessagesParser.h"
 
 #include <yarp/os/LogStream.h>
-#include <yarp/dev/impl/jointData.h>
+#include <yarp/dev/impl/jointDataStorage.h>
+#include <yarp/dev/impl/jointDataSerializer.h>
 
 #include <numeric>
 
@@ -19,7 +20,8 @@
 using namespace yarp::os;
 using namespace yarp::dev;
 using namespace yarp::sig;
-using yarp::dev::impl::jointData;
+using yarp::dev::impl::jointDataStorage;
+using yarp::dev::impl::jointDataSerializer;
 
 ControlBoard_nws_yarp::ControlBoard_nws_yarp() :
         yarp::os::PeriodicThread(default_period)
@@ -445,8 +447,8 @@ void ControlBoard_nws_yarp::run()
     yarp::os::Stamp averageTime = time;
 
     // handle stateExt first
-    jointData& data = extendedOutputState_buffer.get();
-
+    yarp::dev::impl::jointDataSerializer& dataser = extendedOutputState_buffer.get();
+    yarp::dev::impl::jointDataStorage data = dataser.get();
     data.jointPosition.resize(subdevice_joints);
     data.jointVelocity.resize(subdevice_joints);
     data.jointAcceleration.resize(subdevice_joints);

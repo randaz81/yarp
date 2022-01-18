@@ -9,7 +9,7 @@
 #include <yarp/os/LogComponent.h>
 #include <yarp/os/LogStream.h>
 
-#include <yarp/dev/impl/jointData.h>
+#include <yarp/dev/impl/jointDataSerializer.h>
 
 #include "ControlBoardLogComponent.h"
 #include "RPCMessagesParser.h"
@@ -804,7 +804,8 @@ void ControlBoardWrapper::run()
 
     if (useROS != ROS_only) {
         // handle stateExt first
-        jointData& yarp_struct = extendedOutputState_buffer.get();
+        jointDataSerializer& yarp_struct_ser = extendedOutputState_buffer.get();
+        jointDataStorage yarp_struct = yarp_struct_ser.get();
 
         yarp_struct.jointPosition.resize(controlledJoints);
         yarp_struct.jointVelocity.resize(controlledJoints);

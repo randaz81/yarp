@@ -67,7 +67,7 @@ void StateExtendedInputPort::init(int numberOfJoints)
     last.interactionMode.resize(numberOfJoints);
 }
 
-void StateExtendedInputPort::onRead(yarp::dev::impl::jointData &v)
+void StateExtendedInputPort::onRead(yarp::dev::impl::jointDataSerializer &v)
 {
     now=Time::now();
     mutex.lock();
@@ -88,7 +88,7 @@ void StateExtendedInputPort::onRead(yarp::dev::impl::jointData &v)
     count++;
 
     valid=true;
-    last=v;
+    last=v.get();
     getEnvelope(lastStamp);
     //check that timestamp are available
     if (!lastStamp.isValid()) {
@@ -212,47 +212,47 @@ bool StateExtendedInputPort::getLastVector(int field, double* data, Stamp& stamp
         {
             case VOCAB_ENCODERS:
                 ret = last.jointPosition_isValid;
-                memcpy(data, last.jointPosition.data(), last.jointPosition.size() * last.jointPosition.getElementSize() );
+                memcpy(data, last.jointPosition.data(), last.jointPosition.size() * sizeof(decltype(last.jointPosition)::value_type));
             break;
 
             case VOCAB_ENCODER_SPEEDS:
                 ret = last.jointVelocity_isValid;
-                memcpy(data, last.jointVelocity.data(), last.jointVelocity.size() * last.jointVelocity.getElementSize() );
+                memcpy(data, last.jointVelocity.data(), last.jointVelocity.size() * sizeof(decltype(last.jointVelocity)::value_type));
             break;
 
             case VOCAB_ENCODER_ACCELERATIONS:
                 ret = last.jointAcceleration_isValid;
-                memcpy(data, last.jointAcceleration.data(), last.jointAcceleration.size() * last.jointAcceleration.getElementSize() );
+                memcpy(data, last.jointAcceleration.data(), last.jointAcceleration.size() * sizeof(decltype(last.jointAcceleration)::value_type));
             break;
 
             case VOCAB_MOTOR_ENCODERS:
                 ret = last.motorPosition_isValid;
-                memcpy(data, last.motorPosition.data(), last.motorPosition.size() * last.motorPosition.getElementSize() );
+                memcpy(data, last.motorPosition.data(), last.motorPosition.size() * sizeof(decltype(last.motorPosition)::value_type));
             break;
 
             case VOCAB_MOTOR_ENCODER_SPEEDS:
                 ret = last.motorVelocity_isValid;
-                memcpy(data, last.motorVelocity.data(), last.motorVelocity.size() * last.motorVelocity.getElementSize() );
+                memcpy(data, last.motorVelocity.data(), last.motorVelocity.size() * sizeof(decltype(last.motorVelocity)::value_type));
             break;
 
             case VOCAB_MOTOR_ENCODER_ACCELERATIONS:
                 ret = last.motorAcceleration_isValid;
-                memcpy(data, last.motorAcceleration.data(), last.motorAcceleration.size() * last.motorAcceleration.getElementSize() );
+                memcpy(data, last.motorAcceleration.data(), last.motorAcceleration.size() * sizeof(decltype(last.motorAcceleration)::value_type));
             break;
 
             case VOCAB_TRQS:
                 ret = last.torque_isValid;
-                memcpy(data, last.torque.data(), last.torque.size() * last.torque.getElementSize() );
+                memcpy(data, last.torque.data(), last.torque.size() * sizeof(decltype(last.torque)::value_type));
             break;
 
             case VOCAB_PWMCONTROL_PWM_OUTPUTS:
                 ret = last.pwmDutycycle_isValid;
-                memcpy(data, last.pwmDutycycle.data(), last.pwmDutycycle.size() * last.pwmDutycycle.getElementSize());
+                memcpy(data, last.pwmDutycycle.data(), last.pwmDutycycle.size() * sizeof(decltype(last.pwmDutycycle)::value_type));
             break;
 
             case VOCAB_AMP_CURRENTS:
                 ret = last.current_isValid;
-                memcpy(data, last.current.data(), last.current.size() * last.current.getElementSize());
+                memcpy(data, last.current.data(), last.current.size() * sizeof(decltype(last.current)::value_type));
                 break;
 
             default:
@@ -281,12 +281,12 @@ bool StateExtendedInputPort::getLastVector(int field, int* data, Stamp& stamp, d
         {
             case VOCAB_CM_CONTROL_MODES:
                 ret = last.controlMode_isValid;
-                memcpy(data, last.controlMode.data(), last.controlMode.size() * last.controlMode.getElementSize());
+                memcpy(data, last.controlMode.data(), last.controlMode.size() * sizeof(decltype(last.controlMode)::value_type));
             break;
 
             case VOCAB_INTERACTION_MODES:
                 ret = last.interactionMode_isValid;
-                memcpy(data, last.interactionMode.data(), last.interactionMode.size() * last.interactionMode.getElementSize());
+                memcpy(data, last.interactionMode.data(), last.interactionMode.size() * sizeof(decltype(last.interactionMode)::value_type));
             break;
 
             default:

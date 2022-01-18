@@ -21,7 +21,7 @@
 #include <yarp/sig/Vector.h>
 #include <yarp/dev/ControlBoardHelpers.h>
 
-#include <yarp/dev/impl/jointData.h> // struct for YARP extended port
+#include <yarp/dev/impl/jointDataSerializer.h> // struct for YARP extended port
 
 #include <mutex>
 #include <string>
@@ -213,7 +213,7 @@ private:
 
     // Buffer associated to the extendedOutputStatePort port; in this case we will use the type generated
     // from the YARP .thrift file
-    yarp::os::PortWriterBuffer<yarp::dev::impl::jointData>           extendedOutputState_buffer;
+    yarp::os::PortWriterBuffer<yarp::dev::impl::jointDataSerializer>           extendedOutputState_buffer;
     yarp::os::Port extendedOutputStatePort;         // Port /stateExt:o streaming out the struct with the robot data
 
     // ROS state publisher

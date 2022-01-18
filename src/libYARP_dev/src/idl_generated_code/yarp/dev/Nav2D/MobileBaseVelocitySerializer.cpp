@@ -8,33 +8,12 @@
 // This is an automatically generated file.
 // It could get re-generated if the ALLOW_IDL_GENERATION flag is on.
 
-#include <yarp/dev/MobileBaseVelocity.h>
+#include <yarp/dev/Nav2D/MobileBaseVelocitySerializer.h>
 
-namespace yarp::dev {
-
-// Constructor with field values
-MobileBaseVelocityRandazClass2::MobileBaseVelocityRandazClass2(const double vel_x,
-                                                               const double vel_y,
-                                                               const double vel_theta) :
-        vel_x(vel_x),
-        vel_y(vel_y),
-        vel_theta(vel_theta)
-{
-}
-
-// Constructor with field values
-MobileBaseVelocity::MobileBaseVelocity(const double vel_x,
-                                       const double vel_y,
-                                       const double vel_theta) :
-        WirePortable(),
-        vel_x(vel_x),
-        vel_y(vel_y),
-        vel_theta(vel_theta)
-{
-}
+namespace yarp::dev::Nav2D {
 
 // Read structure on a Wire
-bool MobileBaseVelocity::read(yarp::os::idl::WireReader& reader)
+bool MobileBaseVelocitySerializer::read(yarp::os::idl::WireReader& reader)
 {
     if (!read_vel_x(reader)) {
         return false;
@@ -52,7 +31,7 @@ bool MobileBaseVelocity::read(yarp::os::idl::WireReader& reader)
 }
 
 // Read structure on a Connection
-bool MobileBaseVelocity::read(yarp::os::ConnectionReader& connection)
+bool MobileBaseVelocitySerializer::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
     if (!reader.readListHeader(3)) {
@@ -65,7 +44,7 @@ bool MobileBaseVelocity::read(yarp::os::ConnectionReader& connection)
 }
 
 // Write structure on a Wire
-bool MobileBaseVelocity::write(const yarp::os::idl::WireWriter& writer) const
+bool MobileBaseVelocitySerializer::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!write_vel_x(writer)) {
         return false;
@@ -83,7 +62,7 @@ bool MobileBaseVelocity::write(const yarp::os::idl::WireWriter& writer) const
 }
 
 // Write structure on a Connection
-bool MobileBaseVelocity::write(yarp::os::ConnectionWriter& connection) const
+bool MobileBaseVelocitySerializer::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
     if (!writer.writeListHeader(3)) {
@@ -96,7 +75,7 @@ bool MobileBaseVelocity::write(yarp::os::ConnectionWriter& connection) const
 }
 
 // Convert to a printable string
-std::string MobileBaseVelocity::toString() const
+std::string MobileBaseVelocitySerializer::toString() const
 {
     yarp::os::Bottle b;
     if (!yarp::os::Portable::copyPortable(*this, b)) {
@@ -106,13 +85,13 @@ std::string MobileBaseVelocity::toString() const
 }
 
 // read vel_x field
-bool MobileBaseVelocity::read_vel_x(yarp::os::idl::WireReader& reader)
+bool MobileBaseVelocitySerializer::read_vel_x(yarp::os::idl::WireReader& reader)
 {
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
-    if (!reader.readFloat64(vel_x)) {
+    if (!reader.readFloat64(mStorage->vel_x)) {
         reader.fail();
         return false;
     }
@@ -120,22 +99,22 @@ bool MobileBaseVelocity::read_vel_x(yarp::os::idl::WireReader& reader)
 }
 
 // write vel_x field
-bool MobileBaseVelocity::write_vel_x(const yarp::os::idl::WireWriter& writer) const
+bool MobileBaseVelocitySerializer::write_vel_x(const yarp::os::idl::WireWriter& writer) const
 {
-    if (!writer.writeFloat64(vel_x)) {
+    if (!writer.writeFloat64(mStorage->vel_x)) {
         return false;
     }
     return true;
 }
 
 // read (nested) vel_x field
-bool MobileBaseVelocity::nested_read_vel_x(yarp::os::idl::WireReader& reader)
+bool MobileBaseVelocitySerializer::nested_read_vel_x(yarp::os::idl::WireReader& reader)
 {
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
-    if (!reader.readFloat64(vel_x)) {
+    if (!reader.readFloat64(mStorage->vel_x)) {
         reader.fail();
         return false;
     }
@@ -143,22 +122,22 @@ bool MobileBaseVelocity::nested_read_vel_x(yarp::os::idl::WireReader& reader)
 }
 
 // write (nested) vel_x field
-bool MobileBaseVelocity::nested_write_vel_x(const yarp::os::idl::WireWriter& writer) const
+bool MobileBaseVelocitySerializer::nested_write_vel_x(const yarp::os::idl::WireWriter& writer) const
 {
-    if (!writer.writeFloat64(vel_x)) {
+    if (!writer.writeFloat64(mStorage->vel_x)) {
         return false;
     }
     return true;
 }
 
 // read vel_y field
-bool MobileBaseVelocity::read_vel_y(yarp::os::idl::WireReader& reader)
+bool MobileBaseVelocitySerializer::read_vel_y(yarp::os::idl::WireReader& reader)
 {
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
-    if (!reader.readFloat64(vel_y)) {
+    if (!reader.readFloat64(mStorage->vel_y)) {
         reader.fail();
         return false;
     }
@@ -166,22 +145,22 @@ bool MobileBaseVelocity::read_vel_y(yarp::os::idl::WireReader& reader)
 }
 
 // write vel_y field
-bool MobileBaseVelocity::write_vel_y(const yarp::os::idl::WireWriter& writer) const
+bool MobileBaseVelocitySerializer::write_vel_y(const yarp::os::idl::WireWriter& writer) const
 {
-    if (!writer.writeFloat64(vel_y)) {
+    if (!writer.writeFloat64(mStorage->vel_y)) {
         return false;
     }
     return true;
 }
 
 // read (nested) vel_y field
-bool MobileBaseVelocity::nested_read_vel_y(yarp::os::idl::WireReader& reader)
+bool MobileBaseVelocitySerializer::nested_read_vel_y(yarp::os::idl::WireReader& reader)
 {
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
-    if (!reader.readFloat64(vel_y)) {
+    if (!reader.readFloat64(mStorage->vel_y)) {
         reader.fail();
         return false;
     }
@@ -189,22 +168,22 @@ bool MobileBaseVelocity::nested_read_vel_y(yarp::os::idl::WireReader& reader)
 }
 
 // write (nested) vel_y field
-bool MobileBaseVelocity::nested_write_vel_y(const yarp::os::idl::WireWriter& writer) const
+bool MobileBaseVelocitySerializer::nested_write_vel_y(const yarp::os::idl::WireWriter& writer) const
 {
-    if (!writer.writeFloat64(vel_y)) {
+    if (!writer.writeFloat64(mStorage->vel_y)) {
         return false;
     }
     return true;
 }
 
 // read vel_theta field
-bool MobileBaseVelocity::read_vel_theta(yarp::os::idl::WireReader& reader)
+bool MobileBaseVelocitySerializer::read_vel_theta(yarp::os::idl::WireReader& reader)
 {
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
-    if (!reader.readFloat64(vel_theta)) {
+    if (!reader.readFloat64(mStorage->vel_theta)) {
         reader.fail();
         return false;
     }
@@ -212,22 +191,22 @@ bool MobileBaseVelocity::read_vel_theta(yarp::os::idl::WireReader& reader)
 }
 
 // write vel_theta field
-bool MobileBaseVelocity::write_vel_theta(const yarp::os::idl::WireWriter& writer) const
+bool MobileBaseVelocitySerializer::write_vel_theta(const yarp::os::idl::WireWriter& writer) const
 {
-    if (!writer.writeFloat64(vel_theta)) {
+    if (!writer.writeFloat64(mStorage->vel_theta)) {
         return false;
     }
     return true;
 }
 
 // read (nested) vel_theta field
-bool MobileBaseVelocity::nested_read_vel_theta(yarp::os::idl::WireReader& reader)
+bool MobileBaseVelocitySerializer::nested_read_vel_theta(yarp::os::idl::WireReader& reader)
 {
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
-    if (!reader.readFloat64(vel_theta)) {
+    if (!reader.readFloat64(mStorage->vel_theta)) {
         reader.fail();
         return false;
     }
@@ -235,12 +214,12 @@ bool MobileBaseVelocity::nested_read_vel_theta(yarp::os::idl::WireReader& reader
 }
 
 // write (nested) vel_theta field
-bool MobileBaseVelocity::nested_write_vel_theta(const yarp::os::idl::WireWriter& writer) const
+bool MobileBaseVelocitySerializer::nested_write_vel_theta(const yarp::os::idl::WireWriter& writer) const
 {
-    if (!writer.writeFloat64(vel_theta)) {
+    if (!writer.writeFloat64(mStorage->vel_theta)) {
         return false;
     }
     return true;
 }
 
-} // namespace yarp::dev
+} // namespace yarp::dev::Nav2D

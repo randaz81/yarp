@@ -9,7 +9,7 @@
 #include <yarp/os/LogComponent.h>
 #include <yarp/os/LogStream.h>
 
-#include <yarp/dev/impl/jointData.h>
+#include <yarp/dev/impl/jointDataStorage.h>
 
 #include <yarp/rosmsg/impl/yarpRosHelper.h>
 

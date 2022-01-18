@@ -5,6 +5,7 @@
 
 #include <yarp/dev/AudioRecorderDeviceBase.h>
 #include <yarp/os/LogStream.h>
+#include <yarp/os/Value.h>
 #include <mutex>
 #include <limits>
 #include <functional>

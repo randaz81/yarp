@@ -24,11 +24,11 @@ YARP_LOG_COMPONENT(MOBVEL_NWS_YARP, "yarp.device.MobileBaseVelocityControl_nws_y
 
 //------------------------------------------------------------------------------------------------------------------------------
 
-void VelocityInputPortProcessor::onRead(yarp::dev::MobileBaseVelocity& v)
+void VelocityInputPortProcessor::onRead(yarp::dev::Nav2D::MobileBaseVelocitySerializer& v)
 {
     if (m_iVel)
     {
-        m_iVel->applyVelocityCommand(v.vel_x, v.vel_y, v.vel_theta, m_timeout);
+        m_iVel->applyVelocityCommand(v.get().vel_x, v.get().vel_y, v.get().vel_theta, m_timeout);
     }
     else
     {

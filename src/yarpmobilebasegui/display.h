@@ -15,7 +15,8 @@
 #include <yarp/dev/IBattery.h>
 #include <yarp/dev/PolyDriver.h>
 #include <yarp/dev/Drivers.h>
-#include <yarp/dev/MobileBaseVelocity.h>
+#include <yarp/dev/Nav2D/MobileBaseVelocityStorage.h>
+#include <yarp/dev/Nav2D/MobileBaseVelocitySerializer.h>
 
 #include "ui_display.h"
 #include "joywidget.h"
@@ -85,7 +86,7 @@ public:
     bool pressed_right = false;
     bool pressed_turn_left = false;
     bool pressed_turn_right = false;
-    yarp::dev::MobileBaseVelocity output_data;
+    yarp::dev::Nav2D::MobileBaseVelocityStorage output_data;
 };
 
 #endif

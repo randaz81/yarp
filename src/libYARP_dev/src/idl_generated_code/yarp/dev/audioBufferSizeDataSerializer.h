@@ -8,52 +8,20 @@
 // This is an automatically generated file.
 // It could get re-generated if the ALLOW_IDL_GENERATION flag is on.
 
-#ifndef YARP_THRIFT_GENERATOR_STRUCT_AUDIOBUFFERSIZEDATA_H
-#define YARP_THRIFT_GENERATOR_STRUCT_AUDIOBUFFERSIZEDATA_H
+#ifndef YARP_THRIFT_GENERATOR_STRUCT_AUDIOBUFFERSIZEDATASERIALIZER_H
+#define YARP_THRIFT_GENERATOR_STRUCT_AUDIOBUFFERSIZEDATASERIALIZER_H
 
 #include <yarp/dev/api.h>
 
-#include <yarp/os/Wire.h>
-#include <yarp/os/idl/WireTypes.h>
+#include <yarp/os/WireSerializer.h>
+#include <yarp/dev/audioBufferSizeDataStorage.h>
 
 namespace yarp::dev {
 
-class YARP_dev_API audioBufferSizeDataRandazClass2{
+class YARP_dev_API audioBufferSizeDataSerializer :
+        public yarp::os::WireSerializer<audioBufferSizeDataStorage>{
 public:
-    // Fields
-    std::int32_t m_samples{0};
-    std::int32_t m_channels{0};
-    std::int32_t m_depth{0};
-    std::int32_t size{0};
-
-    // Default constructor
-    audioBufferSizeDataRandazClass2() = default;
-
-    // Constructor with field values
-    audioBufferSizeDataRandazClass2(const std::int32_t m_samples,
-                                    const std::int32_t m_channels,
-                                    const std::int32_t m_depth,
-                                    const std::int32_t size);
-
-};
-class YARP_dev_API audioBufferSizeData :
-        public yarp::os::idl::WirePortable
-{
-public:
-    // Fields
-    std::int32_t m_samples{0};
-    std::int32_t m_channels{0};
-    std::int32_t m_depth{0};
-    std::int32_t size{0};
-
-    // Default constructor
-    audioBufferSizeData() = default;
-
-    // Constructor with field values
-    audioBufferSizeData(const std::int32_t m_samples,
-                        const std::int32_t m_channels,
-                        const std::int32_t m_depth,
-                        const std::int32_t size);
+using WireSerializer::WireSerializer;
 
     // Read structure on a Wire
     bool read(yarp::os::idl::WireReader& reader) override;
@@ -71,7 +39,7 @@ public:
     std::string toString() const;
 
     // If you want to serialize this class without nesting, use this helper
-    typedef yarp::os::idl::Unwrapped<audioBufferSizeData> unwrapped;
+    typedef yarp::os::idl::Unwrapped<audioBufferSizeDataSerializer> unwrapped;
 
 private:
     // read/write m_samples field
@@ -101,4 +69,4 @@ private:
 
 } // namespace yarp::dev
 
-#endif // YARP_THRIFT_GENERATOR_STRUCT_AUDIOBUFFERSIZEDATA_H
+#endif // YARP_THRIFT_GENERATOR_STRUCT_AUDIOBUFFERSIZEDATASERIALIZER_H

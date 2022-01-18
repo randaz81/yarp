@@ -8,66 +8,20 @@
 // This is an automatically generated file.
 // It could get re-generated if the ALLOW_IDL_GENERATION flag is on.
 
-#ifndef YARP_THRIFT_GENERATOR_STRUCT_MOBILEBASEVELOCITY_H
-#define YARP_THRIFT_GENERATOR_STRUCT_MOBILEBASEVELOCITY_H
+#ifndef YARP_THRIFT_GENERATOR_STRUCT_MOBILEBASEVELOCITYSERIALIZER_H
+#define YARP_THRIFT_GENERATOR_STRUCT_MOBILEBASEVELOCITYSERIALIZER_H
 
 #include <yarp/dev/api.h>
 
-#include <yarp/os/Wire.h>
-#include <yarp/os/idl/WireTypes.h>
+#include <yarp/os/WireSerializer.h>
+#include <yarp/dev/Nav2D/MobileBaseVelocityStorage.h>
 
-namespace yarp::dev {
+namespace yarp::dev::Nav2D {
 
-class YARP_dev_API MobileBaseVelocityRandazClass2{
+class YARP_dev_API MobileBaseVelocitySerializer :
+        public yarp::os::WireSerializer<MobileBaseVelocityStorage>{
 public:
-    // Fields
-    /**
-     * velocity of the robot [m/s]
-     */
-    double vel_x{0.0};
-    /**
-     * velocity of the robot [m/s]
-     */
-    double vel_y{0.0};
-    /**
-     * angular velocity of the robot [deg/s]
-     */
-    double vel_theta{0.0};
-
-    // Default constructor
-    MobileBaseVelocityRandazClass2() = default;
-
-    // Constructor with field values
-    MobileBaseVelocityRandazClass2(const double vel_x,
-                                   const double vel_y,
-                                   const double vel_theta);
-
-};
-class YARP_dev_API MobileBaseVelocity :
-        public yarp::os::idl::WirePortable
-{
-public:
-    // Fields
-    /**
-     * velocity of the robot [m/s]
-     */
-    double vel_x{0.0};
-    /**
-     * velocity of the robot [m/s]
-     */
-    double vel_y{0.0};
-    /**
-     * angular velocity of the robot [deg/s]
-     */
-    double vel_theta{0.0};
-
-    // Default constructor
-    MobileBaseVelocity() = default;
-
-    // Constructor with field values
-    MobileBaseVelocity(const double vel_x,
-                       const double vel_y,
-                       const double vel_theta);
+using WireSerializer::WireSerializer;
 
     // Read structure on a Wire
     bool read(yarp::os::idl::WireReader& reader) override;
@@ -85,7 +39,7 @@ public:
     std::string toString() const;
 
     // If you want to serialize this class without nesting, use this helper
-    typedef yarp::os::idl::Unwrapped<MobileBaseVelocity> unwrapped;
+    typedef yarp::os::idl::Unwrapped<MobileBaseVelocitySerializer> unwrapped;
 
 private:
     // read/write vel_x field
@@ -107,6 +61,6 @@ private:
     bool nested_write_vel_theta(const yarp::os::idl::WireWriter& writer) const;
 };
 
-} // namespace yarp::dev
+} // namespace yarp::dev::Nav2D
 
-#endif // YARP_THRIFT_GENERATOR_STRUCT_MOBILEBASEVELOCITY_H
+#endif // YARP_THRIFT_GENERATOR_STRUCT_MOBILEBASEVELOCITYSERIALIZER_H

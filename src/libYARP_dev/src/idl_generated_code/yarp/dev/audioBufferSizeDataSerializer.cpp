@@ -8,37 +8,12 @@
 // This is an automatically generated file.
 // It could get re-generated if the ALLOW_IDL_GENERATION flag is on.
 
-#include <yarp/dev/audioBufferSizeData.h>
+#include <yarp/dev/audioBufferSizeDataSerializer.h>
 
 namespace yarp::dev {
 
-// Constructor with field values
-audioBufferSizeDataRandazClass2::audioBufferSizeDataRandazClass2(const std::int32_t m_samples,
-                                                                 const std::int32_t m_channels,
-                                                                 const std::int32_t m_depth,
-                                                                 const std::int32_t size) :
-        m_samples(m_samples),
-        m_channels(m_channels),
-        m_depth(m_depth),
-        size(size)
-{
-}
-
-// Constructor with field values
-audioBufferSizeData::audioBufferSizeData(const std::int32_t m_samples,
-                                         const std::int32_t m_channels,
-                                         const std::int32_t m_depth,
-                                         const std::int32_t size) :
-        WirePortable(),
-        m_samples(m_samples),
-        m_channels(m_channels),
-        m_depth(m_depth),
-        size(size)
-{
-}
-
 // Read structure on a Wire
-bool audioBufferSizeData::read(yarp::os::idl::WireReader& reader)
+bool audioBufferSizeDataSerializer::read(yarp::os::idl::WireReader& reader)
 {
     if (!read_m_samples(reader)) {
         return false;
@@ -59,7 +34,7 @@ bool audioBufferSizeData::read(yarp::os::idl::WireReader& reader)
 }
 
 // Read structure on a Connection
-bool audioBufferSizeData::read(yarp::os::ConnectionReader& connection)
+bool audioBufferSizeDataSerializer::read(yarp::os::ConnectionReader& connection)
 {
     yarp::os::idl::WireReader reader(connection);
     if (!reader.readListHeader(4)) {
@@ -72,7 +47,7 @@ bool audioBufferSizeData::read(yarp::os::ConnectionReader& connection)
 }
 
 // Write structure on a Wire
-bool audioBufferSizeData::write(const yarp::os::idl::WireWriter& writer) const
+bool audioBufferSizeDataSerializer::write(const yarp::os::idl::WireWriter& writer) const
 {
     if (!write_m_samples(writer)) {
         return false;
@@ -93,7 +68,7 @@ bool audioBufferSizeData::write(const yarp::os::idl::WireWriter& writer) const
 }
 
 // Write structure on a Connection
-bool audioBufferSizeData::write(yarp::os::ConnectionWriter& connection) const
+bool audioBufferSizeDataSerializer::write(yarp::os::ConnectionWriter& connection) const
 {
     yarp::os::idl::WireWriter writer(connection);
     if (!writer.writeListHeader(4)) {
@@ -106,7 +81,7 @@ bool audioBufferSizeData::write(yarp::os::ConnectionWriter& connection) const
 }
 
 // Convert to a printable string
-std::string audioBufferSizeData::toString() const
+std::string audioBufferSizeDataSerializer::toString() const
 {
     yarp::os::Bottle b;
     if (!yarp::os::Portable::copyPortable(*this, b)) {
@@ -116,13 +91,13 @@ std::string audioBufferSizeData::toString() const
 }
 
 // read m_samples field
-bool audioBufferSizeData::read_m_samples(yarp::os::idl::WireReader& reader)
+bool audioBufferSizeDataSerializer::read_m_samples(yarp::os::idl::WireReader& reader)
 {
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
-    if (!reader.readI32(m_samples)) {
+    if (!reader.readI32(mStorage->m_samples)) {
         reader.fail();
         return false;
     }
@@ -130,22 +105,22 @@ bool audioBufferSizeData::read_m_samples(yarp::os::idl::WireReader& reader)
 }
 
 // write m_samples field
-bool audioBufferSizeData::write_m_samples(const yarp::os::idl::WireWriter& writer) const
+bool audioBufferSizeDataSerializer::write_m_samples(const yarp::os::idl::WireWriter& writer) const
 {
-    if (!writer.writeI32(m_samples)) {
+    if (!writer.writeI32(mStorage->m_samples)) {
         return false;
     }
     return true;
 }
 
 // read (nested) m_samples field
-bool audioBufferSizeData::nested_read_m_samples(yarp::os::idl::WireReader& reader)
+bool audioBufferSizeDataSerializer::nested_read_m_samples(yarp::os::idl::WireReader& reader)
 {
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
-    if (!reader.readI32(m_samples)) {
+    if (!reader.readI32(mStorage->m_samples)) {
         reader.fail();
         return false;
     }
@@ -153,22 +128,22 @@ bool audioBufferSizeData::nested_read_m_samples(yarp::os::idl::WireReader& reade
 }
 
 // write (nested) m_samples field
-bool audioBufferSizeData::nested_write_m_samples(const yarp::os::idl::WireWriter& writer) const
+bool audioBufferSizeDataSerializer::nested_write_m_samples(const yarp::os::idl::WireWriter& writer) const
 {
-    if (!writer.writeI32(m_samples)) {
+    if (!writer.writeI32(mStorage->m_samples)) {
         return false;
     }
     return true;
 }
 
 // read m_channels field
-bool audioBufferSizeData::read_m_channels(yarp::os::idl::WireReader& reader)
+bool audioBufferSizeDataSerializer::read_m_channels(yarp::os::idl::WireReader& reader)
 {
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
-    if (!reader.readI32(m_channels)) {
+    if (!reader.readI32(mStorage->m_channels)) {
         reader.fail();
         return false;
     }
@@ -176,22 +151,22 @@ bool audioBufferSizeData::read_m_channels(yarp::os::idl::WireReader& reader)
 }
 
 // write m_channels field
-bool audioBufferSizeData::write_m_channels(const yarp::os::idl::WireWriter& writer) const
+bool audioBufferSizeDataSerializer::write_m_channels(const yarp::os::idl::WireWriter& writer) const
 {
-    if (!writer.writeI32(m_channels)) {
+    if (!writer.writeI32(mStorage->m_channels)) {
         return false;
     }
     return true;
 }
 
 // read (nested) m_channels field
-bool audioBufferSizeData::nested_read_m_channels(yarp::os::idl::WireReader& reader)
+bool audioBufferSizeDataSerializer::nested_read_m_channels(yarp::os::idl::WireReader& reader)
 {
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
-    if (!reader.readI32(m_channels)) {
+    if (!reader.readI32(mStorage->m_channels)) {
         reader.fail();
         return false;
     }
@@ -199,22 +174,22 @@ bool audioBufferSizeData::nested_read_m_channels(yarp::os::idl::WireReader& read
 }
 
 // write (nested) m_channels field
-bool audioBufferSizeData::nested_write_m_channels(const yarp::os::idl::WireWriter& writer) const
+bool audioBufferSizeDataSerializer::nested_write_m_channels(const yarp::os::idl::WireWriter& writer) const
 {
-    if (!writer.writeI32(m_channels)) {
+    if (!writer.writeI32(mStorage->m_channels)) {
         return false;
     }
     return true;
 }
 
 // read m_depth field
-bool audioBufferSizeData::read_m_depth(yarp::os::idl::WireReader& reader)
+bool audioBufferSizeDataSerializer::read_m_depth(yarp::os::idl::WireReader& reader)
 {
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
-    if (!reader.readI32(m_depth)) {
+    if (!reader.readI32(mStorage->m_depth)) {
         reader.fail();
         return false;
     }
@@ -222,22 +197,22 @@ bool audioBufferSizeData::read_m_depth(yarp::os::idl::WireReader& reader)
 }
 
 // write m_depth field
-bool audioBufferSizeData::write_m_depth(const yarp::os::idl::WireWriter& writer) const
+bool audioBufferSizeDataSerializer::write_m_depth(const yarp::os::idl::WireWriter& writer) const
 {
-    if (!writer.writeI32(m_depth)) {
+    if (!writer.writeI32(mStorage->m_depth)) {
         return false;
     }
     return true;
 }
 
 // read (nested) m_depth field
-bool audioBufferSizeData::nested_read_m_depth(yarp::os::idl::WireReader& reader)
+bool audioBufferSizeDataSerializer::nested_read_m_depth(yarp::os::idl::WireReader& reader)
 {
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
-    if (!reader.readI32(m_depth)) {
+    if (!reader.readI32(mStorage->m_depth)) {
         reader.fail();
         return false;
     }
@@ -245,22 +220,22 @@ bool audioBufferSizeData::nested_read_m_depth(yarp::os::idl::WireReader& reader)
 }
 
 // write (nested) m_depth field
-bool audioBufferSizeData::nested_write_m_depth(const yarp::os::idl::WireWriter& writer) const
+bool audioBufferSizeDataSerializer::nested_write_m_depth(const yarp::os::idl::WireWriter& writer) const
 {
-    if (!writer.writeI32(m_depth)) {
+    if (!writer.writeI32(mStorage->m_depth)) {
         return false;
     }
     return true;
 }
 
 // read size field
-bool audioBufferSizeData::read_size(yarp::os::idl::WireReader& reader)
+bool audioBufferSizeDataSerializer::read_size(yarp::os::idl::WireReader& reader)
 {
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
-    if (!reader.readI32(size)) {
+    if (!reader.readI32(mStorage->size)) {
         reader.fail();
         return false;
     }
@@ -268,22 +243,22 @@ bool audioBufferSizeData::read_size(yarp::os::idl::WireReader& reader)
 }
 
 // write size field
-bool audioBufferSizeData::write_size(const yarp::os::idl::WireWriter& writer) const
+bool audioBufferSizeDataSerializer::write_size(const yarp::os::idl::WireWriter& writer) const
 {
-    if (!writer.writeI32(size)) {
+    if (!writer.writeI32(mStorage->size)) {
         return false;
     }
     return true;
 }
 
 // read (nested) size field
-bool audioBufferSizeData::nested_read_size(yarp::os::idl::WireReader& reader)
+bool audioBufferSizeDataSerializer::nested_read_size(yarp::os::idl::WireReader& reader)
 {
     if (reader.noMore()) {
         reader.fail();
         return false;
     }
-    if (!reader.readI32(size)) {
+    if (!reader.readI32(mStorage->size)) {
         reader.fail();
         return false;
     }
@@ -291,9 +266,9 @@ bool audioBufferSizeData::nested_read_size(yarp::os::idl::WireReader& reader)
 }
 
 // write (nested) size field
-bool audioBufferSizeData::nested_write_size(const yarp::os::idl::WireWriter& writer) const
+bool audioBufferSizeDataSerializer::nested_write_size(const yarp::os::idl::WireWriter& writer) const
 {
-    if (!writer.writeI32(size)) {
+    if (!writer.writeI32(mStorage->size)) {
         return false;
     }
     return true;

@@ -15,7 +15,7 @@
 #include <yarp/dev/INavigation2D.h>
 #include <yarp/dev/WrapperSingle.h>
 #include "MobileBaseVelocityControlRPC.h"
-#include <yarp/dev/MobileBaseVelocity.h>
+#include <yarp/dev/Nav2D/MobileBaseVelocitySerializer.h>
 
 #include <mutex>
 #include <string>
@@ -39,15 +39,15 @@
  * yarpdev --device mobileBaseVelocityControl_nws_yarp --subdevice velocityInputHandler --local /input1
 */
 
-class VelocityInputPortProcessor : public yarp::os::BufferedPort<yarp::dev::MobileBaseVelocity>
+class VelocityInputPortProcessor : public yarp::os::BufferedPort<yarp::dev::Nav2D::MobileBaseVelocitySerializer>
 {
 public:
     double m_timeout = 0.1;
     yarp::dev::Nav2D::INavigation2DVelocityActions* m_iVel = nullptr;
 
 public:
-    using yarp::os::BufferedPort<yarp::dev::MobileBaseVelocity>::onRead;
-    void onRead(yarp::dev::MobileBaseVelocity& v) override;
+    using yarp::os::BufferedPort<yarp::dev::Nav2D::MobileBaseVelocitySerializer>::onRead;
+    void onRead(yarp::dev::Nav2D::MobileBaseVelocitySerializer& v) override;
 };
 
 class MobileBaseVelocityControl_nws_yarp:

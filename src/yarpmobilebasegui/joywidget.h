@@ -15,7 +15,6 @@
 #include <yarp/dev/IBattery.h>
 #include <yarp/dev/PolyDriver.h>
 #include <yarp/dev/Drivers.h>
-#include <yarp/dev/MobileBaseVelocity.h>
 
 #include  <qevent.h>
 #include <qwidget.h>
