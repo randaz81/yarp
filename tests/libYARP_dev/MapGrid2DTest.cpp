@@ -4,7 +4,7 @@
  */
 
 #include <yarp/dev/MapGrid2D.h>
-#include <yarp/dev/MapGrid2DDataSerializer.h>
+#include <yarp/dev/Nav2D/MapGrid2DDataSerializer.h>
 #include <yarp/dev/IMap2D.h>
 #include <yarp/dev/Map2DLocation.h>
 #include <yarp/dev/Map2DArea.h>

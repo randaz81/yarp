@@ -10,7 +10,7 @@
 
 #include <yarp/os/Serializer.h>
 
-#include <yarp/dev/MapGrid2DDataStorage.h>
+#include <yarp/dev/Nav2D/MapGrid2DDataStorage.h>
 
 #include <string>
 

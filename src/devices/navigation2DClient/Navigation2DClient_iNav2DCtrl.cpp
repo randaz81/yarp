@@ -10,7 +10,7 @@
 #include <yarp/os/LogStream.h>
 #include <mutex>
 #include <cmath>
-#include <yarp/dev/MapGrid2DDataSerializer.h>
+#include <yarp/dev/Nav2D/MapGrid2DDataSerializer.h>
 
 /*! \file Navigation2DClient.cpp */
 

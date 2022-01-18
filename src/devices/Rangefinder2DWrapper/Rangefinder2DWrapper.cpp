@@ -564,14 +564,14 @@ void Rangefinder2DWrapper::run()
 
             int ranges_size = ranges.size();
 
-            yarp::dev::LaserScan2D& b = streamingPort.prepare();
+            yarp::dev::LaserScan2DSerializer& b = streamingPort.prepare();
             //b.clear();
-            b.scans=ranges;
-            b.angle_min= minAngle;
-            b.angle_max= maxAngle;
-            b.range_min= minDistance;
-            b.range_max= maxDistance;
-            b.status=status;
+            b.get().scans=ranges;
+            b.get().angle_min= minAngle;
+            b.get().angle_max= maxAngle;
+            b.get().range_min= minDistance;
+            b.get().range_max= maxDistance;
+            b.get().status=status;
             streamingPort.setEnvelope(lastStateStamp);
             streamingPort.write();
 

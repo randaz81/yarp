@@ -25,7 +25,7 @@
 
 #include <yarp/sig/Vector.h>
 
-#include <yarp/dev/LaserScan2D.h>
+#include <yarp/dev/LaserScan2DSerializer.h>
 #include <yarp/dev/IRangefinder2D.h>
 #include <yarp/dev/PolyDriver.h>
 #include <yarp/dev/DeviceDriver.h>
@@ -88,7 +88,7 @@ private:
     std::string rpcPortName;
     std::string frame_id;
     yarp::os::Port rpcPort;
-    yarp::os::BufferedPort<yarp::dev::LaserScan2D> streamingPort;
+    yarp::os::BufferedPort<yarp::dev::LaserScan2DSerializer> streamingPort;
 
     //interfaces
     yarp::dev::PolyDriver m_driver;

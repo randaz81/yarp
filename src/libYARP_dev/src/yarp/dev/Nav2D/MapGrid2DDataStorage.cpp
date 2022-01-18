@@ -5,7 +5,7 @@
 
 #define _USE_MATH_DEFINES
 
-#include <yarp/dev/MapGrid2DDataStorage.h>
+#include <yarp/dev/Nav2D/MapGrid2DDataStorage.h>
 
 #include <yarp/os/Bottle.h>
 #include <yarp/os/ConnectionReader.h>

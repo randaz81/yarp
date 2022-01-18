@@ -14,7 +14,7 @@
 #include <yarp/dev/ControlBoardInterfaces.h>
 #include <yarp/dev/INavigation2D.h>
 #include <yarp/dev/MapGrid2D.h>
-#include <yarp/dev/MapGrid2DDataSerializer.h>
+#include <yarp/dev/Nav2D/MapGrid2DDataSerializer.h>
 #include <math.h>
 #include <cmath>
 #include "navigation2DServer.h"

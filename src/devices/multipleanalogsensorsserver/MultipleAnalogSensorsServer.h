@@ -15,7 +15,7 @@
 #include <yarp/dev/MultipleAnalogSensorsInterfaces.h>
 
 // Thrift-generated classes
-#include "SensorStreamingData.h"
+#include "SensorStreamingDataSerializer.h"
 #include "MultipleAnalogSensorsMetadata.h"
 
 
@@ -47,7 +47,7 @@ class MultipleAnalogSensorsServer :
     yarp::os::Stamp m_stamp;
     std::string m_streamingPortName;
     std::string m_RPCPortName;
-    yarp::os::BufferedPort<SensorStreamingData> m_streamingPort;
+    yarp::os::BufferedPort<SensorStreamingDataSerializer> m_streamingPort;
     yarp::os::Port m_rpcPort;
     // Generic vector buffer
     yarp::sig::Vector m_buffer;

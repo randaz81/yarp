@@ -70,16 +70,16 @@ InputPortProcessor::InputPortProcessor()
     m_contains_data=false;
 }
 
-void InputPortProcessor::onRead(yarp::dev::LaserScan2D& b)
+void InputPortProcessor::onRead(yarp::dev::LaserScan2DSerializer& b)
 {
     m_port_mutex.lock();
-        m_lastScan = b;
+        m_lastScan = b.get();
         getEnvelope(m_lastStamp);
         m_contains_data=true;
     m_port_mutex.unlock();
 }
 
-inline void InputPortProcessor::getLast(yarp::dev::LaserScan2D& data, Stamp& stmp)
+inline void InputPortProcessor::getLast(yarp::dev::LaserScan2DStorage& data, Stamp& stmp)
 {
     //this blocks untils the first data is received;
     size_t counter =0;
@@ -315,7 +315,7 @@ bool LaserFromExternalPort::threadInit()
     return true;
 }
 
-void LaserFromExternalPort::calculate(yarp::dev::LaserScan2D scan_data, yarp::sig::Matrix m)
+void LaserFromExternalPort::calculate(yarp::dev::LaserScan2DStorage scan_data, yarp::sig::Matrix m)
 {
     yarp::sig::Vector temp(3);
     temp = yarp::math::dcm2rpy(m);

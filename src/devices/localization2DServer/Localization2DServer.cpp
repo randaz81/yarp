@@ -590,7 +590,7 @@ void Localization2DServer::publish_odometry_on_yarp_port()
 {
     if (m_odometryPort.getOutputCount() > 0)
     {
-        yarp::dev::OdometryDataSerializer& odom = m_odometryPort.prepare();
+        yarp::dev::Nav2D::OdometryDataSerializer& odom = m_odometryPort.prepare();
         odom.get() = m_current_odometry;
 
         //send data to port
@@ -603,7 +603,7 @@ void Localization2DServer::publish_2DLocation_on_yarp_port()
 {
     if (m_2DLocationPort.getOutputCount() > 0)
     {
-        yarp::dev::Map2DLocationDataSerializer& loc = m_2DLocationPort.prepare();
+        yarp::dev::Nav2D::Map2DLocationDataSerializer& loc = m_2DLocationPort.prepare();
         if (m_current_status == LocalizationStatusEnum::localization_status_localized_ok)
         {
             loc.get() = m_current_position;
