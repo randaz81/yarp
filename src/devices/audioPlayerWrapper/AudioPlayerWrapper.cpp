@@ -10,7 +10,7 @@
 #include <yarp/os/LogComponent.h>
 #include <yarp/os/LogStream.h>
 
-#include <yarp/dev/AudioPlayerStatus.h>
+#include <yarp/dev/AudioPlayerStatusSerializer.h>
 #include <yarp/dev/ControlBoardInterfaces.h>
 
 #include <cmath>
@@ -333,10 +333,10 @@ void AudioPlayerWrapper::run()
     m_irender->isPlaying(m_isPlaying);
 
     //status port
-    yarp::dev::AudioPlayerStatus status;
-    status.enabled = m_isPlaying;
-    status.current_buffer_size = m_current_buffer_size.getSamples();
-    status.max_buffer_size = m_max_buffer_size.getSamples();
+    yarp::dev::AudioPlayerStatusSerializer status;
+    status.get().enabled = m_isPlaying;
+    status.get().current_buffer_size = m_current_buffer_size.getSamples();
+    status.get().max_buffer_size = m_max_buffer_size.getSamples();
     m_statusPort.write(status);
 }
 

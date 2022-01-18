@@ -5,7 +5,7 @@
 
 #include "AudioRecorderWrapper.h"
 #include <yarp/os/LogStream.h>
-#include <yarp/dev/AudioRecorderStatus.h>
+#include <yarp/dev/AudioRecorderStatusSerializer.h>
 
 using namespace yarp::dev;
 using namespace yarp::os;
@@ -310,10 +310,10 @@ void AudioRecorderStatusThread::run()
     m_ARW->m_mic->isRecording(m_ARW->m_isRecording);
 
     //status port
-    yarp::dev::AudioRecorderStatus status;
-    status.enabled = m_ARW->m_isRecording;
-    status.current_buffer_size = m_ARW->m_current_buffer_size.getSamples();
-    status.max_buffer_size = m_ARW->m_max_buffer_size.getSamples();
+    yarp::dev::AudioRecorderStatusSerializer status;
+    status.get().enabled = m_ARW->m_isRecording;
+    status.get().current_buffer_size = m_ARW->m_current_buffer_size.getSamples();
+    status.get().max_buffer_size = m_ARW->m_max_buffer_size.getSamples();
     m_ARW->m_statusPort.write(status);
 }
 
