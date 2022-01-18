@@ -1,4 +1,4 @@
-/* t_yarp_generator::generate_service:3616 */
+/* t_yarp_generator::generate_service:3762 */
 /*
  * SPDX-FileCopyrightText: 2006-2021 Istituto Italiano di Tecnologia (IIT)
  * SPDX-License-Identifier: BSD-3-Clause
@@ -29,47 +29,47 @@
 #include <yarp/sig/Matrix.h>
 #include <yarp/sig/MatrixSerializer.h>
 
-/* t_yarp_generator::generate_service:3712 */
+/* t_yarp_generator::generate_service:3858 */
 class ILocalization2DMsgs :
         public yarp::os::Wire
 {
 public:
-/* t_yarp_generator::generate_service_constructor:4424 */
+/* t_yarp_generator::generate_service_constructor:4570 */
     // Constructor
     ILocalization2DMsgs();
 
-/* t_yarp_generator::generate_service_method:4449 */
+/* t_yarp_generator::generate_service_method:4595 */
     virtual bool start_localization_service_RPC();
 
-/* t_yarp_generator::generate_service_method:4449 */
+/* t_yarp_generator::generate_service_method:4595 */
     virtual bool stop_localization_service_RPC();
 
-/* t_yarp_generator::generate_service_method:4449 */
+/* t_yarp_generator::generate_service_method:4595 */
     virtual return_get_localization_statusStorage get_localization_status_RPC();
 
-/* t_yarp_generator::generate_service_method:4449 */
+/* t_yarp_generator::generate_service_method:4595 */
     virtual return_get_estimated_posesStorage get_estimated_poses_RPC();
 
-/* t_yarp_generator::generate_service_method:4449 */
+/* t_yarp_generator::generate_service_method:4595 */
     virtual return_get_current_position1Storage get_current_position1_RPC();
 
-/* t_yarp_generator::generate_service_method:4449 */
+/* t_yarp_generator::generate_service_method:4595 */
     virtual return_get_current_position2Storage get_current_position2_RPC();
 
-/* t_yarp_generator::generate_service_method:4449 */
+/* t_yarp_generator::generate_service_method:4595 */
     virtual return_get_estimated_odometryStorage get_estimated_odometry_RPC();
 
-/* t_yarp_generator::generate_service_method:4449 */
+/* t_yarp_generator::generate_service_method:4595 */
     virtual bool set_initial_pose1_RPC(const yarp::dev::Nav2D::Map2DLocation& loc);
 
-/* t_yarp_generator::generate_service_method:4449 */
+/* t_yarp_generator::generate_service_method:4595 */
     virtual bool set_initial_pose2_RPC(const yarp::dev::Nav2D::Map2DLocation& loc, const yarp::sig::Matrix& cov);
 
-/* t_yarp_generator::generate_service_help:4502 */
+/* t_yarp_generator::generate_service_help:4648 */
     // help method
     virtual std::vector<std::string> help(const std::string& functionName = "--all");
 
-/* t_yarp_generator::generate_service_read:4584 */
+/* t_yarp_generator::generate_service_read:4730 */
     // read from ConnectionReader
     bool read(yarp::os::ConnectionReader& connection) override;
 };

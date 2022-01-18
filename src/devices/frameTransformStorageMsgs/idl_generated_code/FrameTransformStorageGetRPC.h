@@ -1,4 +1,4 @@
-/* t_yarp_generator::generate_service:3616 */
+/* t_yarp_generator::generate_service:3762 */
 /*
  * SPDX-FileCopyrightText: 2006-2021 Istituto Italiano di Tecnologia (IIT)
  * SPDX-License-Identifier: BSD-3-Clause
@@ -17,23 +17,23 @@
 #include <return_getAllTransformsStorage.h>
 #include <return_getAllTransformsSerializer.h>
 
-/* t_yarp_generator::generate_service:3712 */
+/* t_yarp_generator::generate_service:3858 */
 class FrameTransformStorageGetRPC :
         public yarp::os::Wire
 {
 public:
-/* t_yarp_generator::generate_service_constructor:4424 */
+/* t_yarp_generator::generate_service_constructor:4570 */
     // Constructor
     FrameTransformStorageGetRPC();
 
-/* t_yarp_generator::generate_service_method:4449 */
+/* t_yarp_generator::generate_service_method:4595 */
     virtual return_getAllTransformsStorage getTransformsRPC();
 
-/* t_yarp_generator::generate_service_help:4502 */
+/* t_yarp_generator::generate_service_help:4648 */
     // help method
     virtual std::vector<std::string> help(const std::string& functionName = "--all");
 
-/* t_yarp_generator::generate_service_read:4584 */
+/* t_yarp_generator::generate_service_read:4730 */
     // read from ConnectionReader
     bool read(yarp::os::ConnectionReader& connection) override;
 };
