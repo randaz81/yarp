@@ -134,6 +134,12 @@ public:
     VectorOf(std::initializer_list<T> values) : bytes(values) {
     }
 
+    VectorOf(const std::vector<T>& values) : bytes(values) {
+    }
+
+    VectorOf(std::vector<T>&& values) : bytes(std::move(values)) {
+    }
+
     /**
     * Build a vector and initialize it with def.
     * @param s the size
@@ -159,6 +165,11 @@ public:
     VectorOf(VectorOf<T>&& other) noexcept = default;
     VectorOf& operator=(VectorOf<T>&& other) noexcept = default;
     ~VectorOf() override = default;
+
+    operator std::vector<T>()
+    {
+        return bytes;
+    }
 
     size_t getElementSize() const override {
         return sizeof(T);
