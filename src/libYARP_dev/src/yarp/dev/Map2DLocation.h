@@ -12,7 +12,7 @@
 //#include <yarp/math/Vec2D.h>
 #include <yarp/dev/api.h>
 #include <yarp/dev/NavTypes.h>
-#include <yarp/dev/Nav2d/Map2DLocationDataStorage.h>
+#include <yarp/dev/Nav2D/Map2DLocationDataStorage.h>
 
 /**
 * \file Map2DLocation.h contains the definition of a Map2DLocation type

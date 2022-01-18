@@ -22,7 +22,7 @@ class YARP_math_API Vec2DSerializer :
     static_assert(std::is_same<size_t, T>::value || std::is_same<int, T>::value || std::is_same<double, T>::value, "Vec2D can be specialized only as size_t, int, double");
 
 public:
-    using Serializer::Serializer;
+    using yarp::os::Serializer<yarp::math::Vec2D<T>>::Serializer;
 
     virtual ~Vec2DSerializer() = default;
 
