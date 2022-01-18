@@ -37,6 +37,17 @@
  * | name           |      -         | string  | -              |   -           | Yes                         | Prefix of the port opened by this device                          | MUST start with a '/' character |
  * | period         |      -         | int     | ms             |   -           | Yes                          | Refresh period of the broadcasted values in ms                    |  |
  */
+
+ //TO BE FIXED <<< RANDAZ
+#include <SensorRPCDataStorage.h>
+typedef SensorRPCDataStorage SensorRPCData;
+#include <SensorMeasurementsStorage.h>
+typedef SensorMeasurementsStorage SensorMeasurements;
+#include <SensorMeasurementStorage.h>
+typedef SensorMeasurementStorage SensorMeasurement;
+#include <SensorMetadataStorage.h>
+typedef SensorMetadataStorage SensorMetadata;
+
 class MultipleAnalogSensorsServer :
         public yarp::os::PeriodicThread,
         public yarp::dev::DeviceDriver,

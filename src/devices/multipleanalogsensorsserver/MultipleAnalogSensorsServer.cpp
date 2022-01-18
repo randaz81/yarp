@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-#include "SensorStreamingData.h"
+#include "SensorStreamingDataSerializer.h"
 #include "MultipleAnalogSensorsMetadata.h"
 
 #include "MultipleAnalogSensorsServer.h"
@@ -368,7 +368,7 @@ bool MultipleAnalogSensorsServer::genericStreamData(Interface* wrappedDeviceInte
         streamingDataVector.resize(nrOfSensors);
         for (size_t i=0; i < nrOfSensors; i++)
         {
-            yarp::sig::Vector& outputBuffer = streamingDataVector[i].measurement;
+            yarp::sig::Vector outputBuffer = streamingDataVector[i].measurement;
             double& outputTimestamp = streamingDataVector[i].timestamp;
             // TODO(traversaro): resize the buffer to the correct size
             MAS_CALL_MEMBER_FN(wrappedDeviceInterface, getMeasureMethodPtr)(i, outputBuffer, outputTimestamp);
@@ -389,57 +389,57 @@ bool MultipleAnalogSensorsServer::genericStreamData(Interface* wrappedDeviceInte
 
 void MultipleAnalogSensorsServer::run()
 {
-    SensorStreamingData& streamingData = m_streamingPort.prepare();
+    SensorStreamingDataSerializer& streamingData = m_streamingPort.prepare();
 
     bool ok = true;
 
     ok = ok && genericStreamData(m_iThreeAxisGyroscopes, m_sensorMetadata.ThreeAxisGyroscopes,
-                                 streamingData.ThreeAxisGyroscopes.measurements,
+                                 streamingData.get().ThreeAxisGyroscopes.measurements,
                                  &yarp::dev::IThreeAxisGyroscopes::getThreeAxisGyroscopeStatus,
                                  &yarp::dev::IThreeAxisGyroscopes::getThreeAxisGyroscopeMeasure);
 
     ok = ok && genericStreamData(m_iThreeAxisLinearAccelerometers, m_sensorMetadata.ThreeAxisLinearAccelerometers,
-                                 streamingData.ThreeAxisLinearAccelerometers.measurements,
+                                 streamingData.get().ThreeAxisLinearAccelerometers.measurements,
                                  &yarp::dev::IThreeAxisLinearAccelerometers::getThreeAxisLinearAccelerometerStatus,
                                  &yarp::dev::IThreeAxisLinearAccelerometers::getThreeAxisLinearAccelerometerMeasure);
 
     ok = ok && genericStreamData(m_iThreeAxisMagnetometers, m_sensorMetadata.ThreeAxisMagnetometers,
-                                 streamingData.ThreeAxisMagnetometers.measurements,
+                                 streamingData.get().ThreeAxisMagnetometers.measurements,
                                  &yarp::dev::IThreeAxisMagnetometers::getThreeAxisMagnetometerStatus,
                                  &yarp::dev::IThreeAxisMagnetometers::getThreeAxisMagnetometerMeasure);
 
     ok = ok && genericStreamData(m_iPositionSensors, m_sensorMetadata.PositionSensors,
-                                 streamingData.PositionSensors.measurements,
+                                 streamingData.get().PositionSensors.measurements,
                                  &yarp::dev::IPositionSensors::getPositionSensorStatus,
                                  &yarp::dev::IPositionSensors::getPositionSensorMeasure);
 
     ok = ok && genericStreamData(m_iOrientationSensors, m_sensorMetadata.OrientationSensors,
-                                 streamingData.OrientationSensors.measurements,
+                                 streamingData.get().OrientationSensors.measurements,
                                  &yarp::dev::IOrientationSensors::getOrientationSensorStatus,
                                  &yarp::dev::IOrientationSensors::getOrientationSensorMeasureAsRollPitchYaw);
 
     ok = ok && genericStreamData(m_iTemperatureSensors, m_sensorMetadata.TemperatureSensors,
-                                 streamingData.TemperatureSensors.measurements,
+                                 streamingData.get().TemperatureSensors.measurements,
                                  &yarp::dev::ITemperatureSensors::getTemperatureSensorStatus,
                                  &yarp::dev::ITemperatureSensors::getTemperatureSensorMeasure);
 
     ok = ok && genericStreamData(m_iSixAxisForceTorqueSensors, m_sensorMetadata.SixAxisForceTorqueSensors,
-                                 streamingData.SixAxisForceTorqueSensors.measurements,
+                                 streamingData.get().SixAxisForceTorqueSensors.measurements,
                                  &yarp::dev::ISixAxisForceTorqueSensors::getSixAxisForceTorqueSensorStatus,
                                  &yarp::dev::ISixAxisForceTorqueSensors::getSixAxisForceTorqueSensorMeasure);
 
     ok = ok && genericStreamData(m_iContactLoadCellArrays, m_sensorMetadata.ContactLoadCellArrays,
-                                 streamingData.ContactLoadCellArrays.measurements,
+                                 streamingData.get().ContactLoadCellArrays.measurements,
                                  &yarp::dev::IContactLoadCellArrays::getContactLoadCellArrayStatus,
                                  &yarp::dev::IContactLoadCellArrays::getContactLoadCellArrayMeasure);
 
     ok = ok && genericStreamData(m_iEncoderArrays, m_sensorMetadata.EncoderArrays,
-                                 streamingData.EncoderArrays.measurements,
+                                 streamingData.get().EncoderArrays.measurements,
                                  &yarp::dev::IEncoderArrays::getEncoderArrayStatus,
                                  &yarp::dev::IEncoderArrays::getEncoderArrayMeasure);
 
     ok = ok && genericStreamData(m_iSkinPatches, m_sensorMetadata.SkinPatches,
-                                 streamingData.SkinPatches.measurements,
+                                 streamingData.get().SkinPatches.measurements,
                                  &yarp::dev::ISkinPatches::getSkinPatchStatus,
                                  &yarp::dev::ISkinPatches::getSkinPatchMeasure);
 

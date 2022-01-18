@@ -53,6 +53,7 @@ public:
 *
 */
 
+//TO BE FIXED <<< RANDAZ
 #include <SensorRPCDataStorage.h>
 typedef SensorRPCDataStorage SensorRPCData;
 #include <SensorMeasurementsStorage.h>
