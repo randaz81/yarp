@@ -55,6 +55,9 @@ protected:
 protected:
     bool m_compressed_data_over_network;
 
+public:
+    bool enable_map_compression_over_network(bool val);
+
 protected:
     // performs an obstacles enlargement on the specified cell.
     void enlargeCell(XYCell cell);
@@ -69,7 +72,6 @@ protected:
 
 public:
     MapGrid2DDataStorage();
-    MapGrid2DDataStorage(const MapGrid2DDataStorage&) = default;
     virtual ~MapGrid2DDataStorage();
 
     /**

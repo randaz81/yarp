@@ -36,7 +36,6 @@ public:
      * return true iff a vector was written correctly
      */
     bool write(yarp::os::ConnectionWriter& connection) const override;
-
 };
 } // namespace yarp::dev::Nav2D
 

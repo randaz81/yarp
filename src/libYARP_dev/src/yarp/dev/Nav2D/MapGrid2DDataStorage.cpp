@@ -496,14 +496,3 @@ void MapGrid2DDataStorage::clearMapTemporaryFlags()
         }
     }
 }
-
-bool MapGrid2DDataStorage::enable_map_compression_over_network(bool val)
-{
-#if defined (YARP_HAS_ZLIB)
-    m_compressed_data_over_network = val;
-    return true;
-#else
-    yWarning() << "Zlib library not found, unable to set compression";
-    return false;
-#endif
-}
