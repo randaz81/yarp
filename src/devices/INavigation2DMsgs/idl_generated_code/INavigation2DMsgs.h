@@ -1,4 +1,3 @@
-/* t_yarp_generator::generate_service:3762 */
 /*
  * SPDX-FileCopyrightText: 2006-2021 Istituto Italiano di Tecnologia (IIT)
  * SPDX-License-Identifier: BSD-3-Clause
@@ -34,71 +33,50 @@
 #include <yarp/dev/Map2DLocation.h>
 #include <yarp/dev/Nav2D/Map2DLocationDataSerializer.h>
 
-/* t_yarp_generator::generate_service:3858 */
 class INavigation2DMsgs :
         public yarp::os::Wire
 {
 public:
-/* t_yarp_generator::generate_service_constructor:4570 */
     // Constructor
     INavigation2DMsgs();
 
-/* t_yarp_generator::generate_service_method:4595 */
     virtual bool stop_navigation_RPC();
 
-/* t_yarp_generator::generate_service_method:4595 */
     virtual bool resume_navigation_RPC();
 
-/* t_yarp_generator::generate_service_method:4595 */
     virtual bool suspend_navigation_RPC(const double time_s);
 
-/* t_yarp_generator::generate_service_method:4595 */
     virtual bool recompute_current_navigation_path_RPC();
 
-/* t_yarp_generator::generate_service_method:4595 */
     virtual return_get_navigation_statusStorage get_navigation_status_RPC();
 
-/* t_yarp_generator::generate_service_method:4595 */
     virtual return_get_current_nav_waypointStorage get_current_nav_waypoint_RPC();
 
-/* t_yarp_generator::generate_service_method:4595 */
     virtual return_get_all_nav_waypointsStorage get_all_navigation_waypoints_RPC(const yarp::dev::Nav2D::TrajectoryTypeEnum trajectory_type);
 
-/* t_yarp_generator::generate_service_method:4595 */
     virtual return_get_current_nav_mapStorage get_current_navigation_map_RPC(const yarp::dev::Nav2D::NavigationMapTypeEnum map_type);
 
-/* t_yarp_generator::generate_service_method:4595 */
     virtual bool goto_target_by_absolute_location_RPC(const yarp::dev::Nav2D::Map2DLocation& loc);
 
-/* t_yarp_generator::generate_service_method:4595 */
     virtual bool goto_target_by_relative_location1_RPC(const double x, const double y);
 
-/* t_yarp_generator::generate_service_method:4595 */
     virtual bool goto_target_by_relative_location2_RPC(const double x, const double y, const double theta);
 
-/* t_yarp_generator::generate_service_method:4595 */
     virtual return_get_abs_loc_of_curr_targetStorage get_absolute_location_of_current_target_RPC();
 
-/* t_yarp_generator::generate_service_method:4595 */
     virtual return_get_rel_loc_of_curr_targetStorage get_relative_location_of_current_target_RPC();
 
-/* t_yarp_generator::generate_service_method:4595 */
     virtual bool goto_target_by_absolute_location_and_set_name_RPC(const yarp::dev::Nav2D::Map2DLocation& loc, const std::string& name);
 
-/* t_yarp_generator::generate_service_method:4595 */
     virtual bool apply_velocity_command_RPC(const double x_vel, const double y_vel, const double theta_vel, const double timeout);
 
-/* t_yarp_generator::generate_service_method:4595 */
     virtual return_get_last_velocity_commandStorage get_last_velocity_command_RPC();
 
-/* t_yarp_generator::generate_service_method:4595 */
     virtual return_get_name_of_current_targetStorage get_name_of_current_target_RPC();
 
-/* t_yarp_generator::generate_service_help:4648 */
     // help method
     virtual std::vector<std::string> help(const std::string& functionName = "--all");
 
-/* t_yarp_generator::generate_service_read:4730 */
     // read from ConnectionReader
     bool read(yarp::os::ConnectionReader& connection) override;
 };

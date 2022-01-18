@@ -1,4 +1,3 @@
-/* t_yarp_generator::generate_service:3762 */
 /*
  * SPDX-FileCopyrightText: 2006-2021 Istituto Italiano di Tecnologia (IIT)
  * SPDX-License-Identifier: BSD-3-Clause
@@ -16,59 +15,42 @@
 #include <yarp/os/idl/WireTypes.h>
 #include <yarp/dev/IBattery.h>
 
-/* t_yarp_generator::generate_service:3858 */
 class FakeBatteryService :
         public yarp::os::Wire
 {
 public:
-/* t_yarp_generator::generate_service_constructor:4570 */
     // Constructor
     FakeBatteryService();
 
-/* t_yarp_generator::generate_service_method:4595 */
     virtual void setBatteryVoltage(const double voltage);
 
-/* t_yarp_generator::generate_service_method:4595 */
     virtual void setBatteryCurrent(const double current);
 
-/* t_yarp_generator::generate_service_method:4595 */
     virtual void setBatteryCharge(const double charge);
 
-/* t_yarp_generator::generate_service_method:4595 */
     virtual void setBatteryStatus(const yarp::dev::IBattery::Battery_status status);
 
-/* t_yarp_generator::generate_service_method:4595 */
     virtual void setBatteryInfo(const std::string& info);
 
-/* t_yarp_generator::generate_service_method:4595 */
     virtual void setBatteryTemperature(const double temperature);
 
-/* t_yarp_generator::generate_service_method:4595 */
     virtual double getBatteryVoltage();
 
-/* t_yarp_generator::generate_service_method:4595 */
     virtual double getBatteryCurrent();
 
-/* t_yarp_generator::generate_service_method:4595 */
     virtual double getBatteryCharge();
 
-/* t_yarp_generator::generate_service_method:4595 */
     virtual yarp::dev::IBattery::Battery_status getBatteryStatus();
 
-/* t_yarp_generator::generate_service_method:4595 */
     virtual std::string getBatteryStatusString();
 
-/* t_yarp_generator::generate_service_method:4595 */
     virtual std::string getBatteryInfo();
 
-/* t_yarp_generator::generate_service_method:4595 */
     virtual double getBatteryTemperature();
 
-/* t_yarp_generator::generate_service_help:4648 */
     // help method
     virtual std::vector<std::string> help(const std::string& functionName = "--all");
 
-/* t_yarp_generator::generate_service_read:4730 */
     // read from ConnectionReader
     bool read(yarp::os::ConnectionReader& connection) override;
 };

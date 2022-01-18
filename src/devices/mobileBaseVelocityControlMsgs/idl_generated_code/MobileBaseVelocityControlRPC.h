@@ -1,4 +1,3 @@
-/* t_yarp_generator::generate_service:3762 */
 /*
  * SPDX-FileCopyrightText: 2006-2021 Istituto Italiano di Tecnologia (IIT)
  * SPDX-License-Identifier: BSD-3-Clause
@@ -17,26 +16,20 @@
 #include <return_getLastVelocityCommandStorage.h>
 #include <return_getLastVelocityCommandSerializer.h>
 
-/* t_yarp_generator::generate_service:3858 */
 class MobileBaseVelocityControlRPC :
         public yarp::os::Wire
 {
 public:
-/* t_yarp_generator::generate_service_constructor:4570 */
     // Constructor
     MobileBaseVelocityControlRPC();
 
-/* t_yarp_generator::generate_service_method:4595 */
     virtual bool applyVelocityCommandRPC(const double x_vel, const double y_vel, const double theta_vel, const double timeout);
 
-/* t_yarp_generator::generate_service_method:4595 */
     virtual return_getLastVelocityCommandStorage getLastVelocityCommandRPC();
 
-/* t_yarp_generator::generate_service_help:4648 */
     // help method
     virtual std::vector<std::string> help(const std::string& functionName = "--all");
 
-/* t_yarp_generator::generate_service_read:4730 */
     // read from ConnectionReader
     bool read(yarp::os::ConnectionReader& connection) override;
 };

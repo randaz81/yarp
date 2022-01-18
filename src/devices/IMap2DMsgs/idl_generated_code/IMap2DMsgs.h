@@ -1,4 +1,3 @@
-/* t_yarp_generator::generate_service:3762 */
 /*
  * SPDX-FileCopyrightText: 2006-2021 Istituto Italiano di Tecnologia (IIT)
  * SPDX-License-Identifier: BSD-3-Clause
@@ -45,125 +44,86 @@
 #include <yarp/dev/Nav2D/Map2DPathDataSerializer.h>
 #include <yarp/dev/Nav2D/MapGrid2DDataSerializer.h>
 
-/* t_yarp_generator::generate_service:3858 */
 class IMap2DMsgs :
         public yarp::os::Wire
 {
 public:
-/* t_yarp_generator::generate_service_constructor:4570 */
     // Constructor
     IMap2DMsgs();
 
-/* t_yarp_generator::generate_service_method:4595 */
     virtual bool clear_all_maps_RPC();
 
-/* t_yarp_generator::generate_service_method:4595 */
     virtual bool store_map_RPC(const yarp::dev::Nav2D::MapGrid2D& themap);
 
-/* t_yarp_generator::generate_service_method:4595 */
     virtual return_get_mapStorage get_map_RPC(const std::string& map_name);
 
-/* t_yarp_generator::generate_service_method:4595 */
     virtual return_get_map_namesStorage get_map_names_RPC();
 
-/* t_yarp_generator::generate_service_method:4595 */
     virtual bool remove_map_RPC(const std::string& map_name);
 
-/* t_yarp_generator::generate_service_method:4595 */
     virtual bool store_location_RPC(const std::string& location_name, const yarp::dev::Nav2D::Map2DLocation& loc);
 
-/* t_yarp_generator::generate_service_method:4595 */
     virtual bool store_area_RPC(const std::string& area_name, const yarp::dev::Nav2D::Map2DArea& area);
 
-/* t_yarp_generator::generate_service_method:4595 */
     virtual bool store_path_RPC(const std::string& path_name, const yarp::dev::Nav2D::Map2DPath& path);
 
-/* t_yarp_generator::generate_service_method:4595 */
     virtual return_get_locationStorage get_location_RPC(const std::string& location_name);
 
-/* t_yarp_generator::generate_service_method:4595 */
     virtual return_get_areaStorage get_area_RPC(const std::string& area_name);
 
-/* t_yarp_generator::generate_service_method:4595 */
     virtual return_get_pathStorage get_path_RPC(const std::string& path_name);
 
-/* t_yarp_generator::generate_service_method:4595 */
     virtual return_get_locations_listStorage get_locations_list_RPC();
 
-/* t_yarp_generator::generate_service_method:4595 */
     virtual return_get_areas_listStorage get_areas_list_RPC();
 
-/* t_yarp_generator::generate_service_method:4595 */
     virtual return_get_paths_listStorage get_paths_list_RPC();
 
-/* t_yarp_generator::generate_service_method:4595 */
     virtual return_get_all_locationsStorage get_all_locations_RPC();
 
-/* t_yarp_generator::generate_service_method:4595 */
     virtual return_get_all_areasStorage get_all_areas_RPC();
 
-/* t_yarp_generator::generate_service_method:4595 */
     virtual return_get_all_pathsStorage get_all_paths_RPC();
 
-/* t_yarp_generator::generate_service_method:4595 */
     virtual bool rename_location_RPC(const std::string& original_name, const std::string& new_name);
 
-/* t_yarp_generator::generate_service_method:4595 */
     virtual bool delete_location_RPC(const std::string& location_name);
 
-/* t_yarp_generator::generate_service_method:4595 */
     virtual bool delete_path_RPC(const std::string& path_name);
 
-/* t_yarp_generator::generate_service_method:4595 */
     virtual bool rename_area_RPC(const std::string& original_name, const std::string& new_name);
 
-/* t_yarp_generator::generate_service_method:4595 */
     virtual bool rename_path_RPC(const std::string& original_name, const std::string& new_name);
 
-/* t_yarp_generator::generate_service_method:4595 */
     virtual bool delete_area_RPC(const std::string& area_name);
 
-/* t_yarp_generator::generate_service_method:4595 */
     virtual bool clear_all_locations_RPC();
 
-/* t_yarp_generator::generate_service_method:4595 */
     virtual bool clear_all_areas_RPC();
 
-/* t_yarp_generator::generate_service_method:4595 */
     virtual bool clear_all_paths_RPC();
 
-/* t_yarp_generator::generate_service_method:4595 */
     virtual bool clear_all_maps_temporary_flags_RPC();
 
-/* t_yarp_generator::generate_service_method:4595 */
     virtual bool clear_map_temporary_flags_RPC(const std::string& map_name);
 
-/* t_yarp_generator::generate_service_method:4595 */
     virtual bool save_maps_collection_RPC(const std::string& maps_collection_file);
 
-/* t_yarp_generator::generate_service_method:4595 */
     virtual bool load_maps_collection_RPC(const std::string& maps_collection_file);
 
-/* t_yarp_generator::generate_service_method:4595 */
     virtual bool save_locations_and_extras_RPC(const std::string& locations_collection_file);
 
-/* t_yarp_generator::generate_service_method:4595 */
     virtual bool load_locations_and_extras_RPC(const std::string& locations_collection_file);
 
-/* t_yarp_generator::generate_service_method:4595 */
     virtual bool save_map_to_disk_RPC(const std::string& map_name, const std::string& file_name);
 
-/* t_yarp_generator::generate_service_method:4595 */
     virtual bool load_map_from_disk_RPC(const std::string& file_name);
 
-/* t_yarp_generator::generate_service_method:4595 */
     virtual bool enable_maps_compression_RPC(const bool enable_compression);
 
-/* t_yarp_generator::generate_service_help:4648 */
     // help method
     virtual std::vector<std::string> help(const std::string& functionName = "--all");
 
-/* t_yarp_generator::generate_service_read:4730 */
     // read from ConnectionReader
     bool read(yarp::os::ConnectionReader& connection) override;
 };

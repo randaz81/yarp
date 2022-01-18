@@ -1,4 +1,3 @@
-/* t_yarp_generator::generate_service:3762 */
 /*
  * SPDX-FileCopyrightText: 2006-2021 Istituto Italiano di Tecnologia (IIT)
  * SPDX-License-Identifier: BSD-3-Clause
@@ -15,63 +14,52 @@
 #include <yarp/os/Wire.h>
 #include <yarp/os/idl/WireTypes.h>
 
-/* t_yarp_generator::generate_service:3858 */
 class yarprobotinterfaceRpc :
         public yarp::os::Wire
 {
 public:
-/* t_yarp_generator::generate_service_constructor:4570 */
     // Constructor
     yarprobotinterfaceRpc();
 
-/* t_yarp_generator::generate_service_method:4595 */
     /**
      * Returns current phase.
      */
     virtual std::string get_phase();
 
-/* t_yarp_generator::generate_service_method:4595 */
     /**
      * Returns current level.
      */
     virtual std::int32_t get_level();
 
-/* t_yarp_generator::generate_service_method:4595 */
     /**
      * Returns robot name.
      */
     virtual std::string get_robot();
 
-/* t_yarp_generator::generate_service_method:4595 */
     /**
      * Returns true if yarprobotinterface is ready (all startup actions
      * performed and no interrupt called).
      */
     virtual bool is_ready();
 
-/* t_yarp_generator::generate_service_method:4595 */
     /**
      * Closes yarprobotinterface.
      */
     virtual std::string quit();
 
-/* t_yarp_generator::generate_service_method:4595 */
     /**
      * Closes yarprobotinterface.
      */
     virtual std::string bye();
 
-/* t_yarp_generator::generate_service_method:4595 */
     /**
      * Closes yarprobotinterface.
      */
     virtual std::string exit();
 
-/* t_yarp_generator::generate_service_help:4648 */
     // help method
     virtual std::vector<std::string> help(const std::string& functionName = "--all");
 
-/* t_yarp_generator::generate_service_read:4730 */
     // read from ConnectionReader
     bool read(yarp::os::ConnectionReader& connection) override;
 };
