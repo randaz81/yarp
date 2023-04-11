@@ -140,7 +140,7 @@ add_subdirectory(libYARP_wire_rep_utils)
 add_subdirectory(libYARP_robotinterface)
 
 add_subdirectory(yarpidl_thrift)
-add_subdirectory(yarpidl_rosmsg)
+#add_subdirectory(yarpidl_rosmsg)
 
 add_subdirectory(carriers)
 add_subdirectory(devices)

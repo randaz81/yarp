@@ -1,6 +1,9 @@
 # SPDX-FileCopyrightText: 2006-2021 Istituto Italiano di Tecnologia (IIT)
 # SPDX-License-Identifier: BSD-3-Clause
 
+message ("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
+add_subdirectory(demo)
+
 macro(add_yarpidl_thrift_test name wd file check_file)
   # FIXME directory is not created automatically by yarpidl_thrift
   add_test(
@@ -50,21 +53,19 @@ add_yarpidl_thrift_test(test3 "${CMAKE_CURRENT_BINARY_DIR}" "${CMAKE_CURRENT_SOU
 # Test yarp_idl_to_dir and yarp_add_idl
 add_test(
   NAME idl::thrift::demo::run
-  COMMAND ${CMAKE_CTEST_COMMAND} -VV
-                                 --build-and-test "${CMAKE_CURRENT_SOURCE_DIR}/demo"
-                                                  "${CMAKE_CURRENT_BINARY_DIR}/demo"
-                                 --build-two-config
-                                 ${build_generator}
-                                 --build-project demo
-                                 --build-options ${build_options}
-                                                 -DYCM_DIR=${YCM_DIR}
-                                                 -DYARP_DIR=${CMAKE_BINARY_DIR}
-                                                 -DALLOW_IDL_GENERATION=TRUE
-                                 --test-command ${CMAKE_CTEST_COMMAND} ${build_generator}
+  COMMAND demo_yarp_add_idl
   WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
 )
 set_tests_properties(idl::thrift::demo::run PROPERTIES FIXTURES_SETUP yarpidl_thrift_demo_run)
 set_tests_properties(idl::thrift::demo::run PROPERTIES LABELS "yarp::idl::thrift")
+
+add_test(
+  NAME idl::thrift::demo::run2
+  COMMAND demo_yarp_idl_to_dir
+  WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
+)
+set_tests_properties(idl::thrift::demo::run2 PROPERTIES FIXTURES_SETUP yarpidl_thrift_demo_run)
+set_tests_properties(idl::thrift::demo::run2 PROPERTIES LABELS "yarp::idl::thrift")
 
 # Cleanup
 add_test(

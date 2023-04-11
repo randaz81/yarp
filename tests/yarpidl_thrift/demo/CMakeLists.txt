@@ -1,6 +1,8 @@
 # SPDX-FileCopyrightText: 2006-2021 Istituto Italiano di Tecnologia (IIT)
 # SPDX-License-Identifier: BSD-3-Clause
 
+message ("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+
 cmake_minimum_required(VERSION 3.16)
 project(demo)
 enable_testing()
@@ -23,6 +25,7 @@ if (APPLE)
 endif()
 set(YARP_TEST_TIMEOUT ${YARP_TEST_TIMEOUT_DEFAULT} CACHE STRING "Timeout for unit tests")
 mark_as_advanced(YARP_TEST_TIMEOUT)
+
 function(yarp_catch_discover_tests _target)
   # Workaround to force catch_discover_tests to run tests under valgrind
   if(DEFINED YARP_TEST_LAUNCHER)
