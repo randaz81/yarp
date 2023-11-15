@@ -1502,7 +1502,8 @@ jobs:
           -C .ci/initial-cache.gh.linux.cmake \
           -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=ON \
           -DYARP_NO_DEPRECATED:BOOL=ON \
-          -DYARP_COMPILE_BINDINGS:BOOL=OFF
+          -DYARP_COMPILE_BINDINGS:BOOL=OFF \
+          -DYARP_COMPILE_GUIS:BOOL=OFF
 
     - name: Link compile_commands.json in the source directory
       run: |
@@ -1663,7 +1664,8 @@ jobs:
           "-DCMAKE_C_FLAGS_PROFILE=-pg -g3 -ggdb -fno-inline -ftest-coverage -fprofile-arcs -DNDEBUG" \
           "-DCMAKE_CXX_FLAGS_PROFILE=-pg -g3 -ggdb -fno-inline -ftest-coverage -fprofile-arcs -DNDEBUG" \
           -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=ON \
-          -DYARP_NO_DEPRECATED:BOOL=ON
+          -DYARP_NO_DEPRECATED:BOOL=ON \
+          -DYARP_COMPILE_GUIS:BOOL=OFF
 
         (cd build && lcov --directory . --zerocounters)
 
@@ -1922,7 +1924,8 @@ jobs:
           -DCMAKE_STATIC_LINKER_FLAGS_PROFILE= \
           -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=ON \
           -DYARP_NO_DEPRECATED:BOOL=ON \
-          -DYARP_COMPILE_BINDINGS:BOOL=OFF
+          -DYARP_COMPILE_BINDINGS:BOOL=OFF \
+          -DYARP_COMPILE_GUIS:BOOL=OFF
 
     - name: Link compile_commands.json in the source directory
       run: |
@@ -2007,7 +2010,13 @@ jobs:
             -Dsonar.coverageReportPaths=build/coverage.xml \
             -Dsonar.junit.reportPaths=build/JUnitTestResults.xml \
             -Dsonar.exclusions="src/yarp*/**/* src/carriers/**/* src/devices/**/* src/idls/**/* src/libyarp*/**/* src/robottestingframework-plugins/**/* tests/**/*" \
-            -Dsonar.coverage.exclusions="src/devices/**/tests/*" \
+            -Dsonar.coverage.exclusions="\
+                 src/devices/*/tests/*,\
+                 src/carriers/*/tests/*,\
+                 tests/**/*,\
+                 src/yarp*/**/*,\
+                 robottestingframework-plugins/**/*\
+                 " \
             -Dsonar.branch.longLivedBranches.regex="^(master|yarp-.+)$" \
             ${SONAR_TESTS_CMD_ARG} \
             ${SONAR_PROJECT_NAME_CMD_ARG} \
