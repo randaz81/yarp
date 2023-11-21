@@ -28,6 +28,7 @@ target_sources(harness_os PRIVATE
   PropertyTest.cpp
   PublisherTest.cpp
   ResourceFinderTest.cpp
+  ReturnValueTest.cpp
   RFModuleTest.cpp
   RouteTest.cpp
   SemaphoreTest.cpp
