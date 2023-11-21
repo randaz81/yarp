@@ -9,7 +9,6 @@
 #include <cstdio>
 
 using namespace yarp::dev;
-#define JOINTIDCHECK if (ch >= castToMapper(helper)->axes()){yError("channel id out of bound"); return false;}
 
 ImplementVirtualAnalogSensor::ImplementVirtualAnalogSensor(IVirtualAnalogSensorRaw *virt)
 {
@@ -62,21 +61,20 @@ int  ImplementVirtualAnalogSensor::getVirtualAnalogSensorChannels()
     return iVASRaw->getVirtualAnalogSensorChannelsRaw();
 }
 
-bool ImplementVirtualAnalogSensor::updateVirtualAnalogSensorMeasure(yarp::sig::Vector &measure)
+yarp_ret_value ImplementVirtualAnalogSensor::updateVirtualAnalogSensorMeasure(yarp::sig::Vector &measure)
 {
     yarp::sig::Vector measure_raw;
     castToMapper(helper)->voltageV2S(measure.data(), measure_raw.data());
-    bool ret = iVASRaw->updateVirtualAnalogSensorMeasureRaw(measure_raw);
+    yarp_ret_value ret = iVASRaw->updateVirtualAnalogSensorMeasureRaw(measure_raw);
     return ret;
 }
 
-bool ImplementVirtualAnalogSensor::updateVirtualAnalogSensorMeasure(int ch, double &measure)
+yarp_ret_value ImplementVirtualAnalogSensor::updateVirtualAnalogSensorMeasure(int j, double &measure)
 {
-    JOINTIDCHECK
-    int ch_raw;
-    bool ret;
+    JOINTIDCHECK(j)
+    int j_raw;
     double measure_raw;
-    castToMapper(helper)->voltageV2S(measure, ch, measure_raw, ch_raw);
-    ret = iVASRaw->updateVirtualAnalogSensorMeasureRaw(ch_raw, measure_raw);
+    castToMapper(helper)->voltageV2S(measure, j, measure_raw, j_raw);
+    yarp_ret_value ret = iVASRaw->updateVirtualAnalogSensorMeasureRaw(j_raw, measure_raw);
     return ret;
 }

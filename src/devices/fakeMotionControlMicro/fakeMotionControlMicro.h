@@ -103,48 +103,48 @@ public:
     void threadRelease() override;
 
     // IJointFault
-    bool getLastJointFaultRaw(int j, int& fault, std::string& message) override;
+    yarp::dev::yarp_ret_value getLastJointFaultRaw(int j, int& fault, std::string& message) override;
 
     //////////////////////// BEGIN MotorEncoder Interface
-    bool getNumberOfMotorEncodersRaw(int* num) override;
-    bool resetMotorEncoderRaw(int j) override;
-    bool resetMotorEncodersRaw() override;
-    bool setMotorEncoderRaw(int j, double val) override;
-    bool setMotorEncodersRaw(const double* vals) override;
-    bool getMotorEncoderRaw(int j, double* v) override;
-    bool getMotorEncodersRaw(double* encs) override;
-    bool getMotorEncoderSpeedRaw(int j, double* sp) override;
-    bool getMotorEncoderSpeedsRaw(double* spds) override;
-    bool getMotorEncoderAccelerationRaw(int j, double* spds) override;
-    bool getMotorEncoderAccelerationsRaw(double* accs) override;
-    bool getMotorEncodersTimedRaw(double* encs, double* stamps) override;
-    bool getMotorEncoderTimedRaw(int m, double* encs, double* stamp) override;
-    bool getMotorEncoderCountsPerRevolutionRaw(int m, double* v) override;
-    bool setMotorEncoderCountsPerRevolutionRaw(int m, const double cpr) override;
+    yarp::dev::yarp_ret_value getNumberOfMotorEncodersRaw(int* num) override;
+    yarp::dev::yarp_ret_value resetMotorEncoderRaw(int j) override;
+    yarp::dev::yarp_ret_value resetMotorEncodersRaw() override;
+    yarp::dev::yarp_ret_value setMotorEncoderRaw(int j, double val) override;
+    yarp::dev::yarp_ret_value setMotorEncodersRaw(const double* vals) override;
+    yarp::dev::yarp_ret_value getMotorEncoderRaw(int j, double* v) override;
+    yarp::dev::yarp_ret_value getMotorEncodersRaw(double* encs) override;
+    yarp::dev::yarp_ret_value getMotorEncoderSpeedRaw(int j, double* sp) override;
+    yarp::dev::yarp_ret_value getMotorEncoderSpeedsRaw(double* spds) override;
+    yarp::dev::yarp_ret_value getMotorEncoderAccelerationRaw(int j, double* spds) override;
+    yarp::dev::yarp_ret_value getMotorEncoderAccelerationsRaw(double* accs) override;
+    yarp::dev::yarp_ret_value getMotorEncodersTimedRaw(double* encs, double* stamps) override;
+    yarp::dev::yarp_ret_value getMotorEncoderTimedRaw(int m, double* encs, double* stamp) override;
+    yarp::dev::yarp_ret_value getMotorEncoderCountsPerRevolutionRaw(int m, double* v) override;
+    yarp::dev::yarp_ret_value setMotorEncoderCountsPerRevolutionRaw(int m, const double cpr) override;
     ///////////////////////// END MotorEncoder Interface
 
     //////////////////////// BEGIN EncoderInterface
-    bool getAxes(int* ax) override;
-    bool resetEncoderRaw(int j) override;
-    bool resetEncodersRaw() override;
-    bool setEncoderRaw(int j, double val) override;
-    bool setEncodersRaw(const double *vals) override;
-    bool getEncoderRaw(int j, double *v) override;
-    bool getEncodersRaw(double *encs) override;
-    bool getEncoderSpeedRaw(int j, double *sp) override;
-    bool getEncoderSpeedsRaw(double *spds) override;
-    bool getEncoderAccelerationRaw(int j, double *spds) override;
-    bool getEncoderAccelerationsRaw(double *accs) override;
+    yarp::dev::yarp_ret_value getAxes(int* ax) override;
+    yarp::dev::yarp_ret_value resetEncoderRaw(int j) override;
+    yarp::dev::yarp_ret_value resetEncodersRaw() override;
+    yarp::dev::yarp_ret_value setEncoderRaw(int j, double val) override;
+    yarp::dev::yarp_ret_value setEncodersRaw(const double *vals) override;
+    yarp::dev::yarp_ret_value getEncoderRaw(int j, double *v) override;
+    yarp::dev::yarp_ret_value getEncodersRaw(double *encs) override;
+    yarp::dev::yarp_ret_value getEncoderSpeedRaw(int j, double *sp) override;
+    yarp::dev::yarp_ret_value getEncoderSpeedsRaw(double *spds) override;
+    yarp::dev::yarp_ret_value getEncoderAccelerationRaw(int j, double *spds) override;
+    yarp::dev::yarp_ret_value getEncoderAccelerationsRaw(double *accs) override;
     ///////////////////////// END Encoder Interface
 
     //////////////////////// BEGIN EncoderTimed Interface
-    bool getEncodersTimedRaw(double *encs, double *stamps) override;
-    bool getEncoderTimedRaw(int j, double *encs, double *stamp) override;
+    yarp::dev::yarp_ret_value getEncodersTimedRaw(double *encs, double *stamps) override;
+    yarp::dev::yarp_ret_value getEncoderTimedRaw(int j, double *encs, double *stamp) override;
     ///////////////////////// END EncoderTimed Interface
 
     //////////////////////// BEGIN IAxisInfo Interface
-    bool getAxisNameRaw(int axis, std::string& name) override;
-    bool getJointTypeRaw(int axis, yarp::dev::JointTypeEnum& type) override;
+    yarp::dev::yarp_ret_value getAxisNameRaw(int axis, std::string& name) override;
+    yarp::dev::yarp_ret_value getJointTypeRaw(int axis, yarp::dev::JointTypeEnum& type) override;
     ///////////////////////// END IAxisInfo Interface
 
     void run() override;

@@ -8,6 +8,7 @@
 
 #include <yarp/dev/IJointFault.h>
 #include <yarp/dev/api.h>
+#include <yarp/dev/ReturnValue.h>
 
 namespace yarp::dev {
 class ImplementJointFault;
@@ -45,7 +46,7 @@ public:
      */
     virtual ~ImplementJointFault();
 
-    bool getLastJointFault(int j, int& fault, std::string& message) override;
+    yarp::dev::yarp_ret_value getLastJointFault(int j, int& fault, std::string& message) override;
 
 };
 

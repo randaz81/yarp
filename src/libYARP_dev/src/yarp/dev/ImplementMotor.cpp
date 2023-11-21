@@ -10,8 +10,6 @@
 #include <cstdio>
 using namespace yarp::dev;
 
-#define JOINTIDCHECK if (m >= castToMapper(helper)->axes()){yError("motor id out of bound"); return false;}
-
 ////////////////////////
 // Encoder Interface Timed Implementation
 ImplementMotor::ImplementMotor(IMotorRaw *y) :
@@ -61,72 +59,67 @@ bool ImplementMotor::uninitialize ()
     return true;
 }
 
-bool ImplementMotor::getNumberOfMotors(int *num)
+yarp_ret_value ImplementMotor::getNumberOfMotors(int *num)
 {
     (*num)=castToMapper(helper)->axes();
-    return true;
+    return yarp_ret_value_ok;
 }
 
-bool ImplementMotor::getTemperature(int m, double* value)
+yarp_ret_value ImplementMotor::getTemperature(int m, double* value)
 {
-    JOINTIDCHECK
-    bool ret;
+    JOINTIDCHECK(m)
     int k=castToMapper(helper)->toHw(m);
 
-    ret=imotor->getTemperatureRaw(k, value);
+    yarp_ret_value ret=imotor->getTemperatureRaw(k, value);
 
     return ret;
 }
 
-bool ImplementMotor::getTemperatureLimit(int m, double* value)
+yarp_ret_value ImplementMotor::getTemperatureLimit(int m, double* value)
 {
-    JOINTIDCHECK
-    bool ret;
+    JOINTIDCHECK(m)
     int k=castToMapper(helper)->toHw(m);
 
-    ret=imotor->getTemperatureLimitRaw(k, value);
+    yarp_ret_value ret=imotor->getTemperatureLimitRaw(k, value);
 
     return ret;
 }
 
-bool ImplementMotor::setTemperatureLimit(int m, const double value)
+yarp_ret_value ImplementMotor::setTemperatureLimit(int m, const double value)
 {
-    JOINTIDCHECK
-    bool ret;
+    JOINTIDCHECK(m)
     int k=castToMapper(helper)->toHw(m);
 
-    ret=imotor->setTemperatureLimitRaw(k, value);
+    yarp_ret_value ret=imotor->setTemperatureLimitRaw(k, value);
 
     return ret;
 }
 
-bool ImplementMotor::getGearboxRatio(int m, double* value)
+yarp_ret_value ImplementMotor::getGearboxRatio(int m, double* value)
 {
-    JOINTIDCHECK
-    bool ret;
+    JOINTIDCHECK(m)
     int k = castToMapper(helper)->toHw(m);
 
-    ret = imotor->getGearboxRatioRaw(k, value);
+    yarp_ret_value ret = imotor->getGearboxRatioRaw(k, value);
 
     return ret;
 }
 
-bool ImplementMotor::setGearboxRatio(int m, const double value)
+yarp_ret_value ImplementMotor::setGearboxRatio(int m, const double value)
 {
-    JOINTIDCHECK
-    bool ret;
+    JOINTIDCHECK(m)
     int k = castToMapper(helper)->toHw(m);
 
-    ret = imotor->setGearboxRatioRaw(k, value);
+    yarp_ret_value ret = imotor->setGearboxRatioRaw(k, value);
 
     return ret;
 }
 
-bool ImplementMotor::getTemperatures(double *v)
+yarp_ret_value ImplementMotor::getTemperatures(double *v)
 {
     yarp::dev::impl::Buffer<double> buffValues = doubleBuffManager->getBuffer();
 
-    bool ret = imotor->getTemperaturesRaw(buffValues.getData());
+    yarp_ret_value ret = imotor->getTemperaturesRaw(buffValues.getData());
     for (size_t i=0; i< buffValues.getSize(); i++)
     {
         int k = castToMapper(helper)->toHw(i);

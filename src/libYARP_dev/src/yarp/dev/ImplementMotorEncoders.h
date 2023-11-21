@@ -53,22 +53,22 @@ public:
 
     virtual ~ImplementMotorEncoders();
 
-    bool getNumberOfMotorEncoders(int *num) override;
+    yarp::dev::yarp_ret_value getNumberOfMotorEncoders(int *num) override;
 
-    bool resetMotorEncoder(int m) override;
-    bool resetMotorEncoders() override;
-    bool setMotorEncoder(int m, const double val) override;
-    bool setMotorEncoders(const double *vals) override;
-    bool setMotorEncoderCountsPerRevolution(int m, const double cpr) override;
-    bool getMotorEncoderCountsPerRevolution(int m, double *cpr) override;
-    bool getMotorEncoder(int m, double *v) override;
-    bool getMotorEncodersTimed(double *encs, double *time) override;
-    bool getMotorEncoderTimed(int m, double *v, double *t) override;
-    bool getMotorEncoders(double *encs) override;
-    bool getMotorEncoderSpeed(int m, double *spds) override;
-    bool getMotorEncoderSpeeds(double *spds) override;
-    bool getMotorEncoderAcceleration(int m, double *spds) override;
-    bool getMotorEncoderAccelerations(double *accs) override;
+    yarp::dev::yarp_ret_value resetMotorEncoder(int m) override;
+    yarp::dev::yarp_ret_value resetMotorEncoders() override;
+    yarp::dev::yarp_ret_value setMotorEncoder(int m, const double val) override;
+    yarp::dev::yarp_ret_value setMotorEncoders(const double *vals) override;
+    yarp::dev::yarp_ret_value setMotorEncoderCountsPerRevolution(int m, const double cpr) override;
+    yarp::dev::yarp_ret_value getMotorEncoderCountsPerRevolution(int m, double *cpr) override;
+    yarp::dev::yarp_ret_value getMotorEncoder(int m, double *v) override;
+    yarp::dev::yarp_ret_value getMotorEncodersTimed(double *encs, double *time) override;
+    yarp::dev::yarp_ret_value getMotorEncoderTimed(int m, double *v, double *t) override;
+    yarp::dev::yarp_ret_value getMotorEncoders(double *encs) override;
+    yarp::dev::yarp_ret_value getMotorEncoderSpeed(int m, double *spds) override;
+    yarp::dev::yarp_ret_value getMotorEncoderSpeeds(double *spds) override;
+    yarp::dev::yarp_ret_value getMotorEncoderAcceleration(int m, double *spds) override;
+    yarp::dev::yarp_ret_value getMotorEncoderAccelerations(double *accs) override;
 };
 
 #endif // YARP_DEV_IMPLEMENTMOTORENCODERS_H

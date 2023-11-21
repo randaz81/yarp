@@ -8,6 +8,7 @@
 
 #include <yarp/os/Vocab.h>
 #include <yarp/dev/api.h>
+#include <yarp/dev/ReturnValue.h>
 
 namespace yarp::dev {
 class IEncodersRaw;
@@ -32,20 +33,20 @@ public:
      * axes for the current physical interface.
      * @return the number of controlled axes.
      */
-    virtual bool getAxes(int *ax) = 0;
+    virtual yarp::dev::yarp_ret_value getAxes(int *ax) = 0;
 
     /**
      * Reset encoder, single joint. Set the encoder value to zero
      * @param j encoder number
      * @return true/false
      */
-    virtual bool resetEncoderRaw(int j)=0;
+    virtual yarp::dev::yarp_ret_value resetEncoderRaw(int j)=0;
 
     /**
      * Reset encoders. Set the encoders value to zero
      * @return true/false
      */
-    virtual bool resetEncodersRaw()=0;
+    virtual yarp::dev::yarp_ret_value resetEncodersRaw()=0;
 
     /**
      * Set the value of the encoder for a given joint.
@@ -53,14 +54,14 @@ public:
      * @param val new value
      * @return true/false
      */
-    virtual bool setEncoderRaw(int j, double val)=0;
+    virtual yarp::dev::yarp_ret_value setEncoderRaw(int j, double val)=0;
 
     /**
      * Set the value of all encoders.
      * @param vals pointer to the new values
      * @return true/false
      */
-    virtual bool setEncodersRaw(const double *vals)=0;
+    virtual yarp::dev::yarp_ret_value setEncodersRaw(const double *vals)=0;
 
     /**
      * Read the value of an encoder.
@@ -68,14 +69,14 @@ public:
      * @param v pointer to storage for the return value
      * @return true/false, upon success/failure (you knew it, uh?)
      */
-    virtual bool getEncoderRaw(int j, double *v)=0;
+    virtual yarp::dev::yarp_ret_value getEncoderRaw(int j, double *v)=0;
 
     /**
      * Read the position of all axes.
      * @param encs pointer to the array that will contain the output
      * @return true/false on success/failure
      */
-    virtual bool getEncodersRaw(double *encs)=0;
+    virtual yarp::dev::yarp_ret_value getEncodersRaw(double *encs)=0;
 
     /**
      * Read the instantaneous speed of an axis.
@@ -83,28 +84,28 @@ public:
      * @param sp pointer to storage for the output
      * @return true if successful, false ... otherwise.
      */
-    virtual bool getEncoderSpeedRaw(int j, double *sp)=0;
+    virtual yarp::dev::yarp_ret_value getEncoderSpeedRaw(int j, double *sp)=0;
 
     /**
      * Read the instantaneous acceleration of an axis.
      * @param spds pointer to storage for the output values
      * @return guess what? (true/false on success or failure).
      */
-    virtual bool getEncoderSpeedsRaw(double *spds)=0;
+    virtual yarp::dev::yarp_ret_value getEncoderSpeedsRaw(double *spds)=0;
 
     /**
      * Read the instantaneous acceleration of an axis.
      * @param j axis number
      * @param spds pointer to the array that will contain the output
      */
-    virtual bool getEncoderAccelerationRaw(int j, double *spds)=0;
+    virtual yarp::dev::yarp_ret_value getEncoderAccelerationRaw(int j, double *spds)=0;
 
     /**
      * Read the instantaneous acceleration of all axes.
      * @param accs pointer to the array that will contain the output
      * @return true if all goes well, false if anything bad happens.
      */
-    virtual bool getEncoderAccelerationsRaw(double *accs)=0;
+    virtual yarp::dev::yarp_ret_value getEncoderAccelerationsRaw(double *accs)=0;
 };
 
 /**
@@ -125,20 +126,20 @@ public:
      * axes for the current physical interface.
      * @return the number of controlled axes.
      */
-    virtual bool getAxes(int *ax) = 0;
+    virtual yarp::dev::yarp_ret_value getAxes(int *ax) = 0;
 
     /**
      * Reset encoder, single joint. Set the encoder value to zero
      * @param j encoder number
      * @return true/false
      */
-    virtual bool resetEncoder(int j)=0;
+    virtual yarp::dev::yarp_ret_value resetEncoder(int j)=0;
 
     /**
      * Reset encoders. Set the encoders value to zero
      * @return true/false
      */
-    virtual bool resetEncoders()=0;
+    virtual yarp::dev::yarp_ret_value resetEncoders()=0;
 
     /**
      * Set the value of the encoder for a given joint.
@@ -146,14 +147,14 @@ public:
      * @param val new value
      * @return true/false
      */
-    virtual bool setEncoder(int j, double val)=0;
+    virtual yarp::dev::yarp_ret_value setEncoder(int j, double val)=0;
 
     /**
      * Set the value of all encoders.
      * @param vals pointer to the new values
      * @return true/false
      */
-    virtual bool setEncoders(const double *vals)=0;
+    virtual yarp::dev::yarp_ret_value setEncoders(const double *vals)=0;
 
     /**
      * Read the value of an encoder.
@@ -161,43 +162,43 @@ public:
      * @param v pointer to storage for the return value
      * @return true/false, upon success/failure (you knew it, uh?)
      */
-    virtual bool getEncoder(int j, double *v)=0;
+    virtual yarp::dev::yarp_ret_value getEncoder(int j, double *v)=0;
 
     /**
      * Read the position of all axes.
      * @param encs pointer to the array that will contain the output
      * @return true/false on success/failure
      */
-    virtual bool getEncoders(double *encs)=0;
+    virtual yarp::dev::yarp_ret_value getEncoders(double *encs)=0;
 
     /**
-     * Read the istantaneous speed of an axis.
+     * Read the instantaneous speed of an axis.
      * @param j axis number
      * @param sp pointer to storage for the output
      * @return true if successful, false ... otherwise.
      */
-    virtual bool getEncoderSpeed(int j, double *sp)=0;
+    virtual yarp::dev::yarp_ret_value getEncoderSpeed(int j, double *sp)=0;
 
     /**
      * Read the instantaneous speed of all axes.
      * @param spds pointer to storage for the output values
      * @return guess what? (true/false on success or failure).
      */
-    virtual bool getEncoderSpeeds(double *spds)=0;
+    virtual yarp::dev::yarp_ret_value getEncoderSpeeds(double *spds)=0;
 
     /**
      * Read the instantaneous acceleration of an axis.
      * @param j axis number
      * @param spds pointer to the array that will contain the output
      */
-    virtual bool getEncoderAcceleration(int j, double *spds)=0;
+    virtual yarp::dev::yarp_ret_value getEncoderAcceleration(int j, double *spds)=0;
 
     /**
      * Read the instantaneous acceleration of all axes.
      * @param accs pointer to the array that will contain the output
      * @return true if all goes well, false if anything bad happens.
      */
-    virtual bool getEncoderAccelerations(double *accs)=0;
+    virtual yarp::dev::yarp_ret_value getEncoderAccelerations(double *accs)=0;
 };
 
 // interface IEncoders sets

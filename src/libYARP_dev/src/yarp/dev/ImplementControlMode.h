@@ -31,12 +31,12 @@ public:
     bool uninitialize();
     ImplementControlMode(IControlModeRaw *v);
     ~ImplementControlMode();
-    bool getControlMode(int j, int *f) override;
-    bool getControlModes(int *modes) override;
-    bool getControlModes(const int n_joint, const int *joints, int *modes) override;
-    bool setControlMode(const int j, const int mode) override;
-    bool setControlModes(const int n_joint, const int *joints, int *modes) override;
-    bool setControlModes(int *modes) override;
+    yarp::dev::yarp_ret_value getControlMode(int j, int *f) override;
+    yarp::dev::yarp_ret_value getControlModes(int *modes) override;
+    yarp::dev::yarp_ret_value getControlModes(const int n_joint, const int *joints, int *modes) override;
+    yarp::dev::yarp_ret_value setControlMode(const int j, const int mode) override;
+    yarp::dev::yarp_ret_value setControlModes(const int n_joint, const int *joints, int *modes) override;
+    yarp::dev::yarp_ret_value setControlModes(int *modes) override;
 };
 
 #endif // YARP_DEV_IMPLEMENTCONTROLMODE_H

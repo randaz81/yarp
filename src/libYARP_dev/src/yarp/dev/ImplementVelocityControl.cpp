@@ -12,7 +12,6 @@
 
 using namespace yarp::dev;
 using namespace yarp::os;
-#define JOINTIDCHECK if (j >= castToMapper(helper)->axes()){yError("joint id out of bound"); return false;}
 
 ImplementVelocityControl::ImplementVelocityControl(IVelocityControlRaw *y) :
     iVelocity(y),
@@ -67,88 +66,84 @@ bool ImplementVelocityControl::uninitialize()
     return true;
 }
 
-bool ImplementVelocityControl::getAxes(int *ax)
+yarp_ret_value ImplementVelocityControl::getAxes(int *ax)
 {
     (*ax)=castToMapper(helper)->axes();
-    return true;
+    return yarp_ret_value_ok;
 }
 
-bool ImplementVelocityControl::velocityMove(int j, double sp)
+yarp_ret_value ImplementVelocityControl::velocityMove(int j, double sp)
 {
-    JOINTIDCHECK
+    JOINTIDCHECK(j)
     int k;
     double enc;
     castToMapper(helper)->velA2E(sp, j, enc, k);
     return iVelocity->velocityMoveRaw(k, enc);
 }
 
-bool ImplementVelocityControl::velocityMove(const int n_joint, const int *joints, const double *spds)
+yarp_ret_value ImplementVelocityControl::velocityMove(const int n_joints, const int *joints, const double *spds)
 {
-    if (!castToMapper(helper)->checkAxesIds(n_joint, joints)) {
-        return false;
-    }
+    JOINTSIDSCHECK()
 
     yarp::dev::impl::Buffer<int> buffJoints =  intBuffManager->getBuffer();
     yarp::dev::impl::Buffer<double> buffValues = doubleBuffManager->getBuffer();
 
-    for(int idx=0; idx<n_joint; idx++)
+    for(int idx=0; idx<n_joints; idx++)
     {
         buffJoints[idx] = castToMapper(helper)->toHw(joints[idx]);
         buffValues[idx] = castToMapper(helper)->velA2E(spds[idx], joints[idx]);
     }
-    bool ret = iVelocity->velocityMoveRaw(n_joint, buffJoints.getData(), buffValues.getData());
+    yarp_ret_value ret = iVelocity->velocityMoveRaw(n_joints, buffJoints.getData(), buffValues.getData());
 
     doubleBuffManager->releaseBuffer(buffValues);
     intBuffManager->releaseBuffer(buffJoints);
     return ret;
 }
 
-bool ImplementVelocityControl::velocityMove(const double *sp)
+yarp_ret_value ImplementVelocityControl::velocityMove(const double *sp)
 {
     yarp::dev::impl::Buffer<double> buffValues = doubleBuffManager->getBuffer();
     castToMapper(helper)->velA2E(sp, buffValues.getData());
-    bool ret = iVelocity->velocityMoveRaw(buffValues.getData());
+    yarp_ret_value ret = iVelocity->velocityMoveRaw(buffValues.getData());
     doubleBuffManager->releaseBuffer(buffValues);
     return ret;
 }
 
-bool ImplementVelocityControl::getRefVelocity(const int j, double* vel)
+yarp_ret_value ImplementVelocityControl::getRefVelocity(const int j, double* vel)
 {
-    JOINTIDCHECK
+    JOINTIDCHECK(j)
     int k;
     double tmp;
     k=castToMapper(helper)->toHw(j);
-    bool ret = iVelocity->getRefVelocityRaw(k, &tmp);
+    yarp_ret_value ret = iVelocity->getRefVelocityRaw(k, &tmp);
     *vel=castToMapper(helper)->velE2A(tmp, k);
     return ret;
 }
 
-bool ImplementVelocityControl::getRefVelocities(double *vels)
+yarp_ret_value ImplementVelocityControl::getRefVelocities(double *vels)
 {
     yarp::dev::impl::Buffer<double> buffValues = doubleBuffManager->getBuffer();
-    bool ret=iVelocity->getRefVelocitiesRaw(buffValues.getData());
+    yarp_ret_value ret=iVelocity->getRefVelocitiesRaw(buffValues.getData());
     castToMapper(helper)->velE2A(buffValues.getData(), vels);
     doubleBuffManager->releaseBuffer(buffValues);
     return ret;
 }
 
-bool ImplementVelocityControl::getRefVelocities(const int n_joint, const int *joints, double *vels)
+yarp_ret_value ImplementVelocityControl::getRefVelocities(const int n_joints, const int *joints, double *vels)
 {
-    if (!castToMapper(helper)->checkAxesIds(n_joint, joints)) {
-        return false;
-    }
+    JOINTSIDSCHECK()
 
     yarp::dev::impl::Buffer<int> buffJoints = intBuffManager->getBuffer();
     yarp::dev::impl::Buffer<double> buffValues = doubleBuffManager->getBuffer();
 
-    for(int idx=0; idx<n_joint; idx++)
+    for(int idx=0; idx<n_joints; idx++)
     {
         buffJoints[idx] = castToMapper(helper)->toHw(joints[idx]);
     }
 
-    bool ret = iVelocity->getRefVelocitiesRaw(n_joint, buffJoints.getData(), buffValues.getData());
+    yarp_ret_value ret = iVelocity->getRefVelocitiesRaw(n_joints, buffJoints.getData(), buffValues.getData());
 
-    for(int idx=0; idx<n_joint; idx++)
+    for(int idx=0; idx<n_joints; idx++)
     {
         vels[idx]=castToMapper(helper)->velE2A(buffValues[idx], buffJoints[idx]);
     }
@@ -158,29 +153,26 @@ bool ImplementVelocityControl::getRefVelocities(const int n_joint, const int *jo
     return ret;
 }
 
-bool ImplementVelocityControl::setRefAcceleration(int j, double acc)
+yarp_ret_value ImplementVelocityControl::setRefAcceleration(int j, double acc)
 {
-    JOINTIDCHECK
+    JOINTIDCHECK(j)
     int k;
     double enc;
     castToMapper(helper)->accA2E_abs(acc, j, enc, k);
     return iVelocity->setRefAccelerationRaw(k, enc);
 }
 
-bool ImplementVelocityControl::setRefAccelerations(const int n_joint, const int *joints, const double *accs)
+yarp_ret_value ImplementVelocityControl::setRefAccelerations(const int n_joints, const int *joints, const double *accs)
 {
-    if (!castToMapper(helper)->checkAxesIds(n_joint, joints)) {
-        return false;
-    }
-
+    JOINTSIDSCHECK()
     yarp::dev::impl::Buffer<int> buffJoints =  intBuffManager->getBuffer();
     yarp::dev::impl::Buffer<double> buffValues = doubleBuffManager->getBuffer();
 
-    for(int idx=0; idx<n_joint; idx++)
+    for(int idx=0; idx<n_joints; idx++)
     {
         castToMapper(helper)->accA2E_abs(accs[idx], joints[idx], buffValues[idx], buffJoints[idx]);
     }
-    bool ret = iVelocity->setRefAccelerationsRaw(n_joint, buffJoints.getData(), buffValues.getData());
+    yarp_ret_value ret = iVelocity->setRefAccelerationsRaw(n_joints, buffJoints.getData(), buffValues.getData());
 
     doubleBuffManager->releaseBuffer(buffValues);
     intBuffManager->releaseBuffer(buffJoints);
@@ -188,43 +180,41 @@ bool ImplementVelocityControl::setRefAccelerations(const int n_joint, const int 
     return ret;
 }
 
-bool ImplementVelocityControl::setRefAccelerations(const double *accs)
+yarp_ret_value ImplementVelocityControl::setRefAccelerations(const double *accs)
 {
     yarp::dev::impl::Buffer<double> buffValues = doubleBuffManager->getBuffer();
     castToMapper(helper)->accA2E_abs(accs, buffValues.getData());
-    bool ret = iVelocity->setRefAccelerationsRaw(buffValues.getData());
+    yarp_ret_value ret = iVelocity->setRefAccelerationsRaw(buffValues.getData());
     doubleBuffManager->releaseBuffer(buffValues);
     return ret;
 }
 
-bool ImplementVelocityControl::getRefAcceleration(int j, double *acc)
+yarp_ret_value ImplementVelocityControl::getRefAcceleration(int j, double *acc)
 {
-    JOINTIDCHECK
+    JOINTIDCHECK(j)
     int k;
     double enc;
     k=castToMapper(helper)->toHw(j);
-    bool ret = iVelocity->getRefAccelerationRaw(k, &enc);
+    yarp_ret_value ret = iVelocity->getRefAccelerationRaw(k, &enc);
     *acc=castToMapper(helper)->accE2A_abs(enc, k);
     return ret;
 }
 
-bool ImplementVelocityControl::getRefAccelerations(const int n_joint, const int *joints, double *accs)
+yarp_ret_value ImplementVelocityControl::getRefAccelerations(const int n_joints, const int *joints, double *accs)
 {
-    if (!castToMapper(helper)->checkAxesIds(n_joint, joints)) {
-        return false;
-    }
+    JOINTSIDSCHECK()
 
     yarp::dev::impl::Buffer<int> buffJoints =  intBuffManager->getBuffer();
     yarp::dev::impl::Buffer<double> buffValues = doubleBuffManager->getBuffer();
 
-    for(int idx=0; idx<n_joint; idx++)
+    for(int idx=0; idx<n_joints; idx++)
     {
         buffJoints[idx]=castToMapper(helper)->toHw(joints[idx]);
     }
 
-    bool ret = iVelocity->getRefAccelerationsRaw(n_joint, buffJoints.getData(), buffValues.getData());
+    yarp_ret_value ret = iVelocity->getRefAccelerationsRaw(n_joints, buffJoints.getData(), buffValues.getData());
 
-    for(int idx=0; idx<n_joint; idx++)
+    for(int idx=0; idx<n_joints; idx++)
     {
         accs[idx]=castToMapper(helper)->accE2A_abs(buffValues[idx], buffJoints[idx]);
     }
@@ -235,43 +225,40 @@ bool ImplementVelocityControl::getRefAccelerations(const int n_joint, const int 
 }
 
 
-bool ImplementVelocityControl::getRefAccelerations(double *accs)
+yarp_ret_value ImplementVelocityControl::getRefAccelerations(double *accs)
 {
     yarp::dev::impl::Buffer<double> buffValues = doubleBuffManager->getBuffer();
-    bool ret=iVelocity->getRefAccelerationsRaw(buffValues.getData());
+    yarp_ret_value ret=iVelocity->getRefAccelerationsRaw(buffValues.getData());
     castToMapper(helper)->accE2A_abs(buffValues.getData(), accs);
     doubleBuffManager->releaseBuffer(buffValues);
     return ret;
 }
 
 
-bool ImplementVelocityControl::stop(int j)
+yarp_ret_value ImplementVelocityControl::stop(int j)
 {
-    JOINTIDCHECK
+    JOINTIDCHECK(j)
     int k;
     k=castToMapper(helper)->toHw(j);
     return iVelocity->stopRaw(k);
 }
 
 
-bool ImplementVelocityControl::stop(const int n_joint, const int *joints)
+yarp_ret_value ImplementVelocityControl::stop(const int n_joints, const int *joints)
 {
-    if (!castToMapper(helper)->checkAxesIds(n_joint, joints)) {
-        return false;
-    }
-
+    JOINTSIDSCHECK()
     yarp::dev::impl::Buffer<int> buffJoints =  intBuffManager->getBuffer();
-    for(int idx=0; idx<n_joint; idx++)
+    for(int idx=0; idx<n_joints; idx++)
     {
         buffJoints[idx] = castToMapper(helper)->toHw(joints[idx]);
     }
-    bool ret = iVelocity->stopRaw(n_joint, buffJoints.getData());
+    yarp_ret_value ret = iVelocity->stopRaw(n_joints, buffJoints.getData());
     intBuffManager->releaseBuffer(buffJoints);
     return ret;
 }
 
 
-bool ImplementVelocityControl::stop()
+yarp_ret_value ImplementVelocityControl::stop()
 {
     return iVelocity->stopRaw();
 }

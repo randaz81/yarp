@@ -60,25 +60,25 @@ public:
      */
     virtual ~ImplementVelocityControl();
 
-    bool getAxes(int *axes) override;
-    bool velocityMove(int j, double sp) override;
-    bool velocityMove(const double *sp) override;
-    bool setRefAcceleration(int j, double acc) override;
-    bool setRefAccelerations(const double *accs) override;
-    bool getRefAcceleration(int j, double *acc) override;
-    bool getRefAccelerations(double *accs) override;
-    bool stop(int j) override;
-    bool stop() override;
+    yarp::dev::yarp_ret_value getAxes(int *axes) override;
+    yarp::dev::yarp_ret_value velocityMove(int j, double sp) override;
+    yarp::dev::yarp_ret_value velocityMove(const double *sp) override;
+    yarp::dev::yarp_ret_value setRefAcceleration(int j, double acc) override;
+    yarp::dev::yarp_ret_value setRefAccelerations(const double *accs) override;
+    yarp::dev::yarp_ret_value getRefAcceleration(int j, double *acc) override;
+    yarp::dev::yarp_ret_value getRefAccelerations(double *accs) override;
+    yarp::dev::yarp_ret_value stop(int j) override;
+    yarp::dev::yarp_ret_value stop() override;
 
 
     // specific of IVelocityControl
-    bool velocityMove(const int n_joint, const int *joints, const double *spds) override;
-    bool getRefVelocity(const int joint, double *vel) override;
-    bool getRefVelocities(double *vels) override;
-    bool getRefVelocities(const int n_joint, const int *joints, double *vels) override;
-    bool setRefAccelerations(const int n_joint, const int *joints, const double *accs) override;
-    bool getRefAccelerations(const int n_joint, const int *joints, double *accs) override;
-    bool stop(const int n_joint, const int *joints) override;
+    yarp::dev::yarp_ret_value velocityMove(const int n_joint, const int *joints, const double *spds) override;
+    yarp::dev::yarp_ret_value getRefVelocity(const int joint, double *vel) override;
+    yarp::dev::yarp_ret_value getRefVelocities(double *vels) override;
+    yarp::dev::yarp_ret_value getRefVelocities(const int n_joint, const int *joints, double *vels) override;
+    yarp::dev::yarp_ret_value setRefAccelerations(const int n_joint, const int *joints, const double *accs) override;
+    yarp::dev::yarp_ret_value getRefAccelerations(const int n_joint, const int *joints, double *accs) override;
+    yarp::dev::yarp_ret_value stop(const int n_joint, const int *joints) override;
 };
 
 
@@ -98,72 +98,56 @@ public:
  */
 class yarp::dev::StubImplVelocityControlRaw: public IVelocityControlRaw
 {
-private:
-    /**
-     * Helper for printing error message, see below.
-     * Implemented in ControlBoardInterfacesImpl.cpp.
-     */
-    bool NOT_YET_IMPLEMENTED(const char *func = 0)
-    {
-        if (func) {
-            yError("%s: not yet implemented\n", func);
-        } else {
-            yError("Function not yet implemented\n");
-        }
-
-        return false;
-    }
-
 public:
-    bool getAxes(int *axes) override
-    {return NOT_YET_IMPLEMENTED("getAxesRaw");}
+    yarp::dev::yarp_ret_value getAxes(int *axes) override
+    {return yarp::dev::NOT_YET_IMPLEMENTED();}
 
-    bool velocityMoveRaw(int j, double sp) override
-    {return NOT_YET_IMPLEMENTED("velocityMoveRaw");}
+    yarp::dev::yarp_ret_value velocityMoveRaw(int j, double sp) override
+    {return yarp::dev::NOT_YET_IMPLEMENTED();}
 
-    bool velocityMoveRaw(const double *sp) override
-    {return NOT_YET_IMPLEMENTED("velocityMoveRaw");}
+    yarp::dev::yarp_ret_value velocityMoveRaw(const double *sp) override
+    {return yarp::dev::NOT_YET_IMPLEMENTED();}
 
-    bool setRefAccelerationRaw(int j, double acc) override
-    {return NOT_YET_IMPLEMENTED("setRefAccelerationRaw");}
+    yarp::dev::yarp_ret_value setRefAccelerationRaw(int j, double acc) override
+    {return yarp::dev::NOT_YET_IMPLEMENTED();}
 
-    bool setRefAccelerationsRaw(const double *accs) override
-    {return NOT_YET_IMPLEMENTED("setRefAccelerationsRaw");}
+    yarp::dev::yarp_ret_value setRefAccelerationsRaw(const double *accs) override
+    {return yarp::dev::NOT_YET_IMPLEMENTED();}
 
-    bool getRefAccelerationRaw(int j, double *acc) override
-    {return NOT_YET_IMPLEMENTED("getRefAccelerationRaw");}
+    yarp::dev::yarp_ret_value getRefAccelerationRaw(int j, double *acc) override
+    {return yarp::dev::NOT_YET_IMPLEMENTED();}
 
-    bool getRefAccelerationsRaw(double *accs) override
-    {return NOT_YET_IMPLEMENTED("getRefAccelerationsRaw");}
+    yarp::dev::yarp_ret_value getRefAccelerationsRaw(double *accs) override
+    {return yarp::dev::NOT_YET_IMPLEMENTED();}
 
-    bool stopRaw(int j) override
-    {return NOT_YET_IMPLEMENTED("stopRaw");}
+    yarp::dev::yarp_ret_value stopRaw(int j) override
+    {return yarp::dev::NOT_YET_IMPLEMENTED();}
 
-    bool stopRaw() override
-    {return NOT_YET_IMPLEMENTED("stopRaw");}
+    yarp::dev::yarp_ret_value stopRaw() override
+    {return yarp::dev::NOT_YET_IMPLEMENTED();}
 
 
     // specific of IVelocityControl
-    bool velocityMoveRaw(const int n_joint, const int *joints, const double *spds) override
-    {return NOT_YET_IMPLEMENTED("velocityMoveRaw");}
+    yarp::dev::yarp_ret_value velocityMoveRaw(const int n_joint, const int *joints, const double *spds) override
+    {return yarp::dev::NOT_YET_IMPLEMENTED();}
 
-    bool getRefVelocityRaw(const int joint, double *vel) override
-    {return NOT_YET_IMPLEMENTED("getRefVelocityRaw");}
+    yarp::dev::yarp_ret_value getRefVelocityRaw(const int joint, double *vel) override
+    {return yarp::dev::NOT_YET_IMPLEMENTED();}
 
-    bool getRefVelocitiesRaw(double *vels) override
-    {return NOT_YET_IMPLEMENTED("getRefVelocitiesRaw");}
+    yarp::dev::yarp_ret_value getRefVelocitiesRaw(double *vels) override
+    {return yarp::dev::NOT_YET_IMPLEMENTED();}
 
-    bool getRefVelocitiesRaw(const int n_joint, const int *joints, double *vels) override
-    {return NOT_YET_IMPLEMENTED("getRefVelocitiesRaw");}
+    yarp::dev::yarp_ret_value getRefVelocitiesRaw(const int n_joint, const int *joints, double *vels) override
+    {return yarp::dev::NOT_YET_IMPLEMENTED();}
 
-    bool setRefAccelerationsRaw(const int n_joint, const int *joints, const double *accs) override
-    {return NOT_YET_IMPLEMENTED("setRefAccelerationsRaw");}
+    yarp::dev::yarp_ret_value setRefAccelerationsRaw(const int n_joint, const int *joints, const double *accs) override
+    {return yarp::dev::NOT_YET_IMPLEMENTED();}
 
-    bool getRefAccelerationsRaw(const int n_joint, const int *joints, double *accs) override
-    {return NOT_YET_IMPLEMENTED("getRefAccelerationsRaw");}
+    yarp::dev::yarp_ret_value getRefAccelerationsRaw(const int n_joint, const int *joints, double *accs) override
+    {return yarp::dev::NOT_YET_IMPLEMENTED();}
 
-    bool stopRaw(const int n_joint, const int *joints) override
-    {return NOT_YET_IMPLEMENTED("stopRaw");}
+    yarp::dev::yarp_ret_value stopRaw(const int n_joint, const int *joints) override
+    {return yarp::dev::NOT_YET_IMPLEMENTED();}
 
 };
 #endif // YARP_DEV_IVELOCITYCONTROLIMPL_H

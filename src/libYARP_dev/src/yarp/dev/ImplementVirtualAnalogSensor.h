@@ -28,8 +28,8 @@ public:
 
     VAS_status getVirtualAnalogSensorStatus(int ch) override;
     int getVirtualAnalogSensorChannels() override;
-    bool updateVirtualAnalogSensorMeasure(yarp::sig::Vector &measure) override;
-    bool updateVirtualAnalogSensorMeasure(int ch, double &measure) override;
+    yarp_ret_value updateVirtualAnalogSensorMeasure(yarp::sig::Vector &measure) override;
+    yarp_ret_value updateVirtualAnalogSensorMeasure(int ch, double &measure) override;
 };
 
 #endif // YARP_DEV_IMPLEMENT_VIRTUAL_ANALOG_SENSOR_H

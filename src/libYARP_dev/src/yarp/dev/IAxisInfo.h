@@ -12,6 +12,7 @@
 #include <yarp/os/Log.h>
 #include <yarp/os/Vocab.h>
 #include <yarp/dev/api.h>
+#include <yarp/dev/ReturnValue.h>
 
 /*! \file IAxisInfo.h define control board standard interfaces*/
 
@@ -46,21 +47,21 @@ public:
      * @param ax storage to return param
      * @return true/false.
      */
-    virtual bool getAxes(int* ax) = 0;
+    virtual yarp::dev::yarp_ret_value getAxes(int* ax) = 0;
 
     /* Get the name for a particular axis.
     * @param axis joint number
     * @param name the axis name
     * @return true if everything goes fine, false otherwise.
     */
-    virtual bool getAxisName(int axis, std::string& name) = 0;
+    virtual yarp::dev::yarp_ret_value getAxisName(int axis, std::string& name) = 0;
 
     /* Get the joint type (e.g. revolute/prismatic) for a particular axis.
     * @param axis joint number
     * @param type the joint type
     * @return true if everything goes fine, false otherwise.
     */
-    virtual bool getJointType(int axis, yarp::dev::JointTypeEnum& type) { yFatal("getJointType() not implemented on your device, cannot proceed further. Please report the problem on yarp issue tracker"); return false; }
+    virtual yarp::dev::yarp_ret_value getJointType(int axis, yarp::dev::JointTypeEnum& type) { yFatal("getJointType() not implemented on your device, cannot proceed further. Please report the problem on yarp issue tracker"); return yarp::dev::NOT_YET_IMPLEMENTED(); }
 };
 
 /**
@@ -82,21 +83,21 @@ public:
      * @param ax storage to return param
      * @return true/false.
      */
-    virtual bool getAxes(int* ax) = 0;
+    virtual yarp::dev::yarp_ret_value getAxes(int* ax) = 0;
 
     /* Get the name for a particular axis.
     * @param axis joint number
     * @param name the axis name
     * @return true if everything goes fine, false otherwise.
     */
-    virtual bool getAxisNameRaw(int axis, std::string& name) = 0;
+    virtual yarp::dev::yarp_ret_value getAxisNameRaw(int axis, std::string& name) = 0;
 
     /* Get the joint type (e.g. revolute/prismatic) for a particular axis.
     * @param axis joint number
     * @param type the joint type
     * @return true if everything goes fine, false otherwise.
     */
-    virtual bool getJointTypeRaw(int axis, yarp::dev::JointTypeEnum& type)  { yFatal("getJointType() not implemented on your device, cannot proceed further. Please report the problem on yarp issue tracker"); return false; };
+    virtual yarp::dev::yarp_ret_value getJointTypeRaw(int axis, yarp::dev::JointTypeEnum& type)  { yFatal("getJointType() not implemented on your device, cannot proceed further. Please report the problem on yarp issue tracker"); return yarp::dev::NOT_YET_IMPLEMENTED(); };
 };
 
 // interface IAxisInfo

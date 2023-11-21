@@ -12,7 +12,6 @@
 
 using namespace yarp::dev;
 using namespace yarp::os;
-#define JOINTIDCHECK if (j >= castToMapper(helper)->axes()){yError("joint id out of bound"); return false;}
 
 //////////////////// Implement PidControl interface
 ImplementPidControl::ImplementPidControl(IPidControlRaw *y):
@@ -73,9 +72,9 @@ bool ImplementPidControl::uninitialize ()
      return true;
 }
 
-bool ImplementPidControl::setPid(const PidControlTypeEnum& pidtype, int j, const Pid &pid)
+yarp_ret_value ImplementPidControl::setPid(const PidControlTypeEnum& pidtype, int j, const Pid &pid)
 {
-    JOINTIDCHECK
+    JOINTIDCHECK(j)
     Pid pid_machine;
     int k;
     ControlBoardHelper* cb_helper = castToMapper(helper);
@@ -83,7 +82,7 @@ bool ImplementPidControl::setPid(const PidControlTypeEnum& pidtype, int j, const
     return iPid->setPidRaw(pidtype, k, pid_machine);
 }
 
-bool ImplementPidControl::setPids(const PidControlTypeEnum& pidtype,  const Pid *pids)
+yarp_ret_value ImplementPidControl::setPids(const PidControlTypeEnum& pidtype,  const Pid *pids)
 {
     ControlBoardHelper* cb_helper = castToMapper(helper);
     int nj= cb_helper->axes();
@@ -97,14 +96,14 @@ bool ImplementPidControl::setPids(const PidControlTypeEnum& pidtype,  const Pid 
     }
 
 
-    bool ret = iPid->setPidsRaw(pidtype, buffValues.getData());
+    yarp_ret_value ret = iPid->setPidsRaw(pidtype, buffValues.getData());
     pidBuffManager->releaseBuffer(buffValues);
     return ret;
 }
 
-bool ImplementPidControl::setPidReference(const PidControlTypeEnum& pidtype,  int j, double ref)
+yarp_ret_value ImplementPidControl::setPidReference(const PidControlTypeEnum& pidtype,  int j, double ref)
 {
-    JOINTIDCHECK
+    JOINTIDCHECK(j)
     int k=0;
     double raw;
     ControlBoardHelper* cb_helper = castToMapper(helper);
@@ -112,19 +111,19 @@ bool ImplementPidControl::setPidReference(const PidControlTypeEnum& pidtype,  in
     return iPid->setPidReferenceRaw(pidtype, k, raw);
 }
 
-bool ImplementPidControl::setPidReferences(const PidControlTypeEnum& pidtype,  const double *refs)
+yarp_ret_value ImplementPidControl::setPidReferences(const PidControlTypeEnum& pidtype,  const double *refs)
 {
     ControlBoardHelper* cb_helper = castToMapper(helper);
     yarp::dev::impl::Buffer<double> buffValues = doubleBuffManager->getBuffer();
     cb_helper->convert_pidunits_to_machine(pidtype,refs,buffValues.getData());
-    bool ret = iPid->setPidReferencesRaw(pidtype, buffValues.getData());
+    yarp_ret_value ret = iPid->setPidReferencesRaw(pidtype, buffValues.getData());
     doubleBuffManager->releaseBuffer(buffValues);
     return ret;
 }
 
-bool ImplementPidControl::setPidErrorLimit(const PidControlTypeEnum& pidtype,  int j, double limit)
+yarp_ret_value ImplementPidControl::setPidErrorLimit(const PidControlTypeEnum& pidtype,  int j, double limit)
 {
-    JOINTIDCHECK
+    JOINTIDCHECK(j)
     int k;
     double raw;
     ControlBoardHelper* cb_helper = castToMapper(helper);
@@ -132,66 +131,63 @@ bool ImplementPidControl::setPidErrorLimit(const PidControlTypeEnum& pidtype,  i
     return iPid->setPidErrorLimitRaw(pidtype, k, raw);
 }
 
-bool ImplementPidControl::setPidErrorLimits(const PidControlTypeEnum& pidtype,  const double *limits)
+yarp_ret_value ImplementPidControl::setPidErrorLimits(const PidControlTypeEnum& pidtype,  const double *limits)
 {
     ControlBoardHelper* cb_helper = castToMapper(helper);
     yarp::dev::impl::Buffer<double> buffValues = doubleBuffManager->getBuffer();
     cb_helper->convert_pidunits_to_machine(pidtype,limits,buffValues.getData());
-    bool ret = iPid->setPidErrorLimitsRaw(pidtype, buffValues.getData());
+    yarp_ret_value ret = iPid->setPidErrorLimitsRaw(pidtype, buffValues.getData());
     doubleBuffManager->releaseBuffer(buffValues);
     return ret;
 }
 
 
-bool ImplementPidControl::getPidError(const PidControlTypeEnum& pidtype, int j, double *err)
+yarp_ret_value ImplementPidControl::getPidError(const PidControlTypeEnum& pidtype, int j, double *err)
 {
-    JOINTIDCHECK
+    JOINTIDCHECK(j)
     int k;
     double raw;
     ControlBoardHelper* cb_helper = castToMapper(helper);
     k=castToMapper(helper)->toHw(j);
 
-    bool ret=iPid->getPidErrorRaw(pidtype, k, &raw);
+    yarp_ret_value ret=iPid->getPidErrorRaw(pidtype, k, &raw);
 
     cb_helper->convert_pidunits_to_user(pidtype,raw,err,k);
     return ret;
 }
 
-bool ImplementPidControl::getPidErrors(const PidControlTypeEnum& pidtype,  double *errs)
+yarp_ret_value ImplementPidControl::getPidErrors(const PidControlTypeEnum& pidtype,  double *errs)
 {
-    bool ret;
     ControlBoardHelper* cb_helper = castToMapper(helper);
     yarp::dev::impl::Buffer<double> buffValues = doubleBuffManager->getBuffer();
-    ret=iPid->getPidErrorsRaw(pidtype, buffValues.getData());
+    yarp_ret_value ret=iPid->getPidErrorsRaw(pidtype, buffValues.getData());
     cb_helper->convert_pidunits_to_user(pidtype,buffValues.getData(),errs);
     doubleBuffManager->releaseBuffer(buffValues);
     return ret;
 }
 
-bool ImplementPidControl::getPidOutput(const PidControlTypeEnum& pidtype,  int j, double *out)
+yarp_ret_value ImplementPidControl::getPidOutput(const PidControlTypeEnum& pidtype,  int j, double *out)
 {
-    JOINTIDCHECK
-    bool ret;
+    JOINTIDCHECK(j)
     int k_raw;
     double raw;
     k_raw = castToMapper(helper)->toHw(j);
-    ret = iPid->getPidOutputRaw(pidtype, k_raw, &raw);
+    yarp_ret_value ret = iPid->getPidOutputRaw(pidtype, k_raw, &raw);
     if (ret)
     {
         ControlBoardHelper* cb_helper = castToMapper(helper);
         double output_conversion_units_user2raw = cb_helper->get_pidoutput_conversion_factor_user2raw(pidtype, j);
         *out = raw / output_conversion_units_user2raw;
-        return true;
     }
-    return false;
+    return ret;
 }
 
-bool ImplementPidControl::getPidOutputs(const PidControlTypeEnum& pidtype, double *outs)
+yarp_ret_value ImplementPidControl::getPidOutputs(const PidControlTypeEnum& pidtype, double *outs)
 {
     ControlBoardHelper* cb_helper = castToMapper(helper);
     int nj = cb_helper->axes();
     yarp::dev::impl::Buffer<double> buffValues = doubleBuffManager->getBuffer();
-    bool ret = iPid->getPidOutputsRaw(pidtype, buffValues.getData());
+    yarp_ret_value ret = iPid->getPidOutputsRaw(pidtype, buffValues.getData());
     if (ret)
     {
         castToMapper(cb_helper)->toUser(buffValues.getData(), outs);
@@ -205,29 +201,29 @@ bool ImplementPidControl::getPidOutputs(const PidControlTypeEnum& pidtype, doubl
     return ret;
 }
 
-bool ImplementPidControl::getPid(const PidControlTypeEnum& pidtype, int j, Pid *pid)
+yarp_ret_value ImplementPidControl::getPid(const PidControlTypeEnum& pidtype, int j, Pid *pid)
 {
-    JOINTIDCHECK
+    JOINTIDCHECK(j)
     ControlBoardHelper* cb_helper = castToMapper(helper);
     int k_raw;
     k_raw=cb_helper->toHw(j);
     Pid rawPid;
-    bool ret = iPid->getPidRaw(pidtype, k_raw, &rawPid);
+    yarp_ret_value ret = iPid->getPidRaw(pidtype, k_raw, &rawPid);
     if (ret)
     {
         cb_helper->convert_pid_to_user(pidtype, rawPid, k_raw, *pid, j);
-        return true;
     }
-    return false;
+    return ret;
 }
 
-bool ImplementPidControl::getPids(const PidControlTypeEnum& pidtype, Pid *pids)
+yarp_ret_value ImplementPidControl::getPids(const PidControlTypeEnum& pidtype, Pid *pids)
 {
     yarp::dev::impl::Buffer<Pid> buffValues = pidBuffManager->getBuffer();
-    if(!iPid->getPidsRaw(pidtype, buffValues.getData()))
+    yarp_ret_value ret = iPid->getPidsRaw(pidtype, buffValues.getData());
+    if(!ret)
     {
         pidBuffManager->releaseBuffer(buffValues);
-        return false;
+        return ret;
     }
 
     ControlBoardHelper* cb_helper = castToMapper(helper);
@@ -241,92 +237,88 @@ bool ImplementPidControl::getPids(const PidControlTypeEnum& pidtype, Pid *pids)
         pids[j_usr] = outpid;
     }
     pidBuffManager->releaseBuffer(buffValues);
-    return true;
+    return yarp_ret_value_ok;
 }
 
-bool ImplementPidControl::getPidReference(const PidControlTypeEnum& pidtype, int j, double *ref)
+yarp_ret_value ImplementPidControl::getPidReference(const PidControlTypeEnum& pidtype, int j, double *ref)
 {
-    JOINTIDCHECK
-    bool ret;
+    JOINTIDCHECK(j)
     int k;
     double raw;
     ControlBoardHelper* cb_helper = castToMapper(helper);
     k=castToMapper(helper)->toHw(j);
 
-    ret=iPid->getPidReferenceRaw(pidtype, k, &raw);
+    yarp_ret_value ret=iPid->getPidReferenceRaw(pidtype, k, &raw);
 
     cb_helper->convert_pidunits_to_user(pidtype,raw,ref,k);
     return ret;
 }
 
-bool ImplementPidControl::getPidReferences(const PidControlTypeEnum& pidtype, double *refs)
+yarp_ret_value ImplementPidControl::getPidReferences(const PidControlTypeEnum& pidtype, double *refs)
 {
-    bool ret;
     ControlBoardHelper* cb_helper = castToMapper(helper);
     yarp::dev::impl::Buffer<double> buffValues = doubleBuffManager->getBuffer();
-    ret=iPid->getPidReferencesRaw(pidtype, buffValues.getData());
+    yarp_ret_value ret=iPid->getPidReferencesRaw(pidtype, buffValues.getData());
 
     cb_helper->convert_pidunits_to_user(pidtype,buffValues.getData(),refs);
     doubleBuffManager->releaseBuffer(buffValues);
     return ret;
 }
 
-bool ImplementPidControl::getPidErrorLimit(const PidControlTypeEnum& pidtype, int j, double *ref)
+yarp_ret_value ImplementPidControl::getPidErrorLimit(const PidControlTypeEnum& pidtype, int j, double *ref)
 {
-    JOINTIDCHECK
-    bool ret;
+    JOINTIDCHECK(j)
     int k;
     double raw;
     ControlBoardHelper* cb_helper = castToMapper(helper);
     k=castToMapper(helper)->toHw(j);
 
-    ret=iPid->getPidErrorLimitRaw(pidtype, k, &raw);
+    yarp_ret_value ret=iPid->getPidErrorLimitRaw(pidtype, k, &raw);
 
     cb_helper->convert_pidunits_to_user(pidtype,raw,ref,k);
     return ret;
 }
 
-bool ImplementPidControl::getPidErrorLimits(const PidControlTypeEnum& pidtype, double *refs)
+yarp_ret_value ImplementPidControl::getPidErrorLimits(const PidControlTypeEnum& pidtype, double *refs)
 {
-    bool ret;
     ControlBoardHelper* cb_helper = castToMapper(helper);
     yarp::dev::impl::Buffer<double > buffValues = doubleBuffManager->getBuffer();
-    ret=iPid->getPidErrorLimitsRaw(pidtype, buffValues.getData());
+    yarp_ret_value ret=iPid->getPidErrorLimitsRaw(pidtype, buffValues.getData());
 
     cb_helper->convert_pidunits_to_user(pidtype,buffValues.getData(),refs);
     return ret;
 }
 
-bool ImplementPidControl::resetPid(const PidControlTypeEnum& pidtype, int j)
+yarp_ret_value ImplementPidControl::resetPid(const PidControlTypeEnum& pidtype, int j)
 {
-    JOINTIDCHECK
+    JOINTIDCHECK(j)
     int k=0;
     k=castToMapper(helper)->toHw(j);
 
     return iPid->resetPidRaw(pidtype, k);
 }
 
-bool ImplementPidControl::enablePid(const PidControlTypeEnum& pidtype, int j)
+yarp_ret_value ImplementPidControl::enablePid(const PidControlTypeEnum& pidtype, int j)
 {
-    JOINTIDCHECK
+    JOINTIDCHECK(j)
     int k=0;
     k=castToMapper(helper)->toHw(j);
 
     return iPid->enablePidRaw(pidtype, k);
 }
 
-bool ImplementPidControl::disablePid(const PidControlTypeEnum& pidtype, int j)
+yarp_ret_value ImplementPidControl::disablePid(const PidControlTypeEnum& pidtype, int j)
 {
-    JOINTIDCHECK
+    JOINTIDCHECK(j)
     int k=0;
     k=castToMapper(helper)->toHw(j);
 
     return iPid->disablePidRaw(pidtype, k);
 }
 
-bool ImplementPidControl::setPidOffset(const PidControlTypeEnum& pidtype, int j, double off)
+yarp_ret_value ImplementPidControl::setPidOffset(const PidControlTypeEnum& pidtype, int j, double off)
 {
-    JOINTIDCHECK
+    JOINTIDCHECK(j)
     int k = 0;
     double rawoff;
     ControlBoardHelper* cb_helper = castToMapper(helper);
@@ -335,9 +327,9 @@ bool ImplementPidControl::setPidOffset(const PidControlTypeEnum& pidtype, int j,
     return iPid->setPidOffsetRaw(pidtype, k, rawoff);
 }
 
-bool ImplementPidControl::isPidEnabled(const PidControlTypeEnum& pidtype, int j, bool* enabled)
+yarp_ret_value ImplementPidControl::isPidEnabled(const PidControlTypeEnum& pidtype, int j, bool* enabled)
 {
-    JOINTIDCHECK
+    JOINTIDCHECK(j)
     int k=0;
     k=castToMapper(helper)->toHw(j);
 

@@ -50,11 +50,9 @@ public:
      */
     virtual ~ImplementControlCalibration();
 
-    bool calibrateAxisWithParams(int axis, unsigned int type, double p1, double p2, double p3) override;
-
-    bool setCalibrationParameters(int axis, const CalibrationParameters& params) override;
-
-    bool calibrationDone(int j) override;
+    yarp::dev::yarp_ret_value calibrateAxisWithParams(int axis, unsigned int type, double p1, double p2, double p3) override;
+    yarp::dev::yarp_ret_value setCalibrationParameters(int axis, const CalibrationParameters& params) override;
+    yarp::dev::yarp_ret_value calibrationDone(int j) override;
 };
 
 

@@ -37,14 +37,14 @@ public:
      * axes for the current physical interface.
      * @return the number of controlled axes.
      */
-    virtual bool getAxes(int *ax)=0;
+    virtual yarp::dev::yarp_ret_value getAxes(int *ax)=0;
 
     /** Set new position for a single axis.
      * @param j joint number
      * @param ref specifies the new ref point
      * @return true/false on success/failure
      */
-    virtual bool setPosition(int j, double ref)=0;
+    virtual yarp::dev::yarp_ret_value setPosition(int j, double ref)=0;
 
     /** Set new reference point for all axes.
      * @param n_joint how many joints this command is referring to
@@ -57,13 +57,13 @@ public:
      *          refs    10 30 40
      * @return true/false on success/failure
      */
-    virtual bool setPositions(const int n_joint, const int *joints, const double *refs)=0;
+    virtual yarp::dev::yarp_ret_value setPositions(const int n_joint, const int *joints, const double *refs)=0;
 
     /** Set new position for a set of axis.
      * @param refs specifies the new reference points
      * @return true/false on success/failure
      */
-    virtual bool setPositions(const double *refs)=0;
+    virtual yarp::dev::yarp_ret_value setPositions(const double *refs)=0;
 
     /** Get the last position reference for the specified axis.
      *  This is the dual of setPositionsRaw and shall return only values sent using
@@ -74,7 +74,7 @@ public:
      * @param ref last reference sent using setPosition(s) functions
      * @return true/false on success/failure
      */
-    virtual bool getRefPosition(const int joint, double *ref) {return false;}
+    virtual yarp::dev::yarp_ret_value getRefPosition(const int joint, double *ref) { return yarp::dev::NOT_YET_IMPLEMENTED(); }
 
     /** Get the last position reference for all axes.
      *  This is the dual of setPositionsRaw and shall return only values sent using
@@ -85,7 +85,7 @@ public:
      * @param ref array containing last reference sent using setPosition(s) functions
      * @return true/false on success/failure
      */
-    virtual bool getRefPositions(double *refs) {return false;}
+    virtual yarp::dev::yarp_ret_value getRefPositions(double *refs) { return yarp::dev::NOT_YET_IMPLEMENTED(); }
 
     /** Get the last position reference for the specified group of axes.
      *  This is the dual of setPositionsRaw and shall return only values sent using
@@ -96,7 +96,7 @@ public:
      * @param ref array containing last reference sent using setPosition(s) functions
      * @return true/false on success/failure
      */
-    virtual bool getRefPositions(const int n_joint, const int *joints, double *refs) {return false;}
+    virtual yarp::dev::yarp_ret_value getRefPositions(const int n_joint, const int *joints, double *refs) { return yarp::dev::NOT_YET_IMPLEMENTED(); }
 };
 
 
@@ -122,14 +122,14 @@ public:
      * axes for the current physical interface.
      * @return the number of controlled axes.
      */
-    virtual bool getAxes(int *axes) = 0;
+    virtual yarp::dev::yarp_ret_value getAxes(int *axes) = 0;
 
     /** Set new position for a single axis.
      * @param j joint number
      * @param ref specifies the new ref point
      * @return true/false on success/failure
      */
-    virtual bool setPositionRaw(int j, double ref)=0;
+    virtual yarp::dev::yarp_ret_value setPositionRaw(int j, double ref)=0;
 
     /** Set new reference point for all axes.
      * @param n_joint how many joints this command is referring to
@@ -141,14 +141,14 @@ public:
      *          refs    10 30 40
      * @return true/false on success/failure
      */
-    virtual bool setPositionsRaw(const int n_joint, const int *joints, const double *refs)=0;
+    virtual yarp::dev::yarp_ret_value setPositionsRaw(const int n_joint, const int *joints, const double *refs)=0;
 
 
     /** Set new position for a set of axes.
      * @param refs specifies the new reference points
      * @return true/false on success/failure
      */
-    virtual bool setPositionsRaw(const double *refs)=0;
+    virtual yarp::dev::yarp_ret_value setPositionsRaw(const double *refs)=0;
 
     /** Get the last position reference for the specified axis.
      *  This is the dual of setPositionsRaw and shall return only values sent using
@@ -159,7 +159,7 @@ public:
      * @param ref last reference sent using setPosition(s) functions
      * @return true/false on success/failure
      */
-    virtual bool getRefPositionRaw(const int joint, double *ref) {return false;}
+    virtual yarp::dev::yarp_ret_value getRefPositionRaw(const int joint, double *ref) { return yarp::dev::NOT_YET_IMPLEMENTED(); }
 
     /** Get the last position reference for all axes.
      *  This is the dual of setPositionsRaw and shall return only values sent using
@@ -170,7 +170,7 @@ public:
      * @param ref array containing last reference sent using setPosition(s) functions
      * @return true/false on success/failure
      */
-    virtual bool getRefPositionsRaw(double *refs) {return false;};
+    virtual yarp::dev::yarp_ret_value getRefPositionsRaw(double *refs) { return yarp::dev::NOT_YET_IMPLEMENTED(); };
 
 
     /** Get the last position reference for the specified group of axes.
@@ -182,7 +182,7 @@ public:
      * @param ref array containing last reference sent using setPosition(s) functions
      * @return true/false on success/failure
      */
-    virtual bool getRefPositionsRaw(const int n_joint, const int *joints, double *refs) {return false;}
+    virtual yarp::dev::yarp_ret_value getRefPositionsRaw(const int n_joint, const int *joints, double *refs) { return yarp::dev::NOT_YET_IMPLEMENTED(); }
 };
 
 constexpr yarp::conf::vocab32_t VOCAB_POSITION_DIRECT           = yarp::os::createVocab32('d','p','o');

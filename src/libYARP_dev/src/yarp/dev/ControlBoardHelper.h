@@ -191,4 +191,8 @@ private:
 inline yarp::dev::ControlBoardHelper *castToMapper(void *p)
 { return static_cast<yarp::dev::ControlBoardHelper *>(p); }
 
+#define JOINTIDCHECK(axis_v) {if (axis_v < 0 || axis_v >= castToMapper(helper)->axes()) {yError("joint id out of bound"); return yarp::dev::yarp_ret_value(yarp::dev::yarp_ret_value::return_code::return_value_error_method_failed);}}
+
+#define JOINTSIDSCHECK() {if (!castToMapper(helper)->checkAxesIds(n_joints, joints)) {yError("joints ids out of bound"); return yarp::dev::yarp_ret_value(yarp::dev::yarp_ret_value::return_code::return_value_error_method_failed);}}
+
 #endif // YARP_DEV_CONTROLBOARDHELPER_H

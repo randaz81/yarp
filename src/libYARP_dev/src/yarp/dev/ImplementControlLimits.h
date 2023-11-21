@@ -57,10 +57,10 @@ public:
      * Destructor. Perform uninitialize if needed.
      */
     virtual ~ImplementControlLimits();
-    bool setLimits(int axis, double min, double max) override;
-    bool getLimits(int axis, double *min, double *max) override;
-    bool setVelLimits(int axis, double min, double max) override;
-    bool getVelLimits(int axis, double *min, double *max) override;
+    yarp::dev::yarp_ret_value setLimits(int axis, double min, double max) override;
+    yarp::dev::yarp_ret_value getLimits(int axis, double *min, double *max) override;
+    yarp::dev::yarp_ret_value setVelLimits(int axis, double min, double max) override;
+    yarp::dev::yarp_ret_value getVelLimits(int axis, double *min, double *max) override;
 };
 
 
@@ -80,47 +80,30 @@ public:
  */
 class StubImplControlLimitsRaw: public yarp::dev::IControlLimitsRaw
 {
-private:
-    /**
-     * Helper for printing error message, see below.
-     * Implemented in ControlBoardInterfacesImpl.cpp.
-     */
-    bool NOT_YET_IMPLEMENTED(const char *func=0)
-    {
-        if (func) {
-            yError("%s: not yet implemented\n", func);
-        } else {
-            yError("Function not yet implemented\n");
-        }
-
-        return false;
-    }
-
-
 public:
     /**
      * Destructor.
      */
     virtual ~StubImplControlLimitsRaw() {}
 
-    bool setLimitsRaw(int axis, double min, double max) override
+    yarp::dev::yarp_ret_value setLimitsRaw(int axis, double min, double max) override
     {
-        return NOT_YET_IMPLEMENTED("setLimitsRaw");
+        return  yarp::dev::NOT_YET_IMPLEMENTED();
     }
 
-    bool getLimitsRaw(int axis, double *min, double *max) override
+    yarp::dev::yarp_ret_value getLimitsRaw(int axis, double *min, double *max) override
     {
-        return NOT_YET_IMPLEMENTED("getLimitsRaw");
+        return  yarp::dev::NOT_YET_IMPLEMENTED();
     }
 
-    bool setVelLimitsRaw(int axis, double min, double max) override
+    yarp::dev::yarp_ret_value setVelLimitsRaw(int axis, double min, double max) override
     {
-        return NOT_YET_IMPLEMENTED("setVelLimitsRaw");
+        return  yarp::dev::NOT_YET_IMPLEMENTED();
     }
 
-    bool getVelLimitsRaw(int axis, double *min, double *max) override
+    yarp::dev::yarp_ret_value getVelLimitsRaw(int axis, double *min, double *max) override
     {
-        return NOT_YET_IMPLEMENTED("getVelLimitsRaw");
+        return  yarp::dev::NOT_YET_IMPLEMENTED();
     }
 
 };

@@ -57,24 +57,21 @@ bool ImplementRemoteVariables::uninitialize()
     return true;
 }
 
-bool ImplementRemoteVariables::getRemoteVariable(std::string key, yarp::os::Bottle& val)
+yarp_ret_value ImplementRemoteVariables::getRemoteVariable(std::string key, yarp::os::Bottle& val)
 {
-    bool ret;
-    ret = ivar->getRemoteVariableRaw(key, val);
+    yarp_ret_value ret = ivar->getRemoteVariableRaw(key, val);
     return ret;
 }
 
-bool ImplementRemoteVariables::setRemoteVariable(std::string key, const yarp::os::Bottle& val)
+yarp_ret_value ImplementRemoteVariables::setRemoteVariable(std::string key, const yarp::os::Bottle& val)
 {
-    bool ret;
-    ret = ivar->setRemoteVariableRaw(key, val);
+    yarp_ret_value ret = ivar->setRemoteVariableRaw(key, val);
     return ret;
 }
 
 
-bool ImplementRemoteVariables::getRemoteVariablesList(yarp::os::Bottle* listOfKeys)
+yarp_ret_value ImplementRemoteVariables::getRemoteVariablesList(yarp::os::Bottle* listOfKeys)
 {
-    bool ret;
-    ret = ivar->getRemoteVariablesListRaw(listOfKeys);
+    yarp_ret_value ret = ivar->getRemoteVariablesListRaw(listOfKeys);
     return ret;
 }

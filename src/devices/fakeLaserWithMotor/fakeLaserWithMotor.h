@@ -178,69 +178,69 @@ public:
 
 public:
     //motor interfaces
-    bool resetEncoderRaw(int j) override;
-    bool resetEncodersRaw() override;
-    bool setEncoderRaw(int j, double val) override;
-    bool setEncodersRaw(const double* vals) override;
-    bool getEncoderRaw(int j, double* v) override;
-    bool getEncodersRaw(double* encs) override;
-    bool getEncoderSpeedRaw(int j, double* sp) override;
-    bool getEncoderSpeedsRaw(double* spds) override;
-    bool getEncoderAccelerationRaw(int j, double* spds) override;
-    bool getEncoderAccelerationsRaw(double* accs) override;
+    yarp::dev::yarp_ret_value resetEncoderRaw(int j) override;
+    yarp::dev::yarp_ret_value resetEncodersRaw() override;
+    yarp::dev::yarp_ret_value setEncoderRaw(int j, double val) override;
+    yarp::dev::yarp_ret_value setEncodersRaw(const double* vals) override;
+    yarp::dev::yarp_ret_value getEncoderRaw(int j, double* v) override;
+    yarp::dev::yarp_ret_value getEncodersRaw(double* encs) override;
+    yarp::dev::yarp_ret_value getEncoderSpeedRaw(int j, double* sp) override;
+    yarp::dev::yarp_ret_value getEncoderSpeedsRaw(double* spds) override;
+    yarp::dev::yarp_ret_value getEncoderAccelerationRaw(int j, double* spds) override;
+    yarp::dev::yarp_ret_value getEncoderAccelerationsRaw(double* accs) override;
 
-    bool getEncodersTimedRaw(double* encs, double* stamps) override;
-    bool getEncoderTimedRaw(int j, double* encs, double* stamp) override;
+    yarp::dev::yarp_ret_value getEncodersTimedRaw(double* encs, double* stamps) override;
+    yarp::dev::yarp_ret_value getEncoderTimedRaw(int j, double* encs, double* stamp) override;
 
     // POSITION CONTROL INTERFACE RAW
-    bool getAxes(int* ax) override;
-    bool positionMoveRaw(int j, double ref) override;
-    bool positionMoveRaw(const double* refs) override;
-    bool relativeMoveRaw(int j, double delta) override;
-    bool relativeMoveRaw(const double* deltas) override;
-    bool checkMotionDoneRaw(bool* flag) override;
-    bool checkMotionDoneRaw(int j, bool* flag) override;
-    bool setRefSpeedRaw(int j, double sp) override;
-    bool setRefSpeedsRaw(const double* spds) override;
-    bool setRefAccelerationRaw(int j, double acc) override;
-    bool setRefAccelerationsRaw(const double* accs) override;
-    bool getRefSpeedRaw(int j, double* ref) override;
-    bool getRefSpeedsRaw(double* spds) override;
-    bool getRefAccelerationRaw(int j, double* acc) override;
-    bool getRefAccelerationsRaw(double* accs) override;
-    bool stopRaw(int j) override;
-    bool stopRaw() override;
+    yarp::dev::yarp_ret_value getAxes(int* ax) override;
+    yarp::dev::yarp_ret_value positionMoveRaw(int j, double ref) override;
+    yarp::dev::yarp_ret_value positionMoveRaw(const double* refs) override;
+    yarp::dev::yarp_ret_value relativeMoveRaw(int j, double delta) override;
+    yarp::dev::yarp_ret_value relativeMoveRaw(const double* deltas) override;
+    yarp::dev::yarp_ret_value checkMotionDoneRaw(bool* flag) override;
+    yarp::dev::yarp_ret_value checkMotionDoneRaw(int j, bool* flag) override;
+    yarp::dev::yarp_ret_value setRefSpeedRaw(int j, double sp) override;
+    yarp::dev::yarp_ret_value setRefSpeedsRaw(const double* spds) override;
+    yarp::dev::yarp_ret_value setRefAccelerationRaw(int j, double acc) override;
+    yarp::dev::yarp_ret_value setRefAccelerationsRaw(const double* accs) override;
+    yarp::dev::yarp_ret_value getRefSpeedRaw(int j, double* ref) override;
+    yarp::dev::yarp_ret_value getRefSpeedsRaw(double* spds) override;
+    yarp::dev::yarp_ret_value getRefAccelerationRaw(int j, double* acc) override;
+    yarp::dev::yarp_ret_value getRefAccelerationsRaw(double* accs) override;
+    yarp::dev::yarp_ret_value stopRaw(int j) override;
+    yarp::dev::yarp_ret_value stopRaw() override;
 
-    bool positionMoveRaw(const int n_joint, const int* joints, const double* refs) override;
-    bool relativeMoveRaw(const int n_joint, const int* joints, const double* deltas) override;
-    bool checkMotionDoneRaw(const int n_joint, const int* joints, bool* flags) override;
-    bool setRefSpeedsRaw(const int n_joint, const int* joints, const double* spds) override;
-    bool setRefAccelerationsRaw(const int n_joint, const int* joints, const double* accs) override;
-    bool getRefSpeedsRaw(const int n_joint, const int* joints, double* spds) override;
-    bool getRefAccelerationsRaw(const int n_joint, const int* joints, double* accs) override;
-    bool stopRaw(const int n_joint, const int* joints) override;
-    bool getTargetPositionRaw(const int joint, double* ref) override;
-    bool getTargetPositionsRaw(double* refs) override;
-    bool getTargetPositionsRaw(const int n_joint, const int* joints, double* refs) override;
+    yarp::dev::yarp_ret_value positionMoveRaw(const int n_joint, const int* joints, const double* refs) override;
+    yarp::dev::yarp_ret_value  relativeMoveRaw(const int n_joint, const int* joints, const double* deltas) override;
+    yarp::dev::yarp_ret_value  checkMotionDoneRaw(const int n_joint, const int* joints, bool* flags) override;
+    yarp::dev::yarp_ret_value  setRefSpeedsRaw(const int n_joint, const int* joints, const double* spds) override;
+    yarp::dev::yarp_ret_value  setRefAccelerationsRaw(const int n_joint, const int* joints, const double* accs) override;
+    yarp::dev::yarp_ret_value  getRefSpeedsRaw(const int n_joint, const int* joints, double* spds) override;
+    yarp::dev::yarp_ret_value  getRefAccelerationsRaw(const int n_joint, const int* joints, double* accs) override;
+    yarp::dev::yarp_ret_value  stopRaw(const int n_joint, const int* joints) override;
+    yarp::dev::yarp_ret_value  getTargetPositionRaw(const int joint, double* ref) override;
+    yarp::dev::yarp_ret_value  getTargetPositionsRaw(double* refs) override;
+    yarp::dev::yarp_ret_value  getTargetPositionsRaw(const int n_joint, const int* joints, double* refs) override;
 
     //IControlMode
-    bool getControlModeRaw(int j, int* v) override;
-    bool getControlModesRaw(int* v) override;
-    bool getControlModesRaw(const int n_joint, const int* joints, int* modes) override;
-    bool setControlModeRaw(const int j, const int mode) override;
-    bool setControlModesRaw(const int n_joint, const int* joints, int* modes) override;
-    bool setControlModesRaw(int* modes) override;
+    yarp::dev::yarp_ret_value getControlModeRaw(int j, int* v) override;
+    yarp::dev::yarp_ret_value getControlModesRaw(int* v) override;
+    yarp::dev::yarp_ret_value getControlModesRaw(const int n_joint, const int* joints, int* modes) override;
+    yarp::dev::yarp_ret_value setControlModeRaw(const int j, const int mode) override;
+    yarp::dev::yarp_ret_value setControlModesRaw(const int n_joint, const int* joints, int* modes) override;
+    yarp::dev::yarp_ret_value setControlModesRaw(int* modes) override;
 
     //IVelocityControl
-    bool velocityMoveRaw(int j, double sp) override;
-    bool velocityMoveRaw(const double* sp) override;
-    bool velocityMoveRaw(const int n_joint, const int* joints, const double* spds) override;
-    bool getRefVelocityRaw(const int joint, double* ref) override;
-    bool getRefVelocitiesRaw(double* refs) override;
-    bool getRefVelocitiesRaw(const int n_joint, const int* joints, double* refs) override;
+    yarp::dev::yarp_ret_value velocityMoveRaw(int j, double sp) override;
+    yarp::dev::yarp_ret_value velocityMoveRaw(const double* sp) override;
+    yarp::dev::yarp_ret_value velocityMoveRaw(const int n_joint, const int* joints, const double* spds) override;
+    yarp::dev::yarp_ret_value getRefVelocityRaw(const int joint, double* ref) override;
+    yarp::dev::yarp_ret_value getRefVelocitiesRaw(double* refs) override;
+    yarp::dev::yarp_ret_value getRefVelocitiesRaw(const int n_joint, const int* joints, double* refs) override;
 
-    bool getAxisNameRaw(int axis, std::string& name) override;
-    bool getJointTypeRaw(int axis, yarp::dev::JointTypeEnum& type) override;
+    yarp::dev::yarp_ret_value getAxisNameRaw(int axis, std::string& name) override;
+    yarp::dev::yarp_ret_value getJointTypeRaw(int axis, yarp::dev::JointTypeEnum& type) override;
 public:
     //Lidar2DDeviceBase
     bool acquireDataFromHW() override final;

@@ -11,8 +11,6 @@
 using namespace yarp::dev;
 using namespace yarp::os;
 
-#define JOINTIDCHECK if (j >= castToMapper(helper)->axes()){yError("joint id out of bound"); return false;}
-
 ImplementJointFault::ImplementJointFault(IJointFaultRaw *r):
     helper(nullptr),
     raw(r)
@@ -46,9 +44,9 @@ bool ImplementJointFault::uninitialize ()
     return true;
 }
 
-bool ImplementJointFault::getLastJointFault(int j, int& fault, std::string& message)
+yarp::dev::yarp_ret_value ImplementJointFault::getLastJointFault(int j, int& fault, std::string& message)
 {
-    JOINTIDCHECK
+    JOINTIDCHECK(j)
     int k=castToMapper(helper)->toHw(j);
     return raw->getLastJointFaultRaw(k, fault, message);
 }

@@ -64,13 +64,13 @@ public:
      */
     virtual ~ImplementPositionDirect();
 
-    bool getAxes(int *axes) override;
-    bool setPosition(int j, double ref) override;
-    bool setPositions(const int n_joint, const int *joints, const double *refs) override;
-    bool setPositions(const double *refs) override;
-    bool getRefPosition(const int joint, double *ref) override;
-    bool getRefPositions(double *refs) override;
-    bool getRefPositions(const int n_joint, const int *joints, double *refs) override;
+    yarp::dev::yarp_ret_value getAxes(int *axes) override;
+    yarp::dev::yarp_ret_value setPosition(int j, double ref) override;
+    yarp::dev::yarp_ret_value setPositions(const int n_joint, const int *joints, const double *refs) override;
+    yarp::dev::yarp_ret_value setPositions(const double *refs) override;
+    yarp::dev::yarp_ret_value getRefPosition(const int joint, double *ref) override;
+    yarp::dev::yarp_ret_value getRefPositions(double *refs) override;
+    yarp::dev::yarp_ret_value getRefPositions(const int n_joint, const int *joints, double *refs) override;
 };
 
 
@@ -95,21 +95,21 @@ private:
      * Helper for printing error message, see below.
      * Implemented in ControlBoardInterfacesImpl.cpp.
      */
-    bool NOT_YET_IMPLEMENTED(const char *func=0);
+    yarp::dev::yarp_ret_value NOT_YET_IMPLEMENTED(const char *func=0);
 
 public:
     virtual ~StubImplPositionDirectRaw(){}
 
-    bool getAxes(int *axis) override
+    yarp::dev::yarp_ret_value getAxes(int *axis) override
     {return NOT_YET_IMPLEMENTED("getAxes");}
 
-    bool setPosition(int j, double ref) override
+    yarp::dev::yarp_ret_value setPosition(int j, double ref) override
     {return NOT_YET_IMPLEMENTED("setPosition");}
 
-    bool setPositions(const int n_joint, const int *joints, const double *refs) override
+    yarp::dev::yarp_ret_value setPositions(const int n_joint, const int *joints, const double *refs) override
     {return NOT_YET_IMPLEMENTED("setPositions");}
 
-    bool setPositions(const double *refs) override
+    yarp::dev::yarp_ret_value setPositions(const double *refs) override
     {return NOT_YET_IMPLEMENTED("setPositions");}
 };
 

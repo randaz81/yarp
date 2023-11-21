@@ -57,9 +57,9 @@ void checkAndDestroy(T*& p) {
 
 
 //Motor interfaces
-bool FakeLaserWithMotor::getEncodersTimedRaw(double* encs, double* stamps)
+yarp::dev::yarp_ret_value FakeLaserWithMotor::getEncodersTimedRaw(double* encs, double* stamps)
 {
-    bool ret = getEncodersRaw(encs);
+    yarp::dev::yarp_ret_value ret = getEncodersRaw(encs);
     m_mutex.lock();
     for (int i = 0; i < m_njoints; i++) {
         stamps[i] = m_timestamp.getTime();
@@ -68,9 +68,9 @@ bool FakeLaserWithMotor::getEncodersTimedRaw(double* encs, double* stamps)
     return ret;
 }
 
-bool FakeLaserWithMotor::getEncoderTimedRaw(int j, double* encs, double* stamp)
+yarp::dev::yarp_ret_value FakeLaserWithMotor::getEncoderTimedRaw(int j, double* encs, double* stamp)
 {
-    bool ret = getEncoderRaw(j, encs);
+    yarp::dev::yarp_ret_value ret = getEncoderRaw(j, encs);
     m_mutex.lock();
     *stamp = m_timestamp.getTime();
     m_mutex.unlock();
@@ -78,13 +78,13 @@ bool FakeLaserWithMotor::getEncoderTimedRaw(int j, double* encs, double* stamp)
     return ret;
 }
 
-bool FakeLaserWithMotor::getAxes(int* ax)
+yarp::dev::yarp_ret_value FakeLaserWithMotor::getAxes(int* ax)
 {
     *ax = m_njoints;
-    return true;
+    return yarp_ret_value_ok;
 }
 
-bool FakeLaserWithMotor::positionMoveRaw(int j, double ref)
+yarp::dev::yarp_ret_value FakeLaserWithMotor::positionMoveRaw(int j, double ref)
 {
     int mode = 0;
     getControlModeRaw(j, &mode);
@@ -96,12 +96,12 @@ bool FakeLaserWithMotor::positionMoveRaw(int j, double ref)
         yCError(FAKE_LASER_MOTORS) << "positionMoveRaw: skipping command because joint " << j << " is not in VOCAB_CM_POSITION mode";
     }
     _posCtrl_references[j] = ref;
-    return true;
+    return yarp_ret_value_ok;
 }
 
-bool FakeLaserWithMotor::positionMoveRaw(const double* refs)
+yarp::dev::yarp_ret_value FakeLaserWithMotor::positionMoveRaw(const double* refs)
 {
-    bool ret = true;
+    yarp_ret_value ret = yarp_ret_value_ok;
     for (int j = 0, index = 0; j < m_njoints; j++, index++)
     {
         ret &= positionMoveRaw(j, refs[index]);
@@ -109,7 +109,7 @@ bool FakeLaserWithMotor::positionMoveRaw(const double* refs)
     return ret;
 }
 
-bool FakeLaserWithMotor::relativeMoveRaw(int j, double delta)
+yarp::dev::yarp_ret_value FakeLaserWithMotor::relativeMoveRaw(int j, double delta)
 {
     int mode = 0;
     getControlModeRaw(j, &mode);
@@ -121,12 +121,12 @@ bool FakeLaserWithMotor::relativeMoveRaw(int j, double delta)
         yCError(FAKE_LASER_MOTORS) << "relativeMoveRaw: skipping command because joint " << j << " is not in VOCAB_CM_POSITION mode";
     }
     _posCtrl_references[j] += delta;
-    return true;
+    return yarp_ret_value_ok;
 }
 
-bool FakeLaserWithMotor::relativeMoveRaw(const double* deltas)
+yarp::dev::yarp_ret_value FakeLaserWithMotor::relativeMoveRaw(const double* deltas)
 {
-    bool ret = true;
+    yarp_ret_value ret = yarp_ret_value_ok;
     for (int j = 0, index = 0; j < m_njoints; j++, index++)
     {
         ret &= relativeMoveRaw(j, deltas[index]);
@@ -135,15 +135,16 @@ bool FakeLaserWithMotor::relativeMoveRaw(const double* deltas)
 }
 
 
-bool FakeLaserWithMotor::checkMotionDoneRaw(int j, bool* flag)
+yarp::dev::yarp_ret_value FakeLaserWithMotor::checkMotionDoneRaw(int j, bool* flag)
 {
+    yarp_ret_value ret = yarp_ret_value_ok;
     *flag = false;
-    return true;
+    return ret;
 }
 
-bool FakeLaserWithMotor::checkMotionDoneRaw(bool* flag)
+yarp::dev::yarp_ret_value FakeLaserWithMotor::checkMotionDoneRaw(bool* flag)
 {
-    bool ret = true;
+    yarp_ret_value ret = yarp_ret_value_ok;
     bool val, tot_res = true;
 
     for (int j = 0, index = 0; j < m_njoints; j++, index++)
@@ -155,16 +156,16 @@ bool FakeLaserWithMotor::checkMotionDoneRaw(bool* flag)
     return ret;
 }
 
-bool FakeLaserWithMotor::setRefSpeedRaw(int j, double sp)
+yarp::dev::yarp_ret_value FakeLaserWithMotor::setRefSpeedRaw(int j, double sp)
 {
     // Velocity is expressed in iDegrees/s
     // save internally the new value of speed; it'll be used in the positionMove
     int index = j;
     _ref_speeds[index] = sp;
-    return true;
+    return yarp_ret_value_ok;
 }
 
-bool FakeLaserWithMotor::setRefSpeedsRaw(const double* spds)
+yarp::dev::yarp_ret_value FakeLaserWithMotor::setRefSpeedsRaw(const double* spds)
 {
     // Velocity is expressed in iDegrees/s
     // save internally the new value of speed; it'll be used in the positionMove
@@ -172,10 +173,10 @@ bool FakeLaserWithMotor::setRefSpeedsRaw(const double* spds)
     {
         _ref_speeds[index] = spds[index];
     }
-    return true;
+    return yarp_ret_value_ok;
 }
 
-bool FakeLaserWithMotor::setRefAccelerationRaw(int j, double acc)
+yarp::dev::yarp_ret_value FakeLaserWithMotor::setRefAccelerationRaw(int j, double acc)
 {
     // Acceleration is expressed in iDegrees/s^2
     // save internally the new value of the acceleration; it'll be used in the velocityMove command
@@ -193,10 +194,10 @@ bool FakeLaserWithMotor::setRefAccelerationRaw(int j, double acc)
         _ref_accs[j] = acc;
     }
 
-    return true;
+    return yarp_ret_value_ok;
 }
 
-bool FakeLaserWithMotor::setRefAccelerationsRaw(const double* accs)
+yarp::dev::yarp_ret_value FakeLaserWithMotor::setRefAccelerationsRaw(const double* accs)
 {
     // Acceleration is expressed in iDegrees/s^2
     // save internally the new value of the acceleration; it'll be used in the velocityMove command
@@ -215,41 +216,41 @@ bool FakeLaserWithMotor::setRefAccelerationsRaw(const double* accs)
             _ref_accs[index] = accs[j];
         }
     }
-    return true;
+    return yarp_ret_value_ok;
 }
 
-bool FakeLaserWithMotor::getRefSpeedRaw(int j, double* spd)
+yarp::dev::yarp_ret_value FakeLaserWithMotor::getRefSpeedRaw(int j, double* spd)
 {
     *spd = _ref_speeds[j];
-    return true;
+    return yarp_ret_value_ok;
 }
 
-bool FakeLaserWithMotor::getRefSpeedsRaw(double* spds)
+yarp::dev::yarp_ret_value FakeLaserWithMotor::getRefSpeedsRaw(double* spds)
 {
     memcpy(spds, _ref_speeds, sizeof(double) * m_njoints);
-    return true;
+    return yarp_ret_value_ok;
 }
 
-bool FakeLaserWithMotor::getRefAccelerationRaw(int j, double* acc)
+yarp::dev::yarp_ret_value FakeLaserWithMotor::getRefAccelerationRaw(int j, double* acc)
 {
     *acc = _ref_accs[j];
-    return true;
+    return yarp_ret_value_ok;
 }
 
-bool FakeLaserWithMotor::getRefAccelerationsRaw(double* accs)
+yarp::dev::yarp_ret_value FakeLaserWithMotor::getRefAccelerationsRaw(double* accs)
 {
     memcpy(accs, _ref_accs, sizeof(double) * m_njoints);
-    return true;
+    return yarp_ret_value_ok;
 }
 
-bool FakeLaserWithMotor::stopRaw(int j)
+yarp::dev::yarp_ret_value FakeLaserWithMotor::stopRaw(int j)
 {
-    return true;
+    return yarp_ret_value_ok;
 }
 
-bool FakeLaserWithMotor::stopRaw()
+yarp::dev::yarp_ret_value FakeLaserWithMotor::stopRaw()
 {
-    bool ret = true;
+    yarp_ret_value ret = yarp_ret_value_ok;
     for (int j = 0; j < m_njoints; j++)
     {
         ret &= stopRaw(j);
@@ -258,16 +259,16 @@ bool FakeLaserWithMotor::stopRaw()
 }
 ///////////// END Position Control INTERFACE  //////////////////
 
-bool FakeLaserWithMotor::getControlModeRaw(int j, int* v)
+yarp::dev::yarp_ret_value FakeLaserWithMotor::getControlModeRaw(int j, int* v)
 {
     *v = _controlModes[j];
-    return true;
+    return yarp_ret_value_ok;
 }
 
 // IControl Mode 2
-bool FakeLaserWithMotor::getControlModesRaw(int* v)
+yarp::dev::yarp_ret_value FakeLaserWithMotor::getControlModesRaw(int* v)
 {
-    bool ret = true;
+    yarp_ret_value ret = yarp_ret_value_ok;
     for (int j = 0; j < m_njoints; j++)
     {
         ret = ret && getControlModeRaw(j, &v[j]);
@@ -275,9 +276,9 @@ bool FakeLaserWithMotor::getControlModesRaw(int* v)
     return ret;
 }
 
-bool FakeLaserWithMotor::getControlModesRaw(const int n_joint, const int* joints, int* modes)
+yarp::dev::yarp_ret_value FakeLaserWithMotor::getControlModesRaw(const int n_joint, const int* joints, int* modes)
 {
-    bool ret = true;
+    yarp_ret_value ret = yarp_ret_value_ok;
     for (int j = 0; j < n_joint; j++)
     {
         ret = ret && getControlModeRaw(joints[j], &modes[j]);
@@ -287,7 +288,7 @@ bool FakeLaserWithMotor::getControlModesRaw(const int n_joint, const int* joints
 
 
 
-bool FakeLaserWithMotor::setControlModeRaw(const int j, const int _mode)
+yarp::dev::yarp_ret_value FakeLaserWithMotor::setControlModeRaw(const int j, const int _mode)
 {
     if (_mode == VOCAB_CM_FORCE_IDLE)
     {
@@ -297,13 +298,13 @@ bool FakeLaserWithMotor::setControlModeRaw(const int j, const int _mode)
     {
         _controlModes[j] = _mode;
     }
-    return true;
+    return yarp_ret_value_ok;
 }
 
 
-bool FakeLaserWithMotor::setControlModesRaw(const int n_joint, const int* joints, int* modes)
+yarp::dev::yarp_ret_value FakeLaserWithMotor::setControlModesRaw(const int n_joint, const int* joints, int* modes)
 {
-    bool ret = true;
+    yarp_ret_value ret = yarp_ret_value_ok;
     for (int i = 0; i < n_joint; i++)
     {
         ret &= setControlModeRaw(joints[i], modes[i]);
@@ -311,9 +312,9 @@ bool FakeLaserWithMotor::setControlModesRaw(const int n_joint, const int* joints
     return ret;
 }
 
-bool FakeLaserWithMotor::setControlModesRaw(int* modes)
+yarp::dev::yarp_ret_value FakeLaserWithMotor::setControlModesRaw(int* modes)
 {
-    bool ret = true;
+    yarp_ret_value ret = yarp_ret_value_ok;
     for (int i = 0; i < m_njoints; i++)
     {
         ret &= setControlModeRaw(i, modes[i]);
@@ -353,38 +354,38 @@ bool FakeLaserWithMotor::dealloc()
 }
 
 
-bool FakeLaserWithMotor::setEncoderRaw(int j, double val)
+yarp::dev::yarp_ret_value FakeLaserWithMotor::setEncoderRaw(int j, double val)
 {
-    return NOT_YET_IMPLEMENTED("setEncoder");
+    return NOT_YET_IMPLEMENTED();
 }
 
-bool FakeLaserWithMotor::setEncodersRaw(const double* vals)
+yarp::dev::yarp_ret_value FakeLaserWithMotor::setEncodersRaw(const double* vals)
 {
-    return NOT_YET_IMPLEMENTED("setEncoders");
+    return NOT_YET_IMPLEMENTED();
 }
 
-bool FakeLaserWithMotor::resetEncoderRaw(int j)
+yarp::dev::yarp_ret_value FakeLaserWithMotor::resetEncoderRaw(int j)
 {
-    return NOT_YET_IMPLEMENTED("resetEncoder");
+    return NOT_YET_IMPLEMENTED();
 }
 
-bool FakeLaserWithMotor::resetEncodersRaw()
+yarp::dev::yarp_ret_value FakeLaserWithMotor::resetEncodersRaw()
 {
-    return NOT_YET_IMPLEMENTED("resetEncoders");
+    return NOT_YET_IMPLEMENTED();
 }
 
-bool FakeLaserWithMotor::getEncoderRaw(int j, double* value)
+yarp::dev::yarp_ret_value FakeLaserWithMotor::getEncoderRaw(int j, double* value)
 {
-    bool ret = true;
+    yarp_ret_value ret = yarp_ret_value_ok;
 
     *value = _encoders[j];
 
     return ret;
 }
 
-bool FakeLaserWithMotor::getEncodersRaw(double* encs)
+yarp::dev::yarp_ret_value FakeLaserWithMotor::getEncodersRaw(double* encs)
 {
-    bool ret = true;
+    yarp_ret_value ret = yarp_ret_value_ok;
     for (int j = 0; j < m_njoints; j++)
     {
         bool ok = getEncoderRaw(j, &encs[j]);
@@ -394,16 +395,16 @@ bool FakeLaserWithMotor::getEncodersRaw(double* encs)
     return ret;
 }
 
-bool FakeLaserWithMotor::getEncoderSpeedRaw(int j, double* sp)
+yarp::dev::yarp_ret_value FakeLaserWithMotor::getEncoderSpeedRaw(int j, double* sp)
 {
     // To avoid returning uninitialized memory, we set the encoder speed to 0
     *sp = 0.0;
-    return true;
+    return yarp_ret_value_ok;
 }
 
-bool FakeLaserWithMotor::getEncoderSpeedsRaw(double* spds)
+yarp::dev::yarp_ret_value FakeLaserWithMotor::getEncoderSpeedsRaw(double* spds)
 {
-    bool ret = true;
+    yarp_ret_value ret = yarp_ret_value_ok;
     for (int j = 0; j < m_njoints; j++)
     {
         ret &= getEncoderSpeedRaw(j, &spds[j]);
@@ -411,17 +412,17 @@ bool FakeLaserWithMotor::getEncoderSpeedsRaw(double* spds)
     return ret;
 }
 
-bool FakeLaserWithMotor::getEncoderAccelerationRaw(int j, double* acc)
+yarp::dev::yarp_ret_value FakeLaserWithMotor::getEncoderAccelerationRaw(int j, double* acc)
 {
     // To avoid returning uninitialized memory, we set the encoder acc to 0
     *acc = 0.0;
 
-    return true;
+    return yarp_ret_value_ok;
 }
 
-bool FakeLaserWithMotor::getEncoderAccelerationsRaw(double* accs)
+yarp::dev::yarp_ret_value FakeLaserWithMotor::getEncoderAccelerationsRaw(double* accs)
 {
-    bool ret = true;
+    yarp_ret_value ret = yarp_ret_value_ok;
     for (int j = 0; j < m_njoints; j++)
     {
         ret &= getEncoderAccelerationRaw(j, &accs[j]);
@@ -429,9 +430,9 @@ bool FakeLaserWithMotor::getEncoderAccelerationsRaw(double* accs)
     return ret;
 }
 
-bool FakeLaserWithMotor::setRefAccelerationsRaw(const int n_joint, const int* joints, const double* accs)
+yarp::dev::yarp_ret_value FakeLaserWithMotor::setRefAccelerationsRaw(const int n_joint, const int* joints, const double* accs)
 {
-    bool ret = true;
+    yarp_ret_value ret = yarp_ret_value_ok;
     for (int j = 0; j < n_joint; j++)
     {
         ret = ret && setRefAccelerationRaw(joints[j], accs[j]);
@@ -439,9 +440,9 @@ bool FakeLaserWithMotor::setRefAccelerationsRaw(const int n_joint, const int* jo
     return ret;
 }
 
-bool FakeLaserWithMotor::getRefSpeedsRaw(const int n_joint, const int* joints, double* spds)
+yarp::dev::yarp_ret_value FakeLaserWithMotor::getRefSpeedsRaw(const int n_joint, const int* joints, double* spds)
 {
-    bool ret = true;
+    yarp_ret_value ret = yarp_ret_value_ok;
     for (int j = 0; j < n_joint; j++)
     {
         ret = ret && getRefSpeedRaw(joints[j], &spds[j]);
@@ -449,9 +450,9 @@ bool FakeLaserWithMotor::getRefSpeedsRaw(const int n_joint, const int* joints, d
     return ret;
 }
 
-bool FakeLaserWithMotor::getRefAccelerationsRaw(const int n_joint, const int* joints, double* accs)
+yarp::dev::yarp_ret_value FakeLaserWithMotor::getRefAccelerationsRaw(const int n_joint, const int* joints, double* accs)
 {
-    bool ret = true;
+    yarp_ret_value ret = yarp_ret_value_ok;
     for (int j = 0; j < n_joint; j++)
     {
         ret = ret && getRefAccelerationRaw(joints[j], &accs[j]);
@@ -459,9 +460,9 @@ bool FakeLaserWithMotor::getRefAccelerationsRaw(const int n_joint, const int* jo
     return ret;
 }
 
-bool FakeLaserWithMotor::stopRaw(const int n_joint, const int* joints)
+yarp::dev::yarp_ret_value FakeLaserWithMotor::stopRaw(const int n_joint, const int* joints)
 {
-    bool ret = true;
+    yarp_ret_value ret = yarp_ret_value_ok;
     for (int j = 0; j < n_joint; j++)
     {
         ret = ret && stopRaw(joints[j]);
@@ -469,14 +470,14 @@ bool FakeLaserWithMotor::stopRaw(const int n_joint, const int* joints)
     return ret;
 }
 
-bool FakeLaserWithMotor::positionMoveRaw(const int n_joint, const int* joints, const double* refs)
+yarp::dev::yarp_ret_value FakeLaserWithMotor::positionMoveRaw(const int n_joint, const int* joints, const double* refs)
 {
     for (int j = 0; j < n_joint; j++)
     {
         yCDebug(FAKE_LASER_MOTORS, "j: %d; ref %f;\n", joints[j], refs[j]); fflush(stdout);
     }
 
-    bool ret = true;
+    yarp_ret_value ret = yarp_ret_value_ok;
     for (int j = 0; j < n_joint; j++)
     {
         ret = ret && positionMoveRaw(joints[j], refs[j]);
@@ -484,9 +485,9 @@ bool FakeLaserWithMotor::positionMoveRaw(const int n_joint, const int* joints, c
     return ret;
 }
 
-bool FakeLaserWithMotor::relativeMoveRaw(const int n_joint, const int* joints, const double* deltas)
+yarp::dev::yarp_ret_value FakeLaserWithMotor::relativeMoveRaw(const int n_joint, const int* joints, const double* deltas)
 {
-    bool ret = true;
+    yarp_ret_value ret = yarp_ret_value_ok;
     for (int j = 0; j < n_joint; j++)
     {
         ret = ret && relativeMoveRaw(joints[j], deltas[j]);
@@ -494,7 +495,7 @@ bool FakeLaserWithMotor::relativeMoveRaw(const int n_joint, const int* joints, c
     return ret;
 }
 
-bool FakeLaserWithMotor::checkMotionDoneRaw(const int n_joint, const int* joints, bool* flag)
+yarp::dev::yarp_ret_value FakeLaserWithMotor::checkMotionDoneRaw(const int n_joint, const int* joints, bool* flag)
 {
     bool ret = true;
     bool val = true;
@@ -509,9 +510,9 @@ bool FakeLaserWithMotor::checkMotionDoneRaw(const int n_joint, const int* joints
     return ret;
 }
 
-bool FakeLaserWithMotor::setRefSpeedsRaw(const int n_joint, const int* joints, const double* spds)
+yarp::dev::yarp_ret_value FakeLaserWithMotor::setRefSpeedsRaw(const int n_joint, const int* joints, const double* spds)
 {
-    bool ret = true;
+    yarp_ret_value ret = yarp_ret_value_ok;
     for (int j = 0; j < n_joint; j++)
     {
         ret = ret && setRefSpeedRaw(joints[j], spds[j]);
@@ -519,7 +520,7 @@ bool FakeLaserWithMotor::setRefSpeedsRaw(const int n_joint, const int* joints, c
     return ret;
 }
 
-bool FakeLaserWithMotor::getTargetPositionRaw(int axis, double* ref)
+yarp::dev::yarp_ret_value FakeLaserWithMotor::getTargetPositionRaw(int axis, double* ref)
 {
     int mode = 0;
     getControlModeRaw(axis, &mode);
@@ -531,21 +532,21 @@ bool FakeLaserWithMotor::getTargetPositionRaw(int axis, double* ref)
             "this call is for reference only and may not reflect the actual behaviour of the motor/firmware.";
     }
     *ref = _posCtrl_references[axis];
-    return true;
+    return yarp_ret_value_ok;
 }
 
-bool FakeLaserWithMotor::getTargetPositionsRaw(double* refs)
+yarp::dev::yarp_ret_value FakeLaserWithMotor::getTargetPositionsRaw(double* refs)
 {
-    bool ret = true;
+    yarp_ret_value ret = yarp_ret_value_ok;
     for (int i = 0; i < m_njoints; i++) {
         ret &= getTargetPositionRaw(i, &refs[i]);
     }
     return ret;
 }
 
-bool FakeLaserWithMotor::getTargetPositionsRaw(int nj, const int* jnts, double* refs)
+yarp::dev::yarp_ret_value FakeLaserWithMotor::getTargetPositionsRaw(int nj, const int* jnts, double* refs)
 {
-    bool ret = true;
+    yarp_ret_value ret = yarp_ret_value_ok;
     for (int i = 0; i < nj; i++)
     {
         ret &= getTargetPositionRaw(jnts[i], &refs[i]);
@@ -553,7 +554,7 @@ bool FakeLaserWithMotor::getTargetPositionsRaw(int nj, const int* jnts, double* 
     return ret;
 }
 
-bool FakeLaserWithMotor::velocityMoveRaw(int j, double sp)
+yarp::dev::yarp_ret_value FakeLaserWithMotor::velocityMoveRaw(int j, double sp)
 {
     int mode = 0;
     getControlModeRaw(j, &mode);
@@ -566,20 +567,21 @@ bool FakeLaserWithMotor::velocityMoveRaw(int j, double sp)
     }
     _command_speeds[j] = sp;
     //last_velocity_command[j] = yarp::os::Time::now();
-    return true;
+    return yarp_ret_value_ok;
 }
 
-bool FakeLaserWithMotor::velocityMoveRaw(const double* sp)
+yarp::dev::yarp_ret_value FakeLaserWithMotor::velocityMoveRaw(const double* sp)
 {
-    bool ret = true;
+    yarp_ret_value ret = yarp_ret_value_ok;
     for (int i = 0; i < m_njoints; i++) {
         ret &= velocityMoveRaw(i, sp[i]);
     }
     return ret;
 }
-bool FakeLaserWithMotor::velocityMoveRaw(const int n_joint, const int* joints, const double* spds)
+
+yarp::dev::yarp_ret_value FakeLaserWithMotor::velocityMoveRaw(const int n_joint, const int* joints, const double* spds)
 {
-    bool ret = true;
+    yarp_ret_value ret = yarp_ret_value_ok;
     for (int i = 0; i < n_joint; i++)
     {
         ret &= velocityMoveRaw(joints[i], spds[i]);
@@ -587,15 +589,15 @@ bool FakeLaserWithMotor::velocityMoveRaw(const int n_joint, const int* joints, c
     return ret;
 }
 
-bool FakeLaserWithMotor::getRefVelocityRaw(int axis, double* ref)
+yarp::dev::yarp_ret_value FakeLaserWithMotor::getRefVelocityRaw(int axis, double* ref)
 {
     *ref = _command_speeds[axis];
-    return true;
+    return yarp_ret_value_ok;
 }
 
-bool FakeLaserWithMotor::getRefVelocitiesRaw(double* refs)
+yarp::dev::yarp_ret_value FakeLaserWithMotor::getRefVelocitiesRaw(double* refs)
 {
-    bool ret = true;
+    yarp_ret_value ret = yarp_ret_value_ok;
     for (int i = 0; i < m_njoints; i++)
     {
         ret &= getRefVelocityRaw(i, &refs[i]);
@@ -603,9 +605,9 @@ bool FakeLaserWithMotor::getRefVelocitiesRaw(double* refs)
     return ret;
 }
 
-bool FakeLaserWithMotor::getRefVelocitiesRaw(int nj, const int* jnts, double* refs)
+yarp::dev::yarp_ret_value FakeLaserWithMotor::getRefVelocitiesRaw(int nj, const int* jnts, double* refs)
 {
-    bool ret = true;
+    yarp_ret_value ret = yarp_ret_value_ok;
     for (int i = 0; i < nj; i++)
     {
         ret &= getRefVelocityRaw(jnts[i], &refs[i]);
@@ -614,12 +616,12 @@ bool FakeLaserWithMotor::getRefVelocitiesRaw(int nj, const int* jnts, double* re
 }
 
 
-bool FakeLaserWithMotor::getAxisNameRaw(int axis, std::string& name)
+yarp::dev::yarp_ret_value FakeLaserWithMotor::getAxisNameRaw(int axis, std::string& name)
 {
     if (axis >= 0 && axis < m_njoints)
     {
         name = _axisName[axis];
-        return true;
+        return yarp_ret_value_ok;
     }
     else
     {
@@ -628,7 +630,7 @@ bool FakeLaserWithMotor::getAxisNameRaw(int axis, std::string& name)
     }
 }
 
-bool FakeLaserWithMotor::getJointTypeRaw(int axis, yarp::dev::JointTypeEnum& type)
+yarp::dev::yarp_ret_value FakeLaserWithMotor::getJointTypeRaw(int axis, yarp::dev::JointTypeEnum& type)
 {
     if (axis >= 0 && axis < m_njoints)
     {

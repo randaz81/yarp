@@ -31,48 +31,41 @@ class StubImplEncodersRaw;
  */
 class YARP_dev_API yarp::dev::StubImplEncodersRaw: public IEncodersRaw
 {
-private:
-    /**
-     * Helper for printing error message, see below.
-     * Implemented in ControlBoardInterfacesImpl.cpp.
-     */
-    bool NOT_YET_IMPLEMENTED(const char *func=0);
-
 public:
     virtual ~StubImplEncodersRaw(){}
 
-    bool getAxes(int *ax) override
-    {return NOT_YET_IMPLEMENTED("getAxes");}
+    yarp::dev::yarp_ret_value getAxes(int *ax) override
+    {return NOT_YET_IMPLEMENTED();}
 
-    bool resetEncoderRaw(int j) override
-    {return NOT_YET_IMPLEMENTED("resetEncoderRaw");}
+    yarp::dev::yarp_ret_value resetEncoderRaw(int j) override
+    {return NOT_YET_IMPLEMENTED();}
 
-    bool resetEncodersRaw() override
-    {return NOT_YET_IMPLEMENTED("resetEncodersRaw");}
+    yarp::dev::yarp_ret_value resetEncodersRaw() override
+    {return NOT_YET_IMPLEMENTED();}
 
-    bool setEncoderRaw(int j, double val) override
-    {return NOT_YET_IMPLEMENTED("setEncoderRaw");}
+    yarp::dev::yarp_ret_value setEncoderRaw(int j, double val) override
+    {return NOT_YET_IMPLEMENTED();}
 
-    bool setEncodersRaw(const double *vals) override
-    {return NOT_YET_IMPLEMENTED("setEncodersRaw");}
+    yarp::dev::yarp_ret_value setEncodersRaw(const double *vals) override
+    {return NOT_YET_IMPLEMENTED();}
 
-    bool getEncoderRaw(int j, double *v) override
-    {return NOT_YET_IMPLEMENTED("getEncoderRaw");}
+    yarp::dev::yarp_ret_value getEncoderRaw(int j, double *v) override
+    {return NOT_YET_IMPLEMENTED();}
 
-    bool getEncodersRaw(double *encs) override
-    {return NOT_YET_IMPLEMENTED("getEncodersRaw");}
+    yarp::dev::yarp_ret_value getEncodersRaw(double *encs) override
+    {return NOT_YET_IMPLEMENTED();}
 
-    bool getEncoderSpeedRaw(int j, double *sp) override
-    {return NOT_YET_IMPLEMENTED("getEncoderSpeedRaw");}
+    yarp::dev::yarp_ret_value getEncoderSpeedRaw(int j, double *sp) override
+    {return NOT_YET_IMPLEMENTED();}
 
-    bool getEncoderSpeedsRaw(double *spds) override
-    {return NOT_YET_IMPLEMENTED("getEncoderSpeedsRaw");}
+    yarp::dev::yarp_ret_value getEncoderSpeedsRaw(double *spds) override
+    {return NOT_YET_IMPLEMENTED();}
 
-    bool getEncoderAccelerationRaw(int j, double *spds) override
-    {return NOT_YET_IMPLEMENTED("getEncoderAccelerationRaw");}
+    yarp::dev::yarp_ret_value getEncoderAccelerationRaw(int j, double *spds) override
+    {return NOT_YET_IMPLEMENTED();}
 
-    bool getEncoderAccelerationsRaw(double *accs) override
-    {return NOT_YET_IMPLEMENTED("getEncoderAccelerationsRaw");}
+    yarp::dev::yarp_ret_value getEncoderAccelerationsRaw(double *accs) override
+    {return NOT_YET_IMPLEMENTED();}
 };
 
 #endif // YARP_DEV_IMPLEMENTCONTROLBOARDINTERFACES_H

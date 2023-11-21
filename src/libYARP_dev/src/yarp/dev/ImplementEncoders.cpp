@@ -59,13 +59,13 @@ bool ImplementEncoders::uninitialize ()
     return true;
 }
 
-bool ImplementEncoders::getAxes(int *ax)
+yarp_ret_value ImplementEncoders::getAxes(int *ax)
 {
     (*ax)=castToMapper(helper)->axes();
-    return true;
+    return yarp_ret_value_ok;
 }
 
-bool ImplementEncoders::resetEncoder(int j)
+yarp_ret_value ImplementEncoders::resetEncoder(int j)
 {
     int k;
     k=castToMapper(helper)->toHw(j);
@@ -74,12 +74,12 @@ bool ImplementEncoders::resetEncoder(int j)
 }
 
 
-bool ImplementEncoders::resetEncoders()
+yarp_ret_value ImplementEncoders::resetEncoders()
 {
     return iEncoders->resetEncodersRaw();
 }
 
-bool ImplementEncoders::setEncoder(int j, double val)
+yarp_ret_value ImplementEncoders::setEncoder(int j, double val)
 {
     int k;
     double enc;
@@ -89,84 +89,78 @@ bool ImplementEncoders::setEncoder(int j, double val)
     return iEncoders->setEncoderRaw(k, enc);
 }
 
-bool ImplementEncoders::setEncoders(const double *val)
+yarp_ret_value ImplementEncoders::setEncoders(const double *val)
 {
     castToMapper(helper)->posA2E(val, temp);
 
     return iEncoders->setEncodersRaw(temp);
 }
 
-bool ImplementEncoders::getEncoder(int j, double *v)
+yarp_ret_value ImplementEncoders::getEncoder(int j, double *v)
 {
     int k;
     double enc;
-    bool ret;
 
     k=castToMapper(helper)->toHw(j);
 
-    ret=iEncoders->getEncoderRaw(k, &enc);
+    yarp_ret_value ret=iEncoders->getEncoderRaw(k, &enc);
 
     *v=castToMapper(helper)->posE2A(enc, k);
 
     return ret;
 }
 
-bool ImplementEncoders::getEncoders(double *v)
+yarp_ret_value ImplementEncoders::getEncoders(double *v)
 {
-    bool ret;
     castToMapper(helper)->axes();
 
-    ret=iEncoders->getEncodersRaw(temp);
+    yarp_ret_value ret=iEncoders->getEncodersRaw(temp);
 
     castToMapper(helper)->posE2A(temp, v);
 
     return ret;
 }
 
-bool ImplementEncoders::getEncoderSpeed(int j, double *v)
+yarp_ret_value ImplementEncoders::getEncoderSpeed(int j, double *v)
 {
     int k;
     double enc;
-    bool ret;
 
     k=castToMapper(helper)->toHw(j);
 
-    ret=iEncoders->getEncoderSpeedRaw(k, &enc);
+    yarp_ret_value ret=iEncoders->getEncoderSpeedRaw(k, &enc);
 
     *v=castToMapper(helper)->velE2A(enc, k);
 
     return ret;
 }
 
-bool ImplementEncoders::getEncoderSpeeds(double *v)
+yarp_ret_value ImplementEncoders::getEncoderSpeeds(double *v)
 {
-    bool ret;
-    ret=iEncoders->getEncoderSpeedsRaw(temp);
+    yarp_ret_value ret=iEncoders->getEncoderSpeedsRaw(temp);
 
     castToMapper(helper)->velE2A(temp, v);
 
     return ret;
 }
 
-bool ImplementEncoders::getEncoderAcceleration(int j, double *v)
+yarp_ret_value ImplementEncoders::getEncoderAcceleration(int j, double *v)
 {
     int k;
     double enc;
-    bool ret;
 
     k=castToMapper(helper)->toHw(j);
 
-    ret=iEncoders->getEncoderAccelerationRaw(k, &enc);
+    yarp_ret_value ret=iEncoders->getEncoderAccelerationRaw(k, &enc);
 
     *v=castToMapper(helper)->accE2A(enc, k);
 
     return ret;
 }
 
-bool ImplementEncoders::getEncoderAccelerations(double *v)
+yarp_ret_value ImplementEncoders::getEncoderAccelerations(double *v)
 {
-    bool ret;
-    ret=iEncoders->getEncoderAccelerationsRaw(temp);
+    yarp_ret_value ret=iEncoders->getEncoderAccelerationsRaw(temp);
 
     castToMapper(helper)->accE2A(temp, v);
 

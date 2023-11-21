@@ -54,21 +54,21 @@ public:
      * Non blocking.
      * @return true/false
      */
-    virtual bool calibrationDoneRaw(int j)=0;
+    virtual yarp::dev::yarp_ret_value calibrationDoneRaw(int j)=0;
 
     /**
      *  Start calibration, this method is very often platform
      * specific.
      * @return true/false on success failure
      */
-    virtual bool calibrateAxisWithParamsRaw(int axis, unsigned int type, double p1, double p2, double p3)=0;
+    virtual yarp::dev::yarp_ret_value calibrateAxisWithParamsRaw(int axis, unsigned int type, double p1, double p2, double p3)=0;
 
     /**
      *  Start calibration, this method is very often platform
      * specific.
      * @return true/false on success failure
     */
-    virtual bool setCalibrationParametersRaw(int axis, const CalibrationParameters& params) { return false; }
+    virtual yarp::dev::yarp_ret_value setCalibrationParametersRaw(int axis, const CalibrationParameters& params) { return yarp::dev::NOT_YET_IMPLEMENTED(); }
 
 };
 
@@ -94,28 +94,28 @@ public:
      * specific.
      * @return true/false on success failure
      */
-    virtual bool calibrateAxisWithParams(int axis, unsigned int type, double p1, double p2, double p3)=0;
+    virtual yarp::dev::yarp_ret_value calibrateAxisWithParams(int axis, unsigned int type, double p1, double p2, double p3)=0;
 
     /**
      *  Start calibration, this method is very often platform
      * specific.
      * @return true/false on success failure
      */
-    virtual bool setCalibrationParameters(int axis, const CalibrationParameters& params) { return false; }
+    virtual yarp::dev::yarp_ret_value setCalibrationParameters(int axis, const CalibrationParameters& params) { return yarp::dev::NOT_YET_IMPLEMENTED(); }
 
     /**
      *  Check if the calibration is terminated, on a particular joint.
      * Non blocking.
      * @return true/false
      */
-    virtual bool calibrationDone(int j)=0;
+    virtual yarp::dev::yarp_ret_value calibrationDone(int j)=0;
 
     /**
      * Set the calibrator object to be used to calibrate the robot.
      * @param c pointer to the calibrator object
      * @return true/false on success failure
      */
-    virtual bool setCalibrator(ICalibrator *c);
+    virtual yarp::dev::yarp_ret_value setCalibrator(ICalibrator *c);
 
     /**
      * Calibrate robot by using an external calibrator. The external
@@ -123,15 +123,15 @@ public:
      * method.
      * @return true/false on success failure
      */
-    virtual bool calibrateRobot();
+    virtual yarp::dev::yarp_ret_value calibrateRobot();
 
-    virtual bool park(bool wait=true);
+    virtual yarp::dev::yarp_ret_value park(bool wait=true);
 
     /* Abort calibration, force the function calibrate() to return.*/
-    virtual bool abortCalibration();
+    virtual yarp::dev::yarp_ret_value abortCalibration();
 
     /* Abort parking, force the function park() to return.*/
-    virtual bool abortPark();
+    virtual yarp::dev::yarp_ret_value abortPark();
 };
 
 

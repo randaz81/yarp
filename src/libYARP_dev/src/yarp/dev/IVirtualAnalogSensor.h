@@ -9,6 +9,7 @@
 #include <yarp/os/Vocab.h>
 #include <yarp/dev/api.h>
 #include <yarp/sig/Vector.h>
+#include <yarp/dev/ReturnValue.h>
 
 constexpr yarp::conf::vocab32_t VOCAB_IVIRTUAL_ANALOG   = yarp::os::createVocab32('i','v','a','n');
 
@@ -61,8 +62,8 @@ public:
      * @param measure a vector containing the sensor's last readings.
      * @return true if ok, false otherwise.
      */
-    virtual bool updateVirtualAnalogSensorMeasure(yarp::sig::Vector &measure)=0;
-    virtual bool updateVirtualAnalogSensorMeasure(int ch, double &measure)=0;
+    virtual yarp::dev::yarp_ret_value updateVirtualAnalogSensorMeasure(yarp::sig::Vector &measure)=0;
+    virtual yarp::dev::yarp_ret_value updateVirtualAnalogSensorMeasure(int ch, double &measure)=0;
 
 };
 
@@ -96,8 +97,8 @@ public:
     * @param measure a vector containing the sensor's last readings.
     * @return true if ok, false otherwise.
     */
-    virtual bool updateVirtualAnalogSensorMeasureRaw(yarp::sig::Vector &measure) = 0;
-    virtual bool updateVirtualAnalogSensorMeasureRaw(int ch, double &measure) = 0;
+    virtual yarp::dev::yarp_ret_value updateVirtualAnalogSensorMeasureRaw(yarp::sig::Vector &measure) = 0;
+    virtual yarp::dev::yarp_ret_value updateVirtualAnalogSensorMeasureRaw(int ch, double &measure) = 0;
 
 };
 

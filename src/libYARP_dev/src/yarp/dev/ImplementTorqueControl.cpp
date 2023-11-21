@@ -11,8 +11,6 @@
 using namespace yarp::dev;
 using namespace yarp::os;
 
-#define JOINTIDCHECK if (j >= castToMapper(helper)->axes()){yError("joint id out of bound"); return false;}
-
 ImplementTorqueControl::ImplementTorqueControl(ITorqueControlRaw *tq):
     iTorqueRaw(tq),
     helper(nullptr),
@@ -66,26 +64,25 @@ bool ImplementTorqueControl::uninitialize ()
     return true;
 }
 
-bool ImplementTorqueControl::getAxes(int *axes)
+yarp_ret_value ImplementTorqueControl::getAxes(int *axes)
 {
     return iTorqueRaw->getAxes(axes);
 }
 
-bool ImplementTorqueControl::getRefTorque(int j, double *r)
+yarp_ret_value ImplementTorqueControl::getRefTorque(int j, double *r)
 {
-    JOINTIDCHECK
+    JOINTIDCHECK(j)
     int k;
-    bool ret;
     double torque;
     k=castToMapper(helper)->toHw(j);
-    ret = iTorqueRaw->getRefTorqueRaw(k, &torque);
+    yarp_ret_value ret = iTorqueRaw->getRefTorqueRaw(k, &torque);
     *r=castToMapper(helper)->trqS2N(torque, k);
     return ret;
 }
 
-bool ImplementTorqueControl::setMotorTorqueParams(int j,  const yarp::dev::MotorTorqueParameters params)
+yarp_ret_value ImplementTorqueControl::setMotorTorqueParams(int j,  const yarp::dev::MotorTorqueParameters params)
 {
-    JOINTIDCHECK
+    JOINTIDCHECK(j)
     int k;
 
     yarp::dev::MotorTorqueParameters params_raw;
@@ -103,13 +100,13 @@ bool ImplementTorqueControl::setMotorTorqueParams(int j,  const yarp::dev::Motor
     return iTorqueRaw->setMotorTorqueParamsRaw(k, params_raw);
 }
 
-bool ImplementTorqueControl::getMotorTorqueParams(int j,  yarp::dev::MotorTorqueParameters *params)
+yarp_ret_value ImplementTorqueControl::getMotorTorqueParams(int j,  yarp::dev::MotorTorqueParameters *params)
 {
-    JOINTIDCHECK
+    JOINTIDCHECK(j)
     int k=castToMapper(helper)->toHw(j);
 
     yarp::dev::MotorTorqueParameters params_raw;
-    bool b = iTorqueRaw->getMotorTorqueParamsRaw(k, &params_raw);
+    yarp_ret_value b = iTorqueRaw->getMotorTorqueParamsRaw(k, &params_raw);
     int tmp_j;
 
     if (b)
@@ -128,77 +125,74 @@ bool ImplementTorqueControl::getMotorTorqueParams(int j,  yarp::dev::MotorTorque
     return b;
 }
 
-bool ImplementTorqueControl::getRefTorques(double *t)
+yarp_ret_value ImplementTorqueControl::getRefTorques(double *t)
 {
     yarp::dev::impl::Buffer<double> buffValues = doubleBuffManager->getBuffer();
-    bool ret = iTorqueRaw->getRefTorquesRaw(buffValues.getData());
+    yarp_ret_value ret = iTorqueRaw->getRefTorquesRaw(buffValues.getData());
     castToMapper(helper)->trqS2N(buffValues.getData(),t);
     doubleBuffManager->releaseBuffer(buffValues);
     return ret;
 }
 
-bool ImplementTorqueControl::setRefTorques(const double *t)
+yarp_ret_value ImplementTorqueControl::setRefTorques(const double *t)
 {
     yarp::dev::impl::Buffer<double> buffValues = doubleBuffManager->getBuffer();
     castToMapper(helper)->trqN2S(t, buffValues.getData());
-    bool ret = iTorqueRaw->setRefTorquesRaw(buffValues.getData());
+    yarp_ret_value ret = iTorqueRaw->setRefTorquesRaw(buffValues.getData());
     doubleBuffManager->releaseBuffer(buffValues);
     return ret;
 }
 
-bool ImplementTorqueControl::setRefTorque(int j, double t)
+yarp_ret_value ImplementTorqueControl::setRefTorque(int j, double t)
 {
-    JOINTIDCHECK
+    JOINTIDCHECK(j)
     int k;
     double sens;
     castToMapper(helper)->trqN2S(t,j,sens,k);
     return iTorqueRaw->setRefTorqueRaw(k, sens);
 }
 
-bool ImplementTorqueControl::getTorques(double *t)
+yarp_ret_value ImplementTorqueControl::getTorques(double *t)
 {
     yarp::dev::impl::Buffer<double> buffValues = doubleBuffManager->getBuffer();
-    bool ret = iTorqueRaw->getTorquesRaw(buffValues.getData());
+    yarp_ret_value ret = iTorqueRaw->getTorquesRaw(buffValues.getData());
     castToMapper(helper)->toUser(buffValues.getData(), t);
     doubleBuffManager->releaseBuffer(buffValues);
     return ret;
 }
 
-bool ImplementTorqueControl::setRefTorques(const int n_joint, const int *joints, const double *t)
+yarp_ret_value ImplementTorqueControl::setRefTorques(const int n_joints, const int *joints, const double *t)
 {
-    if (!castToMapper(helper)->checkAxesIds(n_joint, joints)) {
-        return false;
-    }
-
+    JOINTSIDSCHECK()
     yarp::dev::impl::Buffer<int> buffJoints =  intBuffManager->getBuffer();
     yarp::dev::impl::Buffer<double> buffValues = doubleBuffManager->getBuffer();
 
-    for(int idx=0; idx<n_joint; idx++)
+    for(int idx=0; idx<n_joints; idx++)
     {
         buffValues[idx] =  castToMapper(helper)->trqN2S(t[idx], joints[idx]);
         buffJoints[idx] = castToMapper(helper)->toHw(joints[idx]);
     }
-    bool ret = iTorqueRaw->setRefTorquesRaw(n_joint, buffJoints.getData(), buffValues.getData());
+    yarp_ret_value ret = iTorqueRaw->setRefTorquesRaw(n_joints, buffJoints.getData(), buffValues.getData());
 
     doubleBuffManager->releaseBuffer(buffValues);
     intBuffManager->releaseBuffer(buffJoints);
     return ret;
 }
 
-bool ImplementTorqueControl::getTorque(int j, double *t)
+yarp_ret_value ImplementTorqueControl::getTorque(int j, double *t)
 {
-    JOINTIDCHECK
+    JOINTIDCHECK(j)
     int k;
     k=castToMapper(helper)->toHw(j);
     return iTorqueRaw->getTorqueRaw(k, t);
 }
 
-bool ImplementTorqueControl::getTorqueRanges(double *min, double *max)
+yarp_ret_value ImplementTorqueControl::getTorqueRanges(double *min, double *max)
 {
     yarp::dev::impl::Buffer<double> buffMin = doubleBuffManager->getBuffer();
     yarp::dev::impl::Buffer<double> buffMax = doubleBuffManager->getBuffer();
 
-    bool ret = iTorqueRaw->getTorqueRangesRaw(buffMin.getData(),buffMax.getData());
+    yarp_ret_value ret = iTorqueRaw->getTorqueRangesRaw(buffMin.getData(),buffMax.getData());
     castToMapper(helper)->toUser(buffMin.getData(), min);
     castToMapper(helper)->toUser(buffMax.getData(), max);
     doubleBuffManager->releaseBuffer(buffMin);
@@ -206,9 +200,9 @@ bool ImplementTorqueControl::getTorqueRanges(double *min, double *max)
     return ret;
 }
 
-bool ImplementTorqueControl::getTorqueRange(int j, double *min, double *max)
+yarp_ret_value ImplementTorqueControl::getTorqueRange(int j, double *min, double *max)
 {
-    JOINTIDCHECK
+    JOINTIDCHECK(j)
     int k;
     k=castToMapper(helper)->toHw(j);
     return iTorqueRaw->getTorqueRangeRaw(k, min, max);

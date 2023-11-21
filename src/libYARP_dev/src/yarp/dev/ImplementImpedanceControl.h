@@ -45,12 +45,12 @@ public:
      */
     virtual ~ImplementImpedanceControl();
 
-    bool getAxes(int *ax) override;
-    bool getImpedance(int j, double *stiffness, double *damping) override;
-    bool setImpedance(int j, double  stiffness, double  damping) override;
-    bool setImpedanceOffset(int j, double offset) override;
-    bool getImpedanceOffset(int j, double* offset) override;
-    bool getCurrentImpedanceLimit(int j, double *min_stiff, double *max_stiff, double *min_damp, double *max_damp) override;
+    yarp::dev::yarp_ret_value getAxes(int *ax) override;
+    yarp::dev::yarp_ret_value getImpedance(int j, double *stiffness, double *damping) override;
+    yarp::dev::yarp_ret_value setImpedance(int j, double  stiffness, double  damping) override;
+    yarp::dev::yarp_ret_value setImpedanceOffset(int j, double offset) override;
+    yarp::dev::yarp_ret_value getImpedanceOffset(int j, double* offset) override;
+    yarp::dev::yarp_ret_value getCurrentImpedanceLimit(int j, double *min_stiff, double *max_stiff, double *min_damp, double *max_damp) override;
 
 };
 

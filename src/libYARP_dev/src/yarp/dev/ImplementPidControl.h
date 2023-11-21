@@ -54,27 +54,27 @@ public:
     */
     virtual ~ImplementPidControl();
 
-    bool setPid(const PidControlTypeEnum& pidtype, int j, const Pid &pid) override;
-    bool setPids(const PidControlTypeEnum& pidtype, const Pid *pids) override;
-    bool setPidReference(const PidControlTypeEnum& pidtype, int j, double ref) override;
-    bool setPidReferences(const PidControlTypeEnum& pidtype, const double *refs) override;
-    bool setPidErrorLimit(const PidControlTypeEnum& pidtype, int j, double limit) override;
-    bool setPidErrorLimits(const PidControlTypeEnum& pidtype, const double *limits) override;
-    bool getPidError(const PidControlTypeEnum& pidtype, int j, double *err) override;
-    bool getPidErrors(const PidControlTypeEnum& pidtype, double *errs) override;
-    bool getPidOutput(const PidControlTypeEnum& pidtype, int j, double *out) override;
-    bool getPidOutputs(const PidControlTypeEnum& pidtype, double *outs) override;
-    bool getPid(const PidControlTypeEnum& pidtype, int j, Pid *pid) override;
-    bool getPids(const PidControlTypeEnum& pidtype, Pid *pids) override;
-    bool getPidReference(const PidControlTypeEnum& pidtype, int j, double *ref) override;
-    bool getPidReferences(const PidControlTypeEnum& pidtype, double *refs) override;
-    bool getPidErrorLimit(const PidControlTypeEnum& pidtype, int j, double *ref) override;
-    bool getPidErrorLimits(const PidControlTypeEnum& pidtype, double *refs) override;
-    bool resetPid(const PidControlTypeEnum& pidtype, int j) override;
-    bool enablePid(const PidControlTypeEnum& pidtype, int j) override;
-    bool disablePid(const PidControlTypeEnum& pidtype, int j) override;
-    bool setPidOffset(const PidControlTypeEnum& pidtype, int j, double v) override;
-    bool isPidEnabled(const PidControlTypeEnum& pidtype, int j, bool* enabled) override;
+    yarp::dev::yarp_ret_value setPid(const PidControlTypeEnum& pidtype, int j, const Pid &pid) override;
+    yarp::dev::yarp_ret_value setPids(const PidControlTypeEnum& pidtype, const Pid *pids) override;
+    yarp::dev::yarp_ret_value setPidReference(const PidControlTypeEnum& pidtype, int j, double ref) override;
+    yarp::dev::yarp_ret_value setPidReferences(const PidControlTypeEnum& pidtype, const double *refs) override;
+    yarp::dev::yarp_ret_value setPidErrorLimit(const PidControlTypeEnum& pidtype, int j, double limit) override;
+    yarp::dev::yarp_ret_value setPidErrorLimits(const PidControlTypeEnum& pidtype, const double *limits) override;
+    yarp::dev::yarp_ret_value getPidError(const PidControlTypeEnum& pidtype, int j, double *err) override;
+    yarp::dev::yarp_ret_value getPidErrors(const PidControlTypeEnum& pidtype, double *errs) override;
+    yarp::dev::yarp_ret_value getPidOutput(const PidControlTypeEnum& pidtype, int j, double *out) override;
+    yarp::dev::yarp_ret_value getPidOutputs(const PidControlTypeEnum& pidtype, double *outs) override;
+    yarp::dev::yarp_ret_value getPid(const PidControlTypeEnum& pidtype, int j, Pid *pid) override;
+    yarp::dev::yarp_ret_value getPids(const PidControlTypeEnum& pidtype, Pid *pids) override;
+    yarp::dev::yarp_ret_value getPidReference(const PidControlTypeEnum& pidtype, int j, double *ref) override;
+    yarp::dev::yarp_ret_value getPidReferences(const PidControlTypeEnum& pidtype, double *refs) override;
+    yarp::dev::yarp_ret_value getPidErrorLimit(const PidControlTypeEnum& pidtype, int j, double *ref) override;
+    yarp::dev::yarp_ret_value getPidErrorLimits(const PidControlTypeEnum& pidtype, double *refs) override;
+    yarp::dev::yarp_ret_value resetPid(const PidControlTypeEnum& pidtype, int j) override;
+    yarp::dev::yarp_ret_value enablePid(const PidControlTypeEnum& pidtype, int j) override;
+    yarp::dev::yarp_ret_value disablePid(const PidControlTypeEnum& pidtype, int j) override;
+    yarp::dev::yarp_ret_value setPidOffset(const PidControlTypeEnum& pidtype, int j, double v) override;
+    yarp::dev::yarp_ret_value isPidEnabled(const PidControlTypeEnum& pidtype, int j, bool* enabled) override;
     void b();
 };
 

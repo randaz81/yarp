@@ -11,8 +11,6 @@
 using namespace yarp::dev;
 using namespace yarp::os;
 
-#define JOINTIDCHECK if (j >= castToMapper(helper)->axes()){yError("joint id out of bound"); return false;}
-
 ImplementControlMode::ImplementControlMode(IControlModeRaw *r):
     helper(nullptr),
     raw(r),
@@ -54,75 +52,69 @@ bool ImplementControlMode::uninitialize ()
     return true;
 }
 
-bool ImplementControlMode::getControlMode(int j, int *f)
+yarp_ret_value ImplementControlMode::getControlMode(int j, int *f)
 {
-    JOINTIDCHECK
+    JOINTIDCHECK(j)
     int k=castToMapper(helper)->toHw(j);
     return raw->getControlModeRaw(k, f);
 }
 
-bool ImplementControlMode::getControlModes(int *modes)
+yarp_ret_value ImplementControlMode::getControlModes(int *modes)
 {
     yarp::dev::impl::Buffer<int> buffValues = buffManager->getBuffer();
 
-    bool ret=raw->getControlModesRaw(buffValues.getData());
+    yarp_ret_value ret=raw->getControlModesRaw(buffValues.getData());
     castToMapper(helper)->toUser(buffValues.getData(), modes);
 
     buffManager->releaseBuffer(buffValues);
     return ret;
 }
 
-bool ImplementControlMode::getControlModes(const int n_joint, const int *joints, int *modes)
+yarp_ret_value ImplementControlMode::getControlModes(const int n_joints, const int *joints, int *modes)
 {
-    if (!castToMapper(helper)->checkAxesIds(n_joint, joints)) {
-        return false;
-    }
-
+    JOINTSIDSCHECK()
     yarp::dev::impl::Buffer<int> buffValues = buffManager->getBuffer();
 
-    for(int idx=0; idx<n_joint; idx++)
+    for(int idx=0; idx<n_joints; idx++)
     {
         buffValues[idx] = castToMapper(helper)->toHw(joints[idx]);
     }
-    bool ret = raw->getControlModesRaw(n_joint, buffValues.getData(), modes);
+    yarp_ret_value ret = raw->getControlModesRaw(n_joints, buffValues.getData(), modes);
 
     buffManager->releaseBuffer(buffValues);
     return ret;
 }
 
-bool ImplementControlMode::setControlMode(const int j, const int mode)
+yarp_ret_value ImplementControlMode::setControlMode(const int j, const int mode)
 {
-    JOINTIDCHECK
+    JOINTIDCHECK(j)
     int k=castToMapper(helper)->toHw(j);
     return raw->setControlModeRaw(k, mode);
 }
 
-bool ImplementControlMode::setControlModes(const int n_joint, const int *joints, int *modes)
+yarp_ret_value ImplementControlMode::setControlModes(const int n_joints, const int *joints, int *modes)
 {
-    if (!castToMapper(helper)->checkAxesIds(n_joint, joints)) {
-        return false;
-    }
-
+    JOINTSIDSCHECK()
     yarp::dev::impl::Buffer<int> buffValues  = buffManager->getBuffer();
 
-    for(int idx=0; idx<n_joint; idx++)
+    for(int idx=0; idx<n_joints; idx++)
     {
         buffValues[idx] = castToMapper(helper)->toHw(joints[idx]);
     }
-    bool ret = raw->setControlModesRaw(n_joint, buffValues.getData(), modes);
+    yarp_ret_value ret = raw->setControlModesRaw(n_joints, buffValues.getData(), modes);
 
     buffManager->releaseBuffer(buffValues);
     return ret;
 }
 
-bool ImplementControlMode::setControlModes(int *modes)
+yarp_ret_value ImplementControlMode::setControlModes(int *modes)
 {
     yarp::dev::impl::Buffer<int> buffValues  = buffManager->getBuffer();
     for(int idx=0; idx<castToMapper(helper)->axes(); idx++)
     {
         buffValues[castToMapper(helper)->toHw(idx)] = modes[idx];
     }
-    bool ret = raw->setControlModesRaw(buffValues.getData());
+    yarp_ret_value ret = raw->setControlModesRaw(buffValues.getData());
     buffManager->releaseBuffer(buffValues);
     return ret;
 }

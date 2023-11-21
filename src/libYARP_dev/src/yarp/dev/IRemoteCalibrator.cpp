@@ -33,10 +33,10 @@ IRemoteCalibrator *IRemoteCalibrator::getCalibratorDevice()
     return _remoteCalibrator;
 }
 
-bool IRemoteCalibrator::isCalibratorDevicePresent(bool *isCalib)
+yarp_ret_value IRemoteCalibrator::isCalibratorDevicePresent(bool *isCalib)
 {
     _remoteCalibrator == nullptr ? *isCalib = false : *isCalib = true;
-    return true;
+    return yarp_ret_value_ok;
 }
 
 void IRemoteCalibrator::releaseCalibratorDevice()

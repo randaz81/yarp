@@ -18,20 +18,20 @@ IControlCalibration::IControlCalibration()
     calibrator=nullptr;
 }
 
-bool IControlCalibration::setCalibrator(ICalibrator *c)
+yarp_ret_value IControlCalibration::setCalibrator(ICalibrator *c)
 {
     if (c!=nullptr)
     {
         calibrator=c;
-        return true;
+        return yarp_ret_value_ok;
     }
 
     return false;
 }
 
-bool IControlCalibration::calibrateRobot()
+yarp_ret_value IControlCalibration::calibrateRobot()
 {
-    bool ret = false;
+    yarp_ret_value ret = false;
     if (calibrator!=nullptr)
     {
         yDebug("Going to call calibrator\n");
@@ -43,27 +43,27 @@ bool IControlCalibration::calibrateRobot()
     return ret;
 }
 
-bool IControlCalibration::abortCalibration()
+yarp_ret_value IControlCalibration::abortCalibration()
 {
-    bool ret=false;
+    yarp_ret_value ret=false;
     if (calibrator != nullptr) {
         ret = calibrator->quitCalibrate();
     }
     return ret;
 }
 
-bool IControlCalibration::abortPark()
+yarp_ret_value IControlCalibration::abortPark()
 {
-    bool ret=false;
+    yarp_ret_value ret=false;
     if (calibrator != nullptr) {
         ret = calibrator->quitPark();
     }
     return ret;
 }
 
-bool IControlCalibration::park(bool wait)
+yarp_ret_value IControlCalibration::park(bool wait)
 {
-    bool ret=false;
+    yarp_ret_value ret=false;
     if (calibrator!=nullptr)
     {
         yDebug("Going to call calibrator\n");
@@ -119,21 +119,21 @@ bool ImplementControlCalibration::uninitialize()
     return true;
 }
 
-bool ImplementControlCalibration::calibrationDone(int j)
+yarp_ret_value ImplementControlCalibration::calibrationDone(int j)
 {
     int k = castToMapper(helper)->toHw(j);
 
     return iCalibrate->calibrationDoneRaw(k);
 }
 
-bool ImplementControlCalibration::calibrateAxisWithParams(int axis, unsigned int type, double p1, double p2, double p3)
+yarp_ret_value ImplementControlCalibration::calibrateAxisWithParams(int axis, unsigned int type, double p1, double p2, double p3)
 {
     int k = castToMapper(helper)->toHw(axis);
 
     return iCalibrate->calibrateAxisWithParamsRaw(k, type, p1, p2, p3);
 }
 
-bool ImplementControlCalibration::setCalibrationParameters(int axis, const CalibrationParameters& params)
+yarp_ret_value ImplementControlCalibration::setCalibrationParameters(int axis, const CalibrationParameters& params)
 {
     int k = castToMapper(helper)->toHw(axis);
 

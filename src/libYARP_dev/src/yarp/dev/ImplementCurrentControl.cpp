@@ -11,8 +11,6 @@
 using namespace yarp::dev;
 using namespace yarp::os;
 
-#define JOINTIDCHECK if (j >= castToMapper(helper)->axes()){yError("joint id out of bound"); return false;}
-
 ImplementCurrentControl::ImplementCurrentControl(ICurrentControlRaw *tq):
     iCurrentRaw(tq),
     helper(nullptr),
@@ -66,98 +64,94 @@ bool ImplementCurrentControl::uninitialize()
     return true;
 }
 
-bool ImplementCurrentControl::getNumberOfMotors(int *axes)
+yarp_ret_value ImplementCurrentControl::getNumberOfMotors(int *axes)
 {
     return iCurrentRaw->getNumberOfMotorsRaw(axes);
 }
 
-bool ImplementCurrentControl::getRefCurrent(int j, double *r)
+yarp_ret_value ImplementCurrentControl::getRefCurrent(int j, double *r)
 {
-    JOINTIDCHECK
+    JOINTIDCHECK(j)
     int k;
-    bool ret;
     double current;
     k=castToMapper(helper)->toHw(j);
-    ret = iCurrentRaw->getRefCurrentRaw(k, &current);
+    yarp_ret_value ret = iCurrentRaw->getRefCurrentRaw(k, &current);
     *r = castToMapper(helper)->ampereS2A(current, k);
     return ret;
 }
 
-bool ImplementCurrentControl::getRefCurrents(double *t)
+yarp_ret_value ImplementCurrentControl::getRefCurrents(double *t)
 {
     yarp::dev::impl::Buffer<double> buffValues = doubleBuffManager->getBuffer();
-    bool ret = iCurrentRaw->getRefCurrentsRaw(buffValues.getData());
+    yarp_ret_value ret = iCurrentRaw->getRefCurrentsRaw(buffValues.getData());
     castToMapper(helper)->ampereS2A(buffValues.getData(),t);
     doubleBuffManager->releaseBuffer(buffValues);
     return ret;
 }
 
-bool ImplementCurrentControl::setRefCurrents(const double *t)
+yarp_ret_value ImplementCurrentControl::setRefCurrents(const double *t)
 {
     yarp::dev::impl::Buffer<double> buffValues = doubleBuffManager->getBuffer();
     castToMapper(helper)->ampereA2S(t, buffValues.getData());
-    bool ret = iCurrentRaw->setRefCurrentsRaw(buffValues.getData());
+    yarp_ret_value ret = iCurrentRaw->setRefCurrentsRaw(buffValues.getData());
     doubleBuffManager->releaseBuffer(buffValues);
     return ret;
 }
 
-bool ImplementCurrentControl::setRefCurrent(int j, double t)
+yarp_ret_value ImplementCurrentControl::setRefCurrent(int j, double t)
 {
-    JOINTIDCHECK
+    JOINTIDCHECK(j)
     int k;
     double sens;
     castToMapper(helper)->ampereA2S(t,j,sens,k);
     return iCurrentRaw->setRefCurrentRaw(k, sens);
 }
 
-bool ImplementCurrentControl::getCurrents(double *t)
+yarp_ret_value ImplementCurrentControl::getCurrents(double *t)
 {
     yarp::dev::impl::Buffer<double> buffValues = doubleBuffManager->getBuffer();
-    bool ret = iCurrentRaw->getCurrentsRaw(buffValues.getData());
+    yarp_ret_value ret = iCurrentRaw->getCurrentsRaw(buffValues.getData());
     castToMapper(helper)->ampereS2A(buffValues.getData(), t);
     doubleBuffManager->releaseBuffer(buffValues);
     return ret;
 }
 
-bool ImplementCurrentControl::setRefCurrents(const int n_joint, const int *joints, const double *t)
+yarp_ret_value ImplementCurrentControl::setRefCurrents(const int n_joints, const int *joints, const double *t)
 {
-    if (!castToMapper(helper)->checkAxesIds(n_joint, joints)) {
-        return false;
-    }
+    JOINTSIDSCHECK()
 
     yarp::dev::impl::Buffer<double> buffValues = doubleBuffManager->getBuffer();
     yarp::dev::impl::Buffer<int> buffJoints = intBuffManager->getBuffer();
 
-    for(int idx=0; idx<n_joint; idx++)
+    for(int idx=0; idx<n_joints; idx++)
     {
         buffJoints[idx] = castToMapper(helper)->toHw(joints[idx]);
         buffValues[idx] = castToMapper(helper)->ampereA2S(t[idx], joints[idx]);
     }
 
-    bool ret = iCurrentRaw->setRefCurrentsRaw(n_joint, buffJoints.getData(), buffValues.getData());
+    yarp_ret_value ret = iCurrentRaw->setRefCurrentsRaw(n_joints, buffJoints.getData(), buffValues.getData());
 
     doubleBuffManager->releaseBuffer(buffValues);
     intBuffManager->releaseBuffer(buffJoints);
     return ret;
 }
 
-bool ImplementCurrentControl::getCurrent(int j, double *t)
+yarp_ret_value ImplementCurrentControl::getCurrent(int j, double *t)
 {
-    JOINTIDCHECK
+    JOINTIDCHECK(j)
     int k;
-    bool ret;
     double current;
     k=castToMapper(helper)->toHw(j);
-    ret = iCurrentRaw->getCurrentRaw(k, &current);
+    yarp_ret_value ret = iCurrentRaw->getCurrentRaw(k, &current);
     *t = castToMapper(helper)->ampereS2A(current, k);
     return ret;
 }
 
-bool ImplementCurrentControl::getCurrentRanges(double *min, double *max)
+yarp_ret_value ImplementCurrentControl::getCurrentRanges(double *min, double *max)
 {
     yarp::dev::impl::Buffer<double> b_min = doubleBuffManager->getBuffer();
     yarp::dev::impl::Buffer<double> b_max = doubleBuffManager->getBuffer();
-    bool ret = iCurrentRaw->getCurrentRangesRaw(b_min.getData(), b_max.getData());
+    yarp_ret_value ret = iCurrentRaw->getCurrentRangesRaw(b_min.getData(), b_max.getData());
     castToMapper(helper)->ampereS2A(b_min.getData(), min);
     castToMapper(helper)->ampereS2A(b_max.getData(), max);
     doubleBuffManager->releaseBuffer(b_min);
@@ -165,13 +159,13 @@ bool ImplementCurrentControl::getCurrentRanges(double *min, double *max)
     return ret;
 }
 
-bool ImplementCurrentControl::getCurrentRange(int j, double *min, double *max)
+yarp_ret_value ImplementCurrentControl::getCurrentRange(int j, double *min, double *max)
 {
-    JOINTIDCHECK
+    JOINTIDCHECK(j)
     int k;
     k=castToMapper(helper)->toHw(j);
     double min_t, max_t;
-    bool ret = iCurrentRaw->getCurrentRangeRaw(k, &min_t, &max_t);
+    yarp_ret_value ret = iCurrentRaw->getCurrentRangeRaw(k, &min_t, &max_t);
     *min = castToMapper(helper)->ampereS2A(min_t, k);
     *max = castToMapper(helper)->ampereS2A(max_t, k);
     return ret;

@@ -92,224 +92,224 @@ public:
 
     // IPositionControl etc.
 
-    bool getAxes(int *ax) override {
+    yarp::dev::yarp_ret_value getAxes(int *ax) override {
         *ax = njoints;
-        return true;
+        return yarp::dev::yarp_ret_value_ok;
     }
 
-    bool positionMove(int j, double ref) override {
+    yarp::dev::yarp_ret_value positionMove(int j, double ref) override {
         if (j<njoints) {
             pos[j] = ref;
         }
-        return true;
+        return yarp::dev::yarp_ret_value_ok;
     }
 
 
-    bool positionMove(const double *refs) override {
+    yarp::dev::yarp_ret_value positionMove(const double *refs) override {
         for (int i=0; i<njoints; i++) {
             pos[i] = refs[i];
         }
-        return true;
+        return yarp::dev::yarp_ret_value_ok;
     }
 
 
-    bool relativeMove(int j, double delta) override {
+    yarp::dev::yarp_ret_value relativeMove(int j, double delta) override {
         if (j<njoints) {
             dpos[j] = delta;
         }
-        return true;
+        return yarp::dev::yarp_ret_value_ok;
     }
 
 
-    bool relativeMove(const double *deltas) override {
+    yarp::dev::yarp_ret_value relativeMove(const double *deltas) override {
         for (int i=0; i<njoints; i++) {
             dpos[i] = deltas[i];
         }
-        return true;
+        return yarp::dev::yarp_ret_value_ok;
     }
 
 
-    bool checkMotionDone(int j, bool *flag) override {
-        return true;
+    yarp::dev::yarp_ret_value checkMotionDone(int j, bool *flag) override {
+        return yarp::dev::yarp_ret_value_ok;
     }
 
 
-    bool checkMotionDone(bool *flag) override {
-        return true;
+    yarp::dev::yarp_ret_value checkMotionDone(bool *flag) override {
+        return yarp::dev::yarp_ret_value_ok;
     }
 
 
-    bool setRefSpeed(int j, double sp) override {
+    yarp::dev::yarp_ret_value setRefSpeed(int j, double sp) override {
         if (j<njoints) {
             speed[j] = sp;
         }
-        return true;
+        return yarp::dev::yarp_ret_value_ok;
     }
 
 
-    bool setRefSpeeds(const double *spds) override {
+    yarp::dev::yarp_ret_value setRefSpeeds(const double *spds) override {
         for (int i=0; i<njoints; i++) {
             speed[i] = spds[i];
         }
-        return true;
+        return yarp::dev::yarp_ret_value_ok;
     }
 
 
-    bool setRefAcceleration(int j, double acc) override {
+    yarp::dev::yarp_ret_value setRefAcceleration(int j, double acc) override {
         if (j<njoints) {
             this->acc[j] = acc;
         }
-        return true;
+        return yarp::dev::yarp_ret_value_ok;
     }
 
 
-    bool setRefAccelerations(const double *accs) override {
+    yarp::dev::yarp_ret_value setRefAccelerations(const double *accs) override {
         for (int i=0; i<njoints; i++) {
             acc[i] = accs[i];
         }
-        return true;
+        return yarp::dev::yarp_ret_value_ok;
     }
 
 
-    bool getRefSpeed(int j, double *ref) override {
+    yarp::dev::yarp_ret_value getRefSpeed(int j, double *ref) override {
         if (j<njoints) {
             (*ref) = speed[j];
         }
-        return true;
+        return yarp::dev::yarp_ret_value_ok;
     }
 
 
-    bool getRefSpeeds(double *spds) override {
+    yarp::dev::yarp_ret_value getRefSpeeds(double *spds) override {
         for (int i=0; i<njoints; i++) {
             spds[i] = speed[i];
         }
-        return true;
+        return yarp::dev::yarp_ret_value_ok;
     }
 
 
-    bool getRefAcceleration(int j, double *acc) override {
+    yarp::dev::yarp_ret_value getRefAcceleration(int j, double *acc) override {
         if (j<njoints) {
             (*acc) = this->acc[j];
         }
-        return true;
+        return yarp::dev::yarp_ret_value_ok;
     }
 
 
-    bool getRefAccelerations(double *accs) override {
+    yarp::dev::yarp_ret_value getRefAccelerations(double *accs) override {
         for (int i=0; i<njoints; i++) {
             accs[i] = acc[i];
         }
-        return true;
+        return yarp::dev::yarp_ret_value_ok;
     }
 
 
-    bool stop(int j) override {
-        return true;
+    yarp::dev::yarp_ret_value stop(int j) override {
+        return yarp::dev::yarp_ret_value_ok;
     }
 
 
-    bool stop() override {
-        return true;
+    yarp::dev::yarp_ret_value stop() override {
+        return yarp::dev::yarp_ret_value_ok;
     }
 
 
     bool close() override {
-        return true;
+        return yarp::dev::yarp_ret_value_ok;
     }
 
-    bool resetEncoder(int j) override {
+    yarp::dev::yarp_ret_value resetEncoder(int j) override {
         if (j<njoints) {
             pos[j] = 0;
             dpos[j] = 0;
         }
-        return true;
+        return yarp::dev::yarp_ret_value_ok;
     }
 
-    bool resetEncoders() override {
+    yarp::dev::yarp_ret_value resetEncoders() override {
         for (int i=0; i<njoints; i++) {
             pos[i] = 0;
         }
-        return true;
+        return yarp::dev::yarp_ret_value_ok;
     }
 
-    bool setEncoder(int j, double val) override {
+    yarp::dev::yarp_ret_value setEncoder(int j, double val) override {
         if (j<njoints) {
             pos[j] = val;
         }
-        return true;
+        return yarp::dev::yarp_ret_value_ok;
     }
 
-    bool setEncoders(const double *vals) override {
+    yarp::dev::yarp_ret_value setEncoders(const double *vals) override {
         for (int i=0; i<njoints; i++) {
             pos[i] = vals[i];
         }
-        return true;
+        return yarp::dev::yarp_ret_value_ok;
     }
 
-    bool getEncoder(int j, double *v) override {
+    yarp::dev::yarp_ret_value getEncoder(int j, double *v) override {
         if (j<njoints) {
             (*v) = loc[j];
         }
 
-        return true;
+        return yarp::dev::yarp_ret_value_ok;
     }
 
-    bool getEncoders(double *encs) override {
+    yarp::dev::yarp_ret_value getEncoders(double *encs) override {
         for (int i=0; i<njoints; i++) {
             encs[i] = loc[i];
         }
-        return true;
+        return yarp::dev::yarp_ret_value_ok;
     }
 
-    bool getEncoderSpeed(int j, double *sp) override {
+    yarp::dev::yarp_ret_value getEncoderSpeed(int j, double *sp) override {
         if (j<njoints) {
             (*sp) = 0;
         }
-        return true;
+        return yarp::dev::yarp_ret_value_ok;
     }
 
-    bool getEncoderSpeeds(double *spds) override {
+    yarp::dev::yarp_ret_value getEncoderSpeeds(double *spds) override {
         for (int i=0; i<njoints; i++) {
             spds[i] = 0;
         }
-        return true;
+        return yarp::dev::yarp_ret_value_ok;
     }
 
-    bool getEncoderAcceleration(int j, double *spds) override {
+    yarp::dev::yarp_ret_value getEncoderAcceleration(int j, double *spds) override {
         if (j<njoints) {
             (*spds) = 0;
         }
-        return true;
+        return yarp::dev::yarp_ret_value_ok;
     }
 
-    bool getEncoderAccelerations(double *accs) override {
+    yarp::dev::yarp_ret_value getEncoderAccelerations(double *accs) override {
         for (int i=0; i<njoints; i++) {
             accs[i] = 0;
         }
-        return true;
+        return yarp::dev::yarp_ret_value_ok;
     }
 
-    bool positionMove(const int n_joint, const int *joints, const double *refs) override { return false; }
+    yarp::dev::yarp_ret_value positionMove(const int n_joint, const int *joints, const double *refs) override { return yarp::dev::NOT_YET_IMPLEMENTED(); }
 
-    bool relativeMove(const int n_joint, const int *joints, const double *deltas) override { return false; }
+    yarp::dev::yarp_ret_value relativeMove(const int n_joint, const int *joints, const double *deltas) override { return yarp::dev::NOT_YET_IMPLEMENTED(); }
 
-    bool checkMotionDone(const int n_joint, const int *joints, bool *flags) override { return false; }
+    yarp::dev::yarp_ret_value checkMotionDone(const int n_joint, const int *joints, bool *flags) override { return yarp::dev::NOT_YET_IMPLEMENTED(); }
 
-    bool setRefSpeeds(const int n_joint, const int *joints, const double *spds) override { return false; }
+    yarp::dev::yarp_ret_value setRefSpeeds(const int n_joint, const int *joints, const double *spds) override { return yarp::dev::NOT_YET_IMPLEMENTED(); }
 
-    bool setRefAccelerations(const int n_joint, const int *joints, const double *accs) override { return false; }
+    yarp::dev::yarp_ret_value setRefAccelerations(const int n_joint, const int *joints, const double *accs) override { return yarp::dev::NOT_YET_IMPLEMENTED(); }
 
-    bool getRefSpeeds(const int n_joint, const int *joints, double *spds) override { return false; }
+    yarp::dev::yarp_ret_value getRefSpeeds(const int n_joint, const int *joints, double *spds) override { return yarp::dev::NOT_YET_IMPLEMENTED(); }
 
-    bool getRefAccelerations(const int n_joint, const int *joints, double *accs) override { return false; }
+    yarp::dev::yarp_ret_value getRefAccelerations(const int n_joint, const int *joints, double *accs) override { return yarp::dev::NOT_YET_IMPLEMENTED(); }
 
-    bool stop(const int n_joint, const int *joints) override { return false; }
+    yarp::dev::yarp_ret_value stop(const int n_joint, const int *joints) override { return yarp::dev::NOT_YET_IMPLEMENTED(); }
 
 
     // IEncodersTimed
-    bool getEncodersTimed(double *encs, double *time) override
+    yarp::dev::yarp_ret_value getEncodersTimed(double *encs, double *time) override
     {
-        bool ret = getEncoders(encs);
+        yarp::dev::yarp_ret_value ret = getEncoders(encs);
         double myTime = yarp::os::Time::now();
 
         for (int i=0; i<njoints; i++)
@@ -319,108 +319,108 @@ public:
         return ret;
     }
 
-    bool getEncoderTimed(int j, double *enc, double *time) override
+    yarp::dev::yarp_ret_value getEncoderTimed(int j, double *enc, double *time) override
     {
-        bool ret = getEncoder(j, enc);
+        yarp::dev::yarp_ret_value ret = getEncoder(j, enc);
         *time = yarp::os::Time::now();
         return ret;
     }
 
-    bool velocityMove(int j, double sp) override {
+    yarp::dev::yarp_ret_value velocityMove(int j, double sp) override {
         if (j<njoints) {
             vel[j] = sp;
         }
-        return true;
+        return yarp::dev::yarp_ret_value_ok;
     }
 
-    bool velocityMove(const double *sp) override {
+    yarp::dev::yarp_ret_value velocityMove(const double *sp) override {
         for (int i=0; i<njoints; i++) {
             vel[i] = sp[i];
         }
-        return true;
+        return yarp::dev::yarp_ret_value_ok;
     }
 
-    bool velocityMove(const int n_joint, const int *joints, const double *spds) override { return false; }
+    yarp::dev::yarp_ret_value velocityMove(const int n_joint, const int *joints, const double *spds) override { return yarp::dev::NOT_YET_IMPLEMENTED(); }
 
 
 
-    bool enableAmp(int j) override {
+    yarp::dev::yarp_ret_value enableAmp(int j) override {
         if (j<njoints) {
             amp[j] = 1;
         }
-        return true;
+        return yarp::dev::yarp_ret_value_ok;
     }
 
-    bool disableAmp(int j) override {
+    yarp::dev::yarp_ret_value disableAmp(int j) override {
         if (j<njoints) {
             amp[j] = 0;
         }
-        return true;
+        return yarp::dev::yarp_ret_value_ok;
     }
 
-    bool getCurrent(int j, double *val) override {
+    yarp::dev::yarp_ret_value getCurrent(int j, double *val) override {
         if (j<njoints) {
             val[j] = amp[j];
         }
-        return true;
+        return yarp::dev::yarp_ret_value_ok;
     }
 
-    bool getCurrents(double *vals) override {
+    yarp::dev::yarp_ret_value getCurrents(double *vals) override {
         for (int i=0; i<njoints; i++) {
             vals[i] = amp[i];
         }
-        return true;
+        return yarp::dev::yarp_ret_value_ok;
     }
 
-    bool getMaxCurrent(int j, double* v) override {
+    yarp::dev::yarp_ret_value getMaxCurrent(int j, double* v) override {
         *v = 0;
-        return true;
+        return yarp::dev::yarp_ret_value_ok;
     }
 
-    bool setMaxCurrent(int j, double v) override {
-        return true;
+    yarp::dev::yarp_ret_value setMaxCurrent(int j, double v) override {
+        return yarp::dev::yarp_ret_value_ok;
     }
 
-    bool getAmpStatus(int *st) override {
+    yarp::dev::yarp_ret_value getAmpStatus(int *st) override {
         *st = 0;
-        return true;
+        return yarp::dev::yarp_ret_value_ok;
     }
 
-    bool getAmpStatus(int k, int *v) override
+    yarp::dev::yarp_ret_value getAmpStatus(int k, int *v) override
     {
         *v=0;
-        return true;
+        return yarp::dev::yarp_ret_value_ok;
     }
 
-    bool calibrateAxisWithParams(int j, unsigned int iv, double v1, double v2, double v3) override
+    yarp::dev::yarp_ret_value calibrateAxisWithParams(int j, unsigned int iv, double v1, double v2, double v3) override
     {
         yCWarning(FAKEBOT, "Calibrating joint %d with parameters %u %lf %lf %lf", j, iv, v1, v2, v3);
-        return true;
+        return yarp::dev::yarp_ret_value_ok;
     }
 
-    bool calibrationDone(int j) override
+    yarp::dev::yarp_ret_value calibrationDone(int j) override
     {
         yCWarning(FAKEBOT, "Calibration done on joint %d.", j);
-        return true;
+        return yarp::dev::yarp_ret_value_ok;
     }
 
-    bool getLimits(int axis, double *min, double *max) override
+    yarp::dev::yarp_ret_value getLimits(int axis, double *min, double *max) override
     {
         yCWarning(FAKEBOT, "Get limits");
         *min=0;
         *max=0;
-        return true;
+        return yarp::dev::yarp_ret_value_ok;
     }
 
-    bool setLimits(int axis, double min, double max) override
+    yarp::dev::yarp_ret_value setLimits(int axis, double min, double max) override
     {
         yCWarning(FAKEBOT, "Set limits");
-        return true;
+        return yarp::dev::yarp_ret_value_ok;
     }
 
-    bool setVelLimits(int axis, double min, double max) override { return false; }
+    yarp::dev::yarp_ret_value setVelLimits(int axis, double min, double max) override { return yarp::dev::NOT_YET_IMPLEMENTED(); }
 
-    bool getVelLimits(int axis, double *min, double *max) override { return false; }
+    yarp::dev::yarp_ret_value getVelLimits(int axis, double *min, double *max) override { return yarp::dev::NOT_YET_IMPLEMENTED(); }
 
     void run() override;
 };
