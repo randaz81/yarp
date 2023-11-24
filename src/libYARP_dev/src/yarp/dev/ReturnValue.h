@@ -7,15 +7,15 @@
 #ifndef YARP_RET_VALUE_H
 #define YARP_RET_VALUE_H
 
-#include <yarp/os/api.h>
+#include <yarp/dev/api.h>
 #include <string>
 
-namespace yarp::os {
+namespace yarp::dev {
 
-class YARP_os_API yarp_ret_value
+class YARP_dev_API yarp_ret_value
 {
     public:
-    enum class YARP_os_API return_code
+    enum class YARP_dev_API return_code
     {
         return_value_ok = 0,
         return_value_error_generic = 1,

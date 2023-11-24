@@ -1986,7 +1986,7 @@ bool ControlBoardRemapper::getNumberOfMotors(int *num)
     return true;
 }
 
-yarp::os::yarp_ret_value ControlBoardRemapper::getTemperature(int m, double* val)
+yarp::dev::yarp_ret_value ControlBoardRemapper::getTemperature(int m, double* val)
 {
     int off=(int)remappedControlBoards.lut[m].axisIndexInSubControlBoard;
     size_t subIndex=remappedControlBoards.lut[m].subControlBoardIndex;
@@ -2006,7 +2006,7 @@ yarp::os::yarp_ret_value ControlBoardRemapper::getTemperature(int m, double* val
     return false;
 }
 
-yarp::os::yarp_ret_value ControlBoardRemapper::getTemperatures(double *vals)
+yarp::dev::yarp_ret_value ControlBoardRemapper::getTemperatures(double *vals)
 {
     bool ret=true;
     for(int l=0;l<controlledJoints;l++)

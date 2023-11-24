@@ -96,7 +96,6 @@ set(YARP_os_HDRS
   yarp/os/Random.h
   yarp/os/ResourceFinder.h
   yarp/os/ResourceFinderOptions.h
-  yarp/os/ReturnValue.h
   yarp/os/RFModule.h
   yarp/os/RFPlugin.h
   yarp/os/RosNameSpace.h
@@ -211,7 +210,6 @@ set(YARP_os_SRCS
   yarp/os/Random.cpp
   yarp/os/ResourceFinder.cpp
   yarp/os/ResourceFinderOptions.cpp
-  yarp/os/ReturnValue.cpp
   yarp/os/RFModule.cpp
   yarp/os/RFPlugin.cpp
   yarp/os/RosNameSpace.cpp

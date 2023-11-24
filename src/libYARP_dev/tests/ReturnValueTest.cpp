@@ -4,14 +4,14 @@
  */
 
 
-#include <yarp/os/ReturnValue.h>
+#include <yarp/dev/ReturnValue.h>
 
 #include <catch2/catch_amalgamated.hpp>
 #include <harness.h>
 
-using namespace yarp::os;
+using namespace yarp::dev;
 
-TEST_CASE("os::ReturnValue", "[yarp::os]")
+TEST_CASE("dev::ReturnValue", "[yarp::dev]")
 {
     SECTION("test block 1")
     {

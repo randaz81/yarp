@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-#include <yarp/os/ReturnValue.h>
+#include <yarp/dev/ReturnValue.h>
 
-using namespace yarp::os;
+using namespace yarp::dev;
 
 yarp_ret_value::yarp_ret_value()
 {
