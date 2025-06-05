@@ -422,7 +422,6 @@ MAKE_COMMS(Bottle)
 %include <yarp/dev/IVelocityControl.h>
 %include <yarp/dev/IPWMControl.h>
 %include <yarp/dev/ICurrentControl.h>
-%include <yarp/dev/IAnalogSensor.h>
 %include <yarp/dev/IRemoteVariables.h>
 %include <yarp/dev/IPidControl.h>
 %include <yarp/dev/IPositionDirect.h>
@@ -815,7 +814,6 @@ typedef yarp::os::BufferedPort<ImageRgbFloat> BufferedPortImageRgbFloat;
     CAST_POLYDRIVER_TO_INTERFACE(IInteractionMode)
     CAST_POLYDRIVER_TO_INTERFACE(IPWMControl)
     CAST_POLYDRIVER_TO_INTERFACE(ICurrentControl)
-    CAST_POLYDRIVER_TO_INTERFACE(IAnalogSensor)
     CAST_POLYDRIVER_TO_INTERFACE(IFrameGrabberControls)
     CAST_POLYDRIVER_TO_INTERFACE(IPositionDirect)
     CAST_POLYDRIVER_TO_INTERFACE(IRemoteVariables)

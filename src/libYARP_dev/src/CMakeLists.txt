@@ -30,7 +30,6 @@ set(YARP_dev_HDRS
   yarp/dev/GazeControl.h
   yarp/dev/GenericVocabs.h
   yarp/dev/IAmplifierControl.h
-  yarp/dev/IAnalogSensor.h
   yarp/dev/IAudioGrabberSound.h
   yarp/dev/IAudioRender.h
   yarp/dev/IAudioVisualGrabber.h
@@ -158,7 +157,6 @@ set(YARP_dev_SRCS
   yarp/dev/DeviceDriver.cpp
   yarp/dev/Drivers.cpp
   yarp/dev/GazeControl.cpp
-  yarp/dev/IAnalogSensor.cpp
   yarp/dev/IAudioGrabberSound.cpp
   yarp/dev/IAudioRender.cpp
   yarp/dev/IAudioVisualGrabber.cpp
