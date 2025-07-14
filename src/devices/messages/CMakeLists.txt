@@ -2,7 +2,6 @@
 # SPDX-License-Identifier: BSD-3-Clause
 
 add_subdirectory(ControlBoardMsgs)
-add_subdirectory(framegrabber_protocol)
 add_subdirectory(IDepthVisualParamsMsgs)
 add_subdirectory(IFrameGrabberControlMsgs)
 add_subdirectory(IFrameGrabberControlDC1394Msgs)

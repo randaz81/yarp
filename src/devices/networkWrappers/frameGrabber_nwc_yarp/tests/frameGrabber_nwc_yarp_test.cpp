@@ -72,11 +72,6 @@ void do_nws_nwc_test(bool use_stream)
     REQUIRE(dd_nwc.view(icontrolsDC1394));
     REQUIRE(icontrolsDC1394);
 
-    //DUPLICATEDDDDDDDDDDDDDDDDDDDDD***************
-    //yarp::dev::tests::exec_IFrameGrabberControls_test_1(icontrols);
-    yarp::dev::tests::exec_IFrameGrabberControlsDC1394_test_1(icontrolsDC1394);
-    //DUPLICATEDDDDDDDDDDDDDDDDDDDDD***************
-
     yarp::os::SystemClock::delaySystem(0.5);
     {
         ImageOf<PixelRgb> img;
@@ -89,10 +84,10 @@ void do_nws_nwc_test(bool use_stream)
     yarp::os::SystemClock::delaySystem(0.5);
     {
         ImageOf<PixelRgb> crop;
-        yarp::sig::VectorOf<std::pair< int, int>> vertices;
+        yarp::sig::VectorOf<yarp::dev::vertex_t> vertices;
         vertices.resize(2);
-        vertices[0] = std::pair <int, int>(0, 0);
-        vertices[1] = std::pair <int, int>(10, 10); // Configure a doable crop.
+        vertices[0] = yarp::dev::vertex_t(0, 0);
+        vertices[1] = yarp::dev::vertex_t(10, 10); // Configure a doable crop.
         CHECK(crop.width() == 0);
         CHECK(crop.height() == 0);
         CHECK(igrabber->getImageCrop(YARP_CROP_RECT, vertices, crop));
@@ -123,11 +118,13 @@ TEST_CASE("dev::frameGrabber_nwc_yarpTest", "[yarp::dev]")
 
     SECTION("Test the frameGrabber_nwc_yarp device with a frameGrabber_nws_yarp device (RPC mode)")
     {
+        //RPCmode
         do_nws_nwc_test(false);
     }
 
     SECTION("Test the frameGrabber_nwc_yarp device with a frameGrabber_nws_yarp device (streaming mode)")
     {
+        //streaming mode
         do_nws_nwc_test(true);
     }
 

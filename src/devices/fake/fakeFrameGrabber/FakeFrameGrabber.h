@@ -95,11 +95,11 @@ public:
     int width() const override;
     yarp::dev::ReturnValue getImage(yarp::sig::ImageOf<yarp::sig::PixelRgb>& image) override;
     yarp::dev::ReturnValue getImage(yarp::sig::ImageOf<yarp::sig::PixelMono>& image) override;
-    yarp::dev::ReturnValue getImageCrop(cropType_id_t cropType,
-                      yarp::sig::VectorOf<std::pair<int, int>> vertices,
+    yarp::dev::ReturnValue getImageCrop(yarp::dev::cropType_id_t cropType,
+                      yarp::sig::VectorOf<yarp::dev::vertex_t> vertices,
                       yarp::sig::ImageOf<yarp::sig::PixelRgb>& image) override;
-    yarp::dev::ReturnValue getImageCrop(cropType_id_t cropType,
-                      yarp::sig::VectorOf<std::pair<int, int>> vertices,
+    yarp::dev::ReturnValue getImageCrop(yarp::dev::cropType_id_t cropType,
+                       yarp::sig::VectorOf<yarp::dev::vertex_t> vertices,
                       yarp::sig::ImageOf<yarp::sig::PixelMono>& image) override;
 
     //IPreciselyTimed

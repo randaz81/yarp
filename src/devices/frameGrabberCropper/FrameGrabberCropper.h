@@ -24,8 +24,8 @@ class FrameGrabberCropperOf :
 {
 protected:
     yarp::dev::IFrameGrabberOf<ImageType>* iFrameGrabberOf {nullptr};
-    static constexpr cropType_id_t cropType {YARP_CROP_RECT};
-    yarp::sig::VectorOf<std::pair<int, int>> vertices;
+    static constexpr yarp::dev::cropType_id_t cropType {yarp::dev::cropType_id_t::YARP_CROP_RECT};
+    yarp::sig::VectorOf<yarp::dev::vertex_t> vertices;
 
 public:
     ~FrameGrabberCropperOf() override = default;
@@ -41,7 +41,7 @@ public:
     int height() const override
     {
         if (vertices.size() == 2) {
-            return vertices[1].second - vertices[0].second + 1;
+            return vertices[1].y - vertices[0].y + 1;
         }
         return 0;
     }
@@ -49,7 +49,7 @@ public:
     int width() const override
     {
         if (vertices.size() == 2) {
-            return vertices[1].first - vertices[0].first + 1;
+            return vertices[1].x - vertices[0].x + 1;
         }
         return 0;
     }

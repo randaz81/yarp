@@ -20,11 +20,9 @@
 #include <yarp/dev/IRgbVisualParams.h>
 #include <yarp/dev/WrapperSingle.h>
 
-#include <yarp/proto/framegrabber/FrameGrabberOf_Responder.h>
-
 #include "FrameGrabber_nws_yarp_ParamsParser.h"
 
-#include "FrameGrabberServerImpl.h"
+#include "FrameGrabberMsgsImpl.h"
 
     /**
  * @ingroup dev_impl_nws_yarp
@@ -63,10 +61,7 @@ private:
     yarp::dev::IFrameGrabberControlsDC1394* m_iFrameGrabberControlsDC1394 {nullptr};
     yarp::dev::IPreciselyTimed* m_iPreciselyTimed {nullptr};
 
-    // Responders
-    yarp::proto::framegrabber::FrameGrabberOf_Responder<yarp::sig::ImageOf<yarp::sig::PixelRgb>> frameGrabberImage_Responder;
-    yarp::proto::framegrabber::FrameGrabberOf_Responder<yarp::sig::ImageOf<yarp::sig::PixelMono>, VOCAB_FRAMEGRABBER_IMAGERAW> frameGrabberImageRaw_Responder;
-    FrameGrabberServerRPCd*             m_RPC_FrameGrabber         {nullptr};
+    std::unique_ptr<FrameGrabberMsgsImpl> m_RPC_FrameGrabber;
 
     // Images
     yarp::sig::ImageOf<yarp::sig::PixelRgb>* img {nullptr};

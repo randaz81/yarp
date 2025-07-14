@@ -22,10 +22,7 @@ if(NOT SKIP_RGBDSensorClient)
       RGBDSensor_nwc_yarp_ParamsParser.h
   )
 
-  target_sources(yarp_RGBDSensor_nwc_yarp PRIVATE $<TARGET_OBJECTS:framegrabber_protocol>)
   target_sources(yarp_RGBDSensor_nwc_yarp PRIVATE $<TARGET_OBJECTS:RGBDSensorMsgs>)
-
-  target_include_directories(yarp_RGBDSensor_nwc_yarp PRIVATE $<TARGET_PROPERTY:framegrabber_protocol,INTERFACE_INCLUDE_DIRECTORIES>)
   target_include_directories(yarp_RGBDSensor_nwc_yarp PRIVATE $<TARGET_PROPERTY:RGBDSensorMsgs,INTERFACE_INCLUDE_DIRECTORIES>)
 
   target_link_libraries(yarp_RGBDSensor_nwc_yarp

@@ -44,6 +44,25 @@ struct yCameraDescriptor {
   2: string deviceDescription;
 }
 
+struct yFlexImage {
+} (
+  yarp.name = "yarp::sig::FlexImage"
+  yarp.includefile = "yarp/sig/Image.h"
+)
+
+enum yCropType {
+} (
+  yarp.name = "yarp::dev::cropType_id_t"
+  yarp.includefile = "yarp/dev/IFrameGrabberImage.h"
+  yarp.enumbase = "int32_t"
+)
+
+struct yVertex {
+} (
+  yarp.name = "yarp::dev::vertex_t"
+  yarp.includefile = "yarp/dev/IFrameGrabberImage.h"
+)
+
 // ---------------------------------------------------------------
 // IFrameGrabberControlMsgs return types
 // ---------------------------------------------------------------
@@ -213,11 +232,39 @@ struct IFrameGrabberControlDC1394Msgs_return_getBytesPerPacketDC1394 {
 }
 
 // ---------------------------------------------------------------
-// RGBDSensorMsgs service
+// IFrameGrabberImageOf return types
+// ---------------------------------------------------------------
+
+struct IFrameGrabberImageOf_return_getHeight {
+  1: yReturnValue ret;
+  2: i32 val;
+}
+
+struct IFrameGrabberImageOf_return_getWidth {
+  1: yReturnValue ret;
+  2: i32 val;
+}
+
+struct IFrameGrabberImageOf_return_getImage {
+  1: yReturnValue ret;
+  2: yFlexImage fImage;
+}
+
+struct IFrameGrabberImageOf_return_getImageCrop {
+  1: yReturnValue ret;
+  2: yFlexImage fImage;
+}
+
+// ---------------------------------------------------------------
+// FrameGrabberMsgs service
 // ---------------------------------------------------------------
 
 service FrameGrabberMsgs
 {
+  IFrameGrabberImageOf_return_getHeight                     getHeightRPC();
+  IFrameGrabberImageOf_return_getWidth                      getWidthRPC();
+  IFrameGrabberImageOf_return_getImage                      getImageRPC();
+  IFrameGrabberImageOf_return_getImageCrop                  getImageCropRPC(1:yCropType type, 2:list<yVertex> vertices);
   IRGBVisualParamsMsgs_return_getRgbWidth                   getRgbWidthRPC();
   IRGBVisualParamsMsgs_return_getRgbHeight                  getRgbHeightRPC();
   IRGBVisualParamsMsgs_return_getRgbSupportedCfg            getRgbSupportedConfigurationsRPC();

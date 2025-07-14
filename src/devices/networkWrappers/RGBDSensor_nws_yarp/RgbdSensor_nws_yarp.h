@@ -28,8 +28,7 @@
 #include <yarp/dev/IRGBDSensor.h>
 #include <yarp/dev/IFrameGrabberControls.h>
 
-#include "RgbdSensorServerImpl.h"
-#include "IFrameGrabberControlsServerImpl.h"
+#include "RgbdSensorMsgsImpl.h"
 
 #include "RgbdSensor_nws_yarp_ParamsParser.h"
 
@@ -99,7 +98,7 @@ private:
     DepthImage            depthImage;
 
     //Helper class for RPCs
-    IRGBDSensorRPCd*               m_rgbd_RPC=nullptr;
+    std::unique_ptr<RGBDSensorMsgsImpl> m_rgbd_RPC = nullptr;
     std::mutex                     m_mutex;
 
     // Image data specs

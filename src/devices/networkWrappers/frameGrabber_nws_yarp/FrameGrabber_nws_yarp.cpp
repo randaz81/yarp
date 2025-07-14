@@ -95,15 +95,13 @@ bool FrameGrabber_nws_yarp::attach(yarp::dev::PolyDriver* poly)
         return false;
     }
 
-    //Interfaces with RPC
+    //Device Interfaces
     poly->view(m_iRgbVisualParams);
     poly->view(m_iFrameGrabberControls);
     poly->view(m_iFrameGrabberControlsDC1394);
-
-    //these three interfaces do not need RPC (streaming mode)
-    poly->view(m_iFrameGrabberImage);
-    poly->view(m_iFrameGrabberImageRaw);
-    poly->view(m_iPreciselyTimed);
+    poly->view(m_iFrameGrabberImage); //optional: may be not implemented by device
+    poly->view(m_iFrameGrabberImageRaw); // optional: may be not implemented by device
+    poly->view(m_iPreciselyTimed);  //optional: may be not implemented by device
 
     switch (m_cap) {
     case COLOR: {
@@ -124,22 +122,7 @@ bool FrameGrabber_nws_yarp::attach(yarp::dev::PolyDriver* poly)
         yCWarning(FRAMEGRABBER_NWS_YARP) << "Targets has not IVisualParamInterface, some features cannot be available";
     }
 
-    // Configuring parsers
-    if (m_iFrameGrabberImage != nullptr) {
-        if (!(frameGrabberImage_Responder.configure(m_iFrameGrabberImage))) {
-            yCError(FRAMEGRABBER_NWS_YARP) << "Error configuring interfaces for parsers";
-            return false;
-        }
-    }
-
-    if (m_iFrameGrabberImageRaw != nullptr) {
-        if (!(frameGrabberImageRaw_Responder.configure(m_iFrameGrabberImageRaw))) {
-            yCError(FRAMEGRABBER_NWS_YARP) << "Error configuring interfaces for parsers";
-            return false;
-        }
-    }
-
-    m_RPC_FrameGrabber = new FrameGrabberServerRPCd(m_iRgbVisualParams,m_iFrameGrabberControls,m_iFrameGrabberControlsDC1394);
+    m_RPC_FrameGrabber = std::make_unique<FrameGrabberMsgsImpl>(m_iRgbVisualParams, m_iFrameGrabberControls, m_iFrameGrabberControlsDC1394, m_iFrameGrabberImage, m_iFrameGrabberImageRaw);
 
     return PeriodicThread::start();
 }
@@ -151,12 +134,6 @@ bool FrameGrabber_nws_yarp::detach()
 
     if (yarp::os::PeriodicThread::isRunning()) {
         yarp::os::PeriodicThread::stop();
-    }
-
-    if (m_RPC_FrameGrabber)
-    {
-        delete m_RPC_FrameGrabber;
-        m_RPC_FrameGrabber = nullptr;
     }
 
     m_iFrameGrabberImage = nullptr;

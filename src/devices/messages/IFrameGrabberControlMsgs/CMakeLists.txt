@@ -21,4 +21,4 @@ target_link_libraries(IFrameGrabberControlMsgs
 
 target_include_directories(IFrameGrabberControlMsgs PUBLIC ${IFRAMEGRABBERCONTROL_THRIFT_BUILD_INTERFACE_INCLUDE_DIRS})
 
-set_property(TARGET IFrameGrabberControlMsgs PROPERTY FOLDER "Devices/Shared")
+set_property(TARGET IFrameGrabberControlMsgs PROPERTY FOLDER "Plugins/Shared")

@@ -20,12 +20,11 @@ if(NOT SKIP_frameGrabber_nwc_yarp)
   FrameGrabber_nwc_yarp.h
   FrameGrabber_nwc_yarp_ParamsParser.h
   FrameGrabber_nwc_yarp_ParamsParser.cpp
+  StreamReceiver.cpp
+  StreamReceiver.h
   )
 
-  target_sources(yarp_frameGrabber_nwc_yarp PRIVATE $<TARGET_OBJECTS:framegrabber_protocol>)
   target_sources(yarp_frameGrabber_nwc_yarp PRIVATE $<TARGET_OBJECTS:FrameGrabberMsgs>)
-
-  target_include_directories(yarp_frameGrabber_nwc_yarp PRIVATE $<TARGET_PROPERTY:framegrabber_protocol,INTERFACE_INCLUDE_DIRECTORIES>)
   target_include_directories(yarp_frameGrabber_nwc_yarp PRIVATE $<TARGET_PROPERTY:FrameGrabberMsgs,INTERFACE_INCLUDE_DIRECTORIES>)
 
 

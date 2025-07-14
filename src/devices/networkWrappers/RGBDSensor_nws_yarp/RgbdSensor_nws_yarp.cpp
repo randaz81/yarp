@@ -217,12 +217,6 @@ bool RgbdSensor_nws_yarp::detach()
         yarp::os::PeriodicThread::stop();
     }
 
-    if (m_rgbd_RPC)
-    {
-        delete m_rgbd_RPC;
-        m_rgbd_RPC = nullptr;
-    }
-
     m_rgbdsensor = nullptr;
     m_fgCtrl = nullptr;
     return true;
@@ -251,7 +245,7 @@ bool RgbdSensor_nws_yarp::attach(PolyDriver* poly)
     }
 
     // m_fgCtrl is optional and might be null
-    m_rgbd_RPC = new IRGBDSensorRPCd(m_rgbdsensor, m_fgCtrl);
+    m_rgbd_RPC = std::make_unique<RGBDSensorMsgsImpl>(m_rgbdsensor, m_fgCtrl);
 
     PeriodicThread::setPeriod(m_period);
     return PeriodicThread::start();

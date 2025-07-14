@@ -11,7 +11,6 @@
 #include <yarp/os/LogStream.h>
 #include <yarp/dev/ReturnValue.h>
 
-#include <yarp/proto/framegrabber/CameraVocabs.h>
 #include <yarp/sig/ImageUtils.h>
 
 namespace {
@@ -19,131 +18,80 @@ YARP_LOG_COMPONENT(FRAMEGRABBER_NWC_YARP, "yarp.devices.frameGrabber_nwc_yarp")
 } // namespace
 
 using namespace yarp::dev;
+using namespace yarp::sig;
 
-// BEGIN StreamReceiver
-int StreamReceiver::lastHeight() const
+// BEGIN FrameGrabberOf_ForwarderWithStream
+template <typename ImageType>
+FrameGrabberOf_ForwarderWithStream<ImageType>::FrameGrabberOf_ForwarderWithStream(FrameGrabberMsgs* thriftClient)
 {
-    return m_lastHeight;
-}
-
-int StreamReceiver::lastWidth() const
-{
-    return m_lastWidth;
-}
-
-yarp::os::Stamp StreamReceiver::lastStamp() const
-{
-    return m_lastStamp;
+    m_thriftClient = thriftClient;
 }
 
 template <typename ImageType>
-bool StreamReceiver::lastImage(ImageType& image)
+int FrameGrabberOf_ForwarderWithStream<ImageType>::height() const
 {
     std::lock_guard<std::mutex> lock(m_mutex);
-
-    bool ret {false};
-    if (!port.isOpen()) {
-        image.zero();
-        ret = false;
-    } else if (reader.check()) {
-        ret = image.copy(*(reader.read(true)));
-        reader.getEnvelope(m_lastStamp);
-        m_lastHeight = image.height();
-        m_lastWidth = image.width();
-    } else {
-        ret = image.copy(*(reader.lastRead()));
-    }
-
-    return ret;
-}
-
-bool StreamReceiver::open(const std::string& local,
-               const std::string& remote,
-               const std::string& carrier)
-{
-    std::lock_guard<std::mutex> lock(m_mutex);
-
-    if (!port.open(local)) {
-        yCError(FRAMEGRABBER_NWC_YARP) << "Failed to open " << local << "port.";
-    }
-
-    if (!remote.empty()) {
-        yCInfo(FRAMEGRABBER_NWC_YARP) << "Connecting" << port.getName() << "to" << remote;
-        if (!yarp::os::NetworkBase::connect(remote, port.getName(), carrier)) {
-            yCError(FRAMEGRABBER_NWC_YARP) << "Failed to connect" << local << "to" << remote;
-            return false;
+    // If not configured for receiving streams, do a RPC call via thrift
+    if (!m_streamReceiver)
+    {
+        if (!m_thriftClient) {
+            //return ReturnValue::return_code::return_value_error_generic;
+            return 0;
         }
-    } else {
-        yCInfo(FRAMEGRABBER_NWC_YARP) << "No remote specified. Waiting for connection";
+        auto ret = m_thriftClient->getHeightRPC();
+        if (ret.ret) {
+            return ret.val;
+        }
+        return 0;
     }
-
-    reader.attach(port);
-
-    return true;
+    else
+    {
+        return m_streamReceiver->lastHeight();
+    }
 }
 
-bool StreamReceiver::close()
+template <typename ImageType>
+int FrameGrabberOf_ForwarderWithStream<ImageType>::width() const
 {
     std::lock_guard<std::mutex> lock(m_mutex);
-
-    m_lastStamp = {0, 0.0};
-    m_lastHeight = 0;
-    m_lastWidth = 0;
-
-    if (!port.isOpen()) {
-        return true;
+    // If not configured for receiving streams, do a RPC call via thrift
+    if (!m_streamReceiver)
+    {
+        if (!m_thriftClient)
+        {
+            //return ReturnValue::return_code::return_value_error_generic;
+            return 0;
+        }
+        auto ret = m_thriftClient->getWidthRPC();
+        if (ret.ret)
+        {
+            return ret.val;
+        }
+        return 0;
     }
-    port.interrupt();
-    port.close();
-
-    return true;
-}
-// END StreamReceiver
-
-
-// BEGIN FrameGrabberOf_ForwarderWithStream
-template <typename ImageType,
-          yarp::conf::vocab32_t IfVocab,
-          yarp::conf::vocab32_t ImgVocab>
-FrameGrabberOf_ForwarderWithStream<ImageType, IfVocab, ImgVocab>::FrameGrabberOf_ForwarderWithStream(yarp::os::Port& rpcPort) :
-        yarp::proto::framegrabber::FrameGrabberOf_Forwarder<ImageType, IfVocab, ImgVocab>(rpcPort)
-{
+    else
+    {
+        return m_streamReceiver->lastWidth();
+    }
 }
 
-template <typename ImageType,
-          yarp::conf::vocab32_t IfVocab,
-          yarp::conf::vocab32_t ImgVocab>
-int FrameGrabberOf_ForwarderWithStream<ImageType, IfVocab, ImgVocab>::height() const
+template <typename ImageType>
+yarp::dev::ReturnValue FrameGrabberOf_ForwarderWithStream<ImageType>::getImage(ImageType& image)
 {
     std::lock_guard<std::mutex> lock(m_mutex);
-    if (!m_streamReceiver) {
-        return yarp::proto::framegrabber::FrameGrabberOf_Forwarder<ImageType, IfVocab, ImgVocab>::height();
-    }
-
-    return m_streamReceiver->lastHeight();
-}
-
-template <typename ImageType,
-          yarp::conf::vocab32_t IfVocab,
-          yarp::conf::vocab32_t ImgVocab>
-int FrameGrabberOf_ForwarderWithStream<ImageType, IfVocab, ImgVocab>::width() const
-{
-    std::lock_guard<std::mutex> lock(m_mutex);
-    if (!m_streamReceiver) {
-        return yarp::proto::framegrabber::FrameGrabberOf_Forwarder<ImageType, IfVocab, ImgVocab>::width();
-    }
-
-    return m_streamReceiver->lastWidth();
-}
-
-template <typename ImageType,
-          yarp::conf::vocab32_t IfVocab,
-          yarp::conf::vocab32_t ImgVocab>
-yarp::dev::ReturnValue FrameGrabberOf_ForwarderWithStream<ImageType, IfVocab, ImgVocab>::getImage(ImageType& image)
-{
-    std::lock_guard<std::mutex> lock(m_mutex);
-    if (!m_streamReceiver) {
-        return yarp::proto::framegrabber::FrameGrabberOf_Forwarder<ImageType, IfVocab, ImgVocab>::getImage(image);
+    // If not configured for receiving streams, do an RPC call via thrift
+    if (!m_streamReceiver)
+    {
+        if (!m_thriftClient)
+        {
+            return ReturnValue::return_code::return_value_error_generic;
+        }
+        auto ret = m_thriftClient->getImageRPC();
+        if (ret.ret)
+        {
+            image.copy(ret.fImage);
+        }
+        return ret.ret;
     }
 
     bool b= m_streamReceiver->lastImage(image);
@@ -153,16 +101,29 @@ yarp::dev::ReturnValue FrameGrabberOf_ForwarderWithStream<ImageType, IfVocab, Im
     return ReturnValue_ok;
 }
 
-template <typename ImageType,
-          yarp::conf::vocab32_t IfVocab,
-          yarp::conf::vocab32_t ImgVocab>
-yarp::dev::ReturnValue FrameGrabberOf_ForwarderWithStream<ImageType, IfVocab, ImgVocab>::getImageCrop(cropType_id_t cropType,
-                                                                                    yarp::sig::VectorOf<std::pair<int, int>> vertices,
-                                                                                    ImageType& image)
+template <typename ImageType>
+yarp::dev::ReturnValue FrameGrabberOf_ForwarderWithStream<ImageType>::getImageCrop(cropType_id_t cropType,
+                                                                                   yarp::sig::VectorOf<yarp::dev::vertex_t> vertices,
+                                                                                   ImageType& image)
 {
     std::lock_guard<std::mutex> lock(m_mutex);
-    if(!m_streamReceiver) {
-        return yarp::proto::framegrabber::FrameGrabberOf_Forwarder<ImageType, IfVocab, ImgVocab>::getImageCrop(cropType, vertices, image);
+    // If not configured for receiving streams, do an RPC call via thrift
+    if(!m_streamReceiver)
+    {
+        if (!m_thriftClient) {
+            return ReturnValue::return_code::return_value_error_generic;
+        }
+        std::vector<yarp::dev::vertex_t> vv;
+        vv.resize(vertices.size());
+        for (size_t i = 0; i < vertices.size(); i++)
+        {
+            vv[i] = vertices[i];
+        }
+        auto ret = m_thriftClient->getImageCropRPC(cropType, vv);
+        if (ret.ret) {
+            image.copy(ret.fImage);
+        }
+        return ret.ret;
     }
 
     if (cropType == YARP_CROP_RECT) {
@@ -178,12 +139,18 @@ yarp::dev::ReturnValue FrameGrabberOf_ForwarderWithStream<ImageType, IfVocab, Im
             return ReturnValue::return_code::return_value_error_not_ready;
         }
 
-        if (!yarp::sig::utils::cropRect(full, vertices[0], vertices[1], image)) {
+        std::pair<unsigned int, unsigned int> v0;
+        v0.first = vertices[0].x;
+        v0.second = vertices[0].y;
+        std::pair<unsigned int, unsigned int> v1;
+        v1.first = vertices[1].x;
+        v1.second = vertices[1].y;
+        if (!yarp::sig::utils::cropRect(full, v0, v1, image)) {
             yCError(FRAMEGRABBER_NWC_YARP, "GetImageCrop failed: utils::cropRect error: (%d, %d) (%d, %d)",
-                vertices[0].first,
-                vertices[0].second,
-                vertices[1].first,
-                vertices[1].second);
+                vertices[0].x,
+                vertices[0].y,
+                vertices[1].x,
+                vertices[1].y);
             return ReturnValue::return_code::return_value_error_method_failed;
         }
     }
@@ -196,24 +163,27 @@ yarp::dev::ReturnValue FrameGrabberOf_ForwarderWithStream<ImageType, IfVocab, Im
 }
 
 
-template <typename ImageType,
-          yarp::conf::vocab32_t IfVocab,
-          yarp::conf::vocab32_t ImgVocab>
-void FrameGrabberOf_ForwarderWithStream<ImageType, IfVocab, ImgVocab>::setStreamReceiver(StreamReceiver* streamReceiver)
+template <typename ImageType>
+void FrameGrabberOf_ForwarderWithStream<ImageType>::setStreamReceiver(StreamReceiver* streamReceiver)
 {
     std::lock_guard<std::mutex> lock(m_mutex);
     m_streamReceiver = streamReceiver;
 }
 // END FrameGrabberOf_ForwarderWithStream
 
-
+// BEGIN Template instances
+FrameGrabberOf_ForwarderWithStream<yarp::sig::ImageOf<yarp::sig::PixelRgb>>;
+FrameGrabberOf_ForwarderWithStream<yarp::sig::ImageOf<yarp::sig::PixelMono>>;
+FrameGrabberOf_ForwarderWithStream<yarp::sig::ImageOf<yarp::sig::PixelFloat>>;
+FrameGrabberOf_ForwarderWithStream<yarp::sig::FlexImage>;
+// END Template instances
 
 // BEGIN FrameGrabber_nwc_yarp
 FrameGrabber_nwc_yarp::FrameGrabber_nwc_yarp() :
-        FrameGrabberOf_ForwarderWithStream<yarp::sig::ImageOf<yarp::sig::PixelRgb>>(rpcPort),
-        FrameGrabberOf_ForwarderWithStream<yarp::sig::ImageOf<yarp::sig::PixelMono>, VOCAB_FRAMEGRABBER_IMAGERAW>(rpcPort),
-        FrameGrabberOf_ForwarderWithStream<yarp::sig::ImageOf<yarp::sig::PixelFloat>>(rpcPort),
-        FrameGrabberOf_ForwarderWithStream<yarp::sig::FlexImage>(rpcPort)
+        FrameGrabberOf_ForwarderWithStream<yarp::sig::ImageOf<yarp::sig::PixelRgb>>(&m_frameGrabber_RPC),
+        FrameGrabberOf_ForwarderWithStream<yarp::sig::ImageOf<yarp::sig::PixelMono>>(&m_frameGrabber_RPC),
+        FrameGrabberOf_ForwarderWithStream<yarp::sig::ImageOf<yarp::sig::PixelFloat>>(&m_frameGrabber_RPC),
+        FrameGrabberOf_ForwarderWithStream<yarp::sig::FlexImage>(&m_frameGrabber_RPC)
 {
 }
 
@@ -223,25 +193,25 @@ bool FrameGrabber_nwc_yarp::open(yarp::os::Searchable& config)
     if (!this->parseParams(config)) { return false; }
 
     if (!m_no_stream) {
-        if (!streamReceiver.open(m_local, m_remote, m_carrier)) {
+        if (!m_streamReceiver.open(m_local, m_remote, m_carrier)) {
             return false;
         }
-        FrameGrabberOf_ForwarderWithStream<yarp::sig::ImageOf<yarp::sig::PixelRgb>>::setStreamReceiver(&streamReceiver);
-        FrameGrabberOf_ForwarderWithStream<yarp::sig::ImageOf<yarp::sig::PixelMono>, VOCAB_FRAMEGRABBER_IMAGERAW>::setStreamReceiver(&streamReceiver);
-        FrameGrabberOf_ForwarderWithStream<yarp::sig::ImageOf<yarp::sig::PixelFloat>>::setStreamReceiver(&streamReceiver);
-        FrameGrabberOf_ForwarderWithStream<yarp::sig::FlexImage>::setStreamReceiver(&streamReceiver);
+        FrameGrabberOf_ForwarderWithStream<yarp::sig::ImageOf<yarp::sig::PixelRgb>>::setStreamReceiver(&m_streamReceiver);
+        FrameGrabberOf_ForwarderWithStream<yarp::sig::ImageOf<yarp::sig::PixelMono>>::setStreamReceiver(&m_streamReceiver);
+        FrameGrabberOf_ForwarderWithStream<yarp::sig::ImageOf<yarp::sig::PixelFloat>>::setStreamReceiver(&m_streamReceiver);
+        FrameGrabberOf_ForwarderWithStream<yarp::sig::FlexImage>::setStreamReceiver(&m_streamReceiver);
     }
 
     std::string rpc_local = m_local + "/rpc_client";
     std::string rpc_remote = m_remote + "/rpc";
-    if (!rpcPort.open(rpc_local)) {
+    if (!m_rpcPort.open(rpc_local)) {
         yCError(FRAMEGRABBER_NWC_YARP) << "Failed to open " << rpc_local << "port.";
     }
 
     if (!m_remote.empty()) {
-        yCInfo(FRAMEGRABBER_NWC_YARP) << "Connecting" << rpcPort.getName() << "to" << rpc_remote;
-        if (!yarp::os::NetworkBase::connect(rpcPort.getName(), rpc_remote)) {
-            yCError(FRAMEGRABBER_NWC_YARP) << "Failed to connect" << rpcPort.getName() << "to" << rpc_remote;
+        yCInfo(FRAMEGRABBER_NWC_YARP) << "Connecting" << m_rpcPort.getName() << "to" << rpc_remote;
+        if (!yarp::os::NetworkBase::connect(m_rpcPort.getName(), rpc_remote)) {
+            yCError(FRAMEGRABBER_NWC_YARP) << "Failed to connect" << m_rpcPort.getName() << "to" << rpc_remote;
             return false;
         }
     } else {
@@ -249,10 +219,10 @@ bool FrameGrabber_nwc_yarp::open(yarp::os::Searchable& config)
     }
 
     ///attach the message server
-    if (!m_frameGrabber_RPC.yarp().attachAsClient(rpcPort))
+    if (!m_frameGrabber_RPC.yarp().attachAsClient(m_rpcPort))
     {
         yCError(FRAMEGRABBER_NWC_YARP, "Error! Cannot attach the port as a client");
-        rpcPort.close();
+        m_rpcPort.close();
         return false;
     }
 
@@ -266,10 +236,10 @@ bool FrameGrabber_nwc_yarp::open(yarp::os::Searchable& config)
 
 bool FrameGrabber_nwc_yarp::close()
 {
-    rpcPort.interrupt();
-    rpcPort.close();
+    m_rpcPort.interrupt();
+    m_rpcPort.close();
 
-    streamReceiver.close();
+    m_streamReceiver.close();
 
     return true;
 }
@@ -277,7 +247,7 @@ bool FrameGrabber_nwc_yarp::close()
 
 yarp::os::Stamp FrameGrabber_nwc_yarp::getLastInputStamp()
 {
-    return streamReceiver.lastStamp();
+    return m_streamReceiver.lastStamp();
 }
 
 

@@ -13,51 +13,23 @@
 #include <yarp/dev/IPreciselyTimed.h>
 #include <yarp/dev/ReturnValue.h>
 
+#include <yarp/dev/IFrameGrabberImage.h>
 #include <yarp/dev/IFrameGrabberControls.h>
 #include <yarp/dev/IFrameGrabberControlsDC1394.h>
 #include <yarp/dev/IRgbVisualParams.h>
 
 #include "FrameGrabberMsgs.h"
-
-#include <yarp/proto/framegrabber/FrameGrabberOf_Forwarder.h>
+#include "StreamReceiver.h"
 
 #include <mutex>
 #include "FrameGrabber_nwc_yarp_ParamsParser.h"
 
-class StreamReceiver
-{
-public:
-    int lastHeight() const;
-    int lastWidth() const;
-    yarp::os::Stamp lastStamp() const;
-
-    template <typename ImageType>
-    bool lastImage(ImageType& image);
-
-    bool open(const std::string& local,
-              const std::string& remote,
-              const std::string& carrier);
-    bool close();
-
-private:
-    yarp::os::PortReaderBuffer<yarp::sig::FlexImage> reader;
-    yarp::os::Port port;
-
-    std::mutex m_mutex;
-    yarp::os::Stamp m_lastStamp {0, 0.0};
-    int m_lastHeight {0};
-    int m_lastWidth {0};
-};
-
-
-template <typename ImageType,
-          yarp::conf::vocab32_t IfVocab = VOCAB_FRAMEGRABBER_IMAGE,
-          yarp::conf::vocab32_t ImgVocab = VOCAB_RGB_IMAGE>
+template <typename ImageType>
 class FrameGrabberOf_ForwarderWithStream:
-        public yarp::proto::framegrabber::FrameGrabberOf_Forwarder<ImageType, IfVocab, ImgVocab>
+        public yarp::dev::IFrameGrabberOf<ImageType>
 {
 public:
-    FrameGrabberOf_ForwarderWithStream(yarp::os::Port& rpcPort);
+    FrameGrabberOf_ForwarderWithStream(FrameGrabberMsgs* thriftClient);
     ~FrameGrabberOf_ForwarderWithStream() override = default;
 
     // Re-implement the IFrameGrabberOf methods, to use the image received from
@@ -66,8 +38,8 @@ public:
     int height() const override;
     int width() const override;
     yarp::dev::ReturnValue getImage(ImageType& image) override;
-    yarp::dev::ReturnValue getImageCrop(cropType_id_t cropType,
-                      yarp::sig::VectorOf<std::pair<int, int>> vertices,
+    yarp::dev::ReturnValue getImageCrop(yarp::dev::cropType_id_t cropType,
+                      yarp::sig::VectorOf<yarp::dev::vertex_t> vertices,
                       ImageType& image) override;
 
     void setStreamReceiver(StreamReceiver* m_streamReceiver);
@@ -75,6 +47,7 @@ public:
 private:
     mutable std::mutex m_mutex;
     StreamReceiver* m_streamReceiver {nullptr};
+    FrameGrabberMsgs* m_thriftClient {nullptr};
 };
 
 
@@ -90,7 +63,7 @@ private:
 class FrameGrabber_nwc_yarp :
         public yarp::dev::DeviceDriver,
         public FrameGrabberOf_ForwarderWithStream<yarp::sig::ImageOf<yarp::sig::PixelRgb>>,
-        public FrameGrabberOf_ForwarderWithStream<yarp::sig::ImageOf<yarp::sig::PixelMono>, VOCAB_FRAMEGRABBER_IMAGERAW>,
+        public FrameGrabberOf_ForwarderWithStream<yarp::sig::ImageOf<yarp::sig::PixelMono>>,
         public FrameGrabberOf_ForwarderWithStream<yarp::sig::ImageOf<yarp::sig::PixelFloat>>,
         public FrameGrabberOf_ForwarderWithStream<yarp::sig::FlexImage>,
         public yarp::dev::IFrameGrabberControls,
@@ -176,9 +149,9 @@ public:
     yarp::os::Stamp getLastInputStamp() override;
 
 private:
-    StreamReceiver streamReceiver;
-    yarp::os::Port rpcPort;
-    std::mutex m_mutex;
+    StreamReceiver   m_streamReceiver;
+    yarp::os::Port   m_rpcPort;
+    std::mutex       m_mutex;
 
     FrameGrabberMsgs m_frameGrabber_RPC;
 };
