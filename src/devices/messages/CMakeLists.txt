@@ -2,10 +2,6 @@
 # SPDX-License-Identifier: BSD-3-Clause
 
 add_subdirectory(ControlBoardMsgs)
-add_subdirectory(IDepthVisualParamsMsgs)
-add_subdirectory(IFrameGrabberControlMsgs)
-add_subdirectory(IFrameGrabberControlDC1394Msgs)
-add_subdirectory(IRGBVisualParamsMsgs)
 add_subdirectory(frameTransformStorageMsgs)
 add_subdirectory(IChatBotMsgs)
 add_subdirectory(ILLMMsgs)
@@ -16,7 +12,6 @@ add_subdirectory(INavigation2DMsgs)
 add_subdirectory(ILocalization2DMsgs)
 add_subdirectory(IOdometry2DMsgs)
 add_subdirectory(IRangefinder2DMsgs)
-add_subdirectory(IRGBDMsgs)
 add_subdirectory(IRobotDescriptionMsgs)
 add_subdirectory(ISerialMsgs)
 add_subdirectory(ISpeechSynthesizerMsgs)
@@ -26,6 +21,13 @@ add_subdirectory(multipleAnalogSensorsMsgs)
 add_subdirectory(fakeTestMsgs)
 add_subdirectory(RGBDSensorMsgs)
 add_subdirectory(frameGrabberMsgs)
+
+#These folders are not used, their messages are integrated inside RGBDSensorMsgs,frameGrabberMsgs
+#add_subdirectory(IRGBDMsgs)
+#add_subdirectory(IDepthVisualParamsMsgs)
+#add_subdirectory(IFrameGrabberControlMsgs)
+#add_subdirectory(IFrameGrabberControlDC1394Msgs)
+#add_subdirectory(IRGBVisualParamsMsgs)
 
 if(YARP_COMPILE_TESTS)
     add_subdirectory(tests)

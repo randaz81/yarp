@@ -171,13 +171,6 @@ void FrameGrabberOf_ForwarderWithStream<ImageType>::setStreamReceiver(StreamRece
 }
 // END FrameGrabberOf_ForwarderWithStream
 
-// BEGIN Template instances
-FrameGrabberOf_ForwarderWithStream<yarp::sig::ImageOf<yarp::sig::PixelRgb>>;
-FrameGrabberOf_ForwarderWithStream<yarp::sig::ImageOf<yarp::sig::PixelMono>>;
-FrameGrabberOf_ForwarderWithStream<yarp::sig::ImageOf<yarp::sig::PixelFloat>>;
-FrameGrabberOf_ForwarderWithStream<yarp::sig::FlexImage>;
-// END Template instances
-
 // BEGIN FrameGrabber_nwc_yarp
 FrameGrabber_nwc_yarp::FrameGrabber_nwc_yarp() :
         FrameGrabberOf_ForwarderWithStream<yarp::sig::ImageOf<yarp::sig::PixelRgb>>(&m_frameGrabber_RPC),

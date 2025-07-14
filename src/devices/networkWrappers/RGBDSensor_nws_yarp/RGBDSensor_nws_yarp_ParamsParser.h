@@ -20,7 +20,7 @@
 #include <cmath>
 
 /**
-* This class is the parameters parser for class RgbdSensor_nws_yarp.
+* This class is the parameters parser for class RGBDSensor_nws_yarp.
 *
 * These are the used parameters:
 * | Group name | Parameter name | Type   | Units | Default Value | Required | Description                                                               | Notes                                                   |
@@ -39,15 +39,15 @@
 *
 */
 
-class RgbdSensor_nws_yarp_ParamsParser : public yarp::dev::IDeviceDriverParams
+class RGBDSensor_nws_yarp_ParamsParser : public yarp::dev::IDeviceDriverParams
 {
 public:
-    RgbdSensor_nws_yarp_ParamsParser();
-    ~RgbdSensor_nws_yarp_ParamsParser() override = default;
+    RGBDSensor_nws_yarp_ParamsParser();
+    ~RGBDSensor_nws_yarp_ParamsParser() override = default;
 
 public:
-    const std::string m_device_classname = {"RgbdSensor_nws_yarp"};
-    const std::string m_device_name = {"rgbdSensor_nws_yarp"};
+    const std::string m_device_classname = {"RGBDSensor_nws_yarp"};
+    const std::string m_device_name = {"RGBDSensor_nws_yarp"};
     bool m_parser_is_strict = false;
     struct parser_version_type
     {

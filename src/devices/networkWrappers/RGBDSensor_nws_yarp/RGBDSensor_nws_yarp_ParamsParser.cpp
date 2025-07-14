@@ -11,21 +11,21 @@
 // Generated on: Thu May 22 11:32:44 2025
 
 
-#include "RgbdSensor_nws_yarp_ParamsParser.h"
+#include "RGBDSensor_nws_yarp_ParamsParser.h"
 #include <yarp/os/LogStream.h>
 #include <yarp/os/Value.h>
 
 namespace {
-    YARP_LOG_COMPONENT(RgbdSensor_nws_yarpParamsCOMPONENT, "yarp.device.RgbdSensor_nws_yarp")
+    YARP_LOG_COMPONENT(RGBDSensor_nws_yarpParamsCOMPONENT, "yarp.device.RGBDSensor_nws_yarp")
 }
 
 
-RgbdSensor_nws_yarp_ParamsParser::RgbdSensor_nws_yarp_ParamsParser()
+RGBDSensor_nws_yarp_ParamsParser::RGBDSensor_nws_yarp_ParamsParser()
 {
 }
 
 
-std::vector<std::string> RgbdSensor_nws_yarp_ParamsParser::getListOfParams() const
+std::vector<std::string> RGBDSensor_nws_yarp_ParamsParser::getListOfParams() const
 {
     std::vector<std::string> params;
     params.push_back("period");
@@ -34,7 +34,7 @@ std::vector<std::string> RgbdSensor_nws_yarp_ParamsParser::getListOfParams() con
 }
 
 
-bool RgbdSensor_nws_yarp_ParamsParser::getParamValue(const std::string& paramName, std::string& paramValue) const
+bool RGBDSensor_nws_yarp_ParamsParser::getParamValue(const std::string& paramName, std::string& paramValue) const
 {
     if (paramName =="period")
     {
@@ -53,7 +53,7 @@ bool RgbdSensor_nws_yarp_ParamsParser::getParamValue(const std::string& paramNam
 }
 
 
-std::string RgbdSensor_nws_yarp_ParamsParser::getConfiguration() const
+std::string RGBDSensor_nws_yarp_ParamsParser::getConfiguration() const
 {
     //This is a sub-optimal solution.
     //Ideally getConfiguration() should return all parameters but it is currently
@@ -63,12 +63,12 @@ std::string RgbdSensor_nws_yarp_ParamsParser::getConfiguration() const
     return s_cfg;
 }
 
-bool      RgbdSensor_nws_yarp_ParamsParser::parseParams(const yarp::os::Searchable & config)
+bool      RGBDSensor_nws_yarp_ParamsParser::parseParams(const yarp::os::Searchable & config)
 {
     //Check for --help option
     if (config.check("help"))
     {
-        yCInfo(RgbdSensor_nws_yarpParamsCOMPONENT) << getDocumentationOfDeviceParams();
+        yCInfo(RGBDSensor_nws_yarpParamsCOMPONENT) << getDocumentationOfDeviceParams();
     }
 
     m_provided_configuration = config.toString();
@@ -78,11 +78,11 @@ bool      RgbdSensor_nws_yarp_ParamsParser::parseParams(const yarp::os::Searchab
         if (config.check("period"))
         {
             m_period = config.find("period").asFloat64();
-            yCInfo(RgbdSensor_nws_yarpParamsCOMPONENT) << "Parameter 'period' using value:" << m_period;
+            yCInfo(RGBDSensor_nws_yarpParamsCOMPONENT) << "Parameter 'period' using value:" << m_period;
         }
         else
         {
-            yCInfo(RgbdSensor_nws_yarpParamsCOMPONENT) << "Parameter 'period' using DEFAULT value:" << m_period;
+            yCInfo(RGBDSensor_nws_yarpParamsCOMPONENT) << "Parameter 'period' using DEFAULT value:" << m_period;
         }
         prop_check.unput("period");
     }
@@ -92,12 +92,12 @@ bool      RgbdSensor_nws_yarp_ParamsParser::parseParams(const yarp::os::Searchab
         if (config.check("name"))
         {
             m_name = config.find("name").asString();
-            yCInfo(RgbdSensor_nws_yarpParamsCOMPONENT) << "Parameter 'name' using value:" << m_name;
+            yCInfo(RGBDSensor_nws_yarpParamsCOMPONENT) << "Parameter 'name' using value:" << m_name;
         }
         else
         {
-            yCError(RgbdSensor_nws_yarpParamsCOMPONENT) << "Mandatory parameter 'name' not found!";
-            yCError(RgbdSensor_nws_yarpParamsCOMPONENT) << "Description of the parameter: Prefix name of the ports opened by the RGBD wrapper, e.g. /robotName/RGBD";
+            yCError(RGBDSensor_nws_yarpParamsCOMPONENT) << "Mandatory parameter 'name' not found!";
+            yCError(RGBDSensor_nws_yarpParamsCOMPONENT) << "Description of the parameter: Prefix name of the ports opened by the RGBD wrapper, e.g. /robotName/RGBD";
             return false;
         }
         prop_check.unput("name");
@@ -113,12 +113,12 @@ bool      RgbdSensor_nws_yarp_ParamsParser::parseParams(const yarp::os::Searchab
         {
             if (m_parser_is_strict)
             {
-                yCError(RgbdSensor_nws_yarpParamsCOMPONENT) << "User asking for parameter: "<<it->name <<" which is unknown to this parser!";
+                yCError(RGBDSensor_nws_yarpParamsCOMPONENT) << "User asking for parameter: "<<it->name <<" which is unknown to this parser!";
                 extra_params_found = true;
             }
             else
             {
-                yCWarning(RgbdSensor_nws_yarpParamsCOMPONENT) << "User asking for parameter: "<< it->name <<" which is unknown to this parser!";
+                yCWarning(RGBDSensor_nws_yarpParamsCOMPONENT) << "User asking for parameter: "<< it->name <<" which is unknown to this parser!";
             }
         }
 
@@ -132,19 +132,19 @@ bool      RgbdSensor_nws_yarp_ParamsParser::parseParams(const yarp::os::Searchab
 }
 
 
-std::string      RgbdSensor_nws_yarp_ParamsParser::getDocumentationOfDeviceParams() const
+std::string      RGBDSensor_nws_yarp_ParamsParser::getDocumentationOfDeviceParams() const
 {
     std::string doc;
     doc = doc + std::string("\n=============================================\n");
-    doc = doc + std::string("This is the help for device: RgbdSensor_nws_yarp\n");
+    doc = doc + std::string("This is the help for device: RGBDSensor_nws_yarp\n");
     doc = doc + std::string("\n");
     doc = doc + std::string("This is the list of the parameters accepted by the device:\n");
     doc = doc + std::string("'period': refresh period of the broadcasted values in s\n");
     doc = doc + std::string("'name': Prefix name of the ports opened by the RGBD wrapper, e.g. /robotName/RGBD\n");
     doc = doc + std::string("\n");
     doc = doc + std::string("Here are some examples of invocation command with yarpdev, with all params:\n");
-    doc = doc + " yarpdev --device rgbdSensor_nws_yarp --period 0.02 --name <mandatory_value>\n";
+    doc = doc + " yarpdev --device RGBDSensor_nws_yarp --period 0.02 --name <mandatory_value>\n";
     doc = doc + std::string("Using only mandatory params:\n");
-    doc = doc + " yarpdev --device rgbdSensor_nws_yarp --name <mandatory_value>\n";
+    doc = doc + " yarpdev --device RGBDSensor_nws_yarp --name <mandatory_value>\n";
     doc = doc + std::string("=============================================\n\n");    return doc;
 }

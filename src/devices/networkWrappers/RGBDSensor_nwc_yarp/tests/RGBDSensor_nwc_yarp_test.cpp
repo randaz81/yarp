@@ -21,7 +21,7 @@ using namespace yarp::os;
 TEST_CASE("dev::RGBDSensor_nwc_yarp", "[yarp::dev]")
 {
     YARP_REQUIRE_PLUGIN("fakeDepthCamera", "device");
-    YARP_REQUIRE_PLUGIN("rgbdSensor_nws_yarp", "device");
+    YARP_REQUIRE_PLUGIN("RGBDSensor_nws_yarp", "device");
     YARP_REQUIRE_PLUGIN("RGBDSensor_nwc_yarp", "device");
 
     Network::setLocalMode(true);
@@ -44,7 +44,7 @@ TEST_CASE("dev::RGBDSensor_nwc_yarp", "[yarp::dev]")
         }
         {
             Property pnws_cfg;
-            pnws_cfg.put("device", "rgbdSensor_nws_yarp");
+            pnws_cfg.put("device", "RGBDSensor_nws_yarp");
             pnws_cfg.put("name",   "/rgbd_nws");
             REQUIRE(ddnws.open(pnws_cfg));
         }
@@ -97,7 +97,7 @@ TEST_CASE("dev::RGBDSensor_nwc_yarp", "[yarp::dev]")
 
         CHECK(ddnws.close());
         yarp::os::Time::delay(0.1);
-        INFO("rgbdSensor_nws_yarp closed");
+        INFO("RGBDSensor_nws_yarp closed");
 
         CHECK(dddepth.close());
         yarp::os::Time::delay(0.1);
@@ -124,7 +124,7 @@ TEST_CASE("dev::RGBDSensor_nwc_yarp", "[yarp::dev]")
         }
         {
             Property pnws_cfg;
-            pnws_cfg.put("device", "rgbdSensor_nws_yarp");
+            pnws_cfg.put("device", "RGBDSensor_nws_yarp");
             pnws_cfg.put("name",   "/rgbd_nws");
             REQUIRE(ddnws.open(pnws_cfg));
         }

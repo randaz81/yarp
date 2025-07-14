@@ -12,7 +12,7 @@ struct yReturnValue {
 struct yCameraConfig {
 } (
   yarp.name = "yarp::dev::CameraConfig"
-  yarp.includefile = "yarp/dev/IRGBVisualParams.h"
+  yarp.includefile = "yarp/dev/IRgbVisualParams.h"
 )
 
 struct yProperty {

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-#include "RgbdSensor_nws_yarp.h"
+#include "RGBDSensor_nws_yarp.h"
 
 #include <yarp/os/LogComponent.h>
 #include <yarp/os/LogStream.h>
@@ -19,133 +19,13 @@ using namespace yarp::os;
 
 YARP_LOG_COMPONENT(RGBDSENSORNWSYARP, "yarp.devices.RgbdSensor_nws_yarp")
 
-#define RGBD_INTERFACE_PROTOCOL_VERSION_MAJOR 1
-#define RGBD_INTERFACE_PROTOCOL_VERSION_MINOR 0
-
-/*
-bool RGBDSensorParser::respond(const Bottle& cmd, Bottle& response)
-{
-    bool ret = false;
-    int interfaceType = cmd.get(0).asVocab32();
-
-    response.clear();
-    switch(interfaceType)
-    {
-        case VOCAB_RGB_VISUAL_PARAMS:
-        {
-            // forwarding to the proper parser.
-            ret = rgbParser.respond(cmd, response);
-        }
-        break;
-
-        case VOCAB_DEPTH_VISUAL_PARAMS:
-        {
-            // forwarding to the proper parser.
-            ret = depthParser.respond(cmd, response);
-        }
-        break;
-
-        case VOCAB_FRAMEGRABBER_CONTROL:
-        {
-            // forwarding to the proper parser.
-            ret = fgCtrlParsers.respond(cmd, response);
-        }
-        break;
-
-        case VOCAB_RGBD_SENSOR:
-        {
-            switch (cmd.get(1).asVocab32())
-            {
-                case VOCAB_GET:
-                {
-                    switch(cmd.get(2).asVocab32())
-                    {
-                        case VOCAB_EXTRINSIC_PARAM:
-                        {
-                            yarp::sig::Matrix params;
-                            ret = iRGBDSensor->getExtrinsicParam(params);
-                            if(ret)
-                            {
-                                yarp::os::Bottle params_b;
-                                response.addVocab32(VOCAB_RGBD_SENSOR);
-                                response.addVocab32(VOCAB_EXTRINSIC_PARAM);
-                                response.addVocab32(VOCAB_IS);
-                                ret &= Property::copyPortable(params, params_b);  // will it really work??
-                                response.append(params_b);
-                            } else {
-                                response.addVocab32(VOCAB_FAILED);
-                            }
-                        }
-                        break;
-
-                        case VOCAB_ERROR_MSG:
-                        {
-                            response.addVocab32(VOCAB_RGBD_SENSOR);
-                            response.addVocab32(VOCAB_ERROR_MSG);
-                            response.addVocab32(VOCAB_IS);
-                            response.addString(iRGBDSensor->getLastErrorMsg());
-                            ret = true;
-                        }
-                        break;
-
-                        case VOCAB_RGBD_PROTOCOL_VERSION:
-                        {
-                            response.addVocab32(VOCAB_RGBD_SENSOR);
-                            response.addVocab32(VOCAB_RGBD_PROTOCOL_VERSION);
-                            response.addVocab32(VOCAB_IS);
-                            response.addInt32(RGBD_INTERFACE_PROTOCOL_VERSION_MAJOR);
-                            response.addInt32(RGBD_INTERFACE_PROTOCOL_VERSION_MINOR);
-                        }
-                        break;
-
-                        case VOCAB_STATUS:
-                        {
-                            response.addVocab32(VOCAB_RGBD_SENSOR);
-                            response.addVocab32(VOCAB_STATUS);
-                            response.addVocab32(VOCAB_IS);
-                            response.addInt32(iRGBDSensor->getSensorStatus());
-                        }
-                        break;
-
-                        default:
-                        {
-                            yCError(RGBDSENSORNWSYARP) << "Interface parser received an unknown GET command. Command is " << cmd.toString();
-                            response.addVocab32(VOCAB_FAILED);
-                        }
-                        break;
-                    }
-                }
-                break;
-
-                case VOCAB_SET:
-                {
-                    yCError(RGBDSENSORNWSYARP) << "Interface parser received an unknown SET command. Command is " << cmd.toString();
-                    response.addVocab32(VOCAB_FAILED);
-                }
-                break;
-            }
-        }
-        break;
-
-        default:
-        {
-            yCError(RGBDSENSORNWSYARP) << "Received a command for a wrong interface " << yarp::os::Vocab32::decode(interfaceType);
-            return DeviceResponder::respond(cmd,response);
-        }
-        break;
-    }
-    return ret;
-}
-
-*/
-
-RgbdSensor_nws_yarp::RgbdSensor_nws_yarp() :
+RGBDSensor_nws_yarp::RGBDSensor_nws_yarp() :
     PeriodicThread(DEFAULT_THREAD_PERIOD),
     m_sensorStatus(IRGBDSensor::RGBD_SENSOR_NOT_READY),
     verbose(4)
 {}
 
-RgbdSensor_nws_yarp::~RgbdSensor_nws_yarp()
+RGBDSensor_nws_yarp::~RGBDSensor_nws_yarp()
 {
     close();
     m_rgbdsensor = nullptr;
@@ -154,7 +34,7 @@ RgbdSensor_nws_yarp::~RgbdSensor_nws_yarp()
 
 /** Device driver interface */
 
-bool RgbdSensor_nws_yarp::open(yarp::os::Searchable &config)
+bool RGBDSensor_nws_yarp::open(yarp::os::Searchable& config)
 {
     if (!parseParams(config)) { return false; }
 
@@ -188,7 +68,7 @@ bool RgbdSensor_nws_yarp::open(yarp::os::Searchable &config)
     return true;
 }
 
-bool RgbdSensor_nws_yarp::close()
+bool RGBDSensor_nws_yarp::close()
 {
     yCTrace(RGBDSENSORNWSYARP, "Close");
     detach();
@@ -209,7 +89,7 @@ bool RgbdSensor_nws_yarp::close()
   * WrapperSingle interface
   */
 
-bool RgbdSensor_nws_yarp::detach()
+bool RGBDSensor_nws_yarp::detach()
 {
     std::lock_guard lock (m_mutex);
 
@@ -222,7 +102,7 @@ bool RgbdSensor_nws_yarp::detach()
     return true;
 }
 
-bool RgbdSensor_nws_yarp::attach(PolyDriver* poly)
+bool RGBDSensor_nws_yarp::attach(PolyDriver* poly)
 {
     std::lock_guard lock (m_mutex);
 
@@ -253,18 +133,18 @@ bool RgbdSensor_nws_yarp::attach(PolyDriver* poly)
 
 /* IRateThread interface */
 
-bool RgbdSensor_nws_yarp::threadInit()
+bool RGBDSensor_nws_yarp::threadInit()
 {
     // Get interface from attached device if any.
     return true;
 }
 
-void RgbdSensor_nws_yarp::threadRelease()
+void RGBDSensor_nws_yarp::threadRelease()
 {
     // Detach() calls stop() which in turns calls this functions, therefore no calls to detach here!
 }
 
-bool RgbdSensor_nws_yarp::setCamInfo(const std::string& frame_id, const UInt& seq, const SensorType& sensorType)
+bool RGBDSensor_nws_yarp::setCamInfo(const std::string& frame_id, const UInt& seq, const SensorType& sensorType)
 {
     double phyF = 0.0;
     double fx = 0.0;
@@ -333,7 +213,7 @@ bool RgbdSensor_nws_yarp::setCamInfo(const std::string& frame_id, const UInt& se
     return true;
 }
 
-bool RgbdSensor_nws_yarp::writeData()
+bool RGBDSensor_nws_yarp::writeData()
 {
     //colorImage.setPixelCode(VOCAB_PIXEL_RGB);
     //             depthImage.setPixelCode(VOCAB_PIXEL_MONO_FLOAT);
@@ -386,7 +266,7 @@ bool RgbdSensor_nws_yarp::writeData()
     return true;
 }
 
-void RgbdSensor_nws_yarp::run()
+void RGBDSensor_nws_yarp::run()
 {
     std::lock_guard lock (m_mutex);
 
@@ -432,7 +312,7 @@ void RgbdSensor_nws_yarp::run()
     }
 }
 
-bool RgbdSensor_nws_yarp::read(yarp::os::ConnectionReader& connection)
+bool RGBDSensor_nws_yarp::read(yarp::os::ConnectionReader& connection)
 {
     if (!connection.isValid()) { return false;}
 
