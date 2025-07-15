@@ -598,10 +598,11 @@ IDepthVisualParamsMsgs_return_getDepthWidth RGBDSensorMsgsImpl::getDepthWidthRPC
 
     if (w<= 0) {
         response.ret = ReturnValue::return_code::return_value_error_method_failed;
-        response.width = w;
+        response.width = 0;
         return response;
     }
 
+    response.width = w;
     response.ret = ReturnValue_ok;
     return response;
 }
@@ -621,10 +622,11 @@ IDepthVisualParamsMsgs_return_getDepthHeight RGBDSensorMsgsImpl::getDepthHeightR
 
     if (h <= 0) {
         response.ret = ReturnValue::return_code::return_value_error_method_failed;
-        response.height = h;
+        response.height = 0;
         return response;
     }
 
+    response.height = h;
     response.ret = ReturnValue_ok;
     return response;
 }
@@ -651,6 +653,8 @@ IDepthVisualParamsMsgs_return_getDepthResolution RGBDSensorMsgsImpl::getDepthRes
         return response;
     }
 
+    response.width = 0;
+    response.height = 0;
     response.ret = ret;
     return response;
 }

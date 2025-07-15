@@ -43,7 +43,7 @@ TEST_CASE("dev::RGBDSensor_nws_yarpTest", "[yarp::dev]")
     {
         std::vector<std::string> fakeSens;
         fakeSens.push_back("fakeDepthCamera");
-        fakeSens.push_back("fakeDepthCamera_2");
+        fakeSens.push_back("fakeDepthCamera_mini");
 
         for (auto it = fakeSens.begin(); it != fakeSens.end(); it++)
         {
