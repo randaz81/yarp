@@ -34,7 +34,7 @@ int main(int argc, char* argv[])
 
     while (true) {
         auto& crop = out.prepare();
-        grabber->getImageCrop(YARP_CROP_RECT, vertices, crop);
+        grabber->getImageCrop(yarp::dev::YARP_CROP_RECT, vertices, crop);
         out.write();
     }
 
