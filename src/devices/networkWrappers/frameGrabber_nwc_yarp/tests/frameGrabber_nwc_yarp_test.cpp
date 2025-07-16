@@ -84,7 +84,7 @@ void do_nws_nwc_test(bool use_stream)
     yarp::os::SystemClock::delaySystem(0.5);
     {
         ImageOf<PixelRgb> crop;
-        yarp::sig::VectorOf<yarp::dev::vertex_t> vertices;
+        std::vector<yarp::dev::vertex_t> vertices;
         vertices.resize(2);
         vertices[0] = yarp::dev::vertex_t(0, 0);
         vertices[1] = yarp::dev::vertex_t(10, 10); // Configure a doable crop.

@@ -104,7 +104,7 @@ public:
      * @return true/false upon success/failure
      */
     virtual yarp::dev::ReturnValue getImageCrop(yarp::dev::cropType_id_t cropType,
-                              yarp::sig::VectorOf<vertex_t> vertices,
+                              std::vector<vertex_t> vertices,
                               ImageType& image);
 };
 

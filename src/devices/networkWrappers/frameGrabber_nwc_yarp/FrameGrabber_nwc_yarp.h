@@ -39,7 +39,7 @@ public:
     int width() const override;
     yarp::dev::ReturnValue getImage(ImageType& image) override;
     yarp::dev::ReturnValue getImageCrop(yarp::dev::cropType_id_t cropType,
-                      yarp::sig::VectorOf<yarp::dev::vertex_t> vertices,
+                      std::vector<yarp::dev::vertex_t> vertices,
                       ImageType& image) override;
 
     void setStreamReceiver(StreamReceiver* m_streamReceiver);

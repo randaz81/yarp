@@ -1211,7 +1211,7 @@ IFrameGrabberImageOf_return_getImageCrop FrameGrabberMsgsImpl::getImageCropRPC(c
     std::lock_guard<std::mutex> lg(m_mutex);
     IFrameGrabberImageOf_return_getImageCrop response;
 
-    yarp::sig::VectorOf<yarp::dev::vertex_t> vv;
+    std::vector<yarp::dev::vertex_t> vv;
     vv.resize(vs.size());
     for (size_t i = 0; i < vs.size(); i++) {
         vv[i] = vs[i];

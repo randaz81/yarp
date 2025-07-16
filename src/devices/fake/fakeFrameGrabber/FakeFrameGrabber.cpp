@@ -369,7 +369,7 @@ ReturnValue FakeFrameGrabber::getImage(yarp::sig::ImageOf<yarp::sig::PixelMono>&
 }
 
 ReturnValue FakeFrameGrabber::getImageCrop(cropType_id_t cropType,
-                                    yarp::sig::VectorOf<yarp::dev::vertex_t> vertices,
+                                    std::vector<yarp::dev::vertex_t> vertices,
                                     yarp::sig::ImageOf<yarp::sig::PixelRgb>& image)
 {
     yCDebugThrottle(FAKEFRAMEGRABBER, 5.0) << "Hardware crop requested!";
@@ -377,7 +377,7 @@ ReturnValue FakeFrameGrabber::getImageCrop(cropType_id_t cropType,
 }
 
 ReturnValue FakeFrameGrabber::getImageCrop(cropType_id_t cropType,
-                                    yarp::sig::VectorOf<yarp::dev::vertex_t> vertices,
+                                    std::vector<yarp::dev::vertex_t> vertices,
                                     yarp::sig::ImageOf<yarp::sig::PixelMono>& image)
 {
     yCDebugThrottle(FAKEFRAMEGRABBER, 5.0) << "Hardware crop requested!";

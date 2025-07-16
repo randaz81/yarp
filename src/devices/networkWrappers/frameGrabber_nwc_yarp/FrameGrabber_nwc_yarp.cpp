@@ -103,7 +103,7 @@ yarp::dev::ReturnValue FrameGrabberOf_ForwarderWithStream<ImageType>::getImage(I
 
 template <typename ImageType>
 yarp::dev::ReturnValue FrameGrabberOf_ForwarderWithStream<ImageType>::getImageCrop(cropType_id_t cropType,
-                                                                                   yarp::sig::VectorOf<yarp::dev::vertex_t> vertices,
+                                                                                   std::vector<yarp::dev::vertex_t> vertices,
                                                                                    ImageType& image)
 {
     std::lock_guard<std::mutex> lock(m_mutex);
