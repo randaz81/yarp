@@ -23,8 +23,6 @@ YARP_LOG_COMPONENT(FAKEDEPTHCAMERA, "yarp.device.fakeDepthCamera")
 
 FakeDepthCameraDriver_mini::FakeDepthCameraDriver_mini()
 {
-    regenerate_rgb_image();
-    regenerate_depth_image();
 }
 
 FakeDepthCameraDriver_mini::~FakeDepthCameraDriver_mini() = default;
@@ -33,6 +31,8 @@ bool FakeDepthCameraDriver_mini::open(Searchable& config)
 {
     if (!this->parseParams(config)) {return false;}
 
+    regenerate_rgb_image();
+    regenerate_depth_image();
     return true;
 }
 
@@ -43,12 +43,12 @@ bool FakeDepthCameraDriver_mini::close()
 
 int FakeDepthCameraDriver_mini::getRgbHeight()
 {
-    return m_rgb_height;
+    return m_rgb_h;
 }
 
 int FakeDepthCameraDriver_mini::getRgbWidth()
 {
-    return m_rgb_width;
+    return m_rgb_w;
 }
 
 ReturnValue FakeDepthCameraDriver_mini::getRgbSupportedConfigurations(std::vector<CameraConfig>& configurations)
@@ -60,41 +60,58 @@ ReturnValue FakeDepthCameraDriver_mini::getRgbSupportedConfigurations(std::vecto
 
 ReturnValue FakeDepthCameraDriver_mini::getRgbResolution(int& width, int& height)
 {
-    width = m_rgb_width;
-    height = m_rgb_height;
+    width = m_rgb_w;
+    height = m_rgb_h;
     return ReturnValue_ok;
 }
 
 void FakeDepthCameraDriver_mini::regenerate_rgb_image()
 {
     m_rgbImage.setPixelCode(VOCAB_PIXEL_RGB);
-    m_rgbImage.resize(m_rgb_width, m_rgb_height);
+    m_rgbImage.resize(m_rgb_w, m_rgb_h);
+    ImageOf<PixelRgb>& rgbImg = (ImageOf<PixelRgb>&)m_rgbImage;
+    for (size_t y = 0; y < m_rgb_h; y++)
+        for (size_t x = 0; x < m_rgb_w; x++)
+        {
+            rgbImg.pixel(x, y).r = x * 255.0 / m_rgb_w;
+            rgbImg.pixel(x, y).g = 0;
+            rgbImg.pixel(x, y).b = y * 255.0 / m_rgb_h;
+        }
 }
 
 void FakeDepthCameraDriver_mini::regenerate_depth_image()
 {
-    m_depthImage.resize(m_depth_width, m_depth_height);
+    m_depthImage.resize(m_dep_w, m_dep_h);
+
+    size_t totalPixels = m_dep_w * m_dep_h;
+    size_t index = 0;
+    for (size_t y = 0; y < m_dep_h; y++)
+        for (size_t x = 0; x < m_dep_w; x++) {
+            auto& p = m_depthImage.pixel(x, y);
+            p = static_cast<double>(index) / (totalPixels - 1);
+            ++index;
+        }
 }
 
 ReturnValue FakeDepthCameraDriver_mini::setRgbResolution(int width, int height)
 {
-    m_rgb_width = width;
-    m_rgb_height = height;
+    m_rgb_w = width;
+    m_rgb_h = height;
     regenerate_rgb_image();
     return ReturnValue_ok;
 }
 
 ReturnValue FakeDepthCameraDriver_mini::getDepthResolution(int& width, int& height)
 {
-    width = m_depth_width;
-    height = m_depth_height;
+    width = m_dep_w;
+    height = m_dep_h;
     return ReturnValue_ok;
 }
 
 ReturnValue FakeDepthCameraDriver_mini::setDepthResolution(int width, int height)
 {
-    m_depth_width = width;
-    m_depth_height = height;
+    m_dep_w = width;
+    m_dep_h = height;
     regenerate_depth_image();
     return ReturnValue_ok;
 }
@@ -158,12 +175,12 @@ ReturnValue FakeDepthCameraDriver_mini::getRgbIntrinsicParam(Property& intrinsic
 
 int FakeDepthCameraDriver_mini::getDepthHeight()
 {
-    return m_depth_height;
+    return m_dep_h;
 }
 
 int FakeDepthCameraDriver_mini::getDepthWidth()
 {
-    return m_depth_width;
+    return m_dep_w;
 }
 
 ReturnValue FakeDepthCameraDriver_mini::getDepthFOV(double& horizontalFov, double& verticalFov)

@@ -35,6 +35,11 @@ TEST_CASE("dev::fakeDepthCamera_miniTest", "[yarp::dev]")
         PolyDriver dd;
         Property p;
         p.put("device", "fakeDepthCamera_mini");
+        // small values to improve valgrind speed
+        p.put("rgb_w", 32);
+        p.put("rgb_h", 24);
+        p.put("dep_w", 32);
+        p.put("dep_h", 24);
         REQUIRE(dd.open(p));
 
         // Get the IFrameGrabberImage interface

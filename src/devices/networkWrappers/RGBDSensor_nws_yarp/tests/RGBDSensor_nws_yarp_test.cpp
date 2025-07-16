@@ -56,6 +56,11 @@ TEST_CASE("dev::RGBDSensor_nws_yarpTest", "[yarp::dev]")
             p_nws.put("device", "RGBDSensor_nws_yarp");
             p_nws.put("name", "/rgbd_nws");
             p_fake.put("device", *it);
+            // small values to improve valgrind speed
+            p_fake.put("rgb_w", 32);
+            p_fake.put("rgb_h", 24);
+            p_fake.put("dep_w", 32);
+            p_fake.put("dep_h", 24);
             REQUIRE(dd_fake.open(p_fake));
             REQUIRE(dd_nws.open(p_nws));
 

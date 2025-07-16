@@ -87,10 +87,6 @@ protected:
     depthImage                 m_depthImage;
     bool m_depth_mirror                            = false;
     bool m_rgb_mirror                              = false;
-    size_t m_rgb_width = 8;
-    size_t m_rgb_height = 8;
-    size_t m_depth_width = 8;
-    size_t m_depth_height = 8;
     void regenerate_rgb_image();
     void regenerate_depth_image();
 

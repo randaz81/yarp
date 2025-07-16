@@ -23,8 +23,6 @@ YARP_LOG_COMPONENT(FAKEDEPTHCAMERA, "yarp.device.fakeDepthCamera")
 
 FakeDepthCameraDriver::FakeDepthCameraDriver()
 {
-    regenerate_rgb_image();
-    regenerate_depth_image();
 }
 
 FakeDepthCameraDriver::~FakeDepthCameraDriver() = default;
@@ -33,6 +31,8 @@ bool FakeDepthCameraDriver::open(Searchable& config)
 {
     if (!this->parseParams(config)) {return false;}
 
+    regenerate_rgb_image();
+    regenerate_depth_image();
     return true;
 }
 
