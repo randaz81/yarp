@@ -45,7 +45,7 @@ bool FakeDepthCameraDriver::close()
 
 ReturnValue FakeDepthCameraDriver::getCameraDescription(yarp::dev::CameraDescriptor& camera)
 {
-    camera.busType = BUS_USB;
+    camera.busType = BusType::BUS_USB;
     camera.deviceDescription = "fakeCameraDevice";
     return ReturnValue_ok;
 }

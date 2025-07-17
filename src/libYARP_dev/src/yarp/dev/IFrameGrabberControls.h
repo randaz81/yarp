@@ -14,24 +14,28 @@
 
 namespace yarp::dev {
 
-typedef enum {
+enum class BusType
+{
     BUS_UNKNOWN = 0,
     BUS_FIREWIRE,
     BUS_USB
-} BusType;
+};
 
-typedef enum {
+enum class FeatureMode
+{
     MODE_UNKNOWN = 0,
     MODE_MANUAL,
     MODE_AUTO
-} FeatureMode;
+};
 
-typedef struct {
-    BusType busType = BUS_UNKNOWN;
+struct CameraDescriptor
+{
+    BusType busType = BusType::BUS_UNKNOWN;
     std::string deviceDescription;
-} CameraDescriptor;
+};
 
-typedef enum {
+enum class cameraFeature_id_t
+{
     YARP_FEATURE_INVALID=-1,
     YARP_FEATURE_BRIGHTNESS=0,
     YARP_FEATURE_EXPOSURE,
@@ -57,7 +61,7 @@ typedef enum {
     YARP_FEATURE_CAPTURE_QUALITY,
     YARP_FEATURE_MIRROR,
     YARP_FEATURE_NUMBER_OF          // this has to be the last one
-} cameraFeature_id_t;
+};
 
 /**
  * @ingroup dev_iface_media
@@ -75,11 +79,11 @@ public:
     std::string busType2String(BusType type)
     {
         switch (type) {
-            case BUS_FIREWIRE:
+            case BusType::BUS_FIREWIRE:
                 return "FireWire";
             break;
 
-            case BUS_USB:
+            case BusType::BUS_USB:
                 return "USB";
             break;
 
@@ -91,7 +95,7 @@ public:
 
     inline FeatureMode toFeatureMode(bool _auto)
     {
-        return _auto ? MODE_AUTO : MODE_MANUAL;
+        return _auto ? FeatureMode::MODE_AUTO : FeatureMode::MODE_MANUAL;
     }
     /**
      * Get a basic description of the camera hw. This is mainly used to determine the

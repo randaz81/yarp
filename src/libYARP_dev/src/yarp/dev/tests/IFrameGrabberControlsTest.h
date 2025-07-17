@@ -21,7 +21,7 @@ namespace yarp::dev::tests
 
         // Check busType2String()
         {
-            yarp::dev::BusType typeb=BUS_USB;
+            yarp::dev::BusType typeb = yarp::dev::BusType::BUS_USB;
             std::string s = ictl->busType2String(typeb);
         }
         // Check getActive()
@@ -86,7 +86,7 @@ namespace yarp::dev::tests
 
         // Check setMode()
         {
-            yarp::dev::FeatureMode mode=MODE_AUTO;
+            yarp::dev::FeatureMode mode = yarp::dev::FeatureMode::MODE_AUTO;
             CHECK(ictl->setMode(0,mode));
         }
 
@@ -99,7 +99,7 @@ namespace yarp::dev::tests
         // Check toFeatureMode()
         {
             bool autob = true;
-            CHECK(ictl->toFeatureMode(autob));
+            CHECK(ictl->toFeatureMode(autob) != FeatureMode::MODE_UNKNOWN);
         }
     }
 }
