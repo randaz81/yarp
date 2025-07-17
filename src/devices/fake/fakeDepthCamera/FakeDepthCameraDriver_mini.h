@@ -7,6 +7,8 @@
 #define YARP_FAKEDEPTHCAMERADRIVER_MINI_H
 
 #include <string>
+#include <mutex>
+
 #include <yarp/dev/DeviceDriver.h>
 #include <yarp/dev/PolyDriver.h>
 
@@ -89,6 +91,7 @@ protected:
     bool m_rgb_mirror                              = false;
     void regenerate_rgb_image();
     void regenerate_depth_image();
+    std::recursive_mutex                 m_mutex;
 
 };
 

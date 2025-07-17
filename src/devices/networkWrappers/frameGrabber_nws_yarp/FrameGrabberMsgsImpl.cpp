@@ -1186,17 +1186,17 @@ IFrameGrabberImageOf_return_getImage FrameGrabberMsgsImpl::getImageRPC()
         FlexImage fimage;
         ImageOf<PixelRgb> image;
         auto ret = m_iframegrabimg->getImage(image);
-        response.ret = ReturnValue_ok;
-        response.fImage.swap(image);
+        response.ret = ret;
+        if (ret) {response.fImage.swap(image);}
         return response;
     }
 
     if (m_iframegrabimgraw) {
         FlexImage fimage;
         ImageOf<PixelMono> image;
-        int width = m_iframegrabimgraw->getImage(image);
-        response.ret = ReturnValue_ok;
-        response.fImage.swap(image);
+        auto ret = m_iframegrabimgraw->getImage(image);
+        response.ret = ret;
+        if (ret) {response.fImage.swap(image);}
         return response;
     }
 
@@ -1222,17 +1222,17 @@ IFrameGrabberImageOf_return_getImageCrop FrameGrabberMsgsImpl::getImageCropRPC(c
         ImageOf<PixelRgb> image;
         vv.resize(vs.size());
         auto ret = m_iframegrabimg->getImageCrop(type, vv, image);
-        response.ret = ReturnValue_ok;
-        response.fImage.swap(image);
+        response.ret = ret;
+        if (ret) {response.fImage.swap(image);}
         return response;
     }
 
     if (m_iframegrabimgraw) {
         FlexImage fimage;
         ImageOf<PixelMono> image;
-        int width = m_iframegrabimgraw->getImageCrop(type, vv, image);
-        response.ret = ReturnValue_ok;
-        response.fImage.swap(image);
+        auto ret = m_iframegrabimgraw->getImageCrop(type, vv, image);
+        response.ret = ret;
+        if (ret) {response.fImage.swap(image);}
         return response;
     }
 

@@ -65,6 +65,7 @@ bool RGBDSensor_nws_yarp::open(yarp::os::Searchable& config)
         bRet = false;
     }
 
+    if (!bRet) {return false;}
     return true;
 }
 
@@ -215,11 +216,6 @@ bool RGBDSensor_nws_yarp::setCamInfo(const std::string& frame_id, const UInt& se
 
 bool RGBDSensor_nws_yarp::writeData()
 {
-    //colorImage.setPixelCode(VOCAB_PIXEL_RGB);
-    //             depthImage.setPixelCode(VOCAB_PIXEL_MONO_FLOAT);
-
-    //             colorImage.resize(hDim, vDim);  // Has this to be done each time? If size is the same what it does?
-    //             depthImage.resize(hDim, vDim);
     if (!m_rgbdsensor->getImages(colorImage, depthImage, &colorStamp, &depthStamp))
     {
         return false;
@@ -245,6 +241,8 @@ bool RGBDSensor_nws_yarp::writeData()
     else { oldDepthStamp = depthStamp; }
 
     // TBD: We should check here somehow if the timestamp was correctly updated and, if not, update it ourselves.
+    // In the following piece of code we are uing a copy instead of setExternal() because it is safer in a multithreaded environment.
+    // Indeed colorImage and depthImage can be modified by the attached device running in a different thread.
     if (rgb_data_ok && colorFrame_StreamingPort.getOutputCount() > 0)
     {
         FlexImage& yColorImage = colorFrame_StreamingPort.prepare();

@@ -27,7 +27,7 @@ typedef enum {
 } FeatureMode;
 
 typedef struct {
-    BusType busType;
+    BusType busType = BUS_UNKNOWN;
     std::string deviceDescription;
 } CameraDescriptor;
 

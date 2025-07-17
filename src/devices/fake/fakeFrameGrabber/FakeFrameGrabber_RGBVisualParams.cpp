@@ -19,9 +19,9 @@ using namespace yarp::dev;
 using namespace yarp::sig;
 using namespace yarp::sig::draw;
 
-namespace {
-YARP_LOG_COMPONENT(FAKEFRAMEGRABBER, "yarp.device.fakeFrameGrabber")
-}
+//namespace {
+//YARP_LOG_COMPONENT(FAKEFRAMEGRABBER, "yarp.device.fakeFrameGrabber")
+//}
 
 int FakeFrameGrabber::getRgbHeight()
 {

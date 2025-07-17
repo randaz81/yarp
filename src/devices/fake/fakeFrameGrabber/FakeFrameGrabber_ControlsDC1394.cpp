@@ -30,9 +30,9 @@ struct
 
 } m_controlsDC1394;
 
-namespace {
-YARP_LOG_COMPONENT(FAKEFRAMEGRABBER, "yarp.device.fakeFrameGrabber")
-}
+//namespace {
+//YARP_LOG_COMPONENT(FAKEFRAMEGRABBER, "yarp.device.fakeFrameGrabber")
+//}
 
 ReturnValue FakeFrameGrabber::getVideoModeMaskDC1394(unsigned int& val)
 {

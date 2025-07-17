@@ -15,9 +15,9 @@
 using namespace yarp::os;
 using namespace yarp::dev;
 
-namespace {
-YARP_LOG_COMPONENT(FAKEFRAMEGRABBER, "yarp.device.fakeFrameGrabber")
-}
+//namespace {
+//YARP_LOG_COMPONENT(FAKEFRAMEGRABBER, "yarp.device.fakeFrameGrabber")
+//}
 
 struct
 {
@@ -137,6 +137,6 @@ ReturnValue FakeFrameGrabber::getMode(int feature, FeatureMode& mode)
 ReturnValue FakeFrameGrabber::setOnePush(int feature)
 {
     std::lock_guard<std::mutex> lock(rpc_methods_mutex);
-    m_controls.hasOnePush = true; //????????
+    m_controls.hasOnePush = true;
     return ReturnValue_ok;
 }

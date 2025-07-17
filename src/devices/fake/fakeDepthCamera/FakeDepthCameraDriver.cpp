@@ -29,6 +29,7 @@ FakeDepthCameraDriver::~FakeDepthCameraDriver() = default;
 
 bool FakeDepthCameraDriver::open(Searchable& config)
 {
+    yCDebug(FAKEDEPTHCAMERA) << "Opening Device";
     if (!this->parseParams(config)) {return false;}
 
     regenerate_rgb_image();
@@ -38,12 +39,14 @@ bool FakeDepthCameraDriver::open(Searchable& config)
 
 bool FakeDepthCameraDriver::close()
 {
+    yCDebug(FAKEDEPTHCAMERA) << "Closing Device";
     return true;
 }
 
 ReturnValue FakeDepthCameraDriver::getCameraDescription(yarp::dev::CameraDescriptor& camera)
 {
-    // not yet implemented
+    camera.busType = BUS_USB;
+    camera.deviceDescription = "fakeCameraDevice";
     return ReturnValue_ok;
 }
 
@@ -121,7 +124,7 @@ ReturnValue FakeDepthCameraDriver::setMode(int feature, yarp::dev::FeatureMode m
 
 ReturnValue FakeDepthCameraDriver::getMode(int feature, yarp::dev::FeatureMode& mode)
 {
-    // not yet implemented
+    mode = yarp::dev::FeatureMode::MODE_AUTO;
     return ReturnValue_ok;
 }
 

@@ -39,8 +39,11 @@ TEST_CASE("dev::RGBDSensor_nwc_yarp", "[yarp::dev]")
         {
             Property pdepth_cfg;
             pdepth_cfg.put("device", "fakeDepthCamera_mini");
-            pdepth_cfg.put("width", 32);  // smaller frame to improve valgrind speed
-            pdepth_cfg.put("height", 24); // smaller frame to improve valgrind speed
+            // small values to improve valgrind speed
+            pdepth_cfg.put("rgb_w", 32);
+            pdepth_cfg.put("rgb_h", 24);
+            pdepth_cfg.put("dep_w", 32);
+            pdepth_cfg.put("dep_h", 24);
             REQUIRE(dddepth.open(pdepth_cfg));
         }
         {
