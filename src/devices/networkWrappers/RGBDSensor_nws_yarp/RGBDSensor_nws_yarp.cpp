@@ -248,17 +248,14 @@ bool RGBDSensor_nws_yarp::writeData()
     if (rgb_data_ok && colorFrame_StreamingPort.getOutputCount() > 0)
     {
         FlexImage& yColorImage = colorFrame_StreamingPort.prepare();
-        yColorImage.setPixelCode(colorImage.getPixelCode());
-        yColorImage.setQuantum(colorImage.getQuantum());
-        yColorImage.setExternal(colorImage.getRawImage(), colorImage.width(), colorImage.height());
+        yColorImage = colorImage;
         colorFrame_StreamingPort.setEnvelope(colorStamp);
         colorFrame_StreamingPort.write();
     }
     if (depth_data_ok && depthFrame_StreamingPort.getOutputCount() > 0)
     {
         ImageOf<PixelFloat>& yDepthImage = depthFrame_StreamingPort.prepare();
-        yDepthImage.setQuantum(depthImage.getQuantum());
-        yDepthImage.setExternal(depthImage.getRawImage(), depthImage.width(), depthImage.height());
+        yDepthImage = depthImage;
         depthFrame_StreamingPort.setEnvelope(depthStamp);
         depthFrame_StreamingPort.write();
     }
