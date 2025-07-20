@@ -369,110 +369,110 @@ ReturnValue RGBDSensor_nwc_yarp::getCameraDescription(yarp::dev::CameraDescripto
     return r.ret;
 }
 
-ReturnValue RGBDSensor_nwc_yarp::hasFeature(int feature, bool& hasFeature)
+ReturnValue RGBDSensor_nwc_yarp::hasFeature(cameraFeature_id_t feature, bool& hasFeature)
 {
     std::lock_guard<std::mutex> lg(m_mutex);
-    auto r = m_rgbdsensor_RPC.hasFeatureRPC(feature);
+    auto r = m_rgbdsensor_RPC.hasFeatureRPC((int32_t)feature);
     hasFeature = r.hasFeature;
     return r.ret;
 }
 
-ReturnValue RGBDSensor_nwc_yarp::setFeature(int feature, double value)
+ReturnValue RGBDSensor_nwc_yarp::setFeature(cameraFeature_id_t feature, double value)
 {
     std::lock_guard<std::mutex> lg(m_mutex);
-    auto r = m_rgbdsensor_RPC.setFeature1RPC(feature,value);
+    auto r = m_rgbdsensor_RPC.setFeature1RPC((int32_t)feature, value);
     return r;
 }
 
-ReturnValue RGBDSensor_nwc_yarp::getFeature(int feature, double& value)
+ReturnValue RGBDSensor_nwc_yarp::getFeature(cameraFeature_id_t feature, double& value)
 {
     std::lock_guard<std::mutex> lg(m_mutex);
-    auto r = m_rgbdsensor_RPC.getFeature1RPC(feature);
+    auto r = m_rgbdsensor_RPC.getFeature1RPC((int32_t)feature);
     value = r.value;
     return r.ret;
 }
 
-ReturnValue RGBDSensor_nwc_yarp::setFeature(int feature, double value1, double value2)
+ReturnValue RGBDSensor_nwc_yarp::setFeature(cameraFeature_id_t feature, double value1, double value2)
 {
     std::lock_guard<std::mutex> lg(m_mutex);
-    auto r = m_rgbdsensor_RPC.setFeature2RPC(feature,value1,value2);
+    auto r = m_rgbdsensor_RPC.setFeature2RPC((int32_t)feature, value1, value2);
     return r;
 }
 
-ReturnValue RGBDSensor_nwc_yarp::getFeature(int feature, double& value1, double& value2)
+ReturnValue RGBDSensor_nwc_yarp::getFeature(cameraFeature_id_t feature, double& value1, double& value2)
 {
     std::lock_guard<std::mutex> lg(m_mutex);
-    auto r = m_rgbdsensor_RPC.getFeature2RPC(feature);
+    auto r = m_rgbdsensor_RPC.getFeature2RPC((int32_t)feature);
     value1 = r.value1;
     value2 = r.value2;
     return r.ret;
 }
 
-ReturnValue RGBDSensor_nwc_yarp::hasOnOff(int feature, bool& HasOnOff)
+ReturnValue RGBDSensor_nwc_yarp::hasOnOff(cameraFeature_id_t feature, bool& HasOnOff)
 {
     std::lock_guard<std::mutex> lg(m_mutex);
-    auto r = m_rgbdsensor_RPC.hasOnOffRPC(feature);
+    auto r = m_rgbdsensor_RPC.hasOnOffRPC((int32_t)feature);
     HasOnOff = r.HasOnOff;
     return r.ret;
 }
 
-ReturnValue RGBDSensor_nwc_yarp::setActive(int feature, bool onoff)
+ReturnValue RGBDSensor_nwc_yarp::setActive(cameraFeature_id_t feature, bool onoff)
 {
     std::lock_guard<std::mutex> lg(m_mutex);
-    auto r = m_rgbdsensor_RPC.setActiveRPC(feature,onoff);
+    auto r = m_rgbdsensor_RPC.setActiveRPC((int32_t)feature, onoff);
     return r;
 }
 
-ReturnValue RGBDSensor_nwc_yarp::getActive(int feature, bool& isActive)
+ReturnValue RGBDSensor_nwc_yarp::getActive(cameraFeature_id_t feature, bool& isActive)
 {
     std::lock_guard<std::mutex> lg(m_mutex);
-    auto r = m_rgbdsensor_RPC.getActiveRPC(feature);
+    auto r = m_rgbdsensor_RPC.getActiveRPC((int32_t)feature);
     isActive = r.isActive;
     return r.ret;
 }
 
-ReturnValue RGBDSensor_nwc_yarp::hasAuto(int feature, bool& hasAuto)
+ReturnValue RGBDSensor_nwc_yarp::hasAuto(cameraFeature_id_t feature, bool& hasAuto)
 {
     std::lock_guard<std::mutex> lg(m_mutex);
-    auto r = m_rgbdsensor_RPC.hasAutoRPC(feature);
+    auto r = m_rgbdsensor_RPC.hasAutoRPC((int32_t)feature);
     hasAuto = r.hasAuto;
     return r.ret;
 }
 
-ReturnValue RGBDSensor_nwc_yarp::hasManual(int feature, bool& hasManual)
+ReturnValue RGBDSensor_nwc_yarp::hasManual(cameraFeature_id_t feature, bool& hasManual)
 {
     std::lock_guard<std::mutex> lg(m_mutex);
-    auto r = m_rgbdsensor_RPC.hasManualRPC(feature);
+    auto r = m_rgbdsensor_RPC.hasManualRPC((int32_t)feature);
     hasManual = r.hasManual;
     return r.ret;
 }
 
-ReturnValue RGBDSensor_nwc_yarp::hasOnePush(int feature, bool& hasOnePush)
+ReturnValue RGBDSensor_nwc_yarp::hasOnePush(cameraFeature_id_t feature, bool& hasOnePush)
 {
     std::lock_guard<std::mutex> lg(m_mutex);
-    auto r = m_rgbdsensor_RPC.hasOnePushRPC(feature);
+    auto r = m_rgbdsensor_RPC.hasOnePushRPC((int32_t)feature);
     hasOnePush = r.hasOnePush;
     return r.ret;
 }
 
-ReturnValue RGBDSensor_nwc_yarp::setMode(int feature, yarp::dev::FeatureMode mode)
+ReturnValue RGBDSensor_nwc_yarp::setMode(cameraFeature_id_t feature, yarp::dev::FeatureMode mode)
 {
     std::lock_guard<std::mutex> lg(m_mutex);
-    auto r = m_rgbdsensor_RPC.setModeRPC(feature,mode);
+    auto r = m_rgbdsensor_RPC.setModeRPC((int32_t)feature, mode);
     return r;
 }
 
-ReturnValue RGBDSensor_nwc_yarp::getMode(int feature, yarp::dev::FeatureMode& mode)
+ReturnValue RGBDSensor_nwc_yarp::getMode(cameraFeature_id_t feature, yarp::dev::FeatureMode& mode)
 {
     std::lock_guard<std::mutex> lg(m_mutex);
-    auto r = m_rgbdsensor_RPC.getModeRPC(feature);
+    auto r = m_rgbdsensor_RPC.getModeRPC((int32_t)feature);
     mode = r.mode;
     return r.ret;
 }
 
-ReturnValue RGBDSensor_nwc_yarp::setOnePush(int feature)
+ReturnValue RGBDSensor_nwc_yarp::setOnePush(cameraFeature_id_t feature)
 {
     std::lock_guard<std::mutex> lg(m_mutex);
-    auto r = m_rgbdsensor_RPC.setOnePushRPC(feature);
+    auto r = m_rgbdsensor_RPC.setOnePushRPC((int32_t)feature);
     return r;
 }

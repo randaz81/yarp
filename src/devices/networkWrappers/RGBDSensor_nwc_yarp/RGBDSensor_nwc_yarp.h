@@ -126,20 +126,20 @@ public:
      * IFrameGrabberControls specific interface methods
      */
     yarp::dev::ReturnValue getCameraDescription(yarp::dev::CameraDescriptor& camera) override;
-    yarp::dev::ReturnValue hasFeature(int feature, bool& hasFeature) override;
-    yarp::dev::ReturnValue setFeature(int feature, double value) override;
-    yarp::dev::ReturnValue getFeature(int feature, double& value) override;
-    yarp::dev::ReturnValue setFeature(int feature, double value1, double value2) override;
-    yarp::dev::ReturnValue getFeature(int feature, double& value1, double& value2) override;
-    yarp::dev::ReturnValue hasOnOff(int feature, bool& HasOnOff) override;
-    yarp::dev::ReturnValue setActive(int feature, bool onoff) override;
-    yarp::dev::ReturnValue getActive(int feature, bool& isActive) override;
-    yarp::dev::ReturnValue hasAuto(int feature, bool& hasAuto) override;
-    yarp::dev::ReturnValue hasManual(int feature, bool& hasManual) override;
-    yarp::dev::ReturnValue hasOnePush(int feature, bool& hasOnePush) override;
-    yarp::dev::ReturnValue setMode(int feature, yarp::dev::FeatureMode mode) override;
-    yarp::dev::ReturnValue getMode(int feature, yarp::dev::FeatureMode& mode) override;
-    yarp::dev::ReturnValue setOnePush(int feature) override;
+    yarp::dev::ReturnValue hasFeature(yarp::dev::cameraFeature_id_t feature, bool& hasFeature) override;
+    yarp::dev::ReturnValue setFeature(yarp::dev::cameraFeature_id_t feature, double value) override;
+    yarp::dev::ReturnValue getFeature(yarp::dev::cameraFeature_id_t feature, double& value) override;
+    yarp::dev::ReturnValue setFeature(yarp::dev::cameraFeature_id_t feature, double value1, double value2) override;
+    yarp::dev::ReturnValue getFeature(yarp::dev::cameraFeature_id_t feature, double& value1, double& value2) override;
+    yarp::dev::ReturnValue hasOnOff(yarp::dev::cameraFeature_id_t feature, bool& HasOnOff) override;
+    yarp::dev::ReturnValue setActive(yarp::dev::cameraFeature_id_t feature, bool onoff) override;
+    yarp::dev::ReturnValue getActive(yarp::dev::cameraFeature_id_t feature, bool& isActive) override;
+    yarp::dev::ReturnValue hasAuto(yarp::dev::cameraFeature_id_t feature, bool& hasAuto) override;
+    yarp::dev::ReturnValue hasManual(yarp::dev::cameraFeature_id_t feature, bool& hasManual) override;
+    yarp::dev::ReturnValue hasOnePush(yarp::dev::cameraFeature_id_t feature, bool& hasOnePush) override;
+    yarp::dev::ReturnValue setMode(yarp::dev::cameraFeature_id_t feature, yarp::dev::FeatureMode mode) override;
+    yarp::dev::ReturnValue getMode(yarp::dev::cameraFeature_id_t feature, yarp::dev::FeatureMode& mode) override;
+    yarp::dev::ReturnValue setOnePush(yarp::dev::cameraFeature_id_t feature) override;
 
 };
 

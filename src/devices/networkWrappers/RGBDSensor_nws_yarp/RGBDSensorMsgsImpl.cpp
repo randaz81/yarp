@@ -287,7 +287,7 @@ IFrameGrabberControlMsgs_return_hasFeature RGBDSensorMsgsImpl::hasFeatureRPC(con
     }
 
     bool hasfeat = false;
-    auto ret = m_ictrls->hasFeature(feature, hasfeat);
+    auto ret = m_ictrls->hasFeature((cameraFeature_id_t)feature, hasfeat);
 
     if (ret) {
         response.ret = ret;
@@ -308,7 +308,7 @@ yarp::dev::ReturnValue RGBDSensorMsgsImpl::setFeature1RPC(const std::int32_t fea
         return ReturnValue::return_code::return_value_error_not_ready;
     }
 
-    auto ret = m_ictrls->setFeature(feature, value);
+    auto ret = m_ictrls->setFeature((cameraFeature_id_t)feature, value);
     if (!ret) {
         yCError(ICHATBOTMSGSIMPL) << "Could not do setFeature1RPC()";
         return ret;
@@ -329,7 +329,7 @@ IFrameGrabberControlMsgs_return_getFeature1 RGBDSensorMsgsImpl::getFeature1RPC(c
     }
 
     double value = 0;
-    auto ret = m_ictrls->getFeature(feature, value);
+    auto ret = m_ictrls->getFeature((cameraFeature_id_t)feature, value);
 
     if (ret) {
         response.ret = ret;
@@ -350,7 +350,7 @@ yarp::dev::ReturnValue RGBDSensorMsgsImpl::setFeature2RPC(const std::int32_t fea
         return ReturnValue::return_code::return_value_error_not_ready;
     }
 
-    auto ret = m_ictrls->setFeature(feature, value1, value2);
+    auto ret = m_ictrls->setFeature((cameraFeature_id_t)feature, value1, value2);
     if (!ret) {
         yCError(ICHATBOTMSGSIMPL) << "Could not do setFeature2RPC()";
         return ret;
@@ -372,7 +372,7 @@ IFrameGrabberControlMsgs_return_getFeature2 RGBDSensorMsgsImpl::getFeature2RPC(c
 
     double value1 = 0;
     double value2 = 0;
-    auto ret = m_ictrls->getFeature(feature, value1, value2);
+    auto ret = m_ictrls->getFeature((cameraFeature_id_t)feature, value1, value2);
 
     if (ret) {
         response.ret = ret;
@@ -397,7 +397,7 @@ IFrameGrabberControlMsgs_return_hasOnOff RGBDSensorMsgsImpl::hasOnOffRPC(const s
     }
 
     bool hasonoff = false;
-    auto ret = m_ictrls->hasOnOff(feature, hasonoff);
+    auto ret = m_ictrls->hasOnOff((cameraFeature_id_t)feature, hasonoff);
 
     if (ret) {
         response.ret = ret;
@@ -418,7 +418,7 @@ yarp::dev::ReturnValue RGBDSensorMsgsImpl::setActiveRPC(const std::int32_t featu
         return ReturnValue::return_code::return_value_error_not_ready;
     }
 
-    auto ret = m_ictrls->setActive(feature, onoff);
+    auto ret = m_ictrls->setActive((cameraFeature_id_t)feature, onoff);
     if (!ret) {
         yCError(ICHATBOTMSGSIMPL) << "Could not do setActiveRPC()";
         return ret;
@@ -438,7 +438,7 @@ IFrameGrabberControlMsgs_return_getActive RGBDSensorMsgsImpl::getActiveRPC(const
     }
 
     bool isActive = false;
-    auto ret = m_ictrls->getActive(feature, isActive);
+    auto ret = m_ictrls->getActive((cameraFeature_id_t)feature, isActive);
 
     if (ret) {
         response.ret = ret;
@@ -461,7 +461,7 @@ IFrameGrabberControlMsgs_return_hasAuto RGBDSensorMsgsImpl::hasAutoRPC(const std
     }
 
     bool hasauto = false;
-    auto ret = m_ictrls->hasAuto(feature, hasauto);
+    auto ret = m_ictrls->hasAuto((cameraFeature_id_t)feature, hasauto);
 
     if (ret) {
         response.ret = ret;
@@ -485,7 +485,7 @@ IFrameGrabberControlMsgs_return_hasManual RGBDSensorMsgsImpl::hasManualRPC(const
     }
 
     bool hasManual = false;
-    auto ret = m_ictrls->hasManual(feature, hasManual);
+    auto ret = m_ictrls->hasManual((cameraFeature_id_t)feature, hasManual);
 
     if (ret) {
         response.ret = ret;
@@ -509,7 +509,7 @@ IFrameGrabberControlMsgs_return_hasOnePush RGBDSensorMsgsImpl::hasOnePushRPC(con
     }
 
     bool hasOnePush = false;
-    auto ret = m_ictrls->hasOnePush(feature, hasOnePush);
+    auto ret = m_ictrls->hasOnePush((cameraFeature_id_t)feature, hasOnePush);
 
     if (ret) {
         response.ret = ret;
@@ -530,7 +530,7 @@ yarp::dev::ReturnValue RGBDSensorMsgsImpl::setModeRPC(const std::int32_t feature
         return ReturnValue::return_code::return_value_error_not_ready;
     }
 
-    auto ret = m_ictrls->setMode(feature, mode);
+    auto ret = m_ictrls->setMode((cameraFeature_id_t)feature, mode);
     if (!ret) {
         yCError(ICHATBOTMSGSIMPL) << "Could not do setModeRPC()";
         return ret;
@@ -551,7 +551,7 @@ IFrameGrabberControlMsgs_return_getMode RGBDSensorMsgsImpl::getModeRPC(const std
     }
 
     yarp::dev::FeatureMode mode;
-    auto ret = m_ictrls->getMode(feature, mode);
+    auto ret = m_ictrls->getMode((cameraFeature_id_t)feature, mode);
 
     if (ret) {
         response.ret = ret;
@@ -572,7 +572,7 @@ yarp::dev::ReturnValue RGBDSensorMsgsImpl::setOnePushRPC(const std::int32_t feat
         return ReturnValue::return_code::return_value_error_not_ready;
     }
 
-    auto ret = m_ictrls->setOnePush(feature);
+    auto ret = m_ictrls->setOnePush((cameraFeature_id_t)feature);
     if (!ret) {
         yCError(ICHATBOTMSGSIMPL) << "Could not do setOnePushRPC()";
         return ret;

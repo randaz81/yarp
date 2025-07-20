@@ -50,85 +50,85 @@ ReturnValue FakeDepthCameraDriver::getCameraDescription(yarp::dev::CameraDescrip
     return ReturnValue_ok;
 }
 
-ReturnValue FakeDepthCameraDriver::hasFeature(int feature, bool& hasFeature)
+ReturnValue FakeDepthCameraDriver::hasFeature(cameraFeature_id_t feature, bool& hasFeature)
 {
     // not yet implemented
     return ReturnValue_ok;
 }
 
-ReturnValue FakeDepthCameraDriver::setFeature(int feature, double value)
+ReturnValue FakeDepthCameraDriver::setFeature(cameraFeature_id_t feature, double value)
 {
     // not yet implemented
     return ReturnValue_ok;
 }
 
-ReturnValue FakeDepthCameraDriver::getFeature(int feature, double& value)
+ReturnValue FakeDepthCameraDriver::getFeature(cameraFeature_id_t feature, double& value)
 {
     // not yet implemented
     return ReturnValue_ok;
 }
 
-ReturnValue FakeDepthCameraDriver::setFeature(int feature, double value1, double value2)
+ReturnValue FakeDepthCameraDriver::setFeature(cameraFeature_id_t feature, double value1, double value2)
 {
     // not yet implemented
     return ReturnValue_ok;
 }
 
-ReturnValue FakeDepthCameraDriver::getFeature(int feature, double& value1, double& value2)
+ReturnValue FakeDepthCameraDriver::getFeature(cameraFeature_id_t feature, double& value1, double& value2)
 {
     // not yet implemented
     return ReturnValue_ok;
 }
 
-ReturnValue FakeDepthCameraDriver::hasOnOff(int feature, bool& HasOnOff)
+ReturnValue FakeDepthCameraDriver::hasOnOff(cameraFeature_id_t feature, bool& HasOnOff)
 {
     // not yet implemented
     return ReturnValue_ok;
 }
 
-ReturnValue FakeDepthCameraDriver::setActive(int feature, bool onoff)
+ReturnValue FakeDepthCameraDriver::setActive(cameraFeature_id_t feature, bool onoff)
 {
     // not yet implemented
     return ReturnValue_ok;
 }
 
-ReturnValue FakeDepthCameraDriver::getActive(int feature, bool& isActive)
+ReturnValue FakeDepthCameraDriver::getActive(cameraFeature_id_t feature, bool& isActive)
 {
     //not yet implemented
     return ReturnValue_ok;
 }
 
-ReturnValue FakeDepthCameraDriver::hasAuto(int feature, bool& hasAuto)
+ReturnValue FakeDepthCameraDriver::hasAuto(cameraFeature_id_t feature, bool& hasAuto)
 {
     // not yet implemented
     return ReturnValue_ok;
 }
 
-ReturnValue FakeDepthCameraDriver::hasManual(int feature, bool& hasManual)
+ReturnValue FakeDepthCameraDriver::hasManual(cameraFeature_id_t feature, bool& hasManual)
 {
     // not yet implemented
     return ReturnValue_ok;
 }
 
-ReturnValue FakeDepthCameraDriver::hasOnePush(int feature, bool& hasOnePush)
+ReturnValue FakeDepthCameraDriver::hasOnePush(cameraFeature_id_t feature, bool& hasOnePush)
 {
     // not yet implemented
     return ReturnValue_ok;
 }
 
-ReturnValue FakeDepthCameraDriver::setMode(int feature, yarp::dev::FeatureMode mode)
+ReturnValue FakeDepthCameraDriver::setMode(cameraFeature_id_t feature, yarp::dev::FeatureMode mode)
 {
     // not yet implemented
     return ReturnValue_ok;
 }
 
-ReturnValue FakeDepthCameraDriver::getMode(int feature, yarp::dev::FeatureMode& mode)
+ReturnValue FakeDepthCameraDriver::getMode(cameraFeature_id_t feature, yarp::dev::FeatureMode& mode)
 {
     mode = yarp::dev::FeatureMode::MODE_AUTO;
     return ReturnValue_ok;
 }
 
-ReturnValue FakeDepthCameraDriver::setOnePush(int feature)
+ReturnValue FakeDepthCameraDriver::setOnePush(cameraFeature_id_t feature)
 {
     // not yet implemented
     return ReturnValue_ok;

@@ -27,7 +27,7 @@ namespace yarp::dev::tests
         // Check getActive()
         {
             bool active = false;
-            CHECK(ictl->getActive(0, active));
+            CHECK(ictl->getActive(cameraFeature_id_t::YARP_FEATURE_BRIGHTNESS, active));
         }
 
         // Check getCameraDescription()
@@ -39,60 +39,60 @@ namespace yarp::dev::tests
         // Check getFeature()
         {
             double val = 0;
-            CHECK(ictl->getFeature(0, val));
+            CHECK(ictl->getFeature(cameraFeature_id_t::YARP_FEATURE_BRIGHTNESS, val));
         }
 
         // Check getMode()
         {
             yarp::dev::FeatureMode mode;
-            CHECK(ictl->getMode(0, mode));
+            CHECK(ictl->getMode(cameraFeature_id_t::YARP_FEATURE_BRIGHTNESS, mode));
         }
 
         // Check hasAuto()
         {
             bool bauto;
-            CHECK(ictl->hasAuto(0, bauto));
+            CHECK(ictl->hasAuto(cameraFeature_id_t::YARP_FEATURE_BRIGHTNESS, bauto));
         }
 
         // Check hasFeature()
         {
             bool bfeat;
-            CHECK(ictl->hasFeature(0, bfeat));
+            CHECK(ictl->hasFeature(cameraFeature_id_t::YARP_FEATURE_BRIGHTNESS, bfeat));
         }
 
         // Check hasManual()
         {
             bool bman;
-            CHECK(ictl->hasManual(0, bman));
+            CHECK(ictl->hasManual(cameraFeature_id_t::YARP_FEATURE_BRIGHTNESS, bman));
         }
 
         // Check hasOnePush()
         {
             bool bpush;
-            CHECK(ictl->hasOnePush(0, bpush));
+            CHECK(ictl->hasOnePush(cameraFeature_id_t::YARP_FEATURE_BRIGHTNESS, bpush));
         }
 
         // Check hasOnOff()
         {
             bool bon;
-            CHECK(ictl->hasOnOff(0, bon));
+            CHECK(ictl->hasOnOff(cameraFeature_id_t::YARP_FEATURE_BRIGHTNESS, bon));
         }
 
         // Check setFeature()
         {
-            CHECK(ictl->setFeature(0,0));
-            CHECK(ictl->setFeature(0,0,0));
+            CHECK(ictl->setFeature(cameraFeature_id_t::YARP_FEATURE_BRIGHTNESS, 0));
+            CHECK(ictl->setFeature(cameraFeature_id_t::YARP_FEATURE_BRIGHTNESS, 0, 0));
         }
 
         // Check setMode()
         {
             yarp::dev::FeatureMode mode = yarp::dev::FeatureMode::MODE_AUTO;
-            CHECK(ictl->setMode(0,mode));
+            CHECK(ictl->setMode(cameraFeature_id_t::YARP_FEATURE_BRIGHTNESS, mode));
         }
 
         // Check setOnePush()
         {
-            int feat = 0;
+            auto feat = cameraFeature_id_t::YARP_FEATURE_BRIGHTNESS;
             CHECK(ictl->setOnePush(feat));
         }
 

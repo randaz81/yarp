@@ -41,28 +41,28 @@ ReturnValue FakeFrameGrabber::getCameraDescription(CameraDescriptor& camera)
     return ReturnValue_ok;
 }
 
-ReturnValue FakeFrameGrabber::hasFeature(int feature, bool& hasFeature)
+ReturnValue FakeFrameGrabber::hasFeature(cameraFeature_id_t feature, bool& hasFeature)
 {
     std::lock_guard<std::mutex> lock(rpc_methods_mutex);
     hasFeature = m_controls.hasFeature;
     return ReturnValue_ok;
 }
 
-ReturnValue FakeFrameGrabber::setFeature(int feature, double value)
+ReturnValue FakeFrameGrabber::setFeature(cameraFeature_id_t feature, double value)
 {
     std::lock_guard<std::mutex> lock(rpc_methods_mutex);
     m_controls.feature = value;
     return ReturnValue_ok;
 }
 
-ReturnValue FakeFrameGrabber::getFeature(int feature, double& value)
+ReturnValue FakeFrameGrabber::getFeature(cameraFeature_id_t feature, double& value)
 {
     std::lock_guard<std::mutex> lock(rpc_methods_mutex);
     value = m_controls.feature;
     return ReturnValue_ok;
 }
 
-ReturnValue FakeFrameGrabber::setFeature(int feature, double  value1, double  value2)
+ReturnValue FakeFrameGrabber::setFeature(cameraFeature_id_t feature, double value1, double value2)
 {
     std::lock_guard<std::mutex> lock(rpc_methods_mutex);
     m_controls.feature1 = value1;
@@ -70,7 +70,7 @@ ReturnValue FakeFrameGrabber::setFeature(int feature, double  value1, double  va
     return ReturnValue_ok;
 }
 
-ReturnValue FakeFrameGrabber::getFeature(int feature, double& value1, double& value2)
+ReturnValue FakeFrameGrabber::getFeature(cameraFeature_id_t feature, double& value1, double& value2)
 {
     std::lock_guard<std::mutex> lock(rpc_methods_mutex);
     value1 = m_controls.feature2;
@@ -78,63 +78,63 @@ ReturnValue FakeFrameGrabber::getFeature(int feature, double& value1, double& va
     return ReturnValue_ok;
 }
 
-ReturnValue FakeFrameGrabber::hasOnOff(int feature, bool& HasOnOff)
+ReturnValue FakeFrameGrabber::hasOnOff(cameraFeature_id_t feature, bool& HasOnOff)
 {
     std::lock_guard<std::mutex> lock(rpc_methods_mutex);
     HasOnOff = m_controls.hasOnOff;
     return ReturnValue_ok;
 }
 
-ReturnValue FakeFrameGrabber::setActive(int feature, bool onoff)
+ReturnValue FakeFrameGrabber::setActive(cameraFeature_id_t feature, bool onoff)
 {
     std::lock_guard<std::mutex> lock(rpc_methods_mutex);
     m_controls.isActive = onoff;
     return ReturnValue_ok;
 }
 
-ReturnValue FakeFrameGrabber::getActive(int feature, bool& isActive)
+ReturnValue FakeFrameGrabber::getActive(cameraFeature_id_t feature, bool& isActive)
 {
     std::lock_guard<std::mutex> lock(rpc_methods_mutex);
     isActive = m_controls.isActive;
     return ReturnValue_ok;
 }
 
-ReturnValue FakeFrameGrabber::hasAuto(int feature, bool& hasAuto)
+ReturnValue FakeFrameGrabber::hasAuto(cameraFeature_id_t feature, bool& hasAuto)
 {
     std::lock_guard<std::mutex> lock(rpc_methods_mutex);
     hasAuto = m_controls.hasAuto;
     return ReturnValue_ok;
 }
 
-ReturnValue FakeFrameGrabber::hasManual(int feature, bool& hasManual)
+ReturnValue FakeFrameGrabber::hasManual(cameraFeature_id_t feature, bool& hasManual)
 {
     std::lock_guard<std::mutex> lock(rpc_methods_mutex);
     hasManual = m_controls.hasManual;
     return ReturnValue_ok;
 }
 
-ReturnValue FakeFrameGrabber::hasOnePush(int feature, bool& hasOnePush)
+ReturnValue FakeFrameGrabber::hasOnePush(cameraFeature_id_t feature, bool& hasOnePush)
 {
     std::lock_guard<std::mutex> lock(rpc_methods_mutex);
     hasOnePush = m_controls.hasOnePush;
     return ReturnValue_ok;
 }
 
-ReturnValue FakeFrameGrabber::setMode(int feature, FeatureMode mode)
+ReturnValue FakeFrameGrabber::setMode(cameraFeature_id_t feature, FeatureMode mode)
 {
     std::lock_guard<std::mutex> lock(rpc_methods_mutex);
     m_controls.mode = mode;
     return ReturnValue_ok;
 }
 
-ReturnValue FakeFrameGrabber::getMode(int feature, FeatureMode& mode)
+ReturnValue FakeFrameGrabber::getMode(cameraFeature_id_t feature, FeatureMode& mode)
 {
     std::lock_guard<std::mutex> lock(rpc_methods_mutex);
     mode = m_controls.mode;
     return ReturnValue_ok;
 }
 
-ReturnValue FakeFrameGrabber::setOnePush(int feature)
+ReturnValue FakeFrameGrabber::setOnePush(cameraFeature_id_t feature)
 {
     std::lock_guard<std::mutex> lock(rpc_methods_mutex);
     m_controls.hasOnePush = true;

@@ -163,7 +163,7 @@ yarp::dev::ReturnValue FrameGrabberCropper::getCameraDescription(CameraDescripto
     return iFrameGrabberControls->getCameraDescription(camera);
 }
 
-yarp::dev::ReturnValue FrameGrabberCropper::hasFeature(int feature, bool& hasFeature)
+yarp::dev::ReturnValue FrameGrabberCropper::hasFeature(cameraFeature_id_t feature, bool& hasFeature)
 {
     if (!iFrameGrabberControls) {
         return ReturnValue::return_code::return_value_error_not_ready;
@@ -171,14 +171,14 @@ yarp::dev::ReturnValue FrameGrabberCropper::hasFeature(int feature, bool& hasFea
     return iFrameGrabberControls->hasFeature(feature, hasFeature);
 }
 
-yarp::dev::ReturnValue FrameGrabberCropper::setFeature(int feature, double value)
+yarp::dev::ReturnValue FrameGrabberCropper::setFeature(cameraFeature_id_t feature, double value)
 {    if (!iFrameGrabberControls) {
         return ReturnValue::return_code::return_value_error_not_ready;
     }
     return iFrameGrabberControls->setFeature(feature, value);
 }
 
-yarp::dev::ReturnValue FrameGrabberCropper::getFeature(int feature, double& value)
+yarp::dev::ReturnValue FrameGrabberCropper::getFeature(cameraFeature_id_t feature, double& value)
 {
     if (!iFrameGrabberControls) {
         return ReturnValue::return_code::return_value_error_not_ready;
@@ -186,7 +186,7 @@ yarp::dev::ReturnValue FrameGrabberCropper::getFeature(int feature, double& valu
     return iFrameGrabberControls->getFeature(feature, value);
 }
 
-yarp::dev::ReturnValue FrameGrabberCropper::setFeature(int feature, double value1, double value2)
+yarp::dev::ReturnValue FrameGrabberCropper::setFeature(cameraFeature_id_t feature, double value1, double value2)
 {
     if (!iFrameGrabberControls) {
         return ReturnValue::return_code::return_value_error_not_ready;
@@ -194,7 +194,7 @@ yarp::dev::ReturnValue FrameGrabberCropper::setFeature(int feature, double value
     return iFrameGrabberControls->setFeature(feature, value1, value2);
 }
 
-yarp::dev::ReturnValue FrameGrabberCropper::getFeature(int feature, double& value1, double& value2)
+yarp::dev::ReturnValue FrameGrabberCropper::getFeature(cameraFeature_id_t feature, double& value1, double& value2)
 {
     if (!iFrameGrabberControls) {
         return ReturnValue::return_code::return_value_error_not_ready;
@@ -202,7 +202,7 @@ yarp::dev::ReturnValue FrameGrabberCropper::getFeature(int feature, double& valu
     return iFrameGrabberControls->getFeature(feature, value1, value2);
 }
 
-yarp::dev::ReturnValue FrameGrabberCropper::hasOnOff(int feature, bool& HasOnOff)
+yarp::dev::ReturnValue FrameGrabberCropper::hasOnOff(cameraFeature_id_t feature, bool& HasOnOff)
 {
     if (!iFrameGrabberControls) {
         return ReturnValue::return_code::return_value_error_not_ready;
@@ -210,7 +210,7 @@ yarp::dev::ReturnValue FrameGrabberCropper::hasOnOff(int feature, bool& HasOnOff
     return iFrameGrabberControls->hasOnOff(feature, HasOnOff);
 }
 
-yarp::dev::ReturnValue FrameGrabberCropper::setActive(int feature, bool onoff)
+yarp::dev::ReturnValue FrameGrabberCropper::setActive(cameraFeature_id_t feature, bool onoff)
 {
     if (!iFrameGrabberControls) {
         return ReturnValue::return_code::return_value_error_not_ready;
@@ -218,7 +218,7 @@ yarp::dev::ReturnValue FrameGrabberCropper::setActive(int feature, bool onoff)
     return iFrameGrabberControls->setActive(feature, onoff);
 }
 
-yarp::dev::ReturnValue FrameGrabberCropper::getActive(int feature, bool& isActive)
+yarp::dev::ReturnValue FrameGrabberCropper::getActive(cameraFeature_id_t feature, bool& isActive)
 {
     if (!iFrameGrabberControls) {
         return ReturnValue::return_code::return_value_error_not_ready;
@@ -226,7 +226,7 @@ yarp::dev::ReturnValue FrameGrabberCropper::getActive(int feature, bool& isActiv
     return iFrameGrabberControls->getActive(feature, isActive);
 }
 
-yarp::dev::ReturnValue FrameGrabberCropper::hasAuto(int feature, bool& hasAuto)
+yarp::dev::ReturnValue FrameGrabberCropper::hasAuto(cameraFeature_id_t feature, bool& hasAuto)
 {
     if (!iFrameGrabberControls) {
         return ReturnValue::return_code::return_value_error_not_ready;
@@ -234,7 +234,7 @@ yarp::dev::ReturnValue FrameGrabberCropper::hasAuto(int feature, bool& hasAuto)
     return iFrameGrabberControls->hasAuto(feature, hasAuto);
 }
 
-yarp::dev::ReturnValue FrameGrabberCropper::hasManual(int feature, bool& hasManual)
+yarp::dev::ReturnValue FrameGrabberCropper::hasManual(cameraFeature_id_t feature, bool& hasManual)
 {
     if (!iFrameGrabberControls) {
         return ReturnValue::return_code::return_value_error_not_ready;
@@ -242,7 +242,7 @@ yarp::dev::ReturnValue FrameGrabberCropper::hasManual(int feature, bool& hasManu
     return iFrameGrabberControls->hasManual(feature, hasManual);
 }
 
-yarp::dev::ReturnValue FrameGrabberCropper::hasOnePush(int feature, bool& hasOnePush)
+yarp::dev::ReturnValue FrameGrabberCropper::hasOnePush(cameraFeature_id_t feature, bool& hasOnePush)
 {
     if (!iFrameGrabberControls) {
         return ReturnValue::return_code::return_value_error_not_ready;
@@ -250,7 +250,7 @@ yarp::dev::ReturnValue FrameGrabberCropper::hasOnePush(int feature, bool& hasOne
     return iFrameGrabberControls->hasOnePush(feature, hasOnePush);
 }
 
-yarp::dev::ReturnValue FrameGrabberCropper::setMode(int feature, FeatureMode mode)
+yarp::dev::ReturnValue FrameGrabberCropper::setMode(cameraFeature_id_t feature, FeatureMode mode)
 {
     if (!iFrameGrabberControls) {
         return ReturnValue::return_code::return_value_error_not_ready;
@@ -258,7 +258,7 @@ yarp::dev::ReturnValue FrameGrabberCropper::setMode(int feature, FeatureMode mod
     return iFrameGrabberControls->setMode(feature, mode);
 }
 
-yarp::dev::ReturnValue FrameGrabberCropper::getMode(int feature, FeatureMode& mode)
+yarp::dev::ReturnValue FrameGrabberCropper::getMode(cameraFeature_id_t feature, FeatureMode& mode)
 {
     if (!iFrameGrabberControls) {
         return ReturnValue::return_code::return_value_error_not_ready;
@@ -266,7 +266,7 @@ yarp::dev::ReturnValue FrameGrabberCropper::getMode(int feature, FeatureMode& mo
     return iFrameGrabberControls->getMode(feature, mode);
 }
 
-yarp::dev::ReturnValue FrameGrabberCropper::setOnePush(int feature)
+yarp::dev::ReturnValue FrameGrabberCropper::setOnePush(cameraFeature_id_t feature)
 {
     if (!iFrameGrabberControls) {
         return ReturnValue::return_code::return_value_error_not_ready;
