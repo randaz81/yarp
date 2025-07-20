@@ -46,27 +46,28 @@ double V4L_camera::checkDouble(yarp::os::Searchable& config, const char* key)
 }
 
 #define NOT_PRESENT -1
-int V4L_camera::convertYARP_to_V4L(int feature)
+int V4L_camera::convertYARP_to_V4L(cameraFeature_id_t feature)
 {
     switch (feature) {
-    case YARP_FEATURE_BRIGHTNESS:
+    case cameraFeature_id_t::YARP_FEATURE_BRIGHTNESS:
         return V4L2_CID_BRIGHTNESS;
-    case YARP_FEATURE_SHUTTER: // this maps also on exposure
-    case YARP_FEATURE_EXPOSURE:
+    case cameraFeature_id_t::YARP_FEATURE_SHUTTER: // this maps also on exposure
+    case cameraFeature_id_t::YARP_FEATURE_EXPOSURE:
         return V4L2_CID_EXPOSURE;
-    case YARP_FEATURE_SHARPNESS:
+    case cameraFeature_id_t::YARP_FEATURE_SHARPNESS:
         return V4L2_CID_SHARPNESS;
-    case YARP_FEATURE_HUE:
+    case cameraFeature_id_t::YARP_FEATURE_HUE:
         return V4L2_CID_HUE;
-    case YARP_FEATURE_SATURATION:
+    case cameraFeature_id_t::YARP_FEATURE_SATURATION:
         return V4L2_CID_SATURATION;
-    case YARP_FEATURE_GAMMA:
+    case cameraFeature_id_t::YARP_FEATURE_GAMMA:
         return V4L2_CID_GAMMA;
-    case YARP_FEATURE_GAIN:
+    case cameraFeature_id_t::YARP_FEATURE_GAIN:
         return V4L2_CID_GAIN;
-    case YARP_FEATURE_IRIS:
+    case cameraFeature_id_t::YARP_FEATURE_IRIS:
         return V4L2_CID_IRIS_ABSOLUTE;
-
+    default:
+        return NOT_PRESENT;
         //         case YARP_FEATURE_WHITE_BALANCE:  -> this has to e mapped on the couple V4L2_CID_BLUE_BALANCE && V4L2_CID_RED_BALANCE
 
         //////////////////////////
@@ -280,19 +281,19 @@ bool V4L_camera::open(yarp::os::Searchable& config)
     populateConfigurations();
 
     // Configure the device settings from input file
-    setFeature(YARP_FEATURE_GAIN, checkDouble(config, "gain"));
-    setFeature(YARP_FEATURE_EXPOSURE, checkDouble(config, "exposure"));
-    setFeature(YARP_FEATURE_BRIGHTNESS, checkDouble(config, "brightness"));
-    setFeature(YARP_FEATURE_SHARPNESS, checkDouble(config, "sharpness"));
+    setFeature(cameraFeature_id_t::YARP_FEATURE_GAIN, checkDouble(config, "gain"));
+    setFeature(cameraFeature_id_t::YARP_FEATURE_EXPOSURE, checkDouble(config, "exposure"));
+    setFeature(cameraFeature_id_t::YARP_FEATURE_BRIGHTNESS, checkDouble(config, "brightness"));
+    setFeature(cameraFeature_id_t::YARP_FEATURE_SHARPNESS, checkDouble(config, "sharpness"));
     yarp::os::Bottle& white_balance = config.findGroup("white_balance");
     if (!white_balance.isNull()) {
-        setFeature(YARP_FEATURE_WHITE_BALANCE, white_balance.get(2).asFloat64(), white_balance.get(1).asFloat64());
+        setFeature(cameraFeature_id_t::YARP_FEATURE_WHITE_BALANCE, white_balance.get(2).asFloat64(), white_balance.get(1).asFloat64());
     }
-    setFeature(YARP_FEATURE_HUE, checkDouble(config, "hue"));
-    setFeature(YARP_FEATURE_SATURATION, checkDouble(config, "saturation"));
-    setFeature(YARP_FEATURE_GAMMA, checkDouble(config, "gamma"));
-    setFeature(YARP_FEATURE_SHUTTER, checkDouble(config, "shutter"));
-    setFeature(YARP_FEATURE_IRIS, checkDouble(config, "iris"));
+    setFeature(cameraFeature_id_t::YARP_FEATURE_HUE, checkDouble(config, "hue"));
+    setFeature(cameraFeature_id_t::YARP_FEATURE_SATURATION, checkDouble(config, "saturation"));
+    setFeature(cameraFeature_id_t::YARP_FEATURE_GAMMA, checkDouble(config, "gamma"));
+    setFeature(cameraFeature_id_t::YARP_FEATURE_SHUTTER, checkDouble(config, "shutter"));
+    setFeature(cameraFeature_id_t::YARP_FEATURE_IRIS, checkDouble(config, "iris"));
 
     return true;
 }
@@ -1618,25 +1619,25 @@ double V4L_camera::get_V4L2_control(uint32_t id, bool verbatim)
 
 yarp::dev::ReturnValue V4L_camera::getCameraDescription(CameraDescriptor& camera)
 {
-    camera.busType = BUS_USB;
+    camera.busType = BusType::BUS_USB;
     camera.deviceDescription = "USB3 camera";
     return ReturnValue_ok;
 }
 
-yarp::dev::ReturnValue V4L_camera::hasFeature(int feature, bool& _hasFeature)
+yarp::dev::ReturnValue V4L_camera::hasFeature(cameraFeature_id_t feature, bool& _hasFeature)
 {
     bool tmpMan(false);
     bool tmpAuto(false);
     bool tmpOnce(false);
 
     switch (feature) {
-    case YARP_FEATURE_WHITE_BALANCE:
+    case cameraFeature_id_t::YARP_FEATURE_WHITE_BALANCE:
         tmpMan = check_V4L2_control(V4L2_CID_RED_BALANCE) && check_V4L2_control(V4L2_CID_BLUE_BALANCE);
         tmpOnce = check_V4L2_control(V4L2_CID_DO_WHITE_BALANCE);
         tmpAuto = check_V4L2_control(V4L2_CID_AUTO_WHITE_BALANCE);
         break;
 
-    case YARP_FEATURE_EXPOSURE:
+    case cameraFeature_id_t::YARP_FEATURE_EXPOSURE:
         tmpMan = check_V4L2_control(V4L2_CID_EXPOSURE) || check_V4L2_control(V4L2_CID_EXPOSURE_ABSOLUTE);
         tmpAuto = check_V4L2_control(V4L2_CID_EXPOSURE_AUTO);
         break;
@@ -1650,11 +1651,11 @@ yarp::dev::ReturnValue V4L_camera::hasFeature(int feature, bool& _hasFeature)
     return ReturnValue_ok;
 }
 
-yarp::dev::ReturnValue V4L_camera::setFeature(int feature, double value)
+yarp::dev::ReturnValue V4L_camera::setFeature(cameraFeature_id_t feature, double value)
 {
     bool ret = false;
     switch (feature) {
-    case YARP_FEATURE_EXPOSURE:
+    case cameraFeature_id_t::YARP_FEATURE_EXPOSURE:
         if (use_exposure_absolute) {
             ret = set_V4L2_control(V4L2_CID_EXPOSURE_ABSOLUTE, value);
         } else {
@@ -1670,11 +1671,11 @@ yarp::dev::ReturnValue V4L_camera::setFeature(int feature, double value)
     return ReturnValue::return_code::return_value_error_method_failed;
 }
 
-yarp::dev::ReturnValue V4L_camera::getFeature(int feature, double& value)
+yarp::dev::ReturnValue V4L_camera::getFeature(cameraFeature_id_t feature, double& value)
 {
     double tmp = 0.0;
     switch (feature) {
-    case YARP_FEATURE_EXPOSURE:
+    case cameraFeature_id_t::YARP_FEATURE_EXPOSURE:
         if (use_exposure_absolute) {
             tmp = get_V4L2_control(V4L2_CID_EXPOSURE_ABSOLUTE);
         } else {
@@ -1695,9 +1696,9 @@ yarp::dev::ReturnValue V4L_camera::getFeature(int feature, double& value)
     return ReturnValue_ok;
 }
 
-yarp::dev::ReturnValue V4L_camera::setFeature(int feature, double value1, double value2)
+yarp::dev::ReturnValue V4L_camera::setFeature(cameraFeature_id_t feature, double value1, double value2)
 {
-    if (feature == YARP_FEATURE_WHITE_BALANCE) {
+    if (feature == cameraFeature_id_t::YARP_FEATURE_WHITE_BALANCE) {
         bool ret = true;
         ret &= set_V4L2_control(V4L2_CID_AUTO_WHITE_BALANCE, false);
         ret &= set_V4L2_control(V4L2_CID_AUTO_N_PRESET_WHITE_BALANCE, V4L2_WHITE_BALANCE_MANUAL);
@@ -1709,9 +1710,9 @@ yarp::dev::ReturnValue V4L_camera::setFeature(int feature, double value1, double
     return ReturnValue::return_code::return_value_error_method_failed;
 }
 
-yarp::dev::ReturnValue V4L_camera::getFeature(int feature, double& value1, double& value2)
+yarp::dev::ReturnValue V4L_camera::getFeature(cameraFeature_id_t feature, double& value1, double& value2)
 {
-    if (feature == YARP_FEATURE_WHITE_BALANCE) {
+    if (feature == cameraFeature_id_t::YARP_FEATURE_WHITE_BALANCE) {
         value1 = get_V4L2_control(V4L2_CID_RED_BALANCE);
         value2 = get_V4L2_control(V4L2_CID_BLUE_BALANCE);
         bool b = !((value1 == -1) || (value2 == -1));
@@ -1721,14 +1722,14 @@ yarp::dev::ReturnValue V4L_camera::getFeature(int feature, double& value1, doubl
     return ReturnValue::return_code::return_value_error_method_failed;
 }
 
-yarp::dev::ReturnValue V4L_camera::hasOnOff(int feature, bool& _hasOnOff)
+yarp::dev::ReturnValue V4L_camera::hasOnOff(cameraFeature_id_t feature, bool& _hasOnOff)
 {
     bool _hasAuto;
     // I can't find any meaning of setting a feature to off on V4l ... what it is supposed to do????
     switch (feature) {
     // The following do have a way to set them auto/manual
-    case YARP_FEATURE_WHITE_BALANCE:
-    case YARP_FEATURE_EXPOSURE:
+    case cameraFeature_id_t::YARP_FEATURE_WHITE_BALANCE:
+    case cameraFeature_id_t::YARP_FEATURE_EXPOSURE:
         if (hasAuto(feature, _hasAuto)) {
             _hasOnOff = true;
         } else {
@@ -1749,19 +1750,19 @@ yarp::dev::ReturnValue V4L_camera::hasOnOff(int feature, bool& _hasOnOff)
     return ReturnValue_ok;
 }
 
-yarp::dev::ReturnValue V4L_camera::setActive(int feature, bool onoff)
+yarp::dev::ReturnValue V4L_camera::setActive(cameraFeature_id_t feature, bool onoff)
 {
     // I can't find any meaning of setting a feature to off on V4l ... what it is supposed to do????
     bool tmp;
     switch (feature) {
-    case YARP_FEATURE_WHITE_BALANCE:
+    case cameraFeature_id_t::YARP_FEATURE_WHITE_BALANCE:
         tmp = set_V4L2_control(V4L2_CID_AUTO_WHITE_BALANCE, onoff);
         if (tmp) {
-            isActive_vector[feature] = onoff;
+            isActive_vector[(int)feature] = onoff;
         }
         break;
 
-    case YARP_FEATURE_EXPOSURE:
+    case cameraFeature_id_t::YARP_FEATURE_EXPOSURE:
         if (onoff) {
             set_V4L2_control(V4L2_LOCK_EXPOSURE, false);
 
@@ -1773,7 +1774,7 @@ yarp::dev::ReturnValue V4L_camera::setActive(int feature, bool onoff)
             }
 
             if (tmp) {
-                isActive_vector[feature] = onoff;
+                isActive_vector[(int)feature] = onoff;
             }
         } else {
             bool man = set_V4L2_control(V4L2_CID_EXPOSURE_AUTO, V4L2_EXPOSURE_MANUAL);
@@ -1784,25 +1785,25 @@ yarp::dev::ReturnValue V4L_camera::setActive(int feature, bool onoff)
                 }
             }
             set_V4L2_control(V4L2_LOCK_EXPOSURE, true);
-            isActive_vector[feature] = onoff;
+            isActive_vector[(int)feature] = onoff;
         }
         break;
 
     default: // what to do in each case?
         if (onoff) {
-            isActive_vector[feature] = true;
+            isActive_vector[(int)feature] = true;
             return ReturnValue_ok;
         }
-        isActive_vector[feature] = false;
+        isActive_vector[(int)feature] = false;
         return ReturnValue::return_code::return_value_error_method_failed;
     }
     return ReturnValue_ok;
 }
 
-yarp::dev::ReturnValue V4L_camera::getActive(int feature, bool& _isActive)
+yarp::dev::ReturnValue V4L_camera::getActive(cameraFeature_id_t feature, bool& _isActive)
 {
     switch (feature) {
-    case YARP_FEATURE_WHITE_BALANCE:
+    case cameraFeature_id_t::YARP_FEATURE_WHITE_BALANCE:
     {
         double tmp = get_V4L2_control(V4L2_CID_AUTO_WHITE_BALANCE);
         if (tmp == 1) {
@@ -1813,11 +1814,10 @@ yarp::dev::ReturnValue V4L_camera::getActive(int feature, bool& _isActive)
         break;
     }
 
-    case YARP_FEATURE_EXPOSURE:
+    case cameraFeature_id_t::YARP_FEATURE_EXPOSURE:
     {
-        bool _hasMan(false);
-        bool _hasMan2(false);
-        hasFeature(V4L2_CID_EXPOSURE, _hasMan) || hasFeature(V4L2_CID_EXPOSURE_ABSOLUTE, _hasMan2); // check manual version (normal and asbolute)
+        bool _hasMan = check_V4L2_control(V4L2_CID_EXPOSURE); // check manual version (normal and asbolute)
+        bool _hasMan2 = check_V4L2_control(V4L2_CID_EXPOSURE_ABSOLUTE);
         double _hasAuto = get_V4L2_control(V4L2_CID_EXPOSURE_AUTO, true); // check auto version
 
         _isActive = (_hasAuto == V4L2_EXPOSURE_AUTO) || _hasMan || _hasMan2;
@@ -1832,26 +1832,26 @@ yarp::dev::ReturnValue V4L_camera::getActive(int feature, bool& _isActive)
     return ReturnValue_ok;
 }
 
-yarp::dev::ReturnValue V4L_camera::hasAuto(int feature, bool& _hasAuto)
+yarp::dev::ReturnValue V4L_camera::hasAuto(cameraFeature_id_t feature, bool& _hasAuto)
 {
     switch (feature) {
-    case YARP_FEATURE_WHITE_BALANCE:
+    case cameraFeature_id_t::YARP_FEATURE_WHITE_BALANCE:
         _hasAuto = check_V4L2_control(V4L2_CID_AUTO_WHITE_BALANCE);
         break;
 
-    case YARP_FEATURE_BRIGHTNESS:
+    case cameraFeature_id_t::YARP_FEATURE_BRIGHTNESS:
         _hasAuto = check_V4L2_control(V4L2_CID_AUTOBRIGHTNESS);
         break;
 
-    case YARP_FEATURE_GAIN:
+    case cameraFeature_id_t::YARP_FEATURE_GAIN:
         _hasAuto = check_V4L2_control(V4L2_CID_AUTOGAIN);
         break;
 
-    case YARP_FEATURE_EXPOSURE:
+    case cameraFeature_id_t::YARP_FEATURE_EXPOSURE:
         _hasAuto = check_V4L2_control(V4L2_CID_EXPOSURE_AUTO);
         break;
 
-    case YARP_FEATURE_HUE:
+    case cameraFeature_id_t::YARP_FEATURE_HUE:
         _hasAuto = check_V4L2_control(V4L2_CID_HUE_AUTO);
         break;
 
@@ -1862,26 +1862,26 @@ yarp::dev::ReturnValue V4L_camera::hasAuto(int feature, bool& _hasAuto)
     return ReturnValue_ok;
 }
 
-yarp::dev::ReturnValue V4L_camera::hasManual(int feature, bool& _hasManual)
+yarp::dev::ReturnValue V4L_camera::hasManual(cameraFeature_id_t feature, bool& _hasManual)
 {
-    if (feature == YARP_FEATURE_WHITE_BALANCE) {
+    if (feature == cameraFeature_id_t::YARP_FEATURE_WHITE_BALANCE) {
         _hasManual = check_V4L2_control(V4L2_CID_RED_BALANCE) && check_V4L2_control(V4L2_CID_BLUE_BALANCE);
         return ReturnValue_ok;
     }
 
-    if (feature == YARP_FEATURE_EXPOSURE) {
+    if (feature == cameraFeature_id_t::YARP_FEATURE_EXPOSURE) {
         _hasManual = check_V4L2_control(V4L2_CID_EXPOSURE) || check_V4L2_control(V4L2_CID_EXPOSURE_ABSOLUTE);
         return ReturnValue_ok;
     }
     return hasFeature(feature, _hasManual);
 }
 
-yarp::dev::ReturnValue V4L_camera::hasOnePush(int feature, bool& _hasOnePush)
+yarp::dev::ReturnValue V4L_camera::hasOnePush(cameraFeature_id_t feature, bool& _hasOnePush)
 {
     // I'm not able to map a 'onePush' request on V4L api
     switch (feature) {
-    case YARP_FEATURE_WHITE_BALANCE:
-        _hasOnePush = check_V4L2_control(V4L2_CID_DO_WHITE_BALANCE);
+    case cameraFeature_id_t::YARP_FEATURE_WHITE_BALANCE:
+        _hasOnePush = check_V4L2_control((int)V4L2_CID_DO_WHITE_BALANCE);
         return ReturnValue_ok;
 
     default:
@@ -1891,35 +1891,35 @@ yarp::dev::ReturnValue V4L_camera::hasOnePush(int feature, bool& _hasOnePush)
     return ReturnValue_ok;
 }
 
-yarp::dev::ReturnValue V4L_camera::setMode(int feature, FeatureMode mode)
+yarp::dev::ReturnValue V4L_camera::setMode(cameraFeature_id_t feature, FeatureMode mode)
 {
     bool ret = false;
     switch (feature) {
-    case YARP_FEATURE_WHITE_BALANCE:
-        if (mode == MODE_AUTO) {
+    case cameraFeature_id_t::YARP_FEATURE_WHITE_BALANCE:
+        if (mode == FeatureMode::MODE_AUTO) {
             ret = set_V4L2_control(V4L2_CID_AUTO_WHITE_BALANCE, true);
         } else {
             ret = set_V4L2_control(V4L2_CID_AUTO_WHITE_BALANCE, false);
         }
         break;
 
-    case YARP_FEATURE_EXPOSURE:
+    case cameraFeature_id_t::YARP_FEATURE_EXPOSURE:
         bool _tmpAuto;
-        hasAuto(V4L2_CID_EXPOSURE_AUTO, _tmpAuto);
+        hasAuto(cameraFeature_id_t::YARP_FEATURE_EXPOSURE, _tmpAuto);
 
         if (_tmpAuto) {
-            if (mode == MODE_AUTO) {
+            if (mode == FeatureMode::MODE_AUTO) {
                 ret = set_V4L2_control(V4L2_CID_EXPOSURE_AUTO, true);
             } else {
                 ret = set_V4L2_control(V4L2_CID_EXPOSURE_AUTO, false);
             }
         } else {
-            ret = mode != MODE_AUTO;
+            ret = mode != FeatureMode::MODE_AUTO;
         }
         break;
 
-    case YARP_FEATURE_GAIN:
-        if (mode == MODE_AUTO) {
+    case cameraFeature_id_t::YARP_FEATURE_GAIN:
+        if (mode == FeatureMode::MODE_AUTO) {
             yCInfo(USBCAMERA) << "GAIN: set mode auto";
             ret = set_V4L2_control(V4L2_CID_AUTOGAIN, true);
         } else {
@@ -1928,25 +1928,25 @@ yarp::dev::ReturnValue V4L_camera::setMode(int feature, FeatureMode mode)
         }
         break;
 
-    case YARP_FEATURE_BRIGHTNESS:
+    case cameraFeature_id_t::YARP_FEATURE_BRIGHTNESS:
     {
         bool _tmpAuto;
-        hasAuto(YARP_FEATURE_BRIGHTNESS, _tmpAuto);
+        hasAuto(cameraFeature_id_t::YARP_FEATURE_BRIGHTNESS, _tmpAuto);
 
         if (_tmpAuto) {
-            if (mode == MODE_AUTO) {
+            if (mode == FeatureMode::MODE_AUTO) {
                 ret = set_V4L2_control(V4L2_CID_AUTOBRIGHTNESS, true);
             } else {
                 ret = set_V4L2_control(V4L2_CID_AUTOBRIGHTNESS, false);
             }
         } else {
-            ret = mode != MODE_AUTO;
+            ret = mode != FeatureMode::MODE_AUTO;
         }
         break;
     }
 
-    case YARP_FEATURE_HUE:
-        if (mode == MODE_AUTO) {
+    case cameraFeature_id_t::YARP_FEATURE_HUE:
+        if (mode == FeatureMode::MODE_AUTO) {
             ret = set_V4L2_control(V4L2_CID_HUE_AUTO, true);
         } else {
             ret = set_V4L2_control(V4L2_CID_HUE_AUTO, false);
@@ -1954,7 +1954,7 @@ yarp::dev::ReturnValue V4L_camera::setMode(int feature, FeatureMode mode)
         break;
 
     default:
-        yCError(USBCAMERA) << "Feature " << feature << " does not support auto mode";
+        yCError(USBCAMERA) << "Feature " << (int)feature << " does not support auto mode";
         break;
     }
 
@@ -1962,60 +1962,60 @@ yarp::dev::ReturnValue V4L_camera::setMode(int feature, FeatureMode mode)
     return ReturnValue::return_code::return_value_error_method_failed;
 }
 
-yarp::dev::ReturnValue V4L_camera::getMode(int feature, FeatureMode& mode)
+yarp::dev::ReturnValue V4L_camera::getMode(cameraFeature_id_t feature, FeatureMode& mode)
 {
     bool _tmpAuto;
     switch (feature) {
-    case YARP_FEATURE_WHITE_BALANCE:
+    case cameraFeature_id_t::YARP_FEATURE_WHITE_BALANCE:
     {
         double ret = get_V4L2_control(V4L2_CID_AUTO_WHITE_BALANCE);
         mode = toFeatureMode(ret != 0.0);
         break;
     }
 
-    case YARP_FEATURE_EXPOSURE:
+    case cameraFeature_id_t::YARP_FEATURE_EXPOSURE:
     {
         double ret = get_V4L2_control(V4L2_CID_EXPOSURE_AUTO);
         if (ret == -1.0) {
-            mode = MODE_MANUAL;
+            mode = FeatureMode::MODE_MANUAL;
             break;
         }
 
         if (ret == V4L2_EXPOSURE_MANUAL) {
-            mode = MODE_MANUAL;
+            mode = FeatureMode::MODE_MANUAL;
         } else {
-            mode = MODE_AUTO;
+            mode = FeatureMode::MODE_AUTO;
         }
         break;
     }
 
-    case YARP_FEATURE_BRIGHTNESS:
-        hasAuto(YARP_FEATURE_BRIGHTNESS, _tmpAuto);
+    case cameraFeature_id_t::YARP_FEATURE_BRIGHTNESS:
+        hasAuto(cameraFeature_id_t::YARP_FEATURE_BRIGHTNESS, _tmpAuto);
         mode = toFeatureMode(_tmpAuto);
         if (!_tmpAuto) {
-            mode = MODE_MANUAL;
+            mode = FeatureMode::MODE_MANUAL;
         } else {
             double ret = get_V4L2_control(V4L2_CID_AUTOBRIGHTNESS);
             mode = toFeatureMode(ret != 0.0);
         }
         break;
 
-    case YARP_FEATURE_GAIN:
-        hasAuto(YARP_FEATURE_GAIN, _tmpAuto);
+    case cameraFeature_id_t::YARP_FEATURE_GAIN:
+        hasAuto(cameraFeature_id_t::YARP_FEATURE_GAIN, _tmpAuto);
         mode = toFeatureMode(_tmpAuto);
         if (!_tmpAuto) {
-            mode = MODE_MANUAL;
+            mode = FeatureMode::MODE_MANUAL;
         } else {
             double ret = get_V4L2_control(V4L2_CID_AUTOGAIN);
             mode = toFeatureMode(ret != 0.0);
         }
         break;
 
-    case YARP_FEATURE_HUE:
-        hasAuto(YARP_FEATURE_HUE, _tmpAuto);
+    case cameraFeature_id_t::YARP_FEATURE_HUE:
+        hasAuto(cameraFeature_id_t::YARP_FEATURE_HUE, _tmpAuto);
         mode = toFeatureMode(_tmpAuto);
         if (!_tmpAuto) {
-            mode = MODE_MANUAL;
+            mode = FeatureMode::MODE_MANUAL;
         } else {
             double ret = get_V4L2_control(V4L2_CID_HUE_AUTO);
             mode = toFeatureMode(ret != 0.0);
@@ -2023,16 +2023,16 @@ yarp::dev::ReturnValue V4L_camera::getMode(int feature, FeatureMode& mode)
         break;
 
     default:
-        mode = MODE_MANUAL;
+        mode = FeatureMode::MODE_MANUAL;
         break;
     }
     return ReturnValue_ok;
 }
 
-yarp::dev::ReturnValue V4L_camera::setOnePush(int feature)
+yarp::dev::ReturnValue V4L_camera::setOnePush(cameraFeature_id_t feature)
 {
     // I'm not able to map a 'onePush' request on each V4L api
-    if (feature == YARP_FEATURE_WHITE_BALANCE) {
+    if (feature == cameraFeature_id_t::YARP_FEATURE_WHITE_BALANCE) {
         if (set_V4L2_control(V4L2_CID_DO_WHITE_BALANCE, true))
         {
              return ReturnValue_ok;

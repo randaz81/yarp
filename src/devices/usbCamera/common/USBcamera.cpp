@@ -288,7 +288,7 @@ yarp::dev::ReturnValue USBCameraDriver::getCameraDescription(yarp::dev::CameraDe
     return ReturnValue::return_code::return_value_error_not_ready;
 }
 
-yarp::dev::ReturnValue USBCameraDriver::hasFeature(int feature, bool& _hasFeature)
+yarp::dev::ReturnValue USBCameraDriver::hasFeature(cameraFeature_id_t feature, bool& _hasFeature)
 {
     if (deviceControls != nullptr) {
         return deviceControls->hasFeature(feature, _hasFeature);
@@ -296,7 +296,7 @@ yarp::dev::ReturnValue USBCameraDriver::hasFeature(int feature, bool& _hasFeatur
     return ReturnValue::return_code::return_value_error_not_ready;
 }
 
-yarp::dev::ReturnValue USBCameraDriver::setFeature(int feature, double value)
+yarp::dev::ReturnValue USBCameraDriver::setFeature(cameraFeature_id_t feature, double value)
 {
     if (deviceControls != nullptr) {
         return deviceControls->setFeature(feature, value);
@@ -304,7 +304,7 @@ yarp::dev::ReturnValue USBCameraDriver::setFeature(int feature, double value)
     return ReturnValue::return_code::return_value_error_not_ready;
 }
 
-yarp::dev::ReturnValue USBCameraDriver::getFeature(int feature, double& value)
+yarp::dev::ReturnValue USBCameraDriver::getFeature(cameraFeature_id_t feature, double& value)
 {
     if (deviceControls != nullptr) {
         return deviceControls->getFeature(feature, value);
@@ -312,7 +312,7 @@ yarp::dev::ReturnValue USBCameraDriver::getFeature(int feature, double& value)
     return ReturnValue::return_code::return_value_error_not_ready;
 }
 
-yarp::dev::ReturnValue USBCameraDriver::getFeature(int feature, double& value1, double& value2)
+yarp::dev::ReturnValue USBCameraDriver::getFeature(cameraFeature_id_t feature, double& value1, double& value2)
 {
     if (deviceControls != nullptr) {
         return deviceControls->getFeature(feature, value1, value2);
@@ -320,7 +320,7 @@ yarp::dev::ReturnValue USBCameraDriver::getFeature(int feature, double& value1, 
     return ReturnValue::return_code::return_value_error_not_ready;
 }
 
-yarp::dev::ReturnValue USBCameraDriver::setFeature(int feature, double value1, double value2)
+yarp::dev::ReturnValue USBCameraDriver::setFeature(cameraFeature_id_t feature, double value1, double value2)
 {
     if (deviceControls != nullptr) {
         return deviceControls->setFeature(feature, value1, value2);
@@ -328,7 +328,7 @@ yarp::dev::ReturnValue USBCameraDriver::setFeature(int feature, double value1, d
     return ReturnValue::return_code::return_value_error_not_ready;
 }
 
-yarp::dev::ReturnValue USBCameraDriver::hasOnOff(int feature, bool& _hasOnOff)
+yarp::dev::ReturnValue USBCameraDriver::hasOnOff(cameraFeature_id_t feature, bool& _hasOnOff)
 {
     if (deviceControls != nullptr) {
         return deviceControls->hasOnOff(feature, _hasOnOff);
@@ -336,7 +336,7 @@ yarp::dev::ReturnValue USBCameraDriver::hasOnOff(int feature, bool& _hasOnOff)
     return ReturnValue::return_code::return_value_error_not_ready;
 }
 
-yarp::dev::ReturnValue USBCameraDriver::setActive(int feature, bool onoff)
+yarp::dev::ReturnValue USBCameraDriver::setActive(cameraFeature_id_t feature, bool onoff)
 {
     if (deviceControls != nullptr) {
         return deviceControls->setActive(feature, onoff);
@@ -344,7 +344,7 @@ yarp::dev::ReturnValue USBCameraDriver::setActive(int feature, bool onoff)
     return ReturnValue::return_code::return_value_error_not_ready;
 }
 
-yarp::dev::ReturnValue USBCameraDriver::getActive(int feature, bool& isActive)
+yarp::dev::ReturnValue USBCameraDriver::getActive(cameraFeature_id_t feature, bool& isActive)
 {
     if (deviceControls != nullptr) {
         return deviceControls->getActive(feature, isActive);
@@ -352,7 +352,7 @@ yarp::dev::ReturnValue USBCameraDriver::getActive(int feature, bool& isActive)
     return ReturnValue::return_code::return_value_error_not_ready;
 }
 
-yarp::dev::ReturnValue USBCameraDriver::hasAuto(int feature, bool& _hasAuto)
+yarp::dev::ReturnValue USBCameraDriver::hasAuto(cameraFeature_id_t feature, bool& _hasAuto)
 {
     if (deviceControls != nullptr) {
         return deviceControls->hasAuto(feature, _hasAuto);
@@ -360,7 +360,7 @@ yarp::dev::ReturnValue USBCameraDriver::hasAuto(int feature, bool& _hasAuto)
     return ReturnValue::return_code::return_value_error_not_ready;
 }
 
-yarp::dev::ReturnValue USBCameraDriver::hasManual(int feature, bool& _hasManual)
+yarp::dev::ReturnValue USBCameraDriver::hasManual(cameraFeature_id_t feature, bool& _hasManual)
 {
     if (deviceControls != nullptr) {
         return deviceControls->hasManual(feature, _hasManual);
@@ -368,7 +368,7 @@ yarp::dev::ReturnValue USBCameraDriver::hasManual(int feature, bool& _hasManual)
     return ReturnValue::return_code::return_value_error_not_ready;
 }
 
-yarp::dev::ReturnValue USBCameraDriver::hasOnePush(int feature, bool& _hasOnePush)
+yarp::dev::ReturnValue USBCameraDriver::hasOnePush(cameraFeature_id_t feature, bool& _hasOnePush)
 {
     if (deviceControls != nullptr) {
         return deviceControls->hasOnePush(feature, _hasOnePush);
@@ -376,7 +376,7 @@ yarp::dev::ReturnValue USBCameraDriver::hasOnePush(int feature, bool& _hasOnePus
     return ReturnValue::return_code::return_value_error_not_ready;
 }
 
-yarp::dev::ReturnValue USBCameraDriver::setMode(int feature, FeatureMode mode)
+yarp::dev::ReturnValue USBCameraDriver::setMode(cameraFeature_id_t feature, FeatureMode mode)
 {
     if (deviceControls != nullptr) {
         return deviceControls->setMode(feature, mode);
@@ -384,7 +384,7 @@ yarp::dev::ReturnValue USBCameraDriver::setMode(int feature, FeatureMode mode)
     return ReturnValue::return_code::return_value_error_not_ready;
 }
 
-yarp::dev::ReturnValue USBCameraDriver::getMode(int feature, FeatureMode& mode)
+yarp::dev::ReturnValue USBCameraDriver::getMode(cameraFeature_id_t feature, FeatureMode& mode)
 {
     if (deviceControls != nullptr) {
         return deviceControls->getMode(feature, mode);
@@ -392,7 +392,7 @@ yarp::dev::ReturnValue USBCameraDriver::getMode(int feature, FeatureMode& mode)
    return ReturnValue::return_code::return_value_error_not_ready;
 }
 
-yarp::dev::ReturnValue USBCameraDriver::setOnePush(int feature)
+yarp::dev::ReturnValue USBCameraDriver::setOnePush(cameraFeature_id_t feature)
 {
     if (deviceControls != nullptr) {
         return deviceControls->setOnePush(feature);
