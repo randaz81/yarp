@@ -15,10 +15,8 @@
 #include <yarp/os/Property.h>
 #include <yarp/os/SystemInfoSerializer.h>
 
-
-class YarpRunInfoVector;
 class ZombieHunterThread;
-
+class YarpRunInfoVector;
 
 /*
  * Typical YARP applications consist of several intercommunicating modules distributed on different machines.
@@ -73,25 +71,24 @@ class ZombieHunterThread;
 namespace yarp::run {
 
 /**
+ * The main function of yarprun. It can be used to start a yarprun server or client.
+ */
+int YARP_run_API main(int argc, char *argv[]);
+
+/**
  * \class yarp::os::Run
  * \brief yarprun provides the APIs to a client-server environment that is able to run,
  * kill and monitor applications commands on a remote machine in Windows and Linux.
  */
-class YARP_run_API Run
+class YARP_run_API RunClient
 {
 public:
-    // API
-    struct processInfo
-    {
-         int pid=0;
-         std::string tag;
-         std::string status;
-         std::string command;
-         std::string env;
-    };
+    //Default constructor/destructor
+    RunClient();
+    ~RunClient();
 
     /**
-     * Launch a yarprun server.
+     * Executes a command on a yarprun server.
      * @param node is the yarprun server port name. It must be unique in the network.
      * @param command is the command to be executed by the remote server. It can include
      * an argument list and different options, in the standard yarp Property key/value mode:
@@ -103,7 +100,7 @@ public:
      * @param keyv is the tag that will identify the running application. It must be unique in the network.
      * @return true=success false=failed.
      */
-    static bool start(const std::string &node, yarp::os::Property &command, std::string &keyv);
+    bool start(const std::string &node, yarp::os::Property &command, const std::string &keyv);
 
     /**
      * Terminate an application running on a yarprun server.
@@ -111,14 +108,14 @@ public:
      * @param keyv is the tag that identifies the running application. It must be unique in the network.
      * @return true=success false=failed.
      */
-    static bool sigterm(const std::string &node, const std::string &keyv);
+    bool sigterm(const std::string &node, const std::string &keyv);
 
     /**
      * Terminate all applications running on a yarprun server.
      * @param node is the yarprun server port name. It must be unique in the network.
      * @return true=success false=failed.
      */
-    static bool sigtermall(const std::string &node);
+    bool sigtermall(const std::string &node);
 
     /**
      * Send a SIGNAL to an application running on a yarprun server (Linux only).
@@ -127,7 +124,7 @@ public:
      * @param s is the SIGNAL number.
      * @return true=success false=failed.
      */
-    static bool kill(const std::string &node, const std::string &keyv, int s);
+    bool kill(const std::string &node, const std::string &keyv, int s);
 
     /**
      * Get a report of all applications running on a yarprun server.
@@ -135,7 +132,7 @@ public:
      * @param processes is a list of applications running on the remote yarprun server.
      * @return 0=success -1=failed.
      */
-    static bool ps(const std::string &node, std::vector<processInfo>& processes);
+    bool ps(const std::string &node, std::vector<yarp::os::SystemInfo::ProcessInfoYarpRun>& processes);
 
     /**
      * Get a report of system information of a yarprun server.
@@ -143,7 +140,7 @@ public:
      * @param info is the system information of the remote yarprun server.
      * @return true=success false=failed.
      */
-    static bool sysinfo(const std::string& node, yarp::os::SystemInfoSerializer& info);
+    bool sysinfo(const std::string& node, yarp::os::SystemInfoSerializer& info);
 
 
     /**
@@ -152,94 +149,99 @@ public:
      * @param keyv is the tag that identifies the application. It must be unique in the network.
      * @return true=running false=terminated.
      */
-    static bool isRunning(const std::string &node, const std::string &keyv);
+    bool isRunning(const std::string &node, const std::string &keyv);
 
     /**
      * Display the path of a file on a yarprun server.
      * @param node is the yarprun server port name. It must be unique in the network.
      * @param keyv is the tag that identifies the application. It must be unique in the network.
+     * @param path is the returned path of the file on the remote yarprun server.
      * @return true=running false=terminated.
      */
-    static bool which(const std::string &node, const std::string &keyv);
+    bool which(const std::string &node, const std::string &keyv, std::string& path);
 
     /**
      * Exit a yarprun server.
      * @param node is the yarprun server port name. It must be unique in the network.
      * @return true=success false=failed.
      */
-    static bool exit(const std::string& node);
-
-    // end API
+    bool exit(const std::string& node);
 
     /**
-     *
-     * Send a property object to a run server, bundling up all the
-     * settings usually specified on the command line.  See the
-     * documentation for the "yarprun" command.
-     *
-     * @param config the property object to send.
-     *
-     * @return 0 on success, -1 on failure
-     *
-     */
-    static int client(yarp::os::Property& config);
+    * Display the usage of yarprun command.
+    */
+    void Help(const char* msg="");
 
-#ifndef DOXYGEN_SHOULD_SKIP_THIS
+    /**
+    * Command Line Interface for a yarprun client.
+    * It can be used to send commands to a yarprun server from the keyboard.
+    */
+    int clientCLI(yarp::os::Property& config);
 
-    static int main(int argc, char *argv[]);
-    static yarp::os::RpcServer *pServerPort;
+private:
+    bool ConnectToServer(yarp::os::Port& port, const std::string& node);
+    void* mThriftInterface = nullptr;
+};
 
-    static bool mStresstest;
+class ServerYarprunMsgs; //forward declaration
 
-    static bool mLogged;
+class YARP_run_API RunServer
+{
+    friend class ServerYarprunMsgs;
+
+    yarp::os::RpcServer *pServerPort=nullptr;
+
 YARP_WARNING_PUSH
 YARP_DISABLE_DLL_INTERFACE_WARNING
-    static std::string mLoggerPort;
+    bool mStresstest=false;
+    bool mLogged=false;
+
+    //this is set by the signal handler
+    static inline bool mIsTerminated = false;
 
 #if defined(_WIN32)
-    static YarpRunInfoVector mProcessVector;
-    static YarpRunInfoVector mStdioVector;
+    YarpRunInfoVector* mProcessVector;
+    YarpRunInfoVector* mStdioVector;
 #else
-    static YarpRunInfoVector *mProcessVector;
-    static YarpRunInfoVector *mStdioVector;
-    static ZombieHunterThread *mBraveZombieHunter;
-    static void CleanZombie(int pid);
+    YarpRunInfoVector *mProcessVector;
+    YarpRunInfoVector *mStdioVector;
+    ZombieHunterThread *mBraveZombieHunter;
+    void CleanZombie(int pid);
 #define READ_FROM_PIPE 0
 #define WRITE_TO_PIPE  1
 #define REDIRECT_TO(from, to) yarp::run::impl::dup2(to, from)
 #endif
 YARP_WARNING_POP
-    static yarp::os::Bottle sendMsg(yarp::os::Bottle& msg, std::string target, int RETRY=20, double DELAY=0.5);
 
-protected:
-    static void Help(const char* msg="");
-    static int server();
-    static int executeCmdAndStdio(const yarp::os::Bottle& msg, yarp::os::Bottle& result);
-    static int executeCmdStdout(const yarp::os::Bottle& msg, yarp::os::Bottle& result, std::string& loggerName);
-    static int executeCmd(const yarp::os::Bottle& msg, yarp::os::Bottle& result);
-    static int userStdio(const yarp::os::Bottle& msg, yarp::os::Bottle& result);
+    int executeCmdAndStdio(const yarp::os::Bottle& msg, yarp::os::Bottle& result);
+    int executeCmdStdout(const yarp::os::Bottle& msg, yarp::os::Bottle& result, const std::string& loggerName);
+    int executeCmd(const yarp::os::Bottle& msg, yarp::os::Bottle& result);
+    int userStdio(const yarp::os::Bottle& msg, yarp::os::Bottle& result);
 
-    static inline bool IS_PARENT_OF(int pid){ return pid>0; }
-    static inline bool IS_NEW_PROCESS(int pid){ return !pid; }
-    static inline bool IS_INVALID(int pid){ return pid<0; }
+    inline bool IS_PARENT_OF(int pid){ return pid>0; }
+    inline bool IS_NEW_PROCESS(int pid){ return !pid; }
+    inline bool IS_INVALID(int pid){ return pid<0; }
 
 YARP_SUPPRESS_DLL_INTERFACE_WARNING
-    static std::string mPortName;
-    static int mProcCNT;
+    std::string mPortName;
+    std::string mLoggerPortName;
+    int mProcCNT = 0;
 
 #if !defined(_WIN32)
-    static void cleanBeforeExec();
-    static void writeToPipe(int fd, std::string str);
-    static int readFromPipe(int fd, char* &data, int& buffsize);
+    void cleanBeforeExec();
+    void writeToPipe(int fd, std::string str);
+    int readFromPipe(int fd, char* &data, int& buffsize);
 #endif
 
-    static void cmdcpy(char* &dst, const char* src)
+    void cmdcpy(char* &dst, const char* src)
     {
         dst=new char[(strlen(src)/8+2)*16];
         strcpy(dst, src);
     }
 
-    static void cmdclean(char **cmd)
+    std::string getProcLabel(const yarp::os::Bottle& msg);
+
+    void cmdclean(char **cmd)
     {
         while (*cmd)
         {
@@ -247,7 +249,15 @@ YARP_SUPPRESS_DLL_INTERFACE_WARNING
         }
     }
 
-#endif /*DOXYGEN_SHOULD_SKIP_THIS*/
+  private:
+    void* mThriftInterface = nullptr;
+
+  public:
+    RunServer();
+    ~RunServer();
+
+    static void sigint_handler(int sig);
+    int serverCLI(const std::string& serverportName, const std::string& loggerportName);
 };
 
 } // namespace yarp::run

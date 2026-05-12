@@ -117,7 +117,7 @@ public:
     {
 
     }
-    bool Match(std::string& alias){ return mAlias==alias; }
+    bool Match(const std::string& alias){ return mAlias==alias; }
 #if !defined(_WIN32)
     virtual bool Clean(PID pid, YarpRunProcInfo* &pRef)
     {
@@ -167,8 +167,8 @@ public:
 
     int Size(){ return m_nProcesses; }
     bool Add(YarpRunProcInfo *process);
-    int Signal(std::string& alias, int signum);
-    int Killall(int signum);
+    int Signal(const std::string& alias, int signum);
+    int SignalAll(int signum);
 
 #if defined(_WIN32)
     HANDLE hZombieHunter;
@@ -178,7 +178,7 @@ public:
 #endif
 
     yarp::os::Bottle PS();
-    bool IsRunning(std::string &alias);
+    bool IsRunning(const std::string &alias);
 
     std::mutex mutex;
 

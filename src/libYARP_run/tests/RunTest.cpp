@@ -64,14 +64,14 @@ public:
 
     void run() override
     {
-        yarp::run::Run::main(_argc, _argv);
+        yarp::run::main(_argc, _argv);
     }
 };
 
 
 TEST_CASE("run::RunTest", "[yarp::run]")
 {
-    NetworkBase::setLocalMode(false);
+    NetworkBase::setLocalMode(true);
 
     SECTION("testRun")
     {
@@ -89,14 +89,18 @@ TEST_CASE("run::RunTest", "[yarp::run]")
         Time::delay(4);
         bool ret = true;
 
-        ret = yarp::run::Run::isRunning("/run", "should_fail");
+        REQUIRE(yarp::os::Network::exists("/run"));
+
+        yarp::run::RunClient client;
+
+        ret = client.isRunning("/run", "should_fail");
         CHECK(!ret);
 
         //start a process
         std::string str1 = "test_module1";
         Property par1;
         par1.put("name", "testModule");
-        ret = yarp::run::Run::start("/run", par1, str1);
+        ret = client.start("/run", par1, str1);
         CHECK(ret);
 
         yarp::os::Time::delay(1);
@@ -105,58 +109,58 @@ TEST_CASE("run::RunTest", "[yarp::run]")
         std::string str2 = "test_module2";
         Property par2;
         par2.put("name", "testModule");
-        ret = yarp::run::Run::start("/run", par2, str2);
+        ret = client.start("/run", par2, str2);
         CHECK(ret);
 
         yarp::os::Time::delay(1);
 
         // check if the processes are running
-        ret = yarp::run::Run::isRunning("/run", "test_module1");
+        ret = client.isRunning("/run", "test_module1");
         CHECK(ret);
 
-        ret = yarp::run::Run::isRunning("/run", "test_module2");
+        ret = client.isRunning("/run", "test_module2");
         CHECK(ret);
 
-        ret = yarp::run::Run::isRunning("/run", "nonExistingTag");
+        ret = client.isRunning("/run", "nonExistingTag");
         CHECK(!ret);
 
         // now we have 2 processes running
-        std::vector<yarp::run::Run::processInfo> processes;
-        ret = yarp::run::Run::ps("/run",processes);
+        std::vector<yarp::os::SystemInfo::ProcessInfoYarpRun> processes;
+        ret = client.ps("/run",processes);
         CHECK(processes.size()==2);
         CHECK(ret);
 
         //stop 1 process
-        ret = yarp::run::Run::sigterm("/run", "test_module1");
+        ret = client.sigterm("/run", "test_module1");
         CHECK(ret);
 
         yarp::os::Time::delay(1);
 
         // now we have only 1 process running
-        std::vector<yarp::run::Run::processInfo> allprocessesclosed1;
-        ret = yarp::run::Run::ps("/run",allprocessesclosed1);
+        std::vector<yarp::os::SystemInfo::ProcessInfoYarpRun> allprocessesclosed1;
+        ret = client.ps("/run",allprocessesclosed1);
         CHECK(allprocessesclosed1.size()==1);
 
         // stop all processes
-        ret = yarp::run::Run::sigtermall("/run");
+        ret = client.sigtermall("/run");
         CHECK(ret);
 
         yarp::os::Time::delay(1);
 
         // now we have no processes running
-        std::vector<yarp::run::Run::processInfo> allprocessesclosed0;
-        ret = yarp::run::Run::ps("/run",allprocessesclosed0);
+        std::vector<yarp::os::SystemInfo::ProcessInfoYarpRun> allprocessesclosed0;
+        ret = client.ps("/run",allprocessesclosed0);
         CHECK(allprocessesclosed0.size()==0);
         CHECK(ret);
 
         // check system info
         yarp::os::SystemInfoSerializer info;
-        ret = yarp::run::Run::sysinfo("/run", info);
+        ret = client.sysinfo("/run", info);
         CHECK(info.memory.totalSpace!=0);
         CHECK(ret);
 
         // terminate the server
-        ret = yarp::run::Run::exit("/run");
+        ret = client.exit("/run");
         CHECK(ret);
 
         fprintf(stderr, "done!\n");

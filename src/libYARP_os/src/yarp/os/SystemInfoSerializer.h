@@ -46,40 +46,37 @@ public:
     /**
      * @brief system memory information
      */
-    yarp::os::SystemInfo::MemoryInfo memory;
+    mutable yarp::os::SystemInfo::MemoryInfo memory;
 
     /**
      * @brief system storage information
      */
-    yarp::os::SystemInfo::StorageInfo storage;
+    mutable yarp::os::SystemInfo::StorageInfo storage;
 
     /**
      * @brief system processor type information
      */
-    yarp::os::SystemInfo::ProcessorInfo processor;
+    mutable yarp::os::SystemInfo::ProcessorInfo processor;
 
     /**
      * @brief operating system information
      */
-    yarp::os::SystemInfo::PlatformInfo platform;
+    mutable yarp::os::SystemInfo::PlatformInfo platform;
 
     /**
      * @brief current cpu load information
      */
-    yarp::os::SystemInfo::LoadInfo load;
+    mutable yarp::os::SystemInfo::LoadInfo load;
 
     /**
      * @brief current user information
      */
-    yarp::os::SystemInfo::UserInfo user;
+    mutable yarp::os::SystemInfo::UserInfo user;
 
     // yarp::os::SystemInfo::NetworkInfo network;
 
-#ifndef DOXYGEN_SHOULD_SKIP_THIS
 private:
-    class Private;
-    Private* mPriv;
-#endif // DOXYGEN_SHOULD_SKIP_THIS
+    void updateSystemInfo() const;
 };
 
 } // namespace yarp::os

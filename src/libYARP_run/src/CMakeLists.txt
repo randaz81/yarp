@@ -17,12 +17,6 @@ set(YARP_run_IMPL_HDRS
   yarp/run/impl/PlatformUnistd.h
 )
 
-if(NOT YARP_NO_DEPRECATED) # Since YARP 3.0.0
-  set(YARP_run_os_HDRS
-    yarp/os/Run.h
-  )
-endif()
-
 set(YARP_run_SRCS
   yarp/run/Run.cpp
   yarp/run/RunClient.cpp
@@ -48,7 +42,6 @@ source_group(
   FILES
     ${YARP_run_HDRS}
     ${YARP_run_IMPL_HDRS}
-    ${YARP_run_os_HDRS}
 )
 
 target_sources(YARP_run
@@ -57,8 +50,11 @@ target_sources(YARP_run
     ${YARP_run_HDRS}
     ${YARP_run_IMPL_SRCS}
     ${YARP_run_IMPL_HDRS}
-    ${YARP_run_os_HDRS}
 )
+
+#thrift generated YarprunMsgs
+target_sources(YARP_run PRIVATE $<TARGET_OBJECTS:YarprunMsgs>)
+target_include_directories(YARP_run PRIVATE $<TARGET_PROPERTY:YarprunMsgs,INTERFACE_INCLUDE_DIRECTORIES>)
 
 target_include_directories(YARP_run
   PUBLIC
@@ -110,13 +106,6 @@ install(
   PRIVATE_HEADER
     DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/yarp/run/impl"
     COMPONENT YARP_run-priv-dev)
-if(NOT YARP_NO_DEPRECATED) # Since YARP 3.0.0
-  install(
-    FILES ${YARP_run_os_HDRS}
-    COMPONENT YARP_os-dev
-    DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/yarp/os")
-endif()
-
 
 set(YARP_run_PUBLIC_DEPS ${YARP_run_PUBLIC_DEPS} PARENT_SCOPE)
 set(YARP_run_PRIVATE_DEPS ${YARP_run_PRIVATE_DEPS} PARENT_SCOPE)

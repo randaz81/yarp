@@ -7,7 +7,6 @@
 #include <yarp/run/Run.h>
 #include <yarp/run/impl/RunCheckpoints.h>
 #include <yarp/run/impl/RunProcManager.h>
-#include <yarp/run/impl/RunReadWrite.h>
 #include <yarp/run/impl/PlatformStdlib.h>
 #include <yarp/run/impl/PlatformUnistd.h>
 #include <yarp/run/impl/PlatformSysPrctl.h>
@@ -34,8 +33,10 @@
 #include <cstring>
 #include <random>
 
+#include <yarprunMsgs.h>
+
 // CLIENT
-int yarp::run::Run::client(yarp::os::Property& config)
+int yarp::run::RunClient::clientCLI(yarp::os::Property& config)
 {
     // WITH STDIO
     //
@@ -65,7 +66,14 @@ int yarp::run::Run::client(yarp::os::Property& config)
         }
         //
         ///////////////
+        bool retv =start(config.find("on").asString(),
+                         config,
+                         config.find("as").asString());
 
+        return retv;
+    }
+
+        /*
         printf("*********** %s ************\n", config.toString().c_str());
 
         yarp::os::Bottle msg;
@@ -89,14 +97,6 @@ int yarp::run::Run::client(yarp::os::Property& config)
         if (config.check("log")) {
             msg.addList() = config.findGroup("log");
         }
-        /*
-        {
-            yarp::os::Bottle log;
-            log.addString("log");
-            log.addString("log");
-            msg.addList()=log;
-        }
-        */
 
         std::string on=config.find("on").asString();
 
@@ -112,6 +112,7 @@ int yarp::run::Run::client(yarp::os::Property& config)
 
         return 0;
     }
+*/
 
     // NO STDIO
     //
@@ -137,7 +138,13 @@ int yarp::run::Run::client(yarp::os::Property& config)
         //
         ///////////////
 
-        yarp::os::Bottle msg;
+        bool retv =start(config.find("on").asString(),
+                         config,
+                         config.find("as").asString());
+
+        return retv;
+
+/*      yarp::os::Bottle msg;
         msg.addList()=config.findGroup("cmd");
         msg.addList()=config.findGroup("as");
 
@@ -147,14 +154,7 @@ int yarp::run::Run::client(yarp::os::Property& config)
         if (config.check("log")) {
             msg.addList() = config.findGroup("log");
         }
-        /*
-        {
-            yarp::os::Bottle log;
-            log.addString("log");
-            log.addString("log");
-            msg.addList()=log;
-        }
-        */
+
         if (config.check("env")) {
             msg.addList() = config.findGroup("env");
         }
@@ -168,6 +168,7 @@ int yarp::run::Run::client(yarp::os::Property& config)
         if (response.get(0).asInt32() <= 0) {
             return 2;
         }
+*/
 
         return 0;
     }
@@ -245,7 +246,7 @@ int yarp::run::Run::client(yarp::os::Property& config)
             return YARPRUN_ERROR;
         }
 
-        std::vector<processInfo> processes;
+        std::vector<yarp::os::SystemInfo::ProcessInfoYarpRun> processes;
         ps(config.find("on").asString(),processes);
 
         return 0;
@@ -338,7 +339,8 @@ int yarp::run::Run::client(yarp::os::Property& config)
             return YARPRUN_ERROR;
         }
 
-        bool ret = which(config.find("on").asString(), config.find("which").asString());
+        std::string retpath;
+        bool ret = which(config.find("on").asString(), config.find("which").asString(), retpath);
 
         return ret?0:2;
     }
@@ -361,14 +363,12 @@ int yarp::run::Run::client(yarp::os::Property& config)
     return 0;
 }
 
-void yarp::run::Run::Help(const char *msg)
+void yarp::run::RunClient::Help(const char *msg)
 {
     fprintf(stderr, "%s", msg);
     fprintf(stderr, "\nUSAGE:\n\n");
     fprintf(stderr, "yarp run --server SERVERPORT\nrun a server on the local machine\n\n");
     fprintf(stderr, "yarp run --on SERVERPORT --as TAG --cmd COMMAND [ARGLIST] [--workdir WORKDIR] [--env ENVIRONMENT]\nrun a command on SERVERPORT server\n\n");
-    fprintf(stderr, "yarp run --on SERVERPORT --as TAG --stdio STDIOSERVERPORT [--hold] [--geometry WxH+X+Y] --cmd COMMAND [ARGLIST] [--workdir WORKDIR] [--env ENVIRONMENT]\n");
-    fprintf(stderr, "run a command on SERVERPORT server sending I/O to STDIOSERVERPORT server\n\n");
     fprintf(stderr, "yarp run --on SERVERPORT --kill TAG SIGNUM\nsend SIGNUM signal to TAG command\n\n");
     fprintf(stderr, "yarp run --on SERVERPORT --sigterm TAG\nterminate TAG command\n\n");
     fprintf(stderr, "yarp run --on SERVERPORT --sigtermall\nterminate all commands\n\n");
@@ -383,276 +383,246 @@ void yarp::run::Run::Help(const char *msg)
 // API
 /////////////////////////////////////////////////////////////////
 
-bool yarp::run::Run::isRunning(const std::string &node, const std::string &keyv)
+bool yarp::run::RunClient::isRunning(const std::string &node, const std::string &keyv)
 {
-    yarp::os::Bottle msg, grp, response;
-
-    grp.clear();
-    grp.addString("on");
-    grp.addString(node.c_str());
-    msg.addList()=grp;
-
-    grp.clear();
-    grp.addString("isrunning");
-    grp.addString(keyv.c_str());
-    msg.addList()=grp;
-
-    printf(":: %s\n", msg.toString().c_str());
-
-    response=sendMsg(msg, node);
-
-    if (!response.size()) {
+    YarprunMsgs* mInt = (YarprunMsgs*)(mThriftInterface);
+    yarp::os::Port clientport;
+    if (!ConnectToServer(clientport, node))
+    {
         return false;
     }
+    mInt->yarp().attachAsClient(clientport);
 
-    return response.get(0).asString()=="running";
+    auto result = mInt->isRunningRPC(keyv);
+    return result.isRunning;
 }
 
 
-bool yarp::run::Run::sysinfo(const std::string &node, yarp::os::SystemInfoSerializer& info)
+bool yarp::run::RunClient::sysinfo(const std::string &node, yarp::os::SystemInfoSerializer& info)
 {
-    yarp::os::Bottle msg, grp, response;
-
-    grp.clear();
-    grp.addString("on");
-    grp.addString(node.c_str());
-    msg.addList()=grp;
-
-    grp.clear();
-    grp.addString("sysinfo");
-    msg.addList()=grp;
-
-    printf(":: %s\n", msg.toString().c_str());
-    yarp::os::RpcClient port;
-    //port.setTimeout(5.0);
-    if (!port.open("..."))
+    YarprunMsgs* mInt = (YarprunMsgs*)(mThriftInterface);
+    yarp::os::Port clientport;
+    if (!ConnectToServer(clientport, node))
     {
-        fprintf(stderr, "RESPONSE:\n=========\n");
-        fprintf(stderr, "Cannot open port, aborting...\n");
         return false;
     }
-    bool connected = yarp::os::Network::connect(port.getName(), node);
-    if (!connected)
+    mInt->yarp().attachAsClient(clientport);
+
+    auto result = mInt->sysinfoRPC();
+    info = result.sysinfo;
+    return result.result;
+}
+
+bool yarp::run::RunClient::start(const std::string &node, yarp::os::Property &command, const std::string &keyv)
+{
+    YarprunMsgs* mInt = (YarprunMsgs*)(mThriftInterface);
+    yarp::os::Port clientport;
+    if (!ConnectToServer(clientport, node))
     {
-        fprintf(stderr, "RESPONSE:\n=========\n");
-        fprintf(stderr, "Cannot connect to remote server, aborting...\n");
-        port.close();
-        //yarp::os::Network::unregisterName(port.getName());
         return false;
     }
-    RUNLOG("<<<port.write(msg, info)")
-    int ret = port.write(msg, info);
-    RUNLOG(">>>port.write(msg, info)")
-    yarp::os::Network::disconnect(port.getName(), node);
-    port.close();
-    //yarp::os::Network::unregisterName(port.getName());
-    fprintf(stdout, "RESPONSE:\n=========\n\n");
-    if (!ret)
+    mInt->yarp().attachAsClient(clientport);
+
+    auto result = mInt->startRPC(command, keyv, true);
+    int pid = result.pid;
+
+    return result.result && (pid>0?true:false);
+}
+
+bool yarp::run::RunClient::sigterm(const std::string &node, const std::string &keyv)
+{
+    YarprunMsgs* mInt = (YarprunMsgs*)(mThriftInterface);
+    yarp::os::Port clientport;
+    if (!ConnectToServer(clientport, node))
     {
-        fprintf(stdout, "No response. (timeout)\n");
         return false;
     }
+    mInt->yarp().attachAsClient(clientport);
 
-    return true;
+    auto result = mInt->sigtermRPC(keyv);
+    return result.result;
 }
 
-bool yarp::run::Run::start(const std::string &node, yarp::os::Property &command, std::string &keyv)
+bool yarp::run::RunClient::sigtermall(const std::string &node)
 {
-    yarp::os::Bottle msg, grp, response;
-
-    grp.clear();
-    grp.addString("on");
-    grp.addString(node.c_str());
-    msg.addList()=grp;
-
-    std::string dest_srv=node;
-
-    if (command.check("stdio"))
+    YarprunMsgs* mInt = (YarprunMsgs*)(mThriftInterface);
+    yarp::os::Port clientport;
+    if (!ConnectToServer(clientport, node))
     {
-        dest_srv=std::string(command.find("stdio").asString());
-
-        grp.clear();
-        grp.addString("stdio");
-        grp.addString(dest_srv.c_str());
-        msg.addList()=grp;
-
-        if (command.check("geometry"))
-        {
-            grp.clear();
-            grp.addString("geometry");
-            grp.addString(command.find("geometry").asString().c_str());
-            msg.addList()=grp;
-        }
-
-        if (command.check("hold"))
-        {
-            grp.clear();
-            grp.addString("hold");
-            msg.addList()=grp;
-        }
+        return false;
     }
+    mInt->yarp().attachAsClient(clientport);
 
-    grp.clear();
-    grp.addString("as");
-    grp.addString(keyv.c_str());
-    msg.addList()=grp;
-
-    grp.clear();
-    grp.addString("cmd");
-    grp.addString(command.find("name").asString().c_str());
-    grp.addString(command.find("parameters").asString().c_str());
-    msg.addList()=grp;
-
-    printf(":: %s\n", msg.toString().c_str());
-
-    response=sendMsg(msg, dest_srv);
-
-    char buff[16];
-    sprintf(buff, "%d", response.get(0).asInt32());
-    keyv=std::string(buff);
-
-    return response.get(0).asInt32()>0?true:false;
+    auto result = mInt->sigtermallRPC();
+    return result.result;
 }
 
-bool yarp::run::Run::sigterm(const std::string &node, const std::string &keyv)
+bool yarp::run::RunClient::kill(const std::string &node, const std::string &keyv, int s)
 {
-    yarp::os::Bottle msg, grp, response;
-
-    grp.clear();
-    grp.addString("on");
-    grp.addString(node.c_str());
-    msg.addList()=grp;
-
-    grp.clear();
-    grp.addString("sigterm");
-    grp.addString(keyv.c_str());
-    msg.addList()=grp;
-
-    printf(":: %s\n", msg.toString().c_str());
-
-    response=sendMsg(msg, node);
-
-    return response.get(0).asString()=="sigterm OK"?true:false;
-}
-
-bool yarp::run::Run::sigtermall(const std::string &node)
-{
-    yarp::os::Bottle msg, grp, response;
-
-    grp.clear();
-    grp.addString("on");
-    grp.addString(node.c_str());
-    msg.addList()=grp;
-
-    grp.clear();
-    grp.addString("sigtermall");
-    msg.addList()=grp;
-
-    printf(":: %s\n", msg.toString().c_str());
-
-    response=sendMsg(msg, node);
-
-    return response.get(0).asString()=="sigtermall OK"?true:false;
-}
-
-bool yarp::run::Run::kill(const std::string &node, const std::string &keyv, int s)
-{
-    yarp::os::Bottle msg, grp, response;
-
-    grp.clear();
-    grp.addString("on");
-    grp.addString(node.c_str());
-    msg.addList()=grp;
-
-    grp.clear();
-    grp.addString("kill");
-    grp.addString(keyv.c_str());
-    grp.addInt32(s);
-    msg.addList()=grp;
-
-    printf(":: %s\n", msg.toString().c_str());
-
-    response=sendMsg(msg, node);
-
-    return response.get(0).asString()=="kill OK"?true:false;
-}
-
-bool yarp::run::Run::ps(const std::string &node, std::vector<processInfo>& processes)
-{
-    yarp::os::Bottle msg, grp, response;
-    grp.clear();
-    grp.addString("on");
-    grp.addString(node.c_str());
-    msg.addList()=grp;
-
-    grp.clear();
-    grp.addString("ps");
-    msg.addList()=grp;
-
-    printf(":: %s\n", msg.toString().c_str());
-
-    response=sendMsg(msg, node);
-    for (size_t i=0; i<response.size(); i++)
+    YarprunMsgs* mInt = (YarprunMsgs*)(mThriftInterface);
+    yarp::os::Port clientport;
+    if (!ConnectToServer(clientport, node))
     {
-        response.get(i).toString();
-        processInfo temp;
-        yarp::os::Bottle* b = response.get(i).asList();
+        return false;
+    }
+    mInt->yarp().attachAsClient(clientport);
 
-        temp.pid = b->get(0).asList()->get(1).asInt32();
-        temp.tag = b->get(1).asList()->get(1).asString();
-        temp.status = b->get(2).asList()->get(1).asString();
-        temp.command = b->get(3).asList()->get(1).asString();
-        temp.env = b->get(4).asList()->get(1).asString();
+    auto result = mInt->killRPC(keyv,s);
+    return result.result;
+}
+
+bool yarp::run::RunClient::ps(const std::string &node, std::vector<yarp::os::SystemInfo::ProcessInfoYarpRun>& processes)
+{
+    YarprunMsgs* mInt = (YarprunMsgs*)(mThriftInterface);
+    yarp::os::Port clientport;
+    if (!ConnectToServer(clientport, node))
+    {
+        return false;
+    }
+    mInt->yarp().attachAsClient(clientport);
+
+    auto result = mInt->psRPC();
+    processes.clear();
+    for (auto it=result.ps.begin(); it!=result.ps.end(); ++it)
+    {
+        yarp::os::SystemInfo::ProcessInfoYarpRun temp;
+        temp.command = it->command;
+        temp.env = it->env;
+        temp.pid = it->pid;
+        temp.status = it->status;
+        temp.tag = it->tag;
         processes.push_back(temp);
     }
-    return true;
+    return result.result;
 }
 
-bool yarp::run::Run::which(const std::string &node, const std::string &keyv)
+bool yarp::run::RunClient::which(const std::string &node, const std::string &keyv, std::string& path)
 {
-    yarp::os::Bottle msg, grp, response;
+    YarprunMsgs* mInt = (YarprunMsgs*)(mThriftInterface);
+    yarp::os::Port clientport;
+    if (!ConnectToServer(clientport, node))
+    {
+        path.clear();
+        return false;
+    }
+    mInt->yarp().attachAsClient(clientport);
 
-    grp.clear();
-    grp.addString("on");
-    grp.addString(node.c_str());
-    msg.addList()=grp;
+    auto result = mInt->whichRPC(keyv);
+    path = result.path;
+    return result.result;
+}
 
-    grp.clear();
-    grp.addString("which");
-    grp.addString(keyv.c_str());
-    msg.addList()=grp;
+bool yarp::run::RunClient::exit(const std::string &node)
+{
+    YarprunMsgs* mInt = (YarprunMsgs*)(mThriftInterface);
+    yarp::os::Port clientport;
+    if (!ConnectToServer(clientport, node))
+    {
+        return false;
+    }
+    mInt->yarp().attachAsClient(clientport);
 
-    printf(":: %s\n", msg.toString().c_str());
+    auto result = mInt->exitRPC();
+    return result.result;
+}
 
-    response=sendMsg(msg, node);
+yarp::run::RunClient::RunClient()
+{
+    mThriftInterface = new YarprunMsgs();
+}
 
-    if (!response.size()) {
+yarp::run::RunClient::~RunClient()
+{
+    delete mThriftInterface;
+    mThriftInterface=nullptr;
+}
+
+bool yarp::run::RunClient::ConnectToServer(yarp::os::Port& port, const std::string& node)
+{
+    static std::random_device rd;
+    static std::mt19937 gen(rd());
+    static std::uniform_int_distribution<> dist(0, 99999);
+    int number = dist(gen);
+    std::ostringstream oss;
+    oss << std::setw(5) << std::setfill('0') << number;
+    std::string tempy = "/yarprunclient/temp" + oss.str();
+    if (!port.open(tempy))
+    {
+        fprintf(stderr, "ConnectToServer: port open failed");
+        return false;
+    }
+
+    std::string tempportname = port.getName();
+    if (!yarp::os::Network::connect(tempportname, node, "fast_tcp", false))
+    {
+        port.close();
+        fprintf(stderr, "ConnectToServer: connection failed");
         return false;
     }
 
     return true;
 }
 
-bool yarp::run::Run::exit(const std::string &node)
+/*
+yarp::os::Bottle yarp::run::RunClient::sendMsg(yarp::os::Bottle& msg, std::string target, int RETRY, double DELAY)
 {
-    yarp::os::Bottle msg, grp, response;
+    yarp::os::Bottle response;
 
-    grp.clear();
-    grp.addString("on");
-    grp.addString(node.c_str());
-    msg.addList()=grp;
+    for (int r=0; r<RETRY; ++r)
+    {
+        yarp::os::RpcClient port;
 
-    grp.clear();
-    grp.addString("exit");
-    msg.addList()=grp;
+        static std::random_device rd;
+        static std::mt19937 gen(rd());
+        static std::uniform_int_distribution<> dist(0, 99999);
+        int number = dist(gen);
+        std::ostringstream oss;
+        oss << std::setw(5) << std::setfill('0') << number;
+        std::string tempy = "/yarprunclient/temp" + oss.str();
+        if (!port.open(tempy))
+        {
+            yarp::os::SystemClock::delaySystem(DELAY);
+            fprintf(stderr, "retrying...");
+            continue;
+        }
 
-    printf(":: %s\n", msg.toString().c_str());
+        std::string tempportname = port.getName();
+        if (!yarp::os::Network::connect(tempportname, target, "fast_tcp", false))
+        {
+            port.close();
+            yarp::os::SystemClock::delaySystem(DELAY);
+            fprintf(stderr, "retrying...");
+            continue;
+        }
 
-    response=sendMsg(msg, node);
+        RUNLOG("<<<port.write(msg, response)")
+        if (!port.write(msg, response))
+        {
+            port.close();
+            yarp::os::SystemClock::delaySystem(DELAY);
+            fprintf(stderr, "retrying...");
+            continue;
+        }
+        RUNLOG(">>>port.write(msg, response)")
 
-    if (!response.size()) {
-        return false;
+        port.close();
+
+        fprintf(stderr, "RESPONSE:\n=========\n");
+        for (size_t s=0; s<response.size(); ++s)
+        {
+            fprintf(stderr, "%s\n", response.get(s).toString().c_str());
+        }
+
+        return response;
     }
 
-    return true;
+    response.addString("RESPONSE:\n");
+    response.addString("=========\n");
+    response.addString("Cannot connect to remote server, aborting...\n");
+    for (size_t s=0; s<response.size(); ++s)
+    {
+        fprintf(stderr, "%s\n", response.get(s).toString().c_str());
+    }
+    return response;
 }
+*/

@@ -218,7 +218,7 @@ bool YarpRunInfoVector::Add(YarpRunProcInfo *process)
     return true;
 }
 
-int YarpRunInfoVector::Signal(std::string& alias, int signum)
+int YarpRunInfoVector::Signal(const std::string& alias, int signum)
 {
     WAIT()
 
@@ -246,7 +246,7 @@ int YarpRunInfoVector::Signal(std::string& alias, int signum)
     return nKill;
 }
 
-int YarpRunInfoVector::Killall(int signum)
+int YarpRunInfoVector::SignalAll(int signum)
 {
     WAIT()
 
@@ -388,7 +388,7 @@ yarp::os::Bottle YarpRunInfoVector::PS()
     return ps;
 }
 
-bool YarpRunInfoVector::IsRunning(std::string &alias)
+bool YarpRunInfoVector::IsRunning(const std::string &alias)
 {
     WAIT()
 
@@ -619,7 +619,7 @@ void YarpRunCmdWithStdioInfo::TerminateStdio()
     {
         yarp::os::Bottle msg;
         msg.fromString(std::string("(killstdio ")+mAlias+")");
-        yarp::run::Run::sendMsg(msg, mStdio);
+ //       yarp::run::Run::sendMsg(msg, mStdio); //@@@@@@@@@@@@
     }
 }
 

@@ -94,6 +94,10 @@ target_sources(YARP_manager
     ${YARP_manager_IMPL_HDRS}
 )
 
+#thrift generated YarprunMsgs
+target_sources(YARP_manager PRIVATE $<TARGET_OBJECTS:YarprunMsgs>)
+target_include_directories(YARP_manager PRIVATE $<TARGET_PROPERTY:YarprunMsgs,INTERFACE_INCLUDE_DIRECTORIES>)
+
 target_include_directories(YARP_manager
   PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>

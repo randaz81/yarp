@@ -3,6 +3,7 @@
 
 project(YARP_run)
 
+add_subdirectory(messages)
 add_subdirectory(src)
 
 include(YarpInstallBasicPackageFiles)
