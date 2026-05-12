@@ -27,7 +27,7 @@ int main(int argc, char *argv[]) {
     // intercept "yarp run" if needed
     if (argc>=2) {
         if (std::string(argv[1])=="run") {
-            return yarp::run::Run::main(argc,argv);
+            return yarp::run::main(argc,argv);
         }
     }
 

@@ -23,5 +23,5 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-    return yarp::run::Run::main(argc,argv);
+    return yarp::run::main(argc,argv);
 }

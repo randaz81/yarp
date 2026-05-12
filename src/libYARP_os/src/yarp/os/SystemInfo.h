@@ -117,6 +117,15 @@ public:
         int pid;
     } ProcessInfo;
 
+    typedef struct ProcessInfoYarpRun
+    {
+        int pid=0;
+        std::string tag;
+        std::string status;
+        std::string command;
+        std::string env;
+    } ProcessInfoYarpRun;
+
 public:
     /**
      * @brief getMemoryInfo
