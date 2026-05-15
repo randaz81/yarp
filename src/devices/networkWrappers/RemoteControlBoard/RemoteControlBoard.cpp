@@ -2303,7 +2303,7 @@ yarp::dev::ReturnValue RemoteControlBoard::setPosition(int j, double ref)
 {
     if (m_use_streaming)
     {
-        CHECK_INTERFACE("iDirectPosition")
+        CHECK_INTERFACE("iPositionDirect")
         if (!isLive()) {
             return ReturnValue::return_code::return_value_error_not_ready;
         }
@@ -2333,7 +2333,7 @@ yarp::dev::ReturnValue RemoteControlBoard::setPositions(const int n_joint, const
 {
     if (m_use_streaming)
     {
-        CHECK_INTERFACE("iDirectPosition")
+        CHECK_INTERFACE("iPositionDirect")
         if (!isLive()) {
             return ReturnValue::return_code::return_value_error_not_ready;
         }
@@ -2369,7 +2369,7 @@ yarp::dev::ReturnValue RemoteControlBoard::setPositions(const double *refs)
 {
     if (m_use_streaming)
     {
-        CHECK_INTERFACE("iDirectPosition")
+        CHECK_INTERFACE("iPositionDirect")
         if (!isLive()) {
             return ReturnValue::return_code::return_value_error_not_ready;
         }
