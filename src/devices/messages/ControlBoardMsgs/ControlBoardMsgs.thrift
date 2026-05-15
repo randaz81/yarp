@@ -816,13 +816,13 @@ service ControlBoardMsgs
     return_getRefTorqueOne    getRefTorqueOneRPC(1:i32 j) (yarp.qualifier = "const");
     return_getRefTorqueAll    getRefTorqueAllRPC() (yarp.qualifier = "const");
     return_getRefTorqueGroup  getRefTorqueGroupRPC(1: list<i32> j) (yarp.qualifier = "const");
-    yReturnValue              setRefTorqueOneRPC(1:i32 j, 2: double val)
-    yReturnValue              setRefTorqueAllRPC(1: list<double> val)
-    yReturnValue              setRefTorqueGroupRPC(1: list<i32> j, 2: list<double> val)
+    yReturnValue              setRefTorqueOneRPC(1:i32 j, 2: double val);
+    yReturnValue              setRefTorqueAllRPC(1: list<double> val);
+    yReturnValue              setRefTorqueGroupRPC(1: list<i32> j, 2: list<double> val);
 
-    yReturnValue                setRefPositionOneRPC(1:i32 j, 2: double value)
-    yReturnValue                setRefPositionAllRPC(1: list<double> value)
-    yReturnValue                setRefPositionGroupRPC(1: list<i32> j, 2: list<double> value)
+    yReturnValue                setRefPositionOneRPC(1:i32 j, 2: double value);
+    yReturnValue                setRefPositionAllRPC(1: list<double> value);
+    yReturnValue                setRefPositionGroupRPC(1: list<i32> j, 2: list<double> value);
     return_getRefPositionOne    getRefPositionOneRPC(1:i32 j) (yarp.qualifier = "const");
     return_getRefPositionAll    getRefPositionAllRPC() (yarp.qualifier = "const");
     return_getRefPositionGroup  getRefPositionGroupRPC(1: list<i32> j) (yarp.qualifier = "const");

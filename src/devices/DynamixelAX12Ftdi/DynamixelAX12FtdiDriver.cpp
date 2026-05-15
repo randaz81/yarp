@@ -443,16 +443,16 @@ ReturnValue DynamixelAX12FtdiDriver::relativeMove(const double *deltas) {
     return t;
 }
 
-ReturnValue DynamixelAX12FtdiDriver::checkMotionDone(int j, bool *flag) {
+ReturnValue DynamixelAX12FtdiDriver::checkMotionDone(int j, bool& flag) {
     double v = 0;
     ReturnValue t = ReturnValue_ok;
 
     t = getEncoder(j, &v);
-    *flag = (std::fabs(v - positions[j]) < MOTION_COMPLETION_TOLERANCE);
+    flag = (std::fabs(v - positions[j]) < MOTION_COMPLETION_TOLERANCE);
     return t;
 }
 
-ReturnValue DynamixelAX12FtdiDriver::checkMotionDone(bool *flag) {
+ReturnValue DynamixelAX12FtdiDriver::checkMotionDone(bool& flag) {
     ReturnValue t = ReturnValue_ok;
     bool tmp_done(false), all_done(true);
     for (int k = 0; k < numOfAxes; k++)
@@ -462,7 +462,7 @@ ReturnValue DynamixelAX12FtdiDriver::checkMotionDone(bool *flag) {
         }
         all_done &= tmp_done;
     }
-    *flag = all_done;
+    flag = all_done;
     return t;
 }
 
@@ -920,7 +920,8 @@ ReturnValue DynamixelAX12FtdiDriver::relativeMove(const int n_joint, const int *
     return ret;
 }
 
-ReturnValue DynamixelAX12FtdiDriver::checkMotionDone(const int n_joint, const int *joints, bool *flag)
+ReturnValue DynamixelAX12FtdiDriver::checkMotionDone(const std::vector<int>& joints, bool& flag) override;
+
 {
     ReturnValue ret = ReturnValue_ok;
     bool tmp_joint(false), tmp_device(true);
@@ -929,7 +930,7 @@ ReturnValue DynamixelAX12FtdiDriver::checkMotionDone(const int n_joint, const in
         ret &= checkMotionDone(joints[j], &tmp_joint);
         tmp_device &= tmp_joint;
     }
-    *flag = tmp_device;
+    flag = tmp_device;
     return ret;
 }
 
