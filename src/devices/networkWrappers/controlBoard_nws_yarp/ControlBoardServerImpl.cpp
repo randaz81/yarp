@@ -2864,7 +2864,7 @@ yarp::dev::ReturnValue ControlBoardRPCd::setTrajSpeedAllRPC(const std::vector<do
     return ret;
 }
 
-yarp::dev::ReturnValue ControlBoardRPCd::setTrajAccelerationOneRPC(const std::int32_t j, const double acc) 
+yarp::dev::ReturnValue ControlBoardRPCd::setTrajAccelerationOneRPC(const std::int32_t j, const double acc)
 {
     LOCKMUTEXSERVER
     ReturnValue ret;
