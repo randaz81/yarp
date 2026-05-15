@@ -919,7 +919,7 @@ MAKE_COMMS  (Map2DPath, yarp::dev::Nav2D::Map2DPath)
     }
 
     bool checkMotionDone(bool& ok) {
-        return self->checkMotionDone(&result, ok);
+        return self->checkMotionDone(ok);
     }
 
     bool checkMotionDone(std::vector<int> joints, bool& ok) {

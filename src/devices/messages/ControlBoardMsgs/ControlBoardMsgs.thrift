@@ -291,7 +291,7 @@ struct return_getRefCurrentOne
 struct return_getRefCurrentAll
 {
   1: yReturnValue ret;
-  2: list<double> refs
+  2: list<double> refs;
 }
 
 struct return_getRefCurrentGroup {
