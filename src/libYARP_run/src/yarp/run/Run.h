@@ -188,6 +188,7 @@ class ServerYarprunMsgs; //forward declaration
 class YARP_run_API RunServer
 {
     friend class ServerYarprunMsgs;
+    friend class ZombieHunterThread;
 
     yarp::os::RpcServer *pServerPort=nullptr;
 
@@ -198,13 +199,12 @@ YARP_DISABLE_DLL_INTERFACE_WARNING
 
     //this is set by the signal handler
     static inline bool mIsTerminated = false;
-
-#if defined(_WIN32)
     YarpRunInfoVector* mProcessVector;
     YarpRunInfoVector* mStdioVector;
+
+#if defined(_WIN32)
+
 #else
-    YarpRunInfoVector *mProcessVector;
-    YarpRunInfoVector *mStdioVector;
     ZombieHunterThread *mBraveZombieHunter;
     void CleanZombie(int pid);
 #define READ_FROM_PIPE 0

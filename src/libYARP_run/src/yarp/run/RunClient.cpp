@@ -33,7 +33,7 @@
 #include <cstring>
 #include <random>
 
-#include <yarprunMsgs.h>
+#include <YarprunMsgs.h>
 
 // CLIENT
 int yarp::run::RunClient::clientCLI(yarp::os::Property& config)

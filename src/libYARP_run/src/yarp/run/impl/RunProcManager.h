@@ -43,9 +43,12 @@ int SIGNAL(int pid, int signum);
 
 class ZombieHunterThread : public yarp::os::Thread
 {
+    yarp::run::RunServer* m_pRunServer = nullptr;
+
 public:
-    ZombieHunterThread()
+    ZombieHunterThread(yarp::run::RunServer* pRunServer)
     {
+        m_pRunServer = pRunServer;
         int warn_suppress = yarp::run::impl::pipe(pipe_sync);
         YARP_UNUSED(warn_suppress);
     }
@@ -84,7 +87,7 @@ public:
                 if (zombie > 0)
                 {
                     //Remove child information from the process info table
-                    yarp::run::Run::CleanZombie(zombie);
+                    m_pRunServer->CleanZombie(zombie);
                 }
                 else
                 {
@@ -174,7 +177,7 @@ public:
     HANDLE hZombieHunter;
     void GetHandles(HANDLE* &lpHandles, DWORD &nCount);
 #else
-    bool CleanZombie(int zombie);
+    bool CleanZombieFV(int zombie);
 #endif
 
     yarp::os::Bottle PS();

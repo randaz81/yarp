@@ -310,7 +310,7 @@ void YarpRunInfoVector::GetHandles(HANDLE* &lpHandles, DWORD &nCount)
 
 #else
 
-bool YarpRunInfoVector::CleanZombie(int zombie)
+bool YarpRunInfoVector::CleanZombieFV(int zombie)
 {
     bool bFound=false;
 

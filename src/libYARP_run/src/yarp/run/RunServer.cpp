@@ -33,7 +33,7 @@
 #include <cstring>
 #include <random>
 
-#include <yarprunMsgs.h>
+#include <YarprunMsgs.h>
 
 ////// adapted from libYARP_OS: ResourceFinder.cpp
 namespace fs = yarp::conf::filesystem;
@@ -626,7 +626,7 @@ int yarp::run::RunServer::serverCLI()
         mProcessVector=new YarpRunInfoVector;
         mStdioVector=new YarpRunInfoVector;
 
-        mBraveZombieHunter=new ZombieHunterThread;
+        mBraveZombieHunter=new ZombieHunterThread(this);
         mBraveZombieHunter->start();
 
         yarp::os::impl::signal(SIGCHLD, sigchld_handler);
@@ -1342,13 +1342,13 @@ void parseArguments(char *io_pLine, int *o_pArgc, char **o_pArgv)
     }
 }
 
-void yarp::run::Run::CleanZombie(int pid)
+void yarp::run::RunServer::CleanZombie(int pid)
 {
-    bool bFound=mProcessVector && mProcessVector->CleanZombie(pid);
+    bool bFound=mProcessVector && mProcessVector->CleanZombieFV(pid);
 
     if (!bFound) {
         if (mStdioVector) {
-            mStdioVector->CleanZombie(pid);
+            mStdioVector->CleanZombieFV(pid);
         }
     }
 }
