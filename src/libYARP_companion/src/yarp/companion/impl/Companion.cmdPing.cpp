@@ -20,6 +20,8 @@
 #include <yarp/os/impl/PortCommand.h>
 #include <yarp/os/impl/StreamConnectionReader.h>
 
+#include <yarp/os/PortCoreMsgs.h>
+
 using yarp::companion::impl::Companion;
 using yarp::os::Bottle;
 using yarp::os::Carriers;

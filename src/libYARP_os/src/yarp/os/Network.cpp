@@ -860,9 +860,8 @@ bool NetworkBase::exists(const std::string& port, const ContactStyle& style, boo
     if (!ok) {
         return false;
     }
-    if (resp.get(0).toString() != "ver" && resp.get(0).toString() != "dict") {
+    if (resp.get(0).toString() != "ver") {
         // YARP nameserver responds with a version
-        // ROS nameserver responds with a dictionary of error data
         // Treat everything else an unknown
         return false;
     }

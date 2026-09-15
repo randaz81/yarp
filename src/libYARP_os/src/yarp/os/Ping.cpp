@@ -12,10 +12,13 @@
 #include <yarp/os/Port.h>
 #include <yarp/os/Time.h>
 #include <yarp/os/Vocab.h>
+#include <yarp/os/RPCClient.h>
 
 #include <cmath>
 #include <cstdio>
 #include <mutex>
+
+#include <yarp/os/PortCoreMsgs.h>
 
 using namespace yarp::os;
 
@@ -131,6 +134,35 @@ void Ping::connect()
 {
     lastConnect.clear();
     double start = SystemClock::nowSystem();
+
+    yarp::os::PortCoreMsgs pmsgs;
+    yarp::os::RpcClient client;
+    client.open("...");
+    bool connected = NetworkBase::connect(client.getName(), target);
+    double afterQuery = SystemClock::nowSystem();
+    if (!connected) {
+        yCError(PING, "Could not connect local rpc client to target port");
+    }
+    pmsgs.yarp().attachAsClient(client);
+
+    auto result = pmsgs.pingTest();
+    if (0) //result ??
+    {
+        yCError(PING, "Port did not respond as expected");
+    }
+    client.close();
+
+    double stop = SystemClock::nowSystem();
+    lastConnect.totalTime.add(stop - start);
+    lastConnect.targetTime.add(stop - afterQuery);
+    accumConnect.add(lastConnect);
+}
+
+/*
+void Ping::connect()
+{
+    lastConnect.clear();
+    double start = SystemClock::nowSystem();
     Contact c = NetworkBase::queryName(target);
     double afterQuery = SystemClock::nowSystem();
     if (!c.isValid()) {
@@ -150,7 +182,7 @@ void Ping::connect()
     lastConnect.totalTime.add(stop - start);
     lastConnect.targetTime.add(stop - afterQuery);
     accumConnect.add(lastConnect);
-}
+}*/
 
 void Ping::report()
 {

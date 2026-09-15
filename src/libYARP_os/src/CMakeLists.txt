@@ -375,7 +375,7 @@ set(YARP_os_IMPL_MACOS_SRCS
 include(YarpChooseIDL)
 
 set(YARP_os_IDL
-  idl/OSTestMsg.thrift
+  idl/PortCoreMsgs.thrift
   idl/ConnectionQosData.thrift
   idl/PortInfoData.thrift
   idl/ProcessInfoData.thrift
