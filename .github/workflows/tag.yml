@@ -238,7 +238,33 @@ jobs:
         fi
 
         if [ ! -f "${YARP_RELEASE_NOTES_BRANCH_FILE}" ]; then
-          echo "ERROR: Release notes file for the branch (${YARP_RELEASE_NOTES_BRANCH_FILE}) does not exist exists"
+          echo "ERROR: Release notes file for the branch (${YARP_RELEASE_NOTES_BRANCH_FILE}) does not exist"
+          exit 1
+        fi
+
+        # The release notes file for the branch must use the branch name as
+        # placeholder (e.g. "<yarp-4.0>" and "{#yarp_4_0}", NOT "<yarp-4.0.2>"),
+        # otherwise the substitutions in the "Prepare Tag" step produce wrong
+        # version strings (e.g. "v4.0.2.2").
+        if ! grep -qF "<${YARP_TAG_BRANCH}>" "${YARP_RELEASE_NOTES_BRANCH_FILE}"; then
+          echo "ERROR: ${YARP_RELEASE_NOTES_BRANCH_FILE} must contain the placeholder '<${YARP_TAG_BRANCH}>' in the title"
+          exit 1
+        fi
+        if ! grep -qF "{#${YARP_TAG_BRANCH_C}}" "${YARP_RELEASE_NOTES_BRANCH_FILE}"; then
+          echo "ERROR: ${YARP_RELEASE_NOTES_BRANCH_FILE} must contain the anchor '{#${YARP_TAG_BRANCH_C}}' in the title"
+          exit 1
+        fi
+        if grep -qE "${YARP_TAG_BRANCH//./\\.}[.0-9]" "${YARP_RELEASE_NOTES_BRANCH_FILE}"; then
+          echo "ERROR: ${YARP_RELEASE_NOTES_BRANCH_FILE} contains '${YARP_TAG_BRANCH}' followed by a version number:"
+          grep -nE "${YARP_TAG_BRANCH//./\\.}[.0-9]" "${YARP_RELEASE_NOTES_BRANCH_FILE}"
+          echo "Use '${YARP_TAG_BRANCH}' only, it will be replaced with the release version"
+          exit 1
+        fi
+
+        # doc/releases.md must list the branch page, it will be renamed to the
+        # release page in the "Prepare Tag" step
+        if ! grep -qE "^\* \\\\subpage ${YARP_TAG_BRANCH_C}\$" doc/releases.md; then
+          echo "ERROR: doc/releases.md must contain the line '* \\subpage ${YARP_TAG_BRANCH_C}'"
           exit 1
         fi
 
